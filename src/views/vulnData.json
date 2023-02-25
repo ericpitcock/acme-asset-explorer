@@ -1,0 +1,1570 @@
+[
+    {
+        "id": "CVE-2022-0001",
+        "description": "Non-transparent sharing of branch predictor selectors between contexts in some Intel(R) Processors may allow an authorized user to potentially enable information disclosure via local access.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-11T18:15Z",
+        "lastModifiedDate": "2022-08-19T12:28Z"
+    },
+    {
+        "id": "CVE-2022-0002",
+        "description": "Non-transparent sharing of branch predictor within a context in some Intel(R) Processors may allow an authorized user to potentially enable information disclosure via local access.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-11T18:15Z",
+        "lastModifiedDate": "2022-08-19T12:28Z"
+    },
+    {
+        "id": "CVE-2022-0004",
+        "description": "Hardware debug modes and processor INIT setting that allow override of locks for some Intel(R) Processors in Intel(R) Boot Guard and Intel(R) TXT may allow an unauthenticated user to potentially enable escalation of privilege via physical access.",
+        "baseScore": 6.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-05-12T17:15Z",
+        "lastModifiedDate": "2022-06-10T20:52Z"
+    },
+    {
+        "id": "CVE-2022-0005",
+        "description": "Sensitive information accessible by physical probing of JTAG interface for some Intel(R) Processors with SGX may allow an unprivileged user to potentially enable information disclosure via physical access.",
+        "baseScore": 2.4,
+        "baseSeverity": "LOW",
+        "publishedDate": "2022-05-12T17:15Z",
+        "lastModifiedDate": "2022-06-01T17:04Z"
+    },
+    {
+        "id": "CVE-2022-0011",
+        "description": "PAN-OS software provides options to exclude specific websites from URL category enforcement and those websites are blocked or allowed (depending on your rules) regardless of their associated URL category. This is done by creating a custom URL category list or by using an external dynamic list (EDL) in a URL Filtering profile. When the entries in these lists have a hostname pattern that does not end with a forward slash (/) or a hostname pattern that ends with an asterisk (*), any URL that starts with the specified pattern is considered a match. Entries with a caret (^) at the end of a hostname pattern match any top level domain. This may inadvertently allow or block more URLs than intended and allowing more URLs than intended represents a security risk. For example: example.com will match example.com.website.test example.com.* will match example.com.website.test example.com.^ will match example.com.test You should take special care when using such entries in policy rules that allow traffic. Where possible, use the exact list of hostname names ending with a forward slash (/) instead of using wildcards. PAN-OS 10.1 versions earlier than PAN-OS 10.1.3; PAN-OS 10.0 versions earlier than PAN-OS 10.0.8; PAN-OS 9.1 versions earlier than PAN-OS 9.1.12; all PAN-OS 9.0 versions; PAN-OS 8.1 versions earlier than PAN-OS 8.1.21, and Prisma Access 2.2 and 2.1 versions do not allow customers to change this behavior without changing the URL category list or EDL.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T13:41Z"
+    },
+    {
+        "id": "CVE-2022-0012",
+        "description": "An improper link resolution before file access vulnerability exists in the Palo Alto Networks Cortex XDR agent on Windows platforms that enables a local user to delete arbitrary system files and impact the system integrity or cause a denial of service condition. This issue impacts: Cortex XDR agent 5.0 versions earlier than Cortex XDR agent 5.0.12; Cortex XDR agent 6.1 versions earlier than Cortex XDR agent 6.1.9; Cortex XDR agent 7.2 versions earlier than Cortex XDR agent 7.2.4; Cortex XDR agent 7.3 versions earlier than Cortex XDR agent 7.3.2.",
+        "baseScore": 7.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-12T18:15Z",
+        "lastModifiedDate": "2022-01-19T19:18Z"
+    },
+    {
+        "id": "CVE-2022-0013",
+        "description": "A file information exposure vulnerability exists in the Palo Alto Networks Cortex XDR agent that enables a local attacker to read the contents of arbitrary files on the system with elevated privileges when generating a support file. This issue impacts: Cortex XDR agent 5.0 versions earlier than Cortex XDR agent 5.0.12; Cortex XDR agent 6.1 versions earlier than Cortex XDR agent 6.1.9; Cortex XDR agent 7.2 versions earlier than Cortex XDR agent 7.2.4; Cortex XDR agent 7.3 versions earlier than Cortex XDR agent 7.3.2.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-12T18:15Z",
+        "lastModifiedDate": "2022-01-19T19:20Z"
+    },
+    {
+        "id": "CVE-2022-0014",
+        "description": "An untrusted search path vulnerability exists in the Palo Alto Networks Cortex XDR agent that enables a local attacker with file creation privilege in the Windows root directory (such as C:\\) to store a program that can then be unintentionally executed by another local user when that user utilizes a Live Terminal session. This issue impacts: Cortex XDR agent 5.0 versions earlier than Cortex XDR agent 5.0.12; Cortex XDR agent 6.1 versions earlier than Cortex XDR agent 6.1.9; Cortex XDR agent 7.2 versions earlier than Cortex XDR agent 7.2.4; Cortex XDR agent 7.3 versions earlier than Cortex XDR agent 7.3.2.",
+        "baseScore": 7.3,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-12T18:15Z",
+        "lastModifiedDate": "2022-01-19T19:21Z"
+    },
+    {
+        "id": "CVE-2022-0015",
+        "description": "A local privilege escalation (PE) vulnerability exists in the Palo Alto Networks Cortex XDR agent that enables an authenticated local user to execute programs with elevated privileges. This issue impacts: Cortex XDR agent 5.0 versions earlier than Cortex XDR agent 5.0.12; Cortex XDR agent 6.1 versions earlier than Cortex XDR agent 6.1.9.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-12T18:15Z",
+        "lastModifiedDate": "2022-01-19T19:22Z"
+    },
+    {
+        "id": "CVE-2022-0016",
+        "description": "An improper handling of exceptional conditions vulnerability exists within the Connect Before Logon feature of the Palo Alto Networks GlobalProtect app that enables a local attacker to escalate to SYSTEM or root privileges when authenticating with Connect Before Logon under certain circumstances. This issue impacts GlobalProtect app 5.2 versions earlier than GlobalProtect app 5.2.9 on Windows and MacOS. This issue does not affect the GlobalProtect app on other platforms.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T13:54Z"
+    },
+    {
+        "id": "CVE-2022-0017",
+        "description": "An improper link resolution before file access ('link following') vulnerability exists in the Palo Alto Networks GlobalProtect app on Windows that enables a local attacker to disrupt system processes and potentially execute arbitrary code with SYSTEM privileges under certain circumstances. This issue impacts: GlobalProtect app 5.1 versions earlier than GlobalProtect app 5.1.10 on Windows. GlobalProtect app 5.2 versions earlier than GlobalProtect app 5.2.5 on Windows. This issue does not affect GlobalProtect app on other platforms.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T14:14Z"
+    },
+    {
+        "id": "CVE-2022-0018",
+        "description": "An information exposure vulnerability exists in the Palo Alto Networks GlobalProtect app on Windows and MacOS where the credentials of the local user account are sent to the GlobalProtect portal when the Single Sign-On feature is enabled in the GlobalProtect portal configuration. This product behavior is intentional and poses no security risk when connecting to trusted GlobalProtect portals configured to use the same Single Sign-On credentials both for the local user account as well as the GlobalProtect login. However when the credentials are different, the local account credentials are inadvertently sent to the GlobalProtect portal for authentication. A third party MITM type of attacker cannot see these credentials in transit. This vulnerability is a concern where the GlobalProtect app is deployed on Bring-your-Own-Device (BYOD) type of clients with private local user accounts or GlobalProtect app is used to connect to different organizations. Fixed versions of GlobalProtect app have an app setting to prevent the transmission of the user's local user credentials to the target GlobalProtect portal regardless of the portal configuration. This issue impacts: GlobalProtect app 5.1 versions earlier than GlobalProtect app 5.1.10 on Windows and MacOS; GlobalProtect app 5.2 versions earlier than GlobalProtect app 5.2.9 on Windows and MacOS This issue does not affect GlobalProtect app on other platforms.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T15:10Z"
+    },
+    {
+        "id": "CVE-2022-0019",
+        "description": "An insufficiently protected credentials vulnerability exists in the Palo Alto Networks GlobalProtect app on Linux that exposes the hashed credentials of GlobalProtect users that saved their password during previous GlobalProtect app sessions to other local users on the system. The exposed credentials enable a local attacker to authenticate to the GlobalProtect portal or gateway as the target user without knowing of the target user’s plaintext password. This issue impacts: GlobalProtect app 5.1 versions earlier than GlobalProtect app 5.1.10 on Linux. GlobalProtect app 5.2 versions earlier than and including GlobalProtect app 5.2.7 on Linux. GlobalProtect app 5.3 versions earlier than GlobalProtect app 5.3.2 on Linux. This issue does not affect the GlobalProtect app on other platforms.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T15:25Z"
+    },
+    {
+        "id": "CVE-2022-0020",
+        "description": "A stored cross-site scripting (XSS) vulnerability in Palo Alto Network Cortex XSOAR web interface enables an authenticated network-based attacker to store a persistent javascript payload that will perform arbitrary actions in the Cortex XSOAR web interface on behalf of authenticated administrators who encounter the payload during normal operations. This issue impacts: All builds of Cortex XSOAR 6.1.0; Cortex XSOAR 6.2.0 builds earlier than build 1958888.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T16:13Z"
+    },
+    {
+        "id": "CVE-2022-0021",
+        "description": "An information exposure through log file vulnerability exists in the Palo Alto Networks GlobalProtect app on Windows that logs the cleartext credentials of the connecting GlobalProtect user when authenticating using Connect Before Logon feature. This issue impacts GlobalProtect App 5.2 versions earlier than 5.2.9 on Windows. This issue does not affect the GlobalProtect app on other platforms.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-10T18:15Z",
+        "lastModifiedDate": "2022-02-17T16:01Z"
+    },
+    {
+        "id": "CVE-2022-0022",
+        "description": "Usage of a weak cryptographic algorithm in Palo Alto Networks PAN-OS software where the password hashes of administrator and local user accounts are not created with a sufficient level of computational effort, which allows for password cracking attacks on accounts in normal (non-FIPS-CC) operational mode. An attacker must have access to the account password hashes to take advantage of this weakness and can acquire those hashes if they are able to gain access to the PAN-OS software configuration. Fixed versions of PAN-OS software use a secure cryptographic algorithm for account password hashes. This issue does not impact Prisma Access firewalls. This issue impacts: PAN-OS 8.1 versions earlier than PAN-OS 8.1.21; All versions of PAN-OS 9.0; PAN-OS 9.1 versions earlier than PAN-OS 9.1.11; PAN-OS 10.0 versions earlier than PAN-OS 10.0.7.",
+        "baseScore": 4.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-09T18:15Z",
+        "lastModifiedDate": "2022-03-12T02:31Z"
+    },
+    {
+        "id": "CVE-2022-0023",
+        "description": "An improper handling of exceptional conditions vulnerability exists in the DNS proxy feature of Palo Alto Networks PAN-OS software that enables a meddler-in-the-middle (MITM) to send specifically crafted traffic to the firewall that causes the service to restart unexpectedly. Repeated attempts to send this request result in denial-of-service to all PAN-OS services by restarting the device in maintenance mode. This issue does not impact Panorama appliances and Prisma Access customers. This issue impacts: PAN-OS 8.1 versions earlier than PAN-OS 8.1.22; PAN-OS 9.0 versions earlier than PAN-OS 9.0.16; PAN-OS 9.1 versions earlier than PAN-OS 9.1.13; PAN-OS 10.0 versions earlier than PAN-OS 10.0.10; PAN-OS 10.1 versions earlier than PAN-OS 10.1.5. This issue does not impact PAN-OS 10.2.",
+        "baseScore": 5.9,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-04-13T19:15Z",
+        "lastModifiedDate": "2022-10-18T18:50Z"
+    },
+    {
+        "id": "CVE-2022-0024",
+        "description": "A vulnerability exists in Palo Alto Networks PAN-OS software that enables an authenticated network-based PAN-OS administrator to upload a specifically created configuration that disrupts system processes and potentially execute arbitrary code with root privileges when the configuration is committed on both hardware and virtual firewalls. This issue does not impact Panorama appliances or Prisma Access customers. This issue impacts: PAN-OS 8.1 versions earlier than PAN-OS 8.1.23; PAN-OS 9.0 versions earlier than PAN-OS 9.0.16; PAN-OS 9.1 versions earlier than PAN-OS 9.1.13; PAN-OS 10.0 versions earlier than PAN-OS 10.0.10; PAN-OS 10.1 versions earlier than PAN-OS 10.1.5.",
+        "baseScore": 7.2,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-05-11T17:15Z",
+        "lastModifiedDate": "2022-05-20T13:25Z"
+    },
+    {
+        "id": "CVE-2022-0025",
+        "description": "A local privilege escalation (PE) vulnerability exists in Palo Alto Networks Cortex XDR agent software on Windows that enables an authenticated local user with file creation privilege in the Windows root directory (such as C:\\) to execute a program with elevated privileges. This issue impacts: All versions of the Cortex XDR agent when upgrading to Cortex XDR agent 7.7.0 on Windows; Cortex XDR agent 7.7.0 without content update 500 or a later version on Windows. This issue does not impact other platforms or other versions of the Cortex XDR agent.",
+        "baseScore": 6.7,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-05-11T17:15Z",
+        "lastModifiedDate": "2022-05-23T15:31Z"
+    },
+    {
+        "id": "CVE-2022-0026",
+        "description": "A local privilege escalation (PE) vulnerability exists in Palo Alto Networks Cortex XDR agent software on Windows that enables an authenticated local user with file creation privilege in the Windows root directory (such as C:\\) to execute a program with elevated privileges. This issue impacts all versions of Cortex XDR agent without content update 330 or a later content update version.",
+        "baseScore": 6.7,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-05-11T17:15Z",
+        "lastModifiedDate": "2022-12-09T18:12Z"
+    },
+    {
+        "id": "CVE-2022-0027",
+        "description": "An improper authorization vulnerability in Palo Alto Network Cortex XSOAR software enables authenticated users in non-Read-Only groups to generate an email report that contains summary information about all incidents in the Cortex XSOAR instance, including incidents to which the user does not have access. This issue impacts: All versions of Cortex XSOAR 6.1; All versions of Cortex XSOAR 6.2; All versions of Cortex XSOAR 6.5; Cortex XSOAR 6.6 versions earlier than Cortex XSOAR 6.6.0 build 6.6.0.2585049.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-05-11T17:15Z",
+        "lastModifiedDate": "2022-05-20T13:30Z"
+    },
+    {
+        "id": "CVE-2022-0028",
+        "description": "A PAN-OS URL filtering policy misconfiguration could allow a network-based attacker to conduct reflected and amplified TCP denial-of-service (RDoS) attacks. The DoS attack would appear to originate from a Palo Alto Networks PA-Series (hardware), VM-Series (virtual) and CN-Series (container) firewall against an attacker-specified target. To be misused by an external attacker, the firewall configuration must have a URL filtering profile with one or more blocked categories assigned to a source zone that has an external facing interface. This configuration is not typical for URL filtering and, if set, is likely unintended by the administrator. If exploited, this issue would not impact the confidentiality, integrity, or availability of our products. However, the resulting denial-of-service (DoS) attack may help obfuscate the identity of the attacker and implicate the firewall as the source of the attack. We have taken prompt action to address this issue in our PAN-OS software. All software updates for this issue are expected to be released no later than the week of August 15, 2022. This issue does not impact Panorama M-Series or Panorama virtual appliances. This issue has been resolved for all Cloud NGFW and Prisma Access customers and no additional action is required from them.",
+        "baseScore": 8.6,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-08-10T16:15Z",
+        "lastModifiedDate": "2022-08-24T13:26Z"
+    },
+    {
+        "id": "CVE-2022-0029",
+        "description": "An improper link resolution vulnerability in the Palo Alto Networks Cortex XDR agent on Windows devices allows a local attacker to read files on the system with elevated privileges when generating a tech support file.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-09-14T17:15Z",
+        "lastModifiedDate": "2022-09-17T01:32Z"
+    },
+    {
+        "id": "CVE-2022-0030",
+        "description": "An authentication bypass vulnerability in the Palo Alto Networks PAN-OS 8.1 web interface allows a network-based attacker with specific knowledge of the target firewall or Panorama appliance to impersonate an existing PAN-OS administrator and perform privileged actions.",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-10-12T17:15Z",
+        "lastModifiedDate": "2022-10-14T15:33Z"
+    },
+    {
+        "id": "CVE-2022-0031",
+        "description": "A local privilege escalation (PE) vulnerability in the Palo Alto Networks Cortex XSOAR engine software running on a Linux operating system allows a local attacker with shell access to the engine to execute programs with elevated privileges.",
+        "baseScore": 6.7,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-11-09T18:15Z",
+        "lastModifiedDate": "2022-11-10T15:57Z"
+    },
+    {
+        "id": "CVE-2022-0070",
+        "description": "Incomplete fix for CVE-2021-3100. The Apache Log4j hotpatch package starting with log4j-cve-2021-44228-hotpatch-1.1-16 will now explicitly mimic the Linux capabilities and cgroups of the target Java process that the hotpatch is applied to.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-04-19T23:15Z",
+        "lastModifiedDate": "2022-09-30T13:09Z"
+    },
+    {
+        "id": "CVE-2022-0071",
+        "description": "Incomplete fix for CVE-2021-3101. Hotdog, prior to v1.0.2, did not mimic the resource limits, device restrictions, or syscall filters of the target JVM process. This would allow a container to exhaust the resources of the host, modify devices, or make syscalls that would otherwise be blocked.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-04-19T23:15Z",
+        "lastModifiedDate": "2022-04-29T17:27Z"
+    },
+    {
+        "id": "CVE-2022-0072",
+        "description": "Directory Traversal vulnerability in LiteSpeed Technologies OpenLiteSpeed Web Server and LiteSpeed Web Server dashboards allows Path Traversal. This affects versions from 1.5.11 through 1.5.12, from 1.6.5 through 1.6.20.1, from 1.7.0 before 1.7.16.1",
+        "baseScore": 5.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-10-27T20:15Z",
+        "lastModifiedDate": "2022-12-09T17:06Z"
+    },
+    {
+        "id": "CVE-2022-0073",
+        "description": "Improper Input Validation vulnerability in LiteSpeed Technologies OpenLiteSpeed Web Server and LiteSpeed Web Server dashboards allows Command Injection. This affects 1.7.0 versions before 1.7.16.1.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-10-27T20:15Z",
+        "lastModifiedDate": "2022-12-09T17:08Z"
+    },
+    {
+        "id": "CVE-2022-0074",
+        "description": "Untrusted Search Path vulnerability in LiteSpeed Technologies OpenLiteSpeed Web Server and LiteSpeed Web Server Container allows Privilege Escalation. This affects versions from 1.6.15 before 1.7.16.1.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-10-27T20:15Z",
+        "lastModifiedDate": "2022-12-09T17:05Z"
+    },
+    {
+        "id": "CVE-2022-0079",
+        "description": "showdoc is vulnerable to Generation of Error Message Containing Sensitive Information",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-03T03:15Z",
+        "lastModifiedDate": "2022-01-10T21:29Z"
+    },
+    {
+        "id": "CVE-2022-0080",
+        "description": "mruby is vulnerable to Heap-based Buffer Overflow",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-01-02T12:15Z",
+        "lastModifiedDate": "2022-01-11T14:22Z"
+    },
+    {
+        "id": "CVE-2022-0083",
+        "description": "livehelperchat is vulnerable to Generation of Error Message Containing Sensitive Information",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-04T07:15Z",
+        "lastModifiedDate": "2022-01-11T20:09Z"
+    },
+    {
+        "id": "CVE-2022-0084",
+        "description": "A flaw was found in XNIO, specifically in the notifyReadClosed method. The issue revealed this method was logging a message to another expected end. This flaw allows an attacker to send flawed requests to a server, possibly causing log contention-related performance concerns or an unwanted disk fill-up.",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-09-01T15:34Z"
+    },
+    {
+        "id": "CVE-2022-0085",
+        "description": "Server-Side Request Forgery (SSRF) in GitHub repository dompdf/dompdf prior to 2.0.0.",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-06-28T15:15Z",
+        "lastModifiedDate": "2022-07-07T17:48Z"
+    },
+    {
+        "id": "CVE-2022-0086",
+        "description": "uppy is vulnerable to Server-Side Request Forgery (SSRF)",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-01-04T18:15Z",
+        "lastModifiedDate": "2022-01-08T02:44Z"
+    },
+    {
+        "id": "CVE-2022-0087",
+        "description": "keystone is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-12T00:15Z",
+        "lastModifiedDate": "2022-01-18T19:14Z"
+    },
+    {
+        "id": "CVE-2022-0088",
+        "description": "Cross-Site Request Forgery (CSRF) in GitHub repository yourls/yourls prior to 1.8.3.",
+        "baseScore": 7.4,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-04-03T09:15Z",
+        "lastModifiedDate": "2022-04-09T15:22Z"
+    },
+    {
+        "id": "CVE-2022-0090",
+        "description": "An issue has been discovered affecting GitLab versions prior to 14.4.5, between 14.5.0 and 14.5.3, and between 14.6.0 and 14.6.1. GitLab is configured in a way that it doesn't ignore replacement references with git sub-commands, allowing a malicious user to spoof the contents of their commits in the UI.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T14:49Z"
+    },
+    {
+        "id": "CVE-2022-0093",
+        "description": "An issue has been discovered affecting GitLab versions prior to 14.4.5, between 14.5.0 and 14.5.3, and between 14.6.0 and 14.6.1. GitLab allows a user with an expired password to access sensitive information through RSS feeds.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T14:54Z"
+    },
+    {
+        "id": "CVE-2022-0096",
+        "description": "Use after free in Storage in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-08T13:45Z"
+    },
+    {
+        "id": "CVE-2022-0097",
+        "description": "Inappropriate implementation in DevTools in Google Chrome prior to 97.0.4692.71 allowed an attacker who convinced a user to install a malicious extension to to potentially allow extension to escape the sandbox via a crafted HTML page.",
+        "baseScore": 9.6,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:40Z"
+    },
+    {
+        "id": "CVE-2022-0098",
+        "description": "Use after free in Screen Capture in Google Chrome on Chrome OS prior to 97.0.4692.71 allowed an attacker who convinced a user to perform specific user gestures to potentially exploit heap corruption via specific user gestures.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:39Z"
+    },
+    {
+        "id": "CVE-2022-0099",
+        "description": "Use after free in Sign-in in Google Chrome prior to 97.0.4692.71 allowed a remote attacker who convinced a user to perform specific user gestures to potentially exploit heap corruption via specific user gesture.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:38Z"
+    },
+    {
+        "id": "CVE-2022-0100",
+        "description": "Heap buffer overflow in Media streams API in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:37Z"
+    },
+    {
+        "id": "CVE-2022-0101",
+        "description": "Heap buffer overflow in Bookmarks in Google Chrome prior to 97.0.4692.71 allowed a remote attacker who convinced a user to perform specific user gesture to potentially exploit heap corruption via specific user gesture.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:37Z"
+    },
+    {
+        "id": "CVE-2022-0102",
+        "description": "Type confusion in V8 in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:36Z"
+    },
+    {
+        "id": "CVE-2022-0103",
+        "description": "Use after free in SwiftShader in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:35Z"
+    },
+    {
+        "id": "CVE-2022-0104",
+        "description": "Heap buffer overflow in ANGLE in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:34Z"
+    },
+    {
+        "id": "CVE-2022-0105",
+        "description": "Use after free in PDF Accessibility in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:33Z"
+    },
+    {
+        "id": "CVE-2022-0106",
+        "description": "Use after free in Autofill in Google Chrome prior to 97.0.4692.71 allowed a remote attacker who convinced a user to perform specific user gesture to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:32Z"
+    },
+    {
+        "id": "CVE-2022-0107",
+        "description": "Use after free in File Manager API in Google Chrome on Chrome OS prior to 97.0.4692.71 allowed an attacker who convinced a user to install a malicious extension to potentially exploit heap corruption via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:31Z"
+    },
+    {
+        "id": "CVE-2022-0108",
+        "description": "Inappropriate implementation in Navigation in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to leak cross-origin data via a crafted HTML page.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:29Z"
+    },
+    {
+        "id": "CVE-2022-0109",
+        "description": "Inappropriate implementation in Autofill in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to obtain potentially sensitive information via a crafted HTML page.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:28Z"
+    },
+    {
+        "id": "CVE-2022-0110",
+        "description": "Incorrect security UI in Autofill in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to spoof the contents of the Omnibox (URL bar) via a crafted HTML page.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:27Z"
+    },
+    {
+        "id": "CVE-2022-0111",
+        "description": "Inappropriate implementation in Navigation in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to incorrectly set origin via a crafted HTML page.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:27Z"
+    },
+    {
+        "id": "CVE-2022-0112",
+        "description": "Incorrect security UI in Browser UI in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to display missing URL or incorrect URL via a crafted URL.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:26Z"
+    },
+    {
+        "id": "CVE-2022-0113",
+        "description": "Inappropriate implementation in Blink in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to leak cross-origin data via a crafted HTML page.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:25Z"
+    },
+    {
+        "id": "CVE-2022-0114",
+        "description": "Out of bounds memory access in Blink Serial API in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to perform an out of bounds memory read via a crafted HTML page and virtual serial port driver.",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:24Z"
+    },
+    {
+        "id": "CVE-2022-0115",
+        "description": "Uninitialized use in File API in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially perform out of bounds memory access via a crafted HTML page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:23Z"
+    },
+    {
+        "id": "CVE-2022-0116",
+        "description": "Inappropriate implementation in Compositing in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to spoof the contents of the Omnibox (URL bar) via a crafted HTML page.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:22Z"
+    },
+    {
+        "id": "CVE-2022-0117",
+        "description": "Policy bypass in Blink in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to leak cross-origin data via a crafted HTML page.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:21Z"
+    },
+    {
+        "id": "CVE-2022-0118",
+        "description": "Inappropriate implementation in WebShare in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially hide the contents of the Omnibox (URL bar) via a crafted HTML page.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:20Z"
+    },
+    {
+        "id": "CVE-2022-0120",
+        "description": "Inappropriate implementation in Passwords in Google Chrome prior to 97.0.4692.71 allowed a remote attacker to potentially leak cross-origin data via a malicious website.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-12T00:15Z",
+        "lastModifiedDate": "2022-04-19T03:19Z"
+    },
+    {
+        "id": "CVE-2022-0121",
+        "description": "hoppscotch is vulnerable to Exposure of Sensitive Information to an Unauthorized Actor",
+        "baseScore": 8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-06T03:15Z",
+        "lastModifiedDate": "2022-01-12T18:29Z"
+    },
+    {
+        "id": "CVE-2022-0122",
+        "description": "forge is vulnerable to URL Redirection to Untrusted Site",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-06T05:15Z",
+        "lastModifiedDate": "2022-01-12T20:14Z"
+    },
+    {
+        "id": "CVE-2022-0123",
+        "description": "An issue has been discovered affecting GitLab versions prior to 14.4.5, between 14.5.0 and 14.5.3, and between 14.6.0 and 14.6.1. GitLab does not validate SSL certificates for some of external CI services which makes it possible to perform MitM attacks on connections to these external services.",
+        "baseScore": 6.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-28T19:15Z",
+        "lastModifiedDate": "2022-04-04T18:25Z"
+    },
+    {
+        "id": "CVE-2022-0124",
+        "description": "An issue has been discovered affecting GitLab versions prior to 14.4.5, between 14.5.0 and 14.5.3, and between 14.6.0 and 14.6.1. Gitlab's Slack integration is incorrectly validating user input and allows to craft malicious URLs that are sent to slack.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T14:58Z"
+    },
+    {
+        "id": "CVE-2022-0125",
+        "description": "An issue has been discovered in GitLab affecting all versions starting from 12.0 before 14.4.5, all versions starting from 14.5.0 before 14.5.3, all versions starting from 14.6.0 before 14.6.2. GitLab was not verifying that a maintainer of a project had the right access to import members from a target project.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T15:03Z"
+    },
+    {
+        "id": "CVE-2022-0128",
+        "description": "vim is vulnerable to Out-of-bounds Read",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-06T17:15Z",
+        "lastModifiedDate": "2022-11-02T13:18Z"
+    },
+    {
+        "id": "CVE-2022-0129",
+        "description": "Uncontrolled search path element vulnerability in McAfee TechCheck prior to 4.0.0.2 allows a local administrator to load their own Dynamic Link Library (DLL) gaining elevation of privileges to system user. This was achieved through placing the malicious DLL in the same directory that the process was run from.",
+        "baseScore": 6.7,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-11T17:15Z",
+        "lastModifiedDate": "2022-01-21T15:19Z"
+    },
+    {
+        "id": "CVE-2022-0130",
+        "description": "Tenable.sc versions 5.14.0 through 5.19.1 were found to contain a remote code execution vulnerability which could allow a remote, unauthenticated attacker to execute code under special circumstances. An attacker would first have to stage a specific file type in the web server root of the Tenable.sc host prior to remote exploitation.",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-14T20:15Z",
+        "lastModifiedDate": "2022-01-22T01:42Z"
+    },
+    {
+        "id": "CVE-2022-0131",
+        "description": "Jimoty App for Android versions prior to 3.7.42 uses a hard-coded API key for an external service. By exploiting this vulnerability, API key for an external service may be obtained by analyzing data in the app.",
+        "baseScore": 3.3,
+        "baseSeverity": "LOW",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-24T19:24Z"
+    },
+    {
+        "id": "CVE-2022-0132",
+        "description": "peertube is vulnerable to Server-Side Request Forgery (SSRF)",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-10T14:12Z",
+        "lastModifiedDate": "2022-01-14T16:06Z"
+    },
+    {
+        "id": "CVE-2022-0133",
+        "description": "peertube is vulnerable to Improper Access Control",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-10T14:12Z",
+        "lastModifiedDate": "2022-01-14T16:52Z"
+    },
+    {
+        "id": "CVE-2022-0134",
+        "description": "The AnyComment WordPress plugin before 0.2.18 does not have CSRF checks in the Import and Revert HyperComments features, allowing attackers to make logged in admin perform such actions via a CSRF attack",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:46Z"
+    },
+    {
+        "id": "CVE-2022-0135",
+        "description": "An out-of-bounds write issue was found in the VirGL virtual OpenGL renderer (virglrenderer). This flaw allows a malicious guest to create a specially crafted virgil resource and then issue a VIRTGPU_EXECBUFFER ioctl, leading to a denial of service or possible code execution.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-08-25T18:15Z",
+        "lastModifiedDate": "2023-02-03T19:05Z"
+    },
+    {
+        "id": "CVE-2022-0136",
+        "description": "A vulnerability was discovered in GitLab versions 10.5 to 14.5.4, 14.6 to 14.6.4, and 14.7 to 14.7.1. GitLab was vulnerable to a blind SSRF attack through the Project Import feature.",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-28T19:15Z",
+        "lastModifiedDate": "2022-04-04T18:31Z"
+    },
+    {
+        "id": "CVE-2022-0137",
+        "description": "A heap buffer overflow in image_set_mask function of HTMLDOC before 1.9.15 allows an attacker to write outside the buffer boundaries.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-11-14T18:15Z",
+        "lastModifiedDate": "2023-02-02T18:31Z"
+    },
+    {
+        "id": "CVE-2022-0138",
+        "description": "MMP: All versions prior to v1.0.3, PTP C-series: Device versions prior to v2.8.6.1, and PTMP C-series and A5x: Device versions prior to v2.5.4.1 has a deserialization function that does not validate or check the data, allowing arbitrary classes to be created.",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-18T18:15Z",
+        "lastModifiedDate": "2022-02-26T03:37Z"
+    },
+    {
+        "id": "CVE-2022-0139",
+        "description": "Use After Free in GitHub repository radareorg/radare2 prior to 5.6.0.",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-02-08T19:15Z",
+        "lastModifiedDate": "2022-02-11T16:55Z"
+    },
+    {
+        "id": "CVE-2022-0140",
+        "description": "The Visual Form Builder WordPress plugin before 3.0.8 does not perform access control on entry form export, allowing unauthenticated users to see the form entries or export it as a CSV File using the vfb-export endpoint.",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-04-12T12:15Z",
+        "lastModifiedDate": "2023-02-01T15:06Z"
+    },
+    {
+        "id": "CVE-2022-0141",
+        "description": "The Visual Form Builder WordPress plugin before 3.0.8 does not enforce nonce checks which could allow attackers to make a logged in admin or editor delete and restore arbitrary form entries via CSRF attacks",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-04-12T12:15Z",
+        "lastModifiedDate": "2022-06-13T13:15Z"
+    },
+    {
+        "id": "CVE-2022-0142",
+        "description": "The Visual Form Builder WordPress plugin before 3.0.8 is vulnerable to CSV injection allowing a user with low level or no privileges to inject a command that will be included in the exported CSV file, leading to possible code execution.",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-04-12T12:15Z",
+        "lastModifiedDate": "2022-06-13T13:15Z"
+    },
+    {
+        "id": "CVE-2022-0143",
+        "description": "When the LDAP connector is started with StartTLS configured, unauthenticated access is granted. This issue affects: all versions of the LDAP connector prior to 1.5.20.9. The LDAP connector is bundled with Identity Management (IDM) and Remote Connector Server (RCS)",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-09-19T22:15Z",
+        "lastModifiedDate": "2022-09-21T18:27Z"
+    },
+    {
+        "id": "CVE-2022-0144",
+        "description": "shelljs is vulnerable to Improper Privilege Management",
+        "baseScore": 7.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-11T07:15Z",
+        "lastModifiedDate": "2022-02-09T14:17Z"
+    },
+    {
+        "id": "CVE-2022-0145",
+        "description": "Cross-site Scripting (XSS) - Stored in GitHub repository forkcms/forkcms prior to 5.11.1.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-24T11:15Z",
+        "lastModifiedDate": "2022-03-29T15:35Z"
+    },
+    {
+        "id": "CVE-2022-0147",
+        "description": "The Cookie Information | Free GDPR Consent Solution WordPress plugin before 2.0.8 does not escape user data before outputting it back in attributes in the admin dashboard, leading to a Reflected Cross-Site Scripting issue",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-21T05:17Z"
+    },
+    {
+        "id": "CVE-2022-0148",
+        "description": "The All-in-one Floating Contact Form, Call, Chat, and 50+ Social Icon Tabs WordPress plugin before 2.0.4 was vulnerable to reflected XSS on the my-sticky-elements-leads admin page.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-07T16:16Z",
+        "lastModifiedDate": "2022-02-10T20:48Z"
+    },
+    {
+        "id": "CVE-2022-0149",
+        "description": "The WooCommerce Stored Exporter WordPress plugin before 2.7.1 was affected by a Reflected Cross-Site Scripting (XSS) vulnerability in the woo_ce admin page.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-07T16:16Z",
+        "lastModifiedDate": "2022-02-10T20:26Z"
+    },
+    {
+        "id": "CVE-2022-0150",
+        "description": "The WP Accessibility Helper (WAH) WordPress plugin before 0.6.0.7 does not sanitise and escape the wahi parameter before outputting back its base64 decode value in the page, leading to a Reflected Cross-Site Scripting issue",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-28T09:15Z",
+        "lastModifiedDate": "2022-03-08T16:27Z"
+    },
+    {
+        "id": "CVE-2022-0151",
+        "description": "An issue has been discovered in GitLab affecting all versions starting from 12.10 before 14.4.5, all versions starting from 14.5.0 before 14.5.3, all versions starting from 14.6.0 before 14.6.2. GitLab was not correctly handling requests to delete existing packages which could result in a Denial of Service under specific conditions.",
+        "baseScore": 4.9,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T15:25Z"
+    },
+    {
+        "id": "CVE-2022-0152",
+        "description": "An issue has been discovered in GitLab affecting all versions starting from 13.10 before 14.4.5, all versions starting from 14.5.0 before 14.5.3, all versions starting from 14.6.0 before 14.6.2. GitLab was vulnerable to unauthorized access to some particular fields through the GraphQL API.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T15:26Z"
+    },
+    {
+        "id": "CVE-2022-0153",
+        "description": "SQL Injection in GitHub repository forkcms/forkcms prior to 5.11.1.",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-24T17:15Z",
+        "lastModifiedDate": "2022-03-29T15:47Z"
+    },
+    {
+        "id": "CVE-2022-0154",
+        "description": "An issue has been discovered in GitLab affecting all versions starting from 7.7 before 14.4.5, all versions starting from 14.5.0 before 14.5.3, all versions starting from 14.6.0 before 14.6.2. GitLab was vulnerable to a Cross-Site Request Forgery attack that allows a malicious user to have their GitHub project imported on another GitLab user account.",
+        "baseScore": 8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-26T16:15Z"
+    },
+    {
+        "id": "CVE-2022-0155",
+        "description": "follow-redirects is vulnerable to Exposure of Private Personal Information to an Unauthorized Actor",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-10T20:15Z",
+        "lastModifiedDate": "2022-10-28T17:54Z"
+    },
+    {
+        "id": "CVE-2022-0156",
+        "description": "vim is vulnerable to Use After Free",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-10T16:15Z",
+        "lastModifiedDate": "2022-08-26T17:45Z"
+    },
+    {
+        "id": "CVE-2022-0157",
+        "description": "phoronix-test-suite is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-10T16:15Z",
+        "lastModifiedDate": "2022-02-22T10:23Z"
+    },
+    {
+        "id": "CVE-2022-0158",
+        "description": "vim is vulnerable to Heap-based Buffer Overflow",
+        "baseScore": 3.3,
+        "baseSeverity": "LOW",
+        "publishedDate": "2022-01-10T16:15Z",
+        "lastModifiedDate": "2022-08-26T17:46Z"
+    },
+    {
+        "id": "CVE-2022-0159",
+        "description": "orchardcore is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-12T03:15Z",
+        "lastModifiedDate": "2022-01-18T19:19Z"
+    },
+    {
+        "id": "CVE-2022-0161",
+        "description": "The ARI Fancy Lightbox WordPress plugin before 1.3.9 does not sanitise and escape the msg parameter before outputting it back in an admin page, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-23T13:54Z"
+    },
+    {
+        "id": "CVE-2022-0162",
+        "description": "The vulnerability exists in TP-Link TL-WR841N V11 3.16.9 Build 160325 Rel.62500n wireless router due to transmission of authentication information in cleartextbase64 format. Successful exploitation of this vulnerability could allow a remote attacker to intercept credentials and subsequently perform administrative operations on the affected device through web-based management interface.",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-02-09T23:15Z",
+        "lastModifiedDate": "2022-02-17T22:17Z"
+    },
+    {
+        "id": "CVE-2022-0163",
+        "description": "The Smart Forms WordPress plugin before 2.6.71 does not have authorisation in its rednao_smart_forms_entries_list AJAX action, allowing any authenticated users, such as subscriber, to download arbitrary form's data, which could include sensitive information such as PII depending on the form.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-07T09:15Z",
+        "lastModifiedDate": "2022-03-11T20:27Z"
+    },
+    {
+        "id": "CVE-2022-0164",
+        "description": "The Coming soon and Maintenance mode WordPress plugin before 3.6.8 does not have authorisation and CSRF checks in its coming_soon_send_mail AJAX action, allowing any authenticated users, with a role as low as subscriber to send arbitrary emails to all subscribed users",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:48Z"
+    },
+    {
+        "id": "CVE-2022-0165",
+        "description": "The Page Builder KingComposer WordPress plugin through 2.9.6 does not validate the id parameter before redirecting the user to it via the kc_get_thumbn AJAX action available to both unauthenticated and authenticated users",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-21T05:18Z"
+    },
+    {
+        "id": "CVE-2022-0166",
+        "description": "A privilege escalation vulnerability in the McAfee Agent prior to 5.7.5. McAfee Agent uses openssl.cnf during the build process to specify the OPENSSLDIR variable as a subdirectory within the installation directory. A low privilege user could have created subdirectories and executed arbitrary code with SYSTEM privileges by creating the appropriate pathway to the specifically created malicious openssl.cnf file.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-19T11:15Z",
+        "lastModifiedDate": "2022-01-25T20:12Z"
+    },
+    {
+        "id": "CVE-2022-0167",
+        "description": "An issue has been discovered in GitLab affecting all versions starting from 14.0 before 14.4.5, all versions starting from 14.5.0 before 14.5.3, all versions starting from 14.6.0 before 14.6.2. GitLab was not disabling the Autocomplete attribute of fields related to sensitive information making it possible to be retrieved under certain conditions.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-07-01T18:15Z",
+        "lastModifiedDate": "2022-07-13T18:49Z"
+    },
+    {
+        "id": "CVE-2022-0168",
+        "description": "A denial of service (DOS) issue was found in the Linux kernel’s smb2_ioctl_query_info function in the fs/cifs/smb2ops.c Common Internet File System (CIFS) due to an incorrect return from the memdup_user function. This flaw allows a local, privileged (CAP_SYS_ADMIN) attacker to crash the system.",
+        "baseScore": 4.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2023-02-02T21:21Z"
+    },
+    {
+        "id": "CVE-2022-0169",
+        "description": "The Photo Gallery by 10Web WordPress plugin before 1.6.0 does not validate and escape the bwg_tag_id_bwg_thumbnails_0 parameter before using it in a SQL statement via the bwg_frontend_data AJAX action (available to unauthenticated and authenticated users), leading to an unauthenticated SQL injection",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-21T05:18Z"
+    },
+    {
+        "id": "CVE-2022-0170",
+        "description": "peertube is vulnerable to Improper Access Control",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-11T16:15Z",
+        "lastModifiedDate": "2022-01-19T19:31Z"
+    },
+    {
+        "id": "CVE-2022-0171",
+        "description": "A flaw was found in the Linux kernel. The existing KVM SEV API has a vulnerability that allows a non-root (host) user-level application to crash the host kernel by creating a confidential guest VM instance in AMD CPU that supports Secure Encrypted Virtualization (SEV).",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-12-03T02:50Z"
+    },
+    {
+        "id": "CVE-2022-0172",
+        "description": "An issue has been discovered in GitLab CE/EE affecting all versions starting with 12.3. Under certain conditions it was possible to bypass the IP restriction for public projects through GraphQL allowing unauthorised users to read titles of issues, merge requests and milestones.",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T14:12Z"
+    },
+    {
+        "id": "CVE-2022-0173",
+        "description": "radare2 is vulnerable to Out-of-bounds Read",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-11T17:15Z",
+        "lastModifiedDate": "2022-03-01T19:53Z"
+    },
+    {
+        "id": "CVE-2022-0174",
+        "description": "dolibarr is vulnerable to Business Logic Errors",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-10T18:15Z",
+        "lastModifiedDate": "2022-11-17T17:38Z"
+    },
+    {
+        "id": "CVE-2022-0175",
+        "description": "A flaw was found in the VirGL virtual OpenGL renderer (virglrenderer). The virgl did not properly initialize memory when allocating a host-backed memory resource. A malicious guest could use this flaw to mmap from the guest kernel and read this uninitialized memory from the host, possibly leading to information disclosure.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-11-08T03:02Z"
+    },
+    {
+        "id": "CVE-2022-0176",
+        "description": "The PowerPack Lite for Beaver Builder WordPress plugin before 1.2.9.3 does not sanitise and escape the tab parameter before outputting it back in an admin page, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-19T04:20Z"
+    },
+    {
+        "id": "CVE-2022-0178",
+        "description": "snipe-it is vulnerable to Improper Access Control",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-13T23:15Z",
+        "lastModifiedDate": "2022-01-21T02:22Z"
+    },
+    {
+        "id": "CVE-2022-0179",
+        "description": "snipe-it is vulnerable to Improper Access Control",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-12T05:15Z",
+        "lastModifiedDate": "2022-01-14T16:25Z"
+    },
+    {
+        "id": "CVE-2022-0180",
+        "description": "Cross-site request forgery (CSRF) vulnerability in Quiz And Survey Master versions prior to 7.3.7 allows a remote attacker to hijack the authentication of administrators and conduct arbitrary operations via a specially crafted web page.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-24T20:28Z"
+    },
+    {
+        "id": "CVE-2022-0181",
+        "description": "Reflected cross-site scripting vulnerability in Quiz And Survey Master versions prior to 7.3.7 allows a remote attacker to inject an arbitrary script via unspecified vectors.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-24T20:28Z"
+    },
+    {
+        "id": "CVE-2022-0182",
+        "description": "Stored cross-site scripting vulnerability in Quiz And Survey Master versions prior to 7.3.7 allows a remote authenticated attacker to inject an arbitrary script via an website that uses Quiz And Survey Master.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-24T20:27Z"
+    },
+    {
+        "id": "CVE-2022-0183",
+        "description": "Missing encryption of sensitive data vulnerability in 'MIRUPASS' PW10 firmware all versions and 'MIRUPASS' PW20 firmware all versions allows an attacker who can physically access the device to obtain the stored passwords.",
+        "baseScore": 4.6,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-26T15:46Z"
+    },
+    {
+        "id": "CVE-2022-0184",
+        "description": "Insufficiently protected credentials vulnerability in 'TEPRA' PRO SR5900P Ver.1.080 and earlier and 'TEPRA' PRO SR-R7900P Ver.1.030 and earlier allows an attacker on the adjacent network to obtain credentials for connecting to the Wi-Fi access point with the infrastructure mode.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T10:15Z",
+        "lastModifiedDate": "2022-01-28T20:58Z"
+    },
+    {
+        "id": "CVE-2022-0185",
+        "description": "A heap-based buffer overflow flaw was found in the way the legacy_parse_param function in the Filesystem Context functionality of the Linux kernel verified the supplied parameters length. An unprivileged (in case of unprivileged user namespaces enabled, otherwise needs namespaced CAP_SYS_ADMIN privilege) local user able to open a filesystem that does not support the Filesystem Context API (and thus fallbacks to legacy handling) could use this flaw to escalate their privileges on the system.",
+        "baseScore": 8.4,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-11T18:15Z",
+        "lastModifiedDate": "2023-02-02T21:21Z"
+    },
+    {
+        "id": "CVE-2022-0186",
+        "description": "The Image Photo Gallery Final Tiles Grid WordPress plugin before 3.5.3 does not sanitise and escape the Description field when editing a gallery, allowing users with a role as low as contributor to perform Cross-Site Scripting attacks against other users having access to the gallery dashboard",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:50Z"
+    },
+    {
+        "id": "CVE-2022-0188",
+        "description": "The CMP WordPress plugin before 4.0.19 allows any user, even not logged in, to arbitrarily change the coming soon page layout.",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T19:30Z"
+    },
+    {
+        "id": "CVE-2022-0189",
+        "description": "The WP RSS Aggregator WordPress plugin before 4.20 does not sanitise and escape the id parameter in the wprss_fetch_items_row_action AJAX action before outputting it back in the response, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-28T09:15Z",
+        "lastModifiedDate": "2022-03-08T16:22Z"
+    },
+    {
+        "id": "CVE-2022-0190",
+        "description": "The Ad Invalid Click Protector (AICP) WordPress plugin before 1.2.6 is affected by a SQL Injection in the id parameter of the delete action.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T19:47Z"
+    },
+    {
+        "id": "CVE-2022-0191",
+        "description": "The Ad Invalid Click Protector (AICP) WordPress plugin before 1.2.7 does not have CSRF check deleting banned users, which could allow attackers to make a logged in admin remove arbitrary bans",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-05-02T16:15Z",
+        "lastModifiedDate": "2022-05-09T15:23Z"
+    },
+    {
+        "id": "CVE-2022-0192",
+        "description": "A DLL search path vulnerability was reported in Lenovo PCManager prior to version 4.0.40.2175 that could allow privilege escalation.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-04-22T21:15Z",
+        "lastModifiedDate": "2022-05-04T13:12Z"
+    },
+    {
+        "id": "CVE-2022-0193",
+        "description": "The Complianz WordPress plugin before 6.0.0 does not escape the s parameter before outputting it back in an attribute in an admin page, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T19:54Z"
+    },
+    {
+        "id": "CVE-2022-0196",
+        "description": "phoronix-test-suite is vulnerable to Cross-Site Request Forgery (CSRF)",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-13T01:15Z",
+        "lastModifiedDate": "2022-02-22T10:24Z"
+    },
+    {
+        "id": "CVE-2022-0197",
+        "description": "phoronix-test-suite is vulnerable to Cross-Site Request Forgery (CSRF)",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-13T01:15Z",
+        "lastModifiedDate": "2022-02-22T10:22Z"
+    },
+    {
+        "id": "CVE-2022-0198",
+        "description": "corenlp is vulnerable to Improper Restriction of XML External Entity Reference",
+        "baseScore": 7.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-13T07:15Z",
+        "lastModifiedDate": "2022-01-19T21:51Z"
+    },
+    {
+        "id": "CVE-2022-0199",
+        "description": "The Coming soon and Maintenance mode WordPress plugin before 3.6.8 does not have CSRF check in its coming_soon_send_mail AJAX action, allowing attackers to make logged in admin to send arbitrary emails to all subscribed users via a CSRF attack",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:51Z"
+    },
+    {
+        "id": "CVE-2022-0200",
+        "description": "Themify Portfolio Post WordPress plugin before 1.1.7 does not sanitise and escape the num_of_pages parameter before outputting it back the response of the themify_create_popup_page_pagination AJAX action (available to any authenticated user), leading to a Reflected Cross-Site Scripting",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-19T04:19Z"
+    },
+    {
+        "id": "CVE-2022-0201",
+        "description": "The Permalink Manager Lite WordPress plugin before 2.2.15 and Permalink Manager Pro WordPress plugin before 2.2.15 do not sanitise and escape query parameters before outputting them back in the debug page, leading to a Reflected Cross-Site Scripting issue",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-19T04:21Z"
+    },
+    {
+        "id": "CVE-2022-0203",
+        "description": "Improper Access Control in GitHub repository crater-invoice/crater prior to 6.0.2.",
+        "baseScore": 5.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-26T13:15Z",
+        "lastModifiedDate": "2022-02-02T14:23Z"
+    },
+    {
+        "id": "CVE-2022-0204",
+        "description": "A heap overflow vulnerability was found in bluez in versions prior to 5.63. An attacker with local network access could pass specially crafted files causing an application to halt or crash, leading to a denial of service.",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-10T17:44Z",
+        "lastModifiedDate": "2022-11-07T18:53Z"
+    },
+    {
+        "id": "CVE-2022-0205",
+        "description": "The YOP Poll WordPress plugin before 6.3.5 does not sanitise and escape some of the settings (available to users with a role as low as author) before outputting them, leading to a Stored Cross-Site Scripting issue",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-07T09:15Z",
+        "lastModifiedDate": "2022-03-11T20:33Z"
+    },
+    {
+        "id": "CVE-2022-0206",
+        "description": "The NewStatPress WordPress plugin before 1.3.6 does not properly escape the whatX parameters before outputting them back in attributes, leading to Reflected Cross-Site Scripting issues",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T19:38Z"
+    },
+    {
+        "id": "CVE-2022-0207",
+        "description": "A race condition was found in vdsm. Functionality to obfuscate sensitive values in log files that may lead to values being stored in clear text.",
+        "baseScore": 4.7,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2023-02-02T14:16Z"
+    },
+    {
+        "id": "CVE-2022-0208",
+        "description": "The MapPress Maps for WordPress plugin before 2.73.4 does not sanitise and escape the mapid parameter before outputting it back in the \"Bad mapid\" error message, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T19:59Z"
+    },
+    {
+        "id": "CVE-2022-0209",
+        "description": "The Mitsol Social Post Feed WordPress plugin before 1.11 does not escape some of its settings before outputting them back in attributes, which could allow high privilege users such as admin to perform cross-Site Scripting attacks even when the unfiltered_html capability is disallowed",
+        "baseScore": 4.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-06-13T14:15Z",
+        "lastModifiedDate": "2022-07-25T13:15Z"
+    },
+    {
+        "id": "CVE-2022-0210",
+        "description": "The Random Banner WordPress plugin is vulnerable to Stored Cross-Site Scripting due to insufficient escaping via the category parameter found in the ~/include/models/model.php file which allowed attackers with administrative user access to inject arbitrary web scripts, in versions up to and including 4.1.4. This affects multi-site installations where unfiltered_html is disabled for administrators, and sites where unfiltered_html is disabled.",
+        "baseScore": 4.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T17:00Z"
+    },
+    {
+        "id": "CVE-2022-0211",
+        "description": "The Shield Security WordPress plugin before 13.0.6 does not sanitise and escape admin notes, which could allow high privilege users to perform Cross-Site Scripting attacks even when the unfiltered_html is disallowed.",
+        "baseScore": 4.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:52Z"
+    },
+    {
+        "id": "CVE-2022-0212",
+        "description": "The SpiderCalendar WordPress plugin through 1.5.65 does not sanitise and escape the callback parameter before outputting it back in the page via the window AJAX action (available to both unauthenticated and authenticated users), leading to a Reflected Cross-Site Scripting issue.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-19T04:19Z"
+    },
+    {
+        "id": "CVE-2022-0213",
+        "description": "vim is vulnerable to Heap-based Buffer Overflow",
+        "baseScore": 6.6,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-14T13:15Z",
+        "lastModifiedDate": "2022-11-09T03:32Z"
+    },
+    {
+        "id": "CVE-2022-0214",
+        "description": "The Popup | Custom Popup Builder WordPress plugin before 1.3.1 autoload data from its popup on every pages, as such data can be sent by unauthenticated user, and is not validated in length, this could cause a denial of service on the blog",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-14T12:15Z",
+        "lastModifiedDate": "2022-02-22T20:07Z"
+    },
+    {
+        "id": "CVE-2022-0215",
+        "description": "The Login/Signup Popup, Waitlist Woocommerce ( Back in stock notifier ), and Side Cart Woocommerce (Ajax) WordPress plugins by XootiX are vulnerable to Cross-Site Request Forgery via the save_settings function found in the ~/includes/xoo-framework/admin/class-xoo-admin-settings.php file which makes it possible for attackers to update arbitrary options on a site that can be used to create an administrative user account and grant full privileged access to a compromised site. This affects versions <= 2.2 in Login/Signup Popup, versions <= 2.5.1 in Waitlist Woocommerce ( Back in stock notifier ), and versions <= 2.0 in Side Cart Woocommerce (Ajax).",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-24T20:31Z"
+    },
+    {
+        "id": "CVE-2022-0216",
+        "description": "A use-after-free vulnerability was found in the LSI53C895A SCSI Host Bus Adapter emulation of QEMU. The flaw occurs while processing repeated messages to cancel the current SCSI request via the lsi_do_msgout function. This flaw allows a malicious privileged user within the guest to crash the QEMU process on the host, resulting in a denial of service.",
+        "baseScore": 4.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-12-08T22:34Z"
+    },
+    {
+        "id": "CVE-2022-0217",
+        "description": "It was discovered that an internal Prosody library to load XML based on libexpat does not properly restrict the XML features allowed in parsed XML data. Given suitable attacker input, this results in expansion of recursive entity references from DTDs (CWE-776). In addition, depending on the libexpat version used, it may also allow injections using XML External Entity References (CWE-611).",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-09-01T19:04Z"
+    },
+    {
+        "id": "CVE-2022-0218",
+        "description": "The WP HTML Mail WordPress plugin is vulnerable to unauthorized access which allows unauthenticated attackers to retrieve and modify theme settings due to a missing capability check on the /themesettings REST-API endpoint found in the ~/includes/class-template-designer.php file, in versions up to and including 3.0.9. This makes it possible for attackers with no privileges to execute the endpoint and add malicious JavaScript to a vulnerable WordPress site.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-04T23:15Z",
+        "lastModifiedDate": "2022-02-09T03:25Z"
+    },
+    {
+        "id": "CVE-2022-0219",
+        "description": "Improper Restriction of XML External Entity Reference in GitHub repository skylot/jadx prior to 1.3.2.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-20T17:15Z",
+        "lastModifiedDate": "2022-01-26T17:46Z"
+    },
+    {
+        "id": "CVE-2022-0220",
+        "description": "The check_privacy_settings AJAX action of the WordPress GDPR WordPress plugin before 1.9.27, available to both unauthenticated and authenticated users, responds with JSON data without an \"application/json\" content-type. Since an HTML payload isn't properly escaped, it may be interpreted by a web browser led to this endpoint. Javascript code may be executed on a victim's browser. Due to v1.9.26 adding a CSRF check, the XSS is only exploitable against unauthenticated users (as they all share the same nonce)",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-01T13:15Z",
+        "lastModifiedDate": "2022-02-04T20:34Z"
+    },
+    {
+        "id": "CVE-2022-0221",
+        "description": "A CWE-611: Improper Restriction of XML External Entity Reference vulnerability exists that could result in information disclosure when opening a malicious solution file provided by an attacker with SCADAPack Workbench. This could be exploited to pass data from local files to a remote system controlled by an attacker. Affected Product: SCADAPack Workbench (6.6.8a and prior)",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-04-13T16:15Z",
+        "lastModifiedDate": "2022-04-21T01:50Z"
+    },
+    {
+        "id": "CVE-2022-0222",
+        "description": "A CWE-269: Improper Privilege Management vulnerability exists that could cause a denial of service of the Ethernet communication of the controller when sending a specific request over SNMP. Affected products: Modicon M340 CPUs(BMXP34* versions prior to V3.40), Modicon M340 X80 Ethernet Communication modules:BMXNOE0100 (H), BMXNOE0110 (H), BMXNOR0200H RTU(BMXNOE* all versions)(BMXNOR* versions prior to v1.7 IR24)",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-11-22T13:15Z",
+        "lastModifiedDate": "2022-11-30T20:38Z"
+    },
+    {
+        "id": "CVE-2022-0224",
+        "description": "dolibarr is vulnerable to Improper Neutralization of Special Elements used in an SQL Command",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-01-14T18:15Z",
+        "lastModifiedDate": "2022-11-17T17:41Z"
+    },
+    {
+        "id": "CVE-2022-0225",
+        "description": "A flaw was found in Keycloak. This flaw allows a privileged attacker to use the malicious payload as the group name while creating a new group from the admin console, leading to a stored Cross-site scripting (XSS) attack.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-08-26T18:15Z",
+        "lastModifiedDate": "2022-09-01T19:05Z"
+    },
+    {
+        "id": "CVE-2022-0226",
+        "description": "livehelperchat is vulnerable to Cross-Site Request Forgery (CSRF)",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-14T19:15Z",
+        "lastModifiedDate": "2022-01-21T03:25Z"
+    },
+    {
+        "id": "CVE-2022-0228",
+        "description": "The Popup Builder WordPress plugin before 4.0.7 does not validate and properly escape the orderby and order parameters before using them in a SQL statement in the admin dashboard, which could allow high privilege users to perform SQL injection",
+        "baseScore": 7.2,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:53Z"
+    },
+    {
+        "id": "CVE-2022-0229",
+        "description": "The miniOrange's Google Authenticator WordPress plugin before 5.5 does not have proper authorisation and CSRF checks when handling the reconfigureMethod, and does not validate the parameters passed to it properly. As a result, unauthenticated users could delete arbitrary options from the blog, making it unusable.",
+        "baseScore": 8.1,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-21T19:15Z",
+        "lastModifiedDate": "2022-03-28T18:47Z"
+    },
+    {
+        "id": "CVE-2022-0230",
+        "description": "The Better WordPress Google XML Sitemaps WordPress plugin through 1.4.1 does not sanitise and escape its logs when outputting them in the admin dashboard, which could allow unauthenticated users to perform Stored Cross-Site Scripting attacks against admins",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-21T05:19Z"
+    },
+    {
+        "id": "CVE-2022-0231",
+        "description": "livehelperchat is vulnerable to Cross-Site Request Forgery (CSRF)",
+        "baseScore": 6.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-14T12:15Z",
+        "lastModifiedDate": "2022-01-21T17:34Z"
+    },
+    {
+        "id": "CVE-2022-0232",
+        "description": "The User Registration, Login & Landing Pages WordPress plugin is vulnerable to Stored Cross-Site Scripting due to insufficient escaping via the loader_text parameter found in the ~/includes/templates/landing-page.php file which allows attackers with administrative user access to inject arbitrary web scripts, in versions up to and including 1.2.7. This affects multi-site installations where unfiltered_html is disabled for administrators, and sites where unfiltered_html is disabled.",
+        "baseScore": 4.8,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-24T17:48Z"
+    },
+    {
+        "id": "CVE-2022-0233",
+        "description": "The ProfileGrid – User Profiles, Memberships, Groups and Communities WordPress plugin is vulnerable to Stored Cross-Site Scripting due to insufficient escaping via the pm_user_avatar and pm_cover_image parameters found in the ~/admin/class-profile-magic-admin.php file which allows attackers with authenticated user access, such as subscribers, to inject arbitrary web scripts into their profile, in versions up to and including 1.2.7.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-24T17:39Z"
+    },
+    {
+        "id": "CVE-2022-0234",
+        "description": "The WOOCS WordPress plugin before 1.3.7.5 does not sanitise and escape the woocs_in_order_currency parameter of the woocs_get_products_price_html AJAX action (available to both unauthenticated and authenticated users) before outputting it back in the response, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:55Z"
+    },
+    {
+        "id": "CVE-2022-0235",
+        "description": "node-fetch is vulnerable to Exposure of Sensitive Information to an Unauthorized Actor",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-16T17:15Z",
+        "lastModifiedDate": "2023-02-03T19:16Z"
+    },
+    {
+        "id": "CVE-2022-0236",
+        "description": "The WP Import Export WordPress plugin (both free and premium versions) is vulnerable to unauthenticated sensitive data disclosure due to a missing capability check on the download function wpie_process_file_download found in the ~/includes/classes/class-wpie-general.php file. This made it possible for unauthenticated attackers to download any imported or exported information from a vulnerable site which can contain sensitive information like user data. This affects versions up to, and including, 3.9.15.",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-24T17:29Z"
+    },
+    {
+        "id": "CVE-2022-0237",
+        "description": "Rapid7 Insight Agent versions 3.1.2.38 and earlier suffer from a privilege escalation vulnerability, whereby an attacker can hijack the flow of execution due to an unquoted argument to the runas.exe command used by the ir_agent.exe component, resulting in elevated rights and persistent access to the machine. This issue was fixed in Rapid7 Insight Agent version 3.1.3.80.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-03-17T23:15Z",
+        "lastModifiedDate": "2022-03-24T19:21Z"
+    },
+    {
+        "id": "CVE-2022-0238",
+        "description": "phoronix-test-suite is vulnerable to Cross-Site Request Forgery (CSRF)",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-16T11:15Z",
+        "lastModifiedDate": "2022-02-22T10:22Z"
+    },
+    {
+        "id": "CVE-2022-0239",
+        "description": "corenlp is vulnerable to Improper Restriction of XML External Entity Reference",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-01-17T07:15Z",
+        "lastModifiedDate": "2022-01-22T03:45Z"
+    },
+    {
+        "id": "CVE-2022-0240",
+        "description": "mruby is vulnerable to NULL Pointer Dereference",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-17T14:15Z",
+        "lastModifiedDate": "2022-01-24T14:45Z"
+    },
+    {
+        "id": "CVE-2022-0242",
+        "description": "Unrestricted Upload of File with Dangerous Type in GitHub repository crater-invoice/crater prior to 6.0.",
+        "baseScore": 7.2,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-17T19:15Z",
+        "lastModifiedDate": "2022-01-25T20:44Z"
+    },
+    {
+        "id": "CVE-2022-0243",
+        "description": "Cross-site Scripting (XSS) - Stored in NuGet OrchardCore.Application.Cms.Targets prior to 1.2.2.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-19T20:15Z",
+        "lastModifiedDate": "2022-01-25T14:49Z"
+    },
+    {
+        "id": "CVE-2022-0244",
+        "description": "An issue has been discovered in GitLab CE/EE affecting all versions starting with 14.5. Arbitrary file read was possible by importing a group was due to incorrect handling of file.",
+        "baseScore": 7.5,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T17:15Z",
+        "lastModifiedDate": "2022-01-25T14:25Z"
+    },
+    {
+        "id": "CVE-2022-0245",
+        "description": "Cross-Site Request Forgery (CSRF) in GitHub repository livehelperchat/livehelperchat prior to 2.0.",
+        "baseScore": 4.3,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T06:15Z",
+        "lastModifiedDate": "2022-01-24T17:11Z"
+    },
+    {
+        "id": "CVE-2022-0246",
+        "description": "The settings of the iQ Block Country WordPress plugin before 1.2.13 can be exported or imported using its backup functionality. An authorized user can import preconfigured settings of the plugin by uploading a zip file. After the uploading process, files in the uploaded zip file are extracted one by one. During the extraction process, existence of a file is checked. If the file exists, it is deleted without any security control by only considering the name of the extracted file. This behavior leads to \"Zip Slip\" vulnerability.",
+        "baseScore": 4.9,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-04-11T15:15Z",
+        "lastModifiedDate": "2022-04-15T17:53Z"
+    },
+    {
+        "id": "CVE-2022-0247",
+        "description": "An issue exists in Fuchsia where VMO data can be modified through access to copy-on-write snapshots. A local attacker could modify objects in the VMO that they do not have permission to. We recommend upgrading past commit d97c05d2301799ed585620a9c5c739d36e7b5d3d or any of the listed versions.",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-25T11:15Z",
+        "lastModifiedDate": "2022-03-08T14:41Z"
+    },
+    {
+        "id": "CVE-2022-0248",
+        "description": "The Contact Form Submissions WordPress plugin before 1.7.3 does not sanitise and escape additional fields in contact form requests before outputting them in the related submission. As a result, unauthenticated attacker could perform Cross-Site Scripting attacks against admins viewing the malicious submission",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-05-01T01:56Z"
+    },
+    {
+        "id": "CVE-2022-0249",
+        "description": "A vulnerability was discovered in GitLab starting with version 12. GitLab was vulnerable to a blind SSRF attack since requests to shared address space were not blocked.",
+        "baseScore": 9.1,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-03-28T19:15Z",
+        "lastModifiedDate": "2022-04-04T18:34Z"
+    },
+    {
+        "id": "CVE-2022-0250",
+        "description": "The Redirection for Contact Form 7 WordPress plugin before 2.5.0 does not escape a link generated before outputting it in an attribute, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-07-04T13:15Z",
+        "lastModifiedDate": "2022-07-12T18:36Z"
+    },
+    {
+        "id": "CVE-2022-0251",
+        "description": "Cross-site Scripting (XSS) - Stored in GitHub repository pimcore/pimcore prior to 10.2.10.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-26T11:15Z",
+        "lastModifiedDate": "2022-02-01T19:23Z"
+    },
+    {
+        "id": "CVE-2022-0252",
+        "description": "The GiveWP WordPress plugin before 2.17.3 does not escape the json parameter before outputting it back in an attribute in the Import admin dashboard, leading to a Reflected Cross-Site Scripting",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:56Z"
+    },
+    {
+        "id": "CVE-2022-0253",
+        "description": "livehelperchat is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T14:15Z",
+        "lastModifiedDate": "2022-01-24T20:22Z"
+    },
+    {
+        "id": "CVE-2022-0254",
+        "description": "The WordPress Zero Spam WordPress plugin before 5.2.11 does not properly sanitise and escape the order and orderby parameters before using them in a SQL statement in the admin dashboard, leading to a SQL injection",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-03-14T15:15Z",
+        "lastModifiedDate": "2022-03-21T19:28Z"
+    },
+    {
+        "id": "CVE-2022-0255",
+        "description": "The Database Backup for WordPress plugin before 2.5.1 does not properly sanitise and escape the fragment parameter before using it in a SQL statement in the admin dashboard, leading to a SQL injection issue",
+        "baseScore": 7.2,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-02-21T11:15Z",
+        "lastModifiedDate": "2022-02-28T20:57Z"
+    },
+    {
+        "id": "CVE-2022-0256",
+        "description": "pimcore is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T16:15Z",
+        "lastModifiedDate": "2022-01-24T20:22Z"
+    },
+    {
+        "id": "CVE-2022-0257",
+        "description": "pimcore is vulnerable to Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-17T16:15Z",
+        "lastModifiedDate": "2022-01-24T20:21Z"
+    },
+    {
+        "id": "CVE-2022-0258",
+        "description": "pimcore is vulnerable to Improper Neutralization of Special Elements used in an SQL Command",
+        "baseScore": 8.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-17T16:15Z",
+        "lastModifiedDate": "2022-01-25T20:32Z"
+    },
+    {
+        "id": "CVE-2022-0260",
+        "description": "Cross-site Scripting (XSS) - Stored in GitHub repository pimcore/pimcore prior to 10.2.7.",
+        "baseScore": 5.4,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T15:15Z",
+        "lastModifiedDate": "2022-01-24T18:06Z"
+    },
+    {
+        "id": "CVE-2022-0261",
+        "description": "Heap-based Buffer Overflow in GitHub repository vim/vim prior to 8.2.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T16:15Z",
+        "lastModifiedDate": "2022-11-09T03:32Z"
+    },
+    {
+        "id": "CVE-2022-0262",
+        "description": "Cross-site Scripting (XSS) - Stored in Packagist pimcore/pimcore prior to 10.2.7.",
+        "baseScore": 6.1,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-01-18T16:15Z",
+        "lastModifiedDate": "2022-01-24T18:04Z"
+    },
+    {
+        "id": "CVE-2022-0263",
+        "description": "Unrestricted Upload of File with Dangerous Type in Packagist pimcore/pimcore prior to 10.2.7.",
+        "baseScore": 7.8,
+        "baseSeverity": "HIGH",
+        "publishedDate": "2022-01-18T16:15Z",
+        "lastModifiedDate": "2022-01-24T18:07Z"
+    },
+    {
+        "id": "CVE-2022-0264",
+        "description": "A vulnerability was found in the Linux kernel's eBPF verifier when handling internal data structures. Internal memory locations could be returned to userspace. A local attacker with the permissions to insert eBPF code to the kernel can use this to leak internal kernel memory details defeating some of the exploit mitigations in place for the kernel. This flaws affects kernel versions < v5.16-rc6",
+        "baseScore": 5.5,
+        "baseSeverity": "MEDIUM",
+        "publishedDate": "2022-02-04T23:15Z",
+        "lastModifiedDate": "2022-11-16T13:46Z"
+    },
+    {
+        "id": "CVE-2022-0265",
+        "description": "Improper Restriction of XML External Entity Reference in GitHub repository hazelcast/hazelcast in 5.1-BETA-1.",
+        "baseScore": 9.8,
+        "baseSeverity": "CRITICAL",
+        "publishedDate": "2022-03-03T22:15Z",
+        "lastModifiedDate": "2022-04-29T16:50Z"
+    }
+]

@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "packages": {
+    "@ericpitcock/epicenter-styles": {
+      "signature": "15fd5e5dd730f7bd83a29e889ca06b24",
+      "file": true
+    },
+    "@ericpitcock/epicenter-vue-components": {
+      "signature": "5fb04c35b4b9e707f9bf6450b8be3d34",
+      "file": true
+    }
+  }
+}
