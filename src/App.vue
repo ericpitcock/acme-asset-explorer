@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  // import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   import AcmeGrid from '@/components/AcmeGrid.vue'
   import AcmeHeader from '@/components/AcmeHeader.vue'
@@ -50,7 +50,7 @@
       AcmeMainNav
     },
     methods: {
-      // ...mapActions(['toggleTheme']),
+      ...mapActions(['toggleTheme']),
       toggleLeftPanel() {
         this.navProps.collapsed = !this.navProps.collapsed
       },
@@ -59,12 +59,16 @@
       }
     },
     computed: {
-      // ...mapState(['theme'])
+      ...mapState(['theme'])
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  body {
+    background: var(--background-1);
+  }
+
   .content-container {
     // min-width: fit-content;
     height: auto;

@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    name: 'EpAppGrid',
+    name: 'AcmeGrid',
     props: {
       leftPanelOpen: {
         type: Boolean,

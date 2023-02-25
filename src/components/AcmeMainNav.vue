@@ -26,11 +26,11 @@
 </template>
 
 <script>
-  // import { mapState } from 'vuex'
+  import { mapState } from 'vuex'
   import AcmeLogo from '@/components/AcmeLogo.vue'
 
   export default {
-    name: 'Navigation',
+    name: 'AcmeMainNav',
     components: {
       AcmeLogo
     },
@@ -77,7 +77,7 @@
       }
     },
     computed: {
-      // ...mapState(['sidebar']),
+      ...mapState(['sidebar']),
       logoType() {
         return this.collapsed ? 'icon' : 'full'
       }

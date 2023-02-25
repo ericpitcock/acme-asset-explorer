@@ -88,17 +88,17 @@
 </template>
 
 <script>
-  // import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
-    name: 'EpInsightAppHeader',
+    name: 'AcmeHeader',
     components: {
     },
     methods: {
-      // ...mapActions(['toggleTheme']),
+      ...mapActions(['toggleTheme']),
     },
     computed: {
-      // ...mapState(['theme']),
+      ...mapState(['theme']),
       themeIcon() {
         return this.theme == 'dark' ? { name: 'light-mode' } : { name: 'dark-mode' }
       }

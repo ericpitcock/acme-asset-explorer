@@ -9,8 +9,8 @@
   "dependencies": {
     "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
     "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
-    "faker": "^5.5.3",
     "core-js": "^3.8.3",
+    "faker": "^5.5.3",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"

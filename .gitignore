@@ -1,4 +1,5 @@
 .yalc
+yalc.lock
 .DS_Store
 node_modules
 /dist
