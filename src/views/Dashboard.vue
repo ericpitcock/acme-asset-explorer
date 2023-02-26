@@ -23,12 +23,15 @@
         :map-zoom="2"
         :navigation-control="false"
         :scroll-zoom="false"
+        :map-style="mapStyle"
       />
     </ep-container>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name: 'Dashboard',
     components: {
@@ -39,6 +42,12 @@
           backgroundColor: 'var(--background-1)',
           borderRadius: 'var(--border-radius)',
         }
+      }
+    },
+    computed: {
+      ...mapState(['theme']),
+      mapStyle() {
+        return this.theme === 'dark' ? 'mapbox://styles/mapbox/dark-v10' : 'mapbox://styles/mapbox/light-v10'
       }
     }
   }
@@ -69,4 +78,5 @@
     &__asset-map {
       grid-area: bottom;
     }
-}</style>
+  }
+</style>
