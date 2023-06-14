@@ -6,6 +6,7 @@
       rightFlex="0 0 10rem"
       sticky
       stickyTop="0"
+      padding="0 3rem"
       z-index="var(--z-index--fixed)"
     >
       <template #left>
@@ -14,7 +15,7 @@
       <template #center>
         <ep-multi-search
           height="4rem"
-          backgroundColor="var(--background-1)"
+          backgroundColor="var(--interface-foreground)"
           :icon="{ name: 'search' }"
           placeholder='Multi Search - Enter to search - Use quotes for exact match, e.g. "active"'
           @enter="updateSearch"
@@ -25,7 +26,7 @@
       </template>
       <template #right>
         <ep-button
-          kind="ghost"
+          variant="ghost"
           :iconLeft="{ name: 'file' }"
           @click=""
         />
@@ -63,12 +64,6 @@
         columns,
         data: merged,
         search: [],
-        tabs: [
-          { label: 'All Assets' },
-          { label: 'Active' },
-          { label: 'Inactive' },
-          { label: 'Archived' }
-        ]
       }
     },
     methods: {
@@ -83,7 +78,7 @@
       },
       queryDelete(query) {
         this.search = query
-      }
+      },
     }
   }
 </script>

@@ -18,7 +18,7 @@
     </template>
     <template #right-panel>
       <div class="right-panel__container">
-        <ep-notifications />
+        <ep-notifications :containerProps="containerProps" />
       </div>
     </template>
   </acme-grid>
@@ -59,21 +59,27 @@
       }
     },
     computed: {
-      ...mapState(['theme'])
+      ...mapState(['theme']),
+      containerProps() {
+        return {
+          borderWidth: '0',
+          borderRadius: '0',
+        }
+      },
     }
   }
 </script>
 
 <style lang="scss">
   body {
-    background: var(--background-1);
+    background: var(--interface-bg);
   }
 
   .content-container {
     // min-width: fit-content;
     height: auto;
     min-height: 100%;
-    background: var(--background-2);
+    background: var(--interface-bg);
   }
 
   .left-panel__container {

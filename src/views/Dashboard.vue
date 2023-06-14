@@ -1,23 +1,52 @@
 <template>
   <div class="dashboard">
     <ep-container
-      class="dashboard__summary"
-      padding="3rem"
+      class="dashboard__overview"
       v-bind="commonContainerProps"
     >
-      <h1>Summary (TBD)</h1>
+      <template #header>
+        <ep-header v-bind="commonHeaderProps">
+          <template #left>
+            <h1>Overview</h1>
+          </template>
+          <template #right>
+            <ep-button
+              label="Export"
+              kind="ghost"
+              :icon-right="{ name: 'export' }"
+            />
+          </template>
+        </ep-header>
+      </template>
     </ep-container>
     <ep-container
       class="dashboard__vulnerabilities"
-      padding="3rem"
       v-bind="commonContainerProps"
     >
-      <h1>Vulnerabilty summary (TBD)</h1>
+      <template #header>
+        <ep-header v-bind="commonHeaderProps">
+          <template #left>
+            <h1>Vulnerabilty Summary</h1>
+          </template>
+        </ep-header>
+      </template>
     </ep-container>
+
     <ep-container
       class="dashboard__asset-map"
       v-bind="commonContainerProps"
+      container-padding="0"
     >
+      <template #header>
+        <ep-header
+          v-bind="commonHeaderProps"
+          padding="0 3rem"
+        >
+          <template #left>
+            <h1>Asset Locations</h1>
+          </template>
+        </ep-header>
+      </template>
       <ep-map
         :map-center="[-40.954169, 38.298895]"
         :map-zoom="2"
@@ -38,18 +67,19 @@
     },
     data() {
       return {
-        commonContainerProps: {
-          backgroundColor: 'var(--background-1)',
-          borderRadius: 'var(--border-radius)',
-        }
       }
     },
     computed: {
-      ...mapState(['theme']),
+      ...mapState([
+        'commonContainerProps',
+        'commonHeaderProps',
+        'commonFooterProps',
+        'theme'
+      ]),
       mapStyle() {
         return this.theme === 'dark' ? 'mapbox://styles/mapbox/dark-v10' : 'mapbox://styles/mapbox/light-v10'
       }
-    }
+    },
   }
 </script>
 
@@ -65,9 +95,9 @@
     height: 100%;
     width: 100%;
     padding: 3rem;
-    gap: 3rem;
+    gap: 1rem;
 
-    &__summary {
+    &__overview {
       grid-area: top;
     }
 

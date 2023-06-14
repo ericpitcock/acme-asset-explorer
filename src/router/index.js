@@ -12,48 +12,78 @@ const routes = [
   {
     path: '/',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: {
+      title: 'Dashboard',
+    },
   },
   {
     path: '/assets',
     name: 'assets',
-    component: Assets
+    component: Assets,
+    meta: {
+      title: 'Assets',
+    },
   },
   {
     path: '/vulnerabilities',
     name: 'vulnerabilities',
-    component: Vulnerabilities
+    component: Vulnerabilities,
+    meta: {
+      title: 'Vulnerabilities',
+    },
   },
   {
     path: '/service-info',
     name: 'service-info',
-    component: ServiceInfo
+    component: ServiceInfo,
+    meta: {
+      title: 'Service Info',
+    },
   },
   {
     path: '/reports',
     name: 'reports',
-    component: Reports
+    component: Reports,
+    meta: {
+      title: 'Reports',
+    },
   },
   {
     path: '/files',
     name: 'files',
-    component: Files
+    component: Files,
+    meta: {
+      title: 'Files',
+    },
   },
   {
     path: '/settings',
     name: 'settings',
-    component: UserSettings
+    component: UserSettings,
+    meta: {
+      title: 'Settings',
+    },
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      title: 'Sign In',
+    },
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const pageTitle = `${to.meta.title} — Acme Asset Explorer` || 'Acme Asset Explorer'
+  document.title = pageTitle
+  next()
 })
 
 export default router

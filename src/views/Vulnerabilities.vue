@@ -1,32 +1,46 @@
 <template>
   <div class="vulnerabilities">
-    <ep-header
-      height="5.1rem"
-      padding="0"
-      borderWidth="1px"
+    <ep-container
+      v-bind="commonContainerProps"
+      content-padding="3rem 0 1rem 0"
     >
-      <template #left>
-        <h1 class="font-size--large">Vulnerabilities</h1>
+      <template #header>
+        <ep-header v-bind="commonHeaderProps">
+          <template #left>
+            <h1>Vulnerabilities Over Time</h1>
+          </template>
+          <template #right>
+            <ep-date-picker
+              mode="range"
+              positionX="right"
+              :inputProps="{
+                size: 'large',
+                backgroundColor: 'var(--background-2)'
+              }"
+            />
+          </template>
+        </ep-header>
       </template>
-      <template #right>
-        <ep-date-picker mode="range" />
-      </template>
-    </ep-header>
-    <ep-chart
-      :options="vulnChartOptions"
-      :chartColors="null"
-    />
-  </div>
-  <div>
-    <ep-table
-      :columns="tableColumns"
-      :data="vulnData"
-      v-bind="tableProps"
-    />
+      <ep-chart
+        :options="vulnChartOptions"
+        :chartColors="null"
+      />
+    </ep-container>
+    <ep-container
+      v-bind="commonContainerProps"
+      container-padding="3rem"
+    >
+      <ep-table
+        :columns="tableColumns"
+        :data="vulnData"
+        v-bind="tableProps"
+      />
+    </ep-container>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions'
   import * as vulnData from './vulnData'
 
@@ -70,8 +84,17 @@
         tableProps: {
           bordered: true,
           verticalAlign: 'top',
+          stickyHeader: true,
+          stickyTop: 0
         }
       }
+    },
+    computed: {
+      ...mapState([
+        'commonContainerProps',
+        'commonHeaderProps',
+        'commonFooterProps'
+      ])
     },
     methods: {
 
@@ -86,12 +109,8 @@
   .vulnerabilities {
     padding: 3rem;
 
-    // give every child element a margin-top of 3rem except the first child
-    > * {
-      margin-top: 3rem;
-
-      &:first-child {
-      margin-top: 0;
+    > *:not(:first-child) {
+      margin-top: 2rem;
     }
   }
-}</style>
+</style>

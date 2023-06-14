@@ -3,40 +3,52 @@ import faker from 'faker'
 
 export default createStore({
   state: {
+    commonContainerProps: {
+      backgroundColor: 'var(--interface-surface)',
+      containerPadding: '0 3rem',
+      borderRadius: 'var(--border-radius)',
+      overflow: 'hidden'
+    },
+    commonHeaderProps: {
+      backgroundColor: 'var(--interface-surface)'
+    },
+    commonFooterProps: {
+      backgroundColor: 'var(--interface-surface)'
+    },
     notifications: [
       {
         id: faker.datatype.uuid(),
         active: false,
         message: 'Welcome to Acme Asset Explorer! You just unlocked new levels of visibility into your assets and vulnerabilities.',
-        alertStyle: 'info',
+        variant: 'info',
         timestamp: faker.date.past()
       },
       {
         id: faker.datatype.uuid(),
         active: false,
         message: 'App version 1.0.3 is now available',
-        alertStyle: 'info',
+        variant: 'info',
         timestamp: faker.date.past()
       },
       {
         id: faker.datatype.uuid(),
         active: false,
         message: 'Your support request was sent successfully',
-        alertStyle: 'success',
+        variant: 'success',
         timestamp: faker.date.recent()
       },
       {
         id: faker.datatype.uuid(),
         active: false,
         message: 'You’re running low on endpoint licenses',
-        alertStyle: 'warning',
+        variant: 'warning',
         timestamp: faker.date.recent()
       },
       {
         id: faker.datatype.uuid(),
         active: false,
         message: 'Your organization has 34 assets with new critical vulnerabilities',
-        alertStyle: 'error',
+        variant: 'error',
         timestamp: faker.date.recent()
       }
     ],
@@ -80,7 +92,7 @@ export default createStore({
     addNotification: ({ state, commit }, notification) => {
       // build new notification object
       const newNotification = {
-        ...notification, // using spread syntax breaks the object reference, recevies message and alertStyle (success, info, warning, error)
+        ...notification, // using spread syntax breaks the object reference, recevies message and variant (success, info, warning, error)
         active: true, // add active property
         id: faker.datatype.uuid(), // adds unique ID each time
         timestamp: Date.now() // adds timestamp
@@ -105,13 +117,13 @@ export default createStore({
     clearNotifications: ({ state, commit }) => {
       commit('clearNotifications')
     },
-    toggleNotificationCenter({ state, commit }) {
+    toggleNotificationCenter: ({ state, commit }) => {
       commit('toggleNotificationCenter')
     },
-    removeNotification({ state, commit }, notification) {
+    removeNotification: ({ state, commit }, notification) => {
       commit('removeNotification', notification)
     },
-    toggleTheme({ state, commit }) {
+    toggleTheme: ({ state, commit }) => {
       let newTheme = state.theme == 'dark' ? 'light' : 'dark'
       document.documentElement.setAttribute('data-color-theme', newTheme)
       commit('setTheme', newTheme)

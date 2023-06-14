@@ -80,6 +80,7 @@
           overflow: auto;
           -ms-overflow-style: none; // Internet Explorer, Edge
           scrollbar-width: none; // Firefox
+          background: var(--interface-surface);
 
           &::-webkit-scrollbar {
             display: none; // Chrome, Safari, Opera
@@ -103,7 +104,7 @@
     }
 
     .right-panel {
-      flex: 0 0 341px;
+      flex: 0 0 361px;
       overflow: auto;
       -ms-overflow-style: none; // Internet Explorer, Edge
       scrollbar-width: none; // Firefox

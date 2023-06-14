@@ -2,82 +2,82 @@
   <div class="app-header">
     <div class="app-controls app-controls--left">
       <ep-button
-        kind="ghost"
+        variant="ghost"
         :iconLeft="{ name: 'menu' }"
         @click="this.$emit('menuButtonClicked')"
       />
       <ep-dropdown
-        :button="{
-          kind: 'ghost',
-          label: '',
-          iconRight: null,
-          iconLeft: { name: 'user' }
-        }"
+        :buttonProps="{
+            variant: 'ghost',
+            label: '',
+            iconRight: null,
+            iconLeft: { name: 'user' }
+          }"
         :containerProps="{
-          backgroundColor: 'var(--background-4)',
-          padding: '1rem 0',
-          borderRadius: 'var(--border-radius)',
-          borderColor: 'var(--border-color--lighter)'
-        }"
+            backgroundColor: 'var(--interface-overlay)',
+            containerPadding: '1rem 0',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--border-color--lighter)'
+          }"
         :menuItems="[{
-          label: 'User Profile',
-          iconLeft: { name: 'user' },
-          bind: {
-            to: '/settings'
-          }
-        },
-        {
-          label: 'Service Settings',
-          iconLeft: { name: 'settings' },
-          // bind: {
-          //   to: '/service-settings'
-          // }
-        },
-        {
-          divider: true
-        },
-        {
-          label: 'Sign Out',
-          iconLeft: { name: 'arrow-right' },
-          bind: {
-            to: '/login'
-          }
-        },
-        ]"
+            label: 'User Profile',
+            iconLeft: { name: 'user' },
+            bind: {
+              to: '/settings'
+            }
+          },
+          {
+            label: 'Service Settings',
+            iconLeft: { name: 'settings' },
+            bind: {
+              to: '/settings'
+            }
+          },
+          {
+            divider: true
+          },
+          {
+            label: 'Sign Out',
+            iconLeft: { name: 'arrow-right' },
+            bind: {
+              to: '/login'
+            }
+          },
+          ]"
       >
       </ep-dropdown>
     </div>
     <div class="app-controls app-controls--right">
       <ep-button
-        kind="ghost"
+        variant="ghost"
         :iconLeft="themeIcon"
         @click="toggleTheme"
       />
       <ep-dropdown
         :containerProps="{
-          backgroundColor: 'var(--background-4)',
-          padding: '1rem 0',
-          borderRadius: 'var(--border-radius)',
-          borderColor: 'var(--border-color--lighter)'
-        }"
+            backgroundColor: 'var(--interface-overlay)',
+            containerPadding: '1rem 0',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--border-color--lighter)'
+          }"
         :menuItems="[{
-          label: 'Documentation',
-          iconLeft: { name: 'help' }
-        }, {
-          label: 'Contact Support',
-          iconLeft: { name: 'support' }
-        }]"
-        :button="{
-          kind: 'ghost',
-          label: '',
-          iconRight: null,
-          iconLeft: { name: 'help' }
-        }"
+            label: 'Documentation',
+            iconLeft: { name: 'help' }
+          }, {
+            label: 'Contact Support',
+            iconLeft: { name: 'support' }
+          }]"
+        :buttonProps="{
+            variant: 'ghost',
+            label: '',
+            iconRight: null,
+            iconLeft: { name: 'help' }
+          }"
         alignRight
       >
       </ep-dropdown>
       <ep-button
-        kind="ghost"
+        variant="ghost"
         :label="''"
         :iconRight="null"
         :iconLeft="{ name: 'notifications' }"

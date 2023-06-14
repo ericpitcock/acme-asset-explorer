@@ -90,8 +90,8 @@
     // grid-column: 1 / 1;
     // grid-row: 2 / 2;
     padding: 30px 20px;
-    background: var(--background-1);
 
+    // background: var(--interface-surface);
     &--collapsed {
       padding-left: 0;
       padding-right: 0;
@@ -146,7 +146,7 @@
           left: 42px;
           padding: 4px 10px;
           border-radius: 3px;
-          background: var(--background-4);
+          background: var(--interface-overlay);
           border: 1px solid var(--border-color--lighter);
           font-size: var(--font-size--small);
           color: var(--text-color) !important;

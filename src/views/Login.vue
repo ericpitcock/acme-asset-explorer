@@ -2,7 +2,7 @@
   <div class="ep-login">
     <ep-container
       width="400px"
-      padding="0 3rem 6rem 3rem"
+      contentPadding="0 3rem 6rem 3rem"
       style="box-shadow: var(--drop-shadow);"
     >
       <template #header>
@@ -17,16 +17,14 @@
             id="email"
             v-model="email"
             placeholder="Enter your email"
-            background-color="var(--background-1)"
-            required
+            background-color="var(--interface-foreground)"
           />
           <ep-input
             type="password"
             id="password"
             v-model="password"
             placeholder="Enter your password"
-            background-color="var(--background-1)"
-            required
+            background-color="var(--interface-foreground)"
           />
           <ep-button
             type="submit"
