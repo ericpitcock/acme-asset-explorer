@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Network",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Endpoint",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Cloud",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Learn More"
+  },
+  {
+    "name": "Log",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Insider",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Cloud",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Microsoft Defender",
+    "category": "24/7 Multi-Signal MDR",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Dark Web Monitoring",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Threat Intelligence",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Managed Vulnerability Service",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Virtual CISO Services",
+    "category": "Exposure Management",
+    "badge": "Learn More"
+  },
+  {
+    "name": "CISO & Advisory Services",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Penetration Testing / Vulnerability Assessments",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Phishing and Security Awareness Training",
+    "category": "Exposure Management",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "Security Incident Response Planning Services",
+    "category": "Digital Forensics and Incident Response",
+    "badge": "Subscribed"
+  },
+  {
+    "name": "On-Demand 24/7 Incident Response Retainer",
+    "category": "Digital Forensics and Incident Response",
+    "badge": "Subscribed"
+  }
+]
