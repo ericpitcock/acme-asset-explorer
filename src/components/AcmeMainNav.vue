@@ -59,9 +59,9 @@
             path: '/vulnerabilities'
           },
           {
-            name: 'Service Info',
+            name: 'Services',
             icon: 'info',
-            path: '/service-info'
+            path: '/services'
           },
           {
             name: 'Reports',

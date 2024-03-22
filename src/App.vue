@@ -37,7 +37,7 @@
       return {
         gridProps: {
           leftPanelOpen: true,
-          rightPanelOpen: true,
+          rightPanelOpen: false,
         },
         navProps: {
           collapsed: false,

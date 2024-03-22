@@ -3,6 +3,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import Assets from '@/views/Assets.vue'
 import Vulnerabilities from '@/views/Vulnerabilities.vue'
 import ServiceInfo from '@/views/ServiceInfo.vue'
+import ServiceDetails from '@/views/ServiceDetails.vue'
 import Reports from '@/views/Reports.vue'
 import Files from '@/views/Files.vue'
 import UserSettings from '@/views/UserSettings.vue'
@@ -34,11 +35,19 @@ const routes = [
     },
   },
   {
-    path: '/service-info',
-    name: 'service-info',
+    path: '/services',
+    name: 'services',
     component: ServiceInfo,
     meta: {
-      title: 'Service Info',
+      title: 'Services',
+    },
+  },
+  {
+    path: '/services/:serviceName',
+    name: 'service-details',
+    component: ServiceDetails,
+    meta: {
+      title: 'Service Details',
     },
   },
   {
