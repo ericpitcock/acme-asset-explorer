@@ -72,6 +72,11 @@
             name: 'Files',
             icon: 'file',
             path: '/files'
+          },
+          {
+            name: 'Settings',
+            icon: 'settings',
+            path: '/settings'
           }
         ]
       }
