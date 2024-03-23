@@ -1,6 +1,7 @@
 <template>
   <div class="assets">
     <ep-header
+      background-color="var(--interface-surface)"
       leftFlex="0 0 10rem"
       centerFlex="1"
       rightFlex="0 0 10rem"
@@ -15,7 +16,7 @@
       <template #center>
         <ep-multi-search
           height="4rem"
-          backgroundColor="var(--interface-foreground)"
+          background-color="var(--interface-foreground)"
           :icon="{ name: 'search' }"
           placeholder='Multi Search - Enter to search - Use quotes for exact match, e.g. "active"'
           @enter="updateSearch"
@@ -33,19 +34,8 @@
       </template>
     </ep-header>
     <ep-table
-      :columns="columns"
-      :data="data"
-      :exclude="['id']"
+      v-bind="tableProps"
       :search="search"
-      sticky-header
-      sticky-top="0"
-      sortable
-      sortDir="asc"
-      striped
-      bordered
-      searchable
-      calculate-height
-      padding="0 1.6rem 10rem 1.6rem"
       @data-changed="handleDataChanged"
     />
   </div>
@@ -61,9 +51,42 @@
     data() {
       return {
         assetCount: merged.length,
-        columns,
-        data: merged,
+        // columns,
+        // data: merged,
         search: [],
+        // previous props from template
+        //   : columns="columns"
+        //   : data="data"
+        //   : exclude="['id']"
+        //   : search="search"
+        //   header- background - color="var(--interface-foreground)"
+        // sticky - header
+        // sticky - top="0"
+        // sortable
+        // sortDir = "asc"
+        // striped
+        // bordered
+        // searchable
+        // calculate - height
+        // width = "100%"
+        // padding = "0 1.6rem 10rem 1.6rem"
+        tableProps: {
+          columns,
+          data: merged,
+          exclude: ['id'],
+          // search: [],
+          headerBackgroundColor: 'var(--interface-surface)',
+          stickyHeader: true,
+          stickyTop: '0',
+          sortable: true,
+          sortDir: 'asc',
+          striped: true,
+          bordered: true,
+          searchable: true,
+          calculateHeight: true,
+          width: '100%',
+          padding: '0 1.6rem 10rem 1.6rem',
+        }
       }
     },
     methods: {
@@ -83,4 +106,8 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .assets {
+    background-color: var(--interface-surface);
+  }
+</style>
