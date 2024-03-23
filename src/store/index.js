@@ -64,7 +64,8 @@ export default createStore({
       return state.notifications.filter(n => !n.active)
     },
     hasActiveNotifications: state => {
-      return state.notifications.some(n => n.active)
+      // if notifications array isnt empty, return true
+      return state.notifications.length > 0
     }
   },
   mutations: {

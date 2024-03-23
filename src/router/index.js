@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '@/views/Dashboard.vue'
-import Assets from '@/views/Assets.vue'
-import Vulnerabilities from '@/views/Vulnerabilities.vue'
-import Services from '@/views/Services.vue'
-import ServiceDetails from '@/views/ServiceDetails.vue'
-import Reports from '@/views/Reports.vue'
-import Files from '@/views/Files.vue'
-import UserSettings from '@/views/UserSettings.vue'
-import Login from '@/views/Login.vue'
+import Dashboard from '@/views/dashboard/Dashboard.vue'
+import Assets from '@/views/assets/Assets.vue'
+import Vulnerabilities from '@/views/vulnerabilities/Vulnerabilities.vue'
+import Services from '@/views/services/Services.vue'
+import ServiceDetails from '@/views/services/ServiceDetails.vue'
+import Reports from '@/views/reports/Reports.vue'
+import Files from '@/views/files/Files.vue'
+import Settings from '@/views/settings/Settings.vue'
+import Login from '@/views/login/Login.vue'
 
 const routes = [
   {
@@ -70,7 +70,7 @@ const routes = [
   {
     path: '/settings',
     name: 'settings',
-    component: UserSettings,
+    component: Settings,
     meta: {
       title: 'Settings',
     },
