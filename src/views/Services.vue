@@ -156,11 +156,12 @@
       h2 {
         // margin-bottom: 1rem;
         font-size: var(--font-size--large);
+        font-variation-settings: 'wght' 300;
       }
 
       .service-info__services {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         gap: 1rem;
       }
 
@@ -169,7 +170,7 @@
         flex-direction: column;
         // align-items: center;
         // justify-content: space-around;
-        gap: 1rem;
+        // gap: 1rem;
         // height: 15rem;
         padding: 2rem 2.5rem 3rem 2.5rem;
         border: 1px solid var(--border-color);
@@ -198,6 +199,9 @@
 
         .service-badge {
           flex: 0 0 1rem;
+          padding-top: 1rem;
+          border-top: 1px solid var(--border-color);
+          margin-top: 1rem;
           // background-color: green;
         }
       }

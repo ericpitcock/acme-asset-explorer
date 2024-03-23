@@ -63,11 +63,11 @@
             icon: 'info',
             path: '/services'
           },
-          {
-            name: 'Reports',
-            icon: 'report',
-            path: '/reports'
-          },
+          // {
+          //   name: 'Reports',
+          //   icon: 'report',
+          //   path: '/reports'
+          // },
           {
             name: 'Files',
             icon: 'file',

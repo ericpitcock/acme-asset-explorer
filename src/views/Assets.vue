@@ -1,24 +1,12 @@
 <template>
   <div class="assets">
-    <ep-header
-      background-color="var(--interface-surface)"
-      leftFlex="0 0 10rem"
-      centerFlex="1"
-      rightFlex="0 0 10rem"
-      sticky
-      stickyTop="0"
-      padding="0 3rem"
-      z-index="var(--z-index--fixed)"
-    >
+    <ep-header v-bind="headerProps">
       <template #left>
         <p class="text--subtle">{{ assetCount }} assets</p>
       </template>
       <template #center>
         <ep-multi-search
-          height="4rem"
-          background-color="var(--interface-foreground)"
-          :icon="{ name: 'search' }"
-          placeholder='Multi Search - Enter to search - Use quotes for exact match, e.g. "active"'
+          v-bind="multiSearchProps"
           @enter="updateSearch"
           @delete="updateSearch"
           @query-close="queryClose"
@@ -26,16 +14,36 @@
         />
       </template>
       <template #right>
-        <ep-button
-          variant="ghost"
-          :iconLeft="{ name: 'file' }"
-          @click=""
-        />
+        <ep-dropdown
+          :buttonProps="{
+            variant: 'ghost',
+            label: '',
+            iconRight: { name: 'f/columns' }
+          }"
+          align-right
+        >
+          <template #content>
+            <ep-container v-bind="containerProps">
+              <ep-flex-container
+                flex-flow="column nowrap"
+                gap="1rem"
+              >
+                <ep-checkbox
+                  v-for="filter in filters"
+                  :key="filter.id"
+                  v-bind="filter"
+                  @checkchange="handleFilter"
+                />
+              </ep-flex-container>
+            </ep-container>
+          </template>
+        </ep-dropdown>
       </template>
     </ep-header>
     <ep-table
       v-bind="tableProps"
       :search="search"
+      :hiddenColumns="hiddenColumns"
       @data-changed="handleDataChanged"
     />
   </div>
@@ -51,30 +59,34 @@
     data() {
       return {
         assetCount: merged.length,
-        // columns,
-        // data: merged,
+        containerProps: {
+          backgroundColor: 'var(--interface-overlay)',
+          borderColor: 'var(--border-color--lighter)',
+          borderRadius: 'var(--border-radius)',
+          containerPadding: '2rem',
+        },
+        headerProps: {
+          backgroundColor: 'var(--interface-surface)',
+          leftFlex: '0 0 10rem',
+          centerFlex: '1',
+          rightFlex: '0 0 10rem',
+          sticky: true,
+          stickyTop: '0',
+          padding: '0 3rem',
+          zIndex: 'var(--z-index--fixed)',
+        },
+        hiddenColumns: ['ipv6_address', 'mac_address'],
+        multiSearchProps: {
+          height: '4rem',
+          backgroundColor: 'var(--interface-foreground)',
+          icon: { name: 'search' },
+          placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
+        },
         search: [],
-        // previous props from template
-        //   : columns="columns"
-        //   : data="data"
-        //   : exclude="['id']"
-        //   : search="search"
-        //   header- background - color="var(--interface-foreground)"
-        // sticky - header
-        // sticky - top="0"
-        // sortable
-        // sortDir = "asc"
-        // striped
-        // bordered
-        // searchable
-        // calculate - height
-        // width = "100%"
-        // padding = "0 1.6rem 10rem 1.6rem"
         tableProps: {
           columns,
           data: merged,
           exclude: ['id'],
-          // search: [],
           headerBackgroundColor: 'var(--interface-surface)',
           stickyHeader: true,
           stickyTop: '0',
@@ -89,9 +101,32 @@
         }
       }
     },
+    computed: {
+      filters() {
+        return columns.map(column => {
+          return {
+            id: column.key,
+            name: 'columns',
+            value: column.key,
+            checked: !this.hiddenColumns.includes(column.key),
+            label: column.header,
+            disabled: false,
+          }
+        })
+      }
+    },
     methods: {
       handleDataChanged(data) {
         this.assetCount = data.length
+      },
+      handleFilter(event) {
+        // if unchecked, add to hiddenColumns
+        if (event.target.checked === false) {
+          this.hiddenColumns.push(event.target.id)
+        } else {
+          // if checked, remove from hiddenColumns
+          this.hiddenColumns = this.hiddenColumns.filter(column => column !== event.target.id)
+        }
       },
       updateSearch(value) {
         this.search = value

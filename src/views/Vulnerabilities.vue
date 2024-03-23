@@ -15,7 +15,7 @@
               positionX="right"
               :inputProps="{
                 size: 'large',
-                backgroundColor: 'var(--background-2)'
+                backgroundColor: 'var(--interface-foreground)'
               }"
             />
           </template>

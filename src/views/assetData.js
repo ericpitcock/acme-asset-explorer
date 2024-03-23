@@ -1,5 +1,5 @@
 // https://fakerjsdocs.netlify.app/#browser-demo
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const columns = [
   {
@@ -37,7 +37,8 @@ const columns = [
   },
   {
     header: 'Last Seen',
-    key: 'last_seen'
+    key: 'last_seen',
+    formatter: (value) => new Date(value).toLocaleString()
   },
   {
     header: 'IPv6 Address',
@@ -55,7 +56,7 @@ const columns = [
 const vulnArray = () => {
   let arr = []
   for (let i = 0; i < 4; i++) {
-    arr.push(faker.datatype.number({ min: 0, max: 100 }))
+    arr.push(faker.number.int({ min: 0, max: 100 }))
   }
   return arr
 }
@@ -73,17 +74,17 @@ const fakeArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
     arr.push({
-      id: faker.datatype.uuid(),
-      status: faker.random.arrayElement(['Active', 'Inactive', 'Archived']),
-      user: `${faker.name.firstName()}.${faker.name.lastName()}@acme.io`,
-      ip_address: faker.internet.ip(),
+      id: faker.string.uuid(),
+      status: faker.helpers.arrayElement(['Active', 'Inactive', 'Archived']),
+      user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
+      ip_address: faker.internet.ipv4(),
       vulnerabilities: {
         component: 'ep-spark-bar',
         props: {
           bar: []
         }
       },
-      location: faker.random.arrayElement([
+      location: faker.helpers.arrayElement([
         'New York City',
         'Los Angeles',
         'Chicago',
@@ -99,8 +100,8 @@ const fakeArray = length => {
         'San Francisco',
         'Indianapolis'
       ]),
-      operating_system: faker.random.arrayElement(['Windows', 'macOS', 'Linux']),
-      last_seen: faker.date.recent(10).toLocaleDateString(),
+      operating_system: faker.helpers.arrayElement(['Windows', 'macOS', 'Linux']),
+      last_seen: faker.date.recent({ days: 10 }).toISOString(),
       ipv6_address: faker.internet.ipv6(),
       mac_address: faker.internet.mac()
     })
