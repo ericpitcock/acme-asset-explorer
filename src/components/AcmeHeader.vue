@@ -8,42 +8,42 @@
       />
       <ep-dropdown
         :buttonProps="{
-            variant: 'ghost',
-            label: '',
-            iconRight: null,
-            iconLeft: { name: 'user' }
-          }"
+          variant: 'ghost',
+          label: '',
+          iconRight: null,
+          iconLeft: { name: 'user' }
+        }"
         :containerProps="{
-            backgroundColor: 'var(--interface-overlay)',
-            containerPadding: '1rem 0',
-            borderRadius: 'var(--border-radius)',
-            borderColor: 'var(--border-color--lighter)'
-          }"
+          backgroundColor: 'var(--interface-overlay)',
+          containerPadding: '1rem 0',
+          borderRadius: 'var(--border-radius)',
+          borderColor: 'var(--border-color--lighter)'
+        }"
         :menuItems="[{
-            label: 'User Profile',
-            iconLeft: { name: 'user' },
-            bind: {
-              to: '/settings'
-            }
-          },
-          {
-            label: 'Service Settings',
-            iconLeft: { name: 'settings' },
-            bind: {
-              to: '/settings'
-            }
-          },
-          {
-            divider: true
-          },
-          {
-            label: 'Sign Out',
-            iconLeft: { name: 'arrow-right' },
-            bind: {
-              to: '/login'
-            }
-          },
-          ]"
+          label: 'User Profile',
+          iconLeft: { name: 'user' },
+          bind: {
+            to: '/settings'
+          }
+        },
+        {
+          label: 'Service Settings',
+          iconLeft: { name: 'settings' },
+          bind: {
+            to: '/settings'
+          }
+        },
+        {
+          divider: true
+        },
+        {
+          label: 'Sign Out',
+          iconLeft: { name: 'arrow-right' },
+          bind: {
+            to: '/login'
+          }
+        },
+        ]"
       >
       </ep-dropdown>
     </div>
@@ -55,24 +55,24 @@
       />
       <ep-dropdown
         :containerProps="{
-            backgroundColor: 'var(--interface-overlay)',
-            containerPadding: '1rem 0',
-            borderRadius: 'var(--border-radius)',
-            borderColor: 'var(--border-color--lighter)'
-          }"
+          backgroundColor: 'var(--interface-overlay)',
+          containerPadding: '1rem 0',
+          borderRadius: 'var(--border-radius)',
+          borderColor: 'var(--border-color--lighter)'
+        }"
         :menuItems="[{
-            label: 'Documentation',
-            iconLeft: { name: 'help' }
-          }, {
-            label: 'Contact Support',
-            iconLeft: { name: 'support' }
-          }]"
+          label: 'Documentation',
+          iconLeft: { name: 'help' }
+        }, {
+          label: 'Contact Support',
+          iconLeft: { name: 'support' }
+        }]"
         :buttonProps="{
-            variant: 'ghost',
-            label: '',
-            iconRight: null,
-            iconLeft: { name: 'help' }
-          }"
+          variant: 'ghost',
+          label: '',
+          iconRight: null,
+          iconLeft: { name: 'help' }
+        }"
         alignRight
       >
       </ep-dropdown>
@@ -81,6 +81,7 @@
         :label="''"
         :iconRight="null"
         :iconLeft="{ name: 'notifications' }"
+        :class="{ 'hasNotifications': hasActiveNotifications }"
         @click="this.$emit('notificationsButtonClicked')"
       />
     </div>
@@ -88,7 +89,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'AcmeHeader',
@@ -98,6 +99,7 @@
       ...mapActions(['toggleTheme']),
     },
     computed: {
+      ...mapGetters(['hasActiveNotifications']),
       ...mapState(['theme']),
       themeIcon() {
         return this.theme == 'dark' ? { name: 'light-mode' } : { name: 'dark-mode' }
@@ -120,6 +122,21 @@
     background: var(--app-header-background);
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-index--fixed);
+  }
+
+  .hasNotifications {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      top: 0.1rem;
+      right: 0.25rem;
+      content: '';
+      background: green;
+      width: 7px;
+      height: 7px;
+      border-radius: 5px;
+    }
   }
 
   .app-controls {
