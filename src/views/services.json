@@ -20,7 +20,7 @@
   {
     "name": "Log",
     "category": "Managed Detection and Response",
-    "badge": "Active",
+    "badge": "Add Service",
     "iconProps": { "name": "f/database", "size": 40, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {

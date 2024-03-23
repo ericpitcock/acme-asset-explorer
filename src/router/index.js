@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '@/views/Dashboard.vue'
 import Assets from '@/views/Assets.vue'
 import Vulnerabilities from '@/views/Vulnerabilities.vue'
-import ServiceInfo from '@/views/ServiceInfo.vue'
+import Services from '@/views/Services.vue'
 import ServiceDetails from '@/views/ServiceDetails.vue'
 import Reports from '@/views/Reports.vue'
 import Files from '@/views/Files.vue'
@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/services',
     name: 'services',
-    component: ServiceInfo,
+    component: Services,
     meta: {
       title: 'Services',
     },
@@ -49,6 +49,7 @@ const routes = [
     meta: {
       title: 'Service Details',
     },
+    props: true,
   },
   {
     path: '/reports',

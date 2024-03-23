@@ -30,7 +30,7 @@
           :key="service.id"
         >
           <router-link
-            :to="{ name: 'service-details', params: { serviceName: service.name.toLowerCase().replace(' ', '-') } }"
+            :to="{ name: 'service-details', params: { serviceName: serviceSlug(service.name) } }"
           >
             <div class="service-info__service">
               <div class="service-icon">
@@ -126,6 +126,10 @@
       hasInactiveServices(category) {
         return this.services.some(service => service.category === category && service.badge === 'Add Service')
       },
+      serviceSlug(serviceName) {
+        // return serviceName as lowercase with spaces and special characters replaced with hyphens
+        return serviceName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-')
+      }
     }
   }
 </script>
