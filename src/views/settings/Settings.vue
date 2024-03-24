@@ -11,34 +11,15 @@
       z-index="var(--z-index--fixed)"
     >
       <template #left>
-        <ep-tabs :items="tabNames" />
+        <ep-tabs
+          :items="tabNames"
+          :active-tab-index="activeTab"
+          @tab-click="setActiveTab"
+        />
       </template>
     </ep-header>
     <div class="settings__content">
-      <div class="content__nav">
-        <ep-menu
-          :menuItems="menuItems"
-          :containerProps="containerProps"
-        />
-      </div>
-      <div class="content__body">
-        <p
-          v-for="(n, index) of 60"
-          :key="index"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at
-          porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et
-          faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat
-          volutpat. Donec placerat nisl magna, et faucibus arcu condimentum
-          sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-          at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna,
-          et faucibus arcu condimentum sed.Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat
-          volutpat. Donec placerat nisl magna, et faucibus arcu condimentum
-          sed.
-        </p>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
@@ -50,6 +31,7 @@
     },
     data() {
       return {
+        activeTab: 0,
         menuItems: [
           {
             label: 'General',
@@ -76,8 +58,8 @@
         },
         tabItems: [
           {
-            label: 'Services',
-            path: '/settings/services'
+            label: 'Service Config',
+            path: '/settings/service-config'
           },
           {
             label: 'Users',
@@ -108,6 +90,10 @@
       }
     },
     methods: {
+      setActiveTab(index) {
+        this.activeTab = index
+        this.$router.push(this.tabItems[index].path)
+      }
     }
   }
 </script>
@@ -121,12 +107,6 @@
     &__content {
       display: flex;
       gap: 3rem;
-
-      .content__nav {
-        position: sticky;
-        top: 6.1rem;
-        align-self: flex-start;
-      }
     }
   }
 </style>

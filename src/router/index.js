@@ -7,6 +7,12 @@ import ServiceDetails from '@/views/services/ServiceDetails.vue'
 import Reports from '@/views/reports/Reports.vue'
 import Files from '@/views/files/Files.vue'
 import Settings from '@/views/settings/Settings.vue'
+import ServiceConfig from '@/views/settings/ServiceConfig.vue'
+import Users from '@/views/settings/Users.vue'
+import Alerts from '@/views/settings/Alerts.vue'
+import CompanyProfile from '@/views/settings/CompanyProfile.vue'
+import EscalationProcedure from '@/views/settings/EscalationProcedure.vue'
+import ApiAccess from '@/views/settings/ApiAccess.vue'
 import Login from '@/views/login/Login.vue'
 
 const routes = [
@@ -84,6 +90,35 @@ const routes = [
     },
   }
 ]
+
+const settingsChildren = [
+  'Service Config',
+  'Users',
+  'Alerts',
+  'Company Profile',
+  'Escalation Procedure',
+  'API Access',
+]
+
+const componentMapping = {
+  'Service Config': ServiceConfig,
+  'Users': Users,
+  'Alerts': Alerts,
+  'Company Profile': CompanyProfile,
+  'Escalation Procedure': EscalationProcedure,
+  'API Access': ApiAccess,
+}
+
+routes[7].children = settingsChildren.map((child) => {
+  return {
+    path: child.toLowerCase().replace(' ', '-'),
+    name: child.toLowerCase().replace(' ', '-'),
+    component: componentMapping[child],
+    meta: {
+      title: child,
+    },
+  }
+})
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

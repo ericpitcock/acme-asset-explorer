@@ -6,46 +6,7 @@
         :iconLeft="{ name: 'menu' }"
         @click="this.$emit('menuButtonClicked')"
       />
-      <ep-dropdown
-        :buttonProps="{
-          variant: 'ghost',
-          label: '',
-          iconRight: null,
-          iconLeft: { name: 'user' }
-        }"
-        :containerProps="{
-          backgroundColor: 'var(--interface-overlay)',
-          containerPadding: '1rem 0',
-          borderRadius: 'var(--border-radius)',
-          borderColor: 'var(--border-color--lighter)'
-        }"
-        :menuItems="[{
-          label: 'User Profile',
-          iconLeft: { name: 'user' },
-          bind: {
-            to: '/settings'
-          }
-        },
-        {
-          label: 'Service Settings',
-          iconLeft: { name: 'settings' },
-          bind: {
-            to: '/settings'
-          }
-        },
-        {
-          divider: true
-        },
-        {
-          label: 'Sign Out',
-          iconLeft: { name: 'arrow-right' },
-          bind: {
-            to: '/login'
-          }
-        },
-        ]"
-      >
-      </ep-dropdown>
+      <ep-dropdown v-bind="userDropdownProps" />
     </div>
     <div class="app-controls app-controls--right">
       <ep-button
@@ -53,29 +14,7 @@
         :iconLeft="themeIcon"
         @click="toggleTheme"
       />
-      <ep-dropdown
-        :containerProps="{
-          backgroundColor: 'var(--interface-overlay)',
-          containerPadding: '1rem 0',
-          borderRadius: 'var(--border-radius)',
-          borderColor: 'var(--border-color--lighter)'
-        }"
-        :menuItems="[{
-          label: 'Documentation',
-          iconLeft: { name: 'help' }
-        }, {
-          label: 'Contact Support',
-          iconLeft: { name: 'support' }
-        }]"
-        :buttonProps="{
-          variant: 'ghost',
-          label: '',
-          iconRight: null,
-          iconLeft: { name: 'help' }
-        }"
-        alignRight
-      >
-      </ep-dropdown>
+      <ep-dropdown v-bind="helpDropdownProps" />
       <ep-button
         variant="ghost"
         :label="''"
@@ -93,6 +32,68 @@
 
   export default {
     name: 'AcmeHeader',
+    data() {
+      return {
+        userDropdownProps: {
+          buttonProps: {
+            variant: 'ghost',
+            label: '',
+            iconRight: null,
+            iconLeft: { name: 'user' }
+          },
+          containerProps: {
+            backgroundColor: 'var(--interface-overlay)',
+            containerPadding: '1rem 0',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--border-color--lighter)'
+          },
+          menuItems: [
+            {
+              label: 'User Profile',
+              iconLeft: { name: 'user' },
+              bind: {
+                to: '/settings'
+              }
+            },
+            {
+              divider: true
+            },
+            {
+              label: 'Sign Out',
+              iconLeft: { name: 'arrow-right' },
+              bind: {
+                to: '/login'
+              }
+            },
+          ]
+        },
+        helpDropdownProps: {
+          alignRight: true,
+          buttonProps: {
+            variant: 'ghost',
+            label: '',
+            iconRight: null,
+            iconLeft: { name: 'help' }
+          },
+          containerProps: {
+            backgroundColor: 'var(--interface-overlay)',
+            containerPadding: '1rem 0',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--border-color--lighter)'
+          },
+          menuItems: [
+            {
+              label: 'Documentation',
+              iconLeft: { name: 'help' }
+            },
+            {
+              label: 'Contact Support',
+              iconLeft: { name: 'support' }
+            }
+          ]
+        }
+      }
+    },
     components: {
     },
     methods: {
@@ -110,11 +111,8 @@
 
 <style lang="scss" scoped>
   .app-header {
-    // position: fixed;
     width: 100%;
     height: 41px;
-    // grid-column: 1 / 3;
-    // grid-row: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
