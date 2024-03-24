@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { faker } from '@faker-js/faker'
+import { fakeUserData } from '@/views/settings/userData'
 
 export default createStore({
   state: {
@@ -15,6 +16,7 @@ export default createStore({
     commonFooterProps: {
       backgroundColor: 'var(--interface-surface)'
     },
+    fakeUserData: fakeUserData(10),
     notifications: [
       {
         id: faker.string.uuid(),

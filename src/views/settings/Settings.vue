@@ -38,7 +38,7 @@
             path: '/settings/service-config'
           },
           {
-            label: 'Users',
+            label: 'User Management',
             path: '/settings/users'
           },
           {

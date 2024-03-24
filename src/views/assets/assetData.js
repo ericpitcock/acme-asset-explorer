@@ -1,4 +1,3 @@
-// https://fakerjsdocs.netlify.app/#browser-demo
 import { faker } from '@faker-js/faker'
 
 const columns = [

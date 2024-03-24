@@ -1,8 +1,20 @@
 <template>
   <div class="users">
-    <ep-header padding="0 3rem">
+    <ep-header
+      leftFlex="0 0 10rem"
+      centerFlex="1"
+      centerJustify="flex-start"
+      rightFlex="0 0 10rem"
+      padding="0 3rem"
+    >
       <template #left>
-        <p class="text--subtle">{{ data.length }} Users</p>
+        <p class="text--subtle">{{ filteredData.length }} Users</p>
+      </template>
+      <template #center>
+        <ep-checkbox
+          label="Show Deactivated Users"
+          v-model="showInactive"
+        />
       </template>
       <template #right>
         <ep-button
@@ -12,8 +24,9 @@
       </template>
     </ep-header>
     <ep-table
+      v-show="!loading"
       :columns="columns"
-      :data="data"
+      :data="filteredData"
       sticky-header
       sticky-top="0"
       striped
@@ -26,7 +39,8 @@
 </template>
 
 <script>
-  import { faker } from '@faker-js/faker'
+  // import { faker } from '@faker-js/faker'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'Users',
@@ -43,14 +57,30 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        data: Array.from({ length: 10 }, () => ({
-          status: faker.helpers.arrayElement(['Active', 'Inactive']),
-          name: faker.person.fullName(),
-          email: faker.internet.email(),
-          role: faker.helpers.arrayElement(['Admin', 'User']),
-          last_active: faker.date.recent().toISOString(),
-        }))
+        // data: Array.from({ length: 10 }, () => ({
+        //   status: faker.helpers.arrayElement(['Active', 'Deactivated']),
+        //   name: faker.person.fullName(),
+        //   email: faker.internet.email(),
+        //   role: faker.helpers.arrayElement(['Admin', 'Partner Admin', 'User']),
+        //   last_active: faker.date.recent().toISOString(),
+        // })),
+        loading: true,
+        showInactive: false
       }
+    },
+    computed: {
+      ...mapState(['fakeUserData']),
+      filteredData() {
+        return this.fakeUserData.filter(user => {
+          if (this.showInactive) return true
+          return user.status === 'Active'
+        })
+      }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.loading = false
+      }, 100)
     }
   }
 </script>
