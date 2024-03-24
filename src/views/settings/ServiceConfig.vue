@@ -29,7 +29,8 @@
     computed: {
       menuItems() {
         return this.services
-          .filter(service => service.badge === 'Active')
+          .filter(service => service.status === 'Active')
+          .filter(service => service.configurable === true)
           .map(service => ({ label: service.name }))
       }
     }

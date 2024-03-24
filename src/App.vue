@@ -72,14 +72,13 @@
 
 <style lang="scss">
   body {
-    background: var(--interface-bg);
+    background: var(--interface-surface);
   }
 
   .content-container {
-    // min-width: fit-content;
     height: auto;
     min-height: 100%;
-    background: var(--interface-bg);
+    background: var(--interface-surface);
   }
 
   .left-panel__container {

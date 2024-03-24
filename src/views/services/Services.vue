@@ -41,8 +41,8 @@
               </div>
               <div class="service-badge">
                 <ep-badge
-                  :label="service.badge"
-                  :variant="getVariant(service.badge)"
+                  :label="service.status"
+                  :variant="getVariant(service.status)"
                 />
               </div>
             </div>
@@ -80,15 +80,15 @@
         return [...new Set(this.services.map(service => service.category))]
       },
       // hasExpiredServices() {
-      //   return this.services.some(service => service.badge === 'Expired')
+      //   return this.services.some(service => service.status === 'Expired')
       // },
       getExpiredServices() {
         // if none of the services are expired, return false
-        if (!this.services.some(service => service.badge === 'Expired')) {
+        if (!this.services.some(service => service.status === 'Expired')) {
           return false
         }
         // return an array of expired services
-        const expiredServices = this.services.filter(service => service.badge === 'Expired')
+        const expiredServices = this.services.filter(service => service.status === 'Expired')
         // map the expired services to return only the name
         return expiredServices.map(service => service.name)
       },
@@ -96,14 +96,14 @@
     methods: {
       getServicesByCategory(category) {
         // return this.services.filter(service => service.category === category)
-        // return services by category and filter out those with service.badge === 'Add Service'
-        return this.services.filter(service => service.category === category && service.badge !== 'Add Service')
+        // return services by category and filter out those with service.status === 'Inactive'
+        return this.services.filter(service => service.category === category && service.status !== 'Inactive')
       },
       getInactiveServicesByCategory(category) {
-        const inactiveServices = this.services.filter(service => service.category === category && service.badge === 'Add Service')
+        const inactiveServices = this.services.filter(service => service.category === category && service.status === 'Inactive')
 
         return inactiveServices.map(service => {
-          if (service.badge === 'Add Service') {
+          if (service.status === 'Inactive') {
             return {
               label: service.name,
             }
@@ -115,7 +115,7 @@
         switch (label) {
           case 'Active':
             return 'success'
-          case 'Add Service':
+          case 'Inactive':
             return 'secondary'
           case 'Expired':
             return 'danger'
@@ -124,7 +124,7 @@
         }
       },
       hasInactiveServices(category) {
-        return this.services.some(service => service.category === category && service.badge === 'Add Service')
+        return this.services.some(service => service.category === category && service.status === 'Inactive')
       },
       serviceSlug(serviceName) {
         // return serviceName as lowercase with spaces and special characters replaced with hyphens

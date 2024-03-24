@@ -4,6 +4,7 @@
       background-color="var(--interface-surface)"
       leftFlex="0 0 10rem"
       centerFlex="1"
+      centerJustify="flex-start"
       rightFlex="0 0 10rem"
       sticky
       stickyTop="0"

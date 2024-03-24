@@ -2,85 +2,99 @@
   {
     "name": "Network",
     "category": "Managed Detection and Response",
-    "badge": "Active",
+    "configurable": true,
+    "status": "Active",
     "iconProps": { "name": "f/server", "size": 50, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Endpoint",
     "category": "Managed Detection and Response",
-    "badge": "Active",
+    "configurable": true,
+    "status": "Active",
     "iconProps": { "name": "display", "size": 40, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Cloud",
     "category": "Managed Detection and Response",
-    "badge": "Add Service",
+    "configurable": true,
+    "status": "Active",
     "iconProps": { "name": "f/cloud", "size": 50, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Log",
     "category": "Managed Detection and Response",
-    "badge": "Add Service",
+    "configurable": true,
+    "status": "Inactive",
     "iconProps": { "name": "f/database", "size": 40, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Insider",
     "category": "Managed Detection and Response",
-    "badge": "Expired",
+    "configurable": true,
+    "status": "Expired",
     "iconProps": { "name": "f/briefcase", "size": 40, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Dark Web Monitoring",
     "category": "Exposure Management",
-    "badge": "Active",
+    "configurable": false,
+    "status": "Active",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Threat Intelligence",
     "category": "Exposure Management",
-    "badge": "Active",
+    "configurable": false,
+    "status": "Active",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Managed Vulnerability Service",
     "category": "Exposure Management",
-    "badge": "Add Service",
+    "configurable": false,
+    "status": "Inactive",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Virtual CISO Services",
     "category": "Exposure Management",
-    "badge": "Add Service",
+    "configurable": false,
+    "status": "Inactive",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "CISO & Advisory Services",
     "category": "Exposure Management",
-    "badge": "Add Service",
+    "configurable": false,
+    "status": "Inactive",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Vulnerability Assessments",
     "category": "Exposure Management",
-    "badge": "Add Service",
+    "configurable": false,
+    "status": "Inactive",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Phishing and Security Awareness Training",
     "category": "Exposure Management",
-    "badge": "Active",
+    "configurable": false,
+    "status": "Active",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Security Incident Response Planning Services",
     "category": "Digital Forensics and Incident Response",
-    "badge": "Expired",
+    "configurable": false,
+    "status": "Expired",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "On-Demand 24/7 Incident Response Retainer",
     "category": "Digital Forensics and Incident Response",
-    "badge": "Active",
+    "configurable": false,
+    "status": "Active",
     "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   }
 ]
