@@ -32,30 +32,6 @@
     data() {
       return {
         activeTab: 0,
-        menuItems: [
-          {
-            label: 'General',
-          },
-          {
-            label: 'Account',
-          },
-          {
-            label: 'Notifications',
-          },
-          {
-            label: 'Billing',
-          },
-          {
-            label: 'Security',
-          },
-          {
-            label: 'Integrations',
-          }
-        ],
-        containerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          borderWidth: '0',
-        },
         tabItems: [
           {
             label: 'Service Config',
@@ -94,7 +70,16 @@
         this.activeTab = index
         this.$router.push(this.tabItems[index].path)
       }
-    }
+    },
+    mounted() {
+      this.activeTab = this.tabItems.findIndex(item => item.path === this.$route.path)
+    },
+    watch: {
+      $route(to) {
+        // Update activeTab when route changes
+        this.activeTab = this.tabItems.findIndex(item => item.path === to.path)
+      }
+    },
   }
 </script>
 
@@ -105,8 +90,8 @@
     background-color: var(--interface-surface);
 
     &__content {
-      display: flex;
-      gap: 3rem;
+      // display: flex;
+      // background: red;
     }
   }
 </style>

@@ -159,12 +159,12 @@
         }
       }
 
-      &:not(.router-link-exact-active):not(.main-nav__item--logo):hover {
+      &:not(.router-link-active):not(.main-nav__item--logo):hover {
         background: var(--nav-link-hover-bg-color);
         cursor: pointer;
       }
 
-      &.router-link-exact-active {
+      &.router-link-active {
         background-image: var(--nav-link-active-bg-color);
 
         .main-nav__item__name {

@@ -103,7 +103,7 @@
     },
     computed: {
       filters() {
-        return columns.map(column => {
+        const filters = columns.map(column => {
           return {
             id: column.key,
             name: 'columns',
@@ -113,6 +113,8 @@
             disabled: false,
           }
         })
+        // remove everything from this.tablesProps.exclude
+        return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
       }
     },
     methods: {

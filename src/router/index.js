@@ -80,6 +80,12 @@ const routes = [
     meta: {
       title: 'Settings',
     },
+    children: [
+      {
+        path: '', // This is the default child route for '/settings'
+        redirect: '/settings/service-config'
+      },
+    ],
   },
   {
     path: '/login',
@@ -91,15 +97,6 @@ const routes = [
   }
 ]
 
-const settingsChildren = [
-  'Service Config',
-  'Users',
-  'Alerts',
-  'Company Profile',
-  'Escalation Procedure',
-  'API Access',
-]
-
 const componentMapping = {
   'Service Config': ServiceConfig,
   'Users': Users,
@@ -109,7 +106,9 @@ const componentMapping = {
   'API Access': ApiAccess,
 }
 
-routes[7].children = settingsChildren.map((child) => {
+const settingsChildren = Object.keys(componentMapping)
+
+const settingsRoutes = settingsChildren.map((child) => {
   return {
     path: child.toLowerCase().replace(' ', '-'),
     name: child.toLowerCase().replace(' ', '-'),
@@ -119,6 +118,8 @@ routes[7].children = settingsChildren.map((child) => {
     },
   }
 })
+
+routes[7].children.push(...settingsRoutes)
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -1,11 +1,37 @@
 <template>
   <div class="service-config">
-    Service Config
+    <div class="service-config__nav">
+      <ep-menu
+        :menu-items="menuItems"
+        :container-props="containerProps"
+      />
+    </div>
+    <div class="service-config__body">
+
+    </div>
   </div>
 </template>
 
 <script>
+  import services from '../services/services.json'
+
   export default {
     name: 'ServiceConfig',
+    data() {
+      return {
+        containerProps: {
+          backgroundColor: 'var(--interface-surface)',
+          borderWidth: '0',
+        },
+        services
+      }
+    },
+    computed: {
+      menuItems() {
+        return this.services
+          .filter(service => service.badge === 'Active')
+          .map(service => ({ label: service.name }))
+      }
+    }
   }
 </script>
