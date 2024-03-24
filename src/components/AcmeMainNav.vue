@@ -2,7 +2,8 @@
   <div :class="['nav-container', { 'nav-container--collapsed': collapsed }]">
     <nav class="main-nav">
       <div class="main-nav__item main-nav__item--logo">
-        <acme-logo :type="logoType" />
+        <!-- <acme-logo :type="logoType" /> -->
+        <esentire-logo :type="logoType" />
       </div>
       <template
         v-for="(navItem, index) in navItems"
@@ -27,12 +28,14 @@
 
 <script>
   import { mapState } from 'vuex'
-  import AcmeLogo from '@/components/AcmeLogo.vue'
+  // import AcmeLogo from '@/components/AcmeLogo.vue'
+  import EsentireLogo from '@/components/EsentireLogo.vue'
 
   export default {
     name: 'AcmeMainNav',
     components: {
-      AcmeLogo
+      // AcmeLogo,
+      EsentireLogo
     },
     props: {
       collapsed: {

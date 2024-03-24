@@ -7,6 +7,7 @@
         @click="this.$emit('menuButtonClicked')"
       />
       <ep-dropdown v-bind="userDropdownProps" />
+      <p>ACME Corp</p>
     </div>
     <div class="app-controls app-controls--right">
       <ep-button
@@ -141,7 +142,13 @@
     display: flex;
     align-items: center;
 
-    &--left {}
+    &--left {
+
+      // last item margin left
+      p {
+        margin-left: 1rem;
+      }
+    }
 
     &--right {}
   }
