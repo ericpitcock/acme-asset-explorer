@@ -7,7 +7,11 @@
         @click="this.$emit('menuButtonClicked')"
       />
       <ep-dropdown v-bind="userDropdownProps" />
-      <p>ACME Corp</p>
+      <p>
+        <router-link to="/settings/company-profile">
+          ACME Corp
+        </router-link>
+      </p>
     </div>
     <div class="app-controls app-controls--right">
       <ep-button
@@ -143,10 +147,9 @@
     align-items: center;
 
     &--left {
-
-      // last item margin left
       p {
         margin-left: 1rem;
+        cursor: pointer;
       }
     }
 

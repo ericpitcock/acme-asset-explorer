@@ -6,6 +6,9 @@
       centerJustify="flex-start"
       rightFlex="0 0 10rem"
       padding="0 3rem"
+      sticky
+      stickyTop="6.1rem"
+      z-index="var(--z-index--fixed)"
     >
       <template #left>
         <p class="text--subtle">{{ filteredData.length }} Users</p>
@@ -19,7 +22,8 @@
       <template #right>
         <ep-button
           variant="primary"
-          label="Add User"
+          label="New User"
+          @click="showModal = true"
         />
       </template>
     </ep-header>
@@ -27,23 +31,100 @@
       v-show="!loading"
       :columns="columns"
       :data="filteredData"
+      calculate-height
+      calculate-height-offset="12.2rem"
       sticky-header
-      sticky-top="0"
+      sticky-top="12.2rem"
       striped
       bordered
       sortable
       width="100%"
       padding="0 1.6rem 10rem 1.6rem"
     />
+    <modal v-if="showModal">
+      <ep-container
+        width="60rem"
+        container-padding="0 3rem 1rem 3rem"
+        content-padding="3rem 0"
+      >
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>New User</h1>
+            </template>
+            <template #right>
+              <p class="text--subtle">All fields required unless noted</p>
+            </template>
+          </ep-header>
+        </template>
+        <ep-flex-container
+          flex-flow="column nowrap"
+          gap="1rem"
+        >
+          <ep-select
+            placeholder="Choose a role…"
+            size="large"
+            :options="roleOptions"
+            v-model="userRole"
+          />
+          <ep-input
+            label="Name"
+            size="large"
+            v-model="userName"
+          />
+          <ep-input
+            label="Email"
+            size="large"
+            v-model="userEmail"
+          />
+          <ep-input
+            label="Secondary Email (Optional)"
+            size="large"
+            v-model="userSecondaryEmail"
+          />
+          <ep-input
+            label="Mobile Phone"
+            size="large"
+            v-model="userMobilePhone"
+          />
+          <p>Our Security Operations Center uses your mobile phone for
+            authentication purposes.</p>
+          <ep-input
+            label="Office Phone (Optional)"
+            size="large"
+            v-model="userOfficePhone"
+          />
+        </ep-flex-container>
+        <template #footer>
+          <ep-footer right-gap="1rem">
+            <template #right>
+              <ep-button
+                variant="secondary"
+                label="Cancel"
+                @click="showModal = false"
+              />
+              <ep-button
+                variant="primary"
+                label="Add User"
+                @click="showModal = false"
+              />
+            </template>
+          </ep-footer>
+        </template>
+      </ep-container>
+    </modal>
   </div>
 </template>
 
 <script>
-  // import { faker } from '@faker-js/faker'
+  import Modal from '@/components/Modal.vue'
   import { mapState } from 'vuex'
 
   export default {
     name: 'Users',
+    components: {
+      Modal
+    },
     data() {
       return {
         columns: [
@@ -57,15 +138,20 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        // data: Array.from({ length: 10 }, () => ({
-        //   status: faker.helpers.arrayElement(['Active', 'Deactivated']),
-        //   name: faker.person.fullName(),
-        //   email: faker.internet.email(),
-        //   role: faker.helpers.arrayElement(['Admin', 'Partner Admin', 'User']),
-        //   last_active: faker.date.recent().toISOString(),
-        // })),
         loading: true,
-        showInactive: false
+        roleOptions: [
+          { label: 'Admin', value: 'admin' },
+          { label: 'Partner Admin', value: 'partner_admin' },
+          { label: 'User', value: 'user' },
+        ],
+        showInactive: false,
+        showModal: true,
+        userRole: '',
+        userName: '',
+        userEmail: '',
+        userSecondaryEmail: '',
+        userMobilePhone: '',
+        userOfficePhone: '',
       }
     },
     computed: {
@@ -85,8 +171,6 @@
   }
 </script>
 
-<style scoped>
-.users {
-  /* width: 100%; */
-}
+<style lang="scss" scoped>
+  .users {}
 </style>
