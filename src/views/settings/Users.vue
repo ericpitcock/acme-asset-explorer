@@ -15,7 +15,7 @@
       </template>
       <template #center>
         <ep-checkbox
-          label="Show Deactivated Users"
+          label="Show Deactivated"
           v-model="showInactive"
         />
       </template>
@@ -31,8 +31,6 @@
       v-show="!loading"
       :columns="columns"
       :data="filteredData"
-      calculate-height
-      calculate-height-offset="12.2rem"
       sticky-header
       sticky-top="12.2rem"
       striped
@@ -65,6 +63,7 @@
             placeholder="Choose a role…"
             size="large"
             :options="roleOptions"
+            select-id="userRole"
             v-model="userRole"
           />
           <ep-input
@@ -72,16 +71,42 @@
             size="large"
             v-model="userName"
           />
-          <ep-input
-            label="Email"
-            size="large"
-            v-model="userEmail"
-          />
-          <ep-input
-            label="Secondary Email (Optional)"
-            size="large"
-            v-model="userSecondaryEmail"
-          />
+          <ep-flex-container
+            align-items="center"
+            gap="1rem"
+          >
+            <ep-input
+              label="Email Username"
+              size="large"
+              v-model="userEmail"
+            />
+            <p class="text--subtle">@</p>
+            <ep-select
+              placeholder="Choose domain…"
+              size="large"
+              :options="approvedDomainOptions"
+              select-id="userEmailDomain"
+              v-model="userEmailDomain"
+            />
+          </ep-flex-container>
+          <ep-flex-container
+            align-items="center"
+            gap="1rem"
+          >
+            <ep-input
+              label="Secondary Email Username (Optional)"
+              size="large"
+              v-model="userSecondaryEmail"
+            />
+            <p class="text--subtle">@</p>
+            <ep-select
+              placeholder="Choose domain…"
+              size="large"
+              :options="approvedDomainOptions"
+              select-id="userSecondaryEmailDomain"
+              v-model="userSecondaryEmailDomain"
+            />
+          </ep-flex-container>
           <ep-input
             label="Mobile Phone"
             size="large"
@@ -101,12 +126,12 @@
               <ep-button
                 variant="secondary"
                 label="Cancel"
-                @click="showModal = false"
+                @click="dismissModal"
               />
               <ep-button
                 variant="primary"
                 label="Add User"
-                @click="showModal = false"
+                @click="addUser"
               />
             </template>
           </ep-footer>
@@ -118,7 +143,7 @@
 
 <script>
   import Modal from '@/components/Modal.vue'
-  import { mapState } from 'vuex'
+  import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'Users',
@@ -128,7 +153,13 @@
     data() {
       return {
         columns: [
-          { header: 'Status', key: 'status' },
+          {
+            header: 'Status',
+            key: 'status',
+            formatter: (value, row) => {
+              return `<div class="status-dot status-dot--${value.toLowerCase()}">${value}</div>`
+            }
+          },
           { header: 'Name', key: 'name' },
           { header: 'Email', key: 'email' },
           { header: 'Role', key: 'role' },
@@ -138,18 +169,24 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
+        approvedDomainOptions: [
+          { label: 'acme.io', value: 'acme.io' },
+          { label: 'test.acme.io', value: 'test.acme.io' },
+        ],
         loading: true,
         roleOptions: [
-          { label: 'Admin', value: 'admin' },
-          { label: 'Partner Admin', value: 'partner_admin' },
-          { label: 'User', value: 'user' },
+          { label: 'Admin', value: 'Admin' },
+          { label: 'Partner Admin', value: 'Partner Admin' },
+          { label: 'User', value: 'User' },
         ],
         showInactive: false,
-        showModal: true,
+        showModal: false,
         userRole: '',
         userName: '',
         userEmail: '',
+        userEmailDomain: 'acme.io',
         userSecondaryEmail: '',
+        userSecondaryEmailDomain: '',
         userMobilePhone: '',
         userOfficePhone: '',
       }
@@ -163,6 +200,30 @@
         })
       }
     },
+    methods: {
+      ...mapMutations(['addUserData']),
+      addUser() {
+        this.addUserData({
+          status: 'Active',
+          name: this.userName,
+          email: `${this.userEmail}@${this.userEmailDomain}`,
+          role: this.userRole,
+          last_active: new Date().toISOString(),
+        })
+        this.dismissModal()
+      },
+      dismissModal() {
+        this.showModal = false
+        this.userRole = ''
+        this.userName = ''
+        this.userEmail = ''
+        this.userEmailDomain = 'acme.io'
+        this.userSecondaryEmail = ''
+        this.userSecondaryEmailDomain = ''
+        this.userMobilePhone = ''
+        this.userOfficePhone = ''
+      }
+    },
     mounted() {
       setTimeout(() => {
         this.loading = false
@@ -172,5 +233,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .users {}
+  .users {
+    input[data-com-onepassword-filled="dark"] {
+      background-color: var(--interface-foreground) !important;
+    }
+  }
 </style>

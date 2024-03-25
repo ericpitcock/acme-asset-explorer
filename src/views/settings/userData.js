@@ -6,7 +6,7 @@ const fakeUserData = length => {
     users.push({
       status: faker.helpers.arrayElement(['Active', 'Deactivated']),
       name: faker.person.fullName(),
-      email: faker.internet.email(),
+      email: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
       role: faker.helpers.arrayElement(['Admin', 'Partner Admin', 'User']),
       last_active: faker.date.recent().toISOString(),
     })

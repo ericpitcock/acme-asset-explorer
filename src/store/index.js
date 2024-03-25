@@ -71,6 +71,9 @@ export default createStore({
     }
   },
   mutations: {
+    addUserData(state, newUser) {
+      state.fakeUserData.push(newUser);
+    },
     setTheme: (state, data) => {
       state.theme = data
     },

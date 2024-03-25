@@ -83,6 +83,7 @@ const routes = [
     children: [
       {
         path: '', // This is the default child route for '/settings'
+        name: 'service-config-default',
         redirect: '/settings/service-config'
       },
     ],

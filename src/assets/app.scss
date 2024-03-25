@@ -6,4 +6,11 @@
     hsl(277, 32%, 29%) 60%, 
     hsl(0, 0%, 12%) 80%
   );
+  // modal overlay background color
+  --modal-overlay-background: rgba(22, 22, 22, 0.95);
+}
+
+html[data-color-theme='light'] {
+  // modal overlay background color
+  --modal-overlay-background: rgba(175, 175, 175, 0.95);
 }

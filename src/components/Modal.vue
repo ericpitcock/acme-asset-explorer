@@ -25,7 +25,7 @@
     width: 100%;
     height: 100%;
     padding-top: 6rem;
-    background-color: rgba(31, 31, 31, 0.95);
+    background-color: var(--modal-overlay-background);
     z-index: var(--z-index--modal);
   }
 </style>
