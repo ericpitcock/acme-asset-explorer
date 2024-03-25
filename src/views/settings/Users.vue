@@ -41,7 +41,7 @@
     />
     <modal v-if="showModal">
       <ep-container
-        width="60rem"
+        width="90rem"
         container-padding="0 3rem 1rem 3rem"
         content-padding="3rem 0"
       >
@@ -56,69 +56,53 @@
           </ep-header>
         </template>
         <ep-flex-container
-          flex-flow="column nowrap"
-          gap="1rem"
+          flex-flow="row nowrap"
+          gap="3rem"
         >
-          <ep-select
-            placeholder="Choose a role…"
-            size="large"
-            :options="roleOptions"
-            select-id="userRole"
-            v-model="userRole"
-          />
-          <ep-input
-            label="Name"
-            size="large"
-            v-model="userName"
-          />
           <ep-flex-container
-            align-items="center"
+            flex-flow="column nowrap"
             gap="1rem"
           >
-            <ep-input
-              label="Email Username"
-              size="large"
-              v-model="userEmail"
-            />
-            <p class="text--subtle">@</p>
             <ep-select
-              placeholder="Choose domain…"
+              placeholder="Choose a role…"
               size="large"
-              :options="approvedDomainOptions"
-              select-id="userEmailDomain"
-              v-model="userEmailDomain"
+              :options="roleOptions"
+              select-id="userRole"
+              v-model="userRole"
+            />
+            <ep-input
+              label="Name"
+              size="large"
+              v-model="userName"
+            />
+            <p class="font-size--small text--subtle">
+              Approved domains: acme.io, test.acme.io
+            </p>
+            <ep-input
+              label="Email"
+              size="large"
+              v-model="userEmailmail"
+            />
+            <ep-input
+              label="Secondary Email (Optional)"
+              size="large"
+              v-model="secondaryEmail"
+            />
+            <p class="font-size--small text--subtle">
+              Mobile phone is used for authentication purposes.
+            </p>
+            <ep-input
+              label="Mobile Phone"
+              size="large"
+              v-model="userMobilePhone"
+            />
+            <ep-input
+              label="Office Phone (Optional)"
+              size="large"
+              v-model="userOfficePhone"
             />
           </ep-flex-container>
-          <ep-flex-container
-            align-items="center"
-            gap="1rem"
-          >
-            <ep-input
-              label="Secondary Email Username (Optional)"
-              size="large"
-              v-model="userSecondaryEmail"
-            />
-            <p class="text--subtle">@</p>
-            <ep-select
-              placeholder="Choose domain…"
-              size="large"
-              :options="approvedDomainOptions"
-              select-id="userSecondaryEmailDomain"
-              v-model="userSecondaryEmailDomain"
-            />
-          </ep-flex-container>
-          <ep-input
-            label="Mobile Phone"
-            size="large"
-            v-model="userMobilePhone"
-          />
-          <p>Our Security Operations Center uses your mobile phone for
-            authentication purposes.</p>
-          <ep-input
-            label="Office Phone (Optional)"
-            size="large"
-            v-model="userOfficePhone"
-          />
+          <roles />
         </ep-flex-container>
         <template #footer>
           <ep-footer right-gap="1rem">
@@ -143,12 +127,14 @@
 
 <script>
   import Modal from '@/components/Modal.vue'
+  import Roles from './Roles.vue'
   import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'Users',
     components: {
-      Modal
+      Modal,
+      Roles,
     },
     data() {
       return {
@@ -175,18 +161,18 @@
         ],
         loading: true,
         roleOptions: [
-          { label: 'Admin', value: 'Admin' },
-          { label: 'Partner Admin', value: 'Partner Admin' },
           { label: 'User', value: 'User' },
+          { label: 'Partner', value: 'Partner' },
+          { label: 'Admin', value: 'Admin' },
         ],
         showInactive: false,
         showModal: false,
         userRole: '',
         userName: '',
         userEmail: '',
-        userEmailDomain: 'acme.io',
+        // userEmailDomain: 'acme.io',
         userSecondaryEmail: '',
-        userSecondaryEmailDomain: '',
+        // userSecondaryEmailDomain: '',
         userMobilePhone: '',
         userOfficePhone: '',
       }
@@ -206,7 +192,7 @@
         this.addUserData({
           status: 'Active',
           name: this.userName,
-          email: `${this.userEmail}@${this.userEmailDomain}`,
+          email: this.userEmail,
           role: this.userRole,
           last_active: new Date().toISOString(),
         })
@@ -217,9 +203,9 @@
         this.userRole = ''
         this.userName = ''
         this.userEmail = ''
-        this.userEmailDomain = 'acme.io'
+        // this.userEmailDomain = 'acme.io'
         this.userSecondaryEmail = ''
-        this.userSecondaryEmailDomain = ''
+        // this.userSecondaryEmailDomain = ''
         this.userMobilePhone = ''
         this.userOfficePhone = ''
       }
@@ -233,9 +219,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .users {
-    input[data-com-onepassword-filled="dark"] {
-      background-color: var(--interface-foreground) !important;
-    }
-  }
+  .users {}
 </style>
