@@ -125,6 +125,11 @@
     background: var(--app-header-background);
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-index--fixed);
+
+    // hack header colors to invert text on dark header
+    html[data-color-theme='light'] & :not(.ep-dropdown__content):not(.ep-dropdown__content *) {
+      color: var(--text-color--inverse);
+    }
   }
 
   .hasNotifications {
