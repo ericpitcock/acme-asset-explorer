@@ -24,11 +24,12 @@
         />
       </template>
       <template #right>
-        <!-- <ep-button
-          variant="ghost"
-          :iconLeft="{ name: 'file' }"
+        <ep-button
+          label="Upload File"
+          variant="secondary"
+          :iconLeft="{ name: 'f/upload' }"
           @click=""
-        /> -->
+        />
       </template>
     </ep-header>
     <ep-table
@@ -50,6 +51,7 @@
 
 <script>
   import { faker } from '@faker-js/faker'
+  import filenames from './filenames.js'
 
   export default {
     name: 'Files',
@@ -59,7 +61,7 @@
           {
             header: 'Name',
             key: 'name',
-            formatter: (value) => `<a href="#" download>${value}</a>`,
+            // formatter: (value) => `<a href="#" download>${value}</a>`,
           },
           {
             header: 'Size',
@@ -110,31 +112,19 @@
 
         const data = []
         for (let i = 0; i < 34; i++) {
-          const fileName = this.generateFileName()
           const randomIndex = Math.floor(Math.random() * names.length)
           data.push({
-            name: fileName,
+            name: filenames[i],
             size: this.generateFileSize(),
-            type: this.getFileType(fileName),
+            type: this.getFileType(filenames[i]),
             date_uploaded: faker.date.past().toISOString(),
             uploaded_by: names[randomIndex]
           })
         }
         return data
       },
-      // searchResults() {
-      //   return this.fakeData.map(file => {
-      //     return {
-      //       name: file.name
-      //     }
-      //   })
-      // }
     },
     methods: {
-      generateFileName() {
-        const extension = this.fileExtensions[Math.floor(Math.random() * this.fileExtensions.length)]
-        return faker.lorem.word() + extension // Using faker.lorem.word() for more realistic file names
-      },
       getFileType(fileName) {
         const extension = fileName.split('.').pop()
         switch (extension) {
@@ -148,6 +138,8 @@
             return 'Microsoft Word'
           case 'xlsx':
             return 'Excel'
+          case 'csv':
+            return 'CSV'
           default:
             return 'Unknown'
         }
