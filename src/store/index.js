@@ -4,6 +4,7 @@ import { fakeUserData } from '@/views/settings/userData'
 
 export default createStore({
   state: {
+    approvedDomains: ['acme.io', 'test.acme.io'],
     commonContainerProps: {
       backgroundColor: 'var(--interface-surface)',
       containerPadding: '0 3rem',
@@ -71,6 +72,9 @@ export default createStore({
     }
   },
   mutations: {
+    addApprovedDomain(state, newDomain) {
+      state.approvedDomains.push(newDomain);
+    },
     addUserData(state, newUser) {
       state.fakeUserData.push(newUser);
     },
@@ -83,6 +87,9 @@ export default createStore({
     },
     clearNotifications: state => {
       state.notifications = []
+    },
+    removeApprovedDomain(state, index) {
+      state.approvedDomains.splice(index, 1)
     },
     removeNotification: (state, notification) => {
       console.log('removing notification', notification)

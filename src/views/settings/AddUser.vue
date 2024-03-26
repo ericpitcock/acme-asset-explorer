@@ -37,7 +37,7 @@
           v-model="userName"
         />
         <p class="font-size--small text--subtle">
-          Approved domains: acme.io, test.acme.io
+          Approved domains: {{ approvedDomains.join(', ') }}
         </p>
         <ep-input
           label="Email"
@@ -88,7 +88,7 @@
 
 <script>
   import RolesTable from './RolesTable.vue'
-  import { mapMutations } from 'vuex'
+  import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'AddUser',
@@ -114,6 +114,9 @@
         userEmailBorderColor: null,
         userMobilePhoneBorderColor: null,
       }
+    },
+    computed: {
+      ...mapState(['approvedDomains']),
     },
     methods: {
       ...mapMutations(['addUserData']),
