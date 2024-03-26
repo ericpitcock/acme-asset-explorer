@@ -37,18 +37,20 @@
           v-model="userName"
         />
         <p class="font-size--small text--subtle">
-          Approved domains: {{ approvedDomains.join(', ') }}
+          {{ approvedDomainsMessage }}
         </p>
         <ep-input
           label="Email"
           size="large"
           :border-color="userEmailBorderColor"
           v-model="userEmail"
+          :disabled="approvedDomains.length === 0"
         />
         <ep-input
           label="Secondary Email (Optional)"
           size="large"
           v-model="secondaryEmail"
+          :disabled="approvedDomains.length === 0"
         />
         <p class="font-size--small text--subtle">
           Mobile phone is used for authentication purposes.
@@ -117,12 +119,16 @@
     },
     computed: {
       ...mapState(['approvedDomains']),
+      approvedDomainsMessage() {
+        return this.approvedDomains.length
+          ? `Approved domains: ${this.approvedDomains.join(', ')}`
+          : 'You don’t have any approved domains. Add a domain to company profile to add a new user.'
+      }
     },
     methods: {
       ...mapMutations(['addUserData']),
       addUser() {
         if (!this.userRole || !this.userName || !this.userEmail || !this.userMobilePhone) {
-          // Set border color to red for empty fields
           if (!this.userRole) this.userRoleBorderColor = 'red'
           if (!this.userName) this.userNameBorderColor = 'red'
           if (!this.userEmail) this.userEmailBorderColor = 'red'

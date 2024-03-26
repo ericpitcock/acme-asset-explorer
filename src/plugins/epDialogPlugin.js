@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import EpDialog from '@/components/EpDialog.vue'
+import EpButton from '../../node_modules/@ericpitcock/epicenter-vue-components/src/components/button/EpButton.vue'
 
 const plugin = {
   install: (app) => {
@@ -13,6 +14,7 @@ const plugin = {
         })
         const container = document.createElement('div')
         document.body.appendChild(container)
+        dialogInstance.component('ep-button', EpButton)
         dialogInstance.mount(container)
       }
     }

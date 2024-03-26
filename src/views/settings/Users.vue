@@ -23,7 +23,7 @@
         <ep-button
           variant="primary"
           label="New User"
-          @click="showModal = true"
+          @click="addUser"
         />
       </template>
     </ep-header>
@@ -75,22 +75,43 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        approvedDomainOptions: [
-          { label: 'acme.io', value: 'acme.io' },
-          { label: 'test.acme.io', value: 'test.acme.io' },
-        ],
+        // approvedDomainOptions: [
+        //   { label: 'acme.io', value: 'acme.io' },
+        //   { label: 'test.acme.io', value: 'test.acme.io' },
+        // ],
         loading: true,
         showInactive: false,
         showModal: false,
       }
     },
     computed: {
-      ...mapState(['fakeUserData']),
+      ...mapState(['approvedDomains', 'fakeUserData']),
       filteredData() {
         return this.fakeUserData.filter(user => {
           if (this.showInactive) return true
           return user.status === 'Active'
         })
+      }
+    },
+    methods: {
+      addUser() {
+        return (this.approvedDomains.length)
+          ? this.showModal = true
+          : this.$epDialog.open({
+            title: 'No Approved Domains',
+            message: 'You need to add an approved domain to your company profile before you can add a new user.',
+            buttons: [
+              {
+                variant: 'secondary',
+                text: 'Cancel',
+              },
+              {
+                variant: 'primary',
+                text: 'Add Domain',
+                action: () => this.$router.push('/settings/company-profile')
+              },
+            ]
+          })
       }
     },
     mounted() {

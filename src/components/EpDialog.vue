@@ -8,17 +8,13 @@
         <p>{{ message }}</p>
       </div>
       <div class="ep-dialog-footer">
-        <button
+        <ep-button
           v-for="(button, index) in buttons"
           :key="index"
+          :variant="button.variant"
+          :label="button.text"
           @click="handleButtonClick(button.action)"
-        >
-          {{ button.text }}
-        </button>
-        <!-- <ep-button
-          variant="secondary"
-          @click="closeDialog"
-        >Cancel</ep-button> -->
+        />
       </div>
     </div>
   </modal>
@@ -57,22 +53,22 @@
 
 <style lang="scss" scoped>
   /* .ep-dialog-overlay {
-                  position: fixed;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-                  background-color: var(--interface-surface);
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                } */
+                          position: fixed;
+                          top: 0;
+                          left: 0;
+                          width: 100%;
+                          height: 100%;
+                          background-color: var(--interface-surface);
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                        } */
   .ep-dialog {
     background-color: var(--interface-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
-    padding: 20px;
+    padding: 3rem;
   }
 
   .ep-dialog-header {

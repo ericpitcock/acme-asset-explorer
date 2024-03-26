@@ -16,7 +16,8 @@
         <template #header>
           <ep-header>
             <template #left>
-              <h1>Approved Domains</h1>
+              <h1>Approved Domains <span v-if="changesUpdated">Changes
+                  saved!</span></h1>
             </template>
             <!-- <template #right>
               <ep-button
@@ -40,6 +41,7 @@
               size="large"
               placeholder="Enter a domain…"
               @input="handleInput"
+              @blur="handleBlur"
             />
             <ep-button
               variant="ghost"
@@ -65,7 +67,8 @@
     name: 'CompanyProfile',
     data() {
       return {
-        // approvedDomains: [],
+        changesUpdated: false,
+        isTyping: false,
       }
     },
     computed: {
@@ -75,9 +78,22 @@
       ...mapMutations(['addApprovedDomain', 'removeApprovedDomain']),
       handleAddDomain() {
         this.addApprovedDomain('')
+        // give focus to the last input
+        this.$nextTick(() => {
+          const inputs = document.querySelectorAll('.approved-domain-container input')
+          inputs[inputs.length - 1].focus()
+        })
+      },
+      handleBlur() {
+        this.changesUpdated = false
       },
       handleInput(value) {
-        console.log('Input:', value)
+        if (!this.isTyping) {
+          this.isTyping = true
+        }
+        setTimeout(() => {
+          this.isTyping = false
+        }, 1000)
       },
       handleRemoveDomain(index) {
         // if the input is empty, remove the domain without warning
@@ -91,14 +107,28 @@
           title: 'Warning',
           message: `Are you sure you want to remove the domain "${this.approvedDomains[index]}"?`, // eslint-disable-line no-template-curly-in-string
           buttons: [
-            { text: 'Cancel', action: () => console.log('Cancel clicked') },
-            { text: 'Proceed', action: () => this.removeApprovedDomain(index) }
+            { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
+            { variant: 'danger', text: 'Remove Domain', action: () => this.removeApprovedDomain(index) }
           ]
         })
       },
       handleSave() {
         console.log('Save Changes')
       },
+    },
+    watch: {
+      approvedDomains: {
+        handler() {
+          setTimeout(() => {
+            this.changesUpdated = true
+          }, 3000)
+
+          setTimeout(() => {
+            this.changesUpdated = false
+          }, 5000)
+        },
+        deep: true
+      }
     },
   }
 </script>
