@@ -3,53 +3,39 @@
     <thead>
       <tr>
         <th>Permission</th>
-        <th>User</th>
-        <th>Partner</th>
-        <th>Admin</th>
+        <th
+          v-for="role in roles"
+          :key="role"
+          :class="{ 'selected': role === selectedRole }"
+        >
+          {{ role }}
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Create reports</td>
-        <td class="checkmark">&#10003;</td>
-        <td class="checkmark">&#10003;</td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Configure services</td>
-        <td></td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Configure users</td>
-        <td></td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Edit company profile</td>
-        <td></td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Configure alerts</td>
-        <td></td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Configure escalation procedures</td>
-        <td></td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-      </tr>
-      <tr>
-        <td>Configure API access</td>
-        <td></td>
-        <td class="checkmark">&#10003;</td>
-        <td class="checkmark">&#10003;</td>
+      <tr
+        v-for="permission in permissions"
+        :key="permission.name"
+      >
+        <td>{{ permission.name }}</td>
+        <td :class="[
+          'checkmark',
+          { 'checkmark--selected': permission.user && selectedRole === 'User' }
+        ]">
+          {{ permission.user ? '✔' : '' }}
+        </td>
+        <td :class="[
+          'checkmark',
+          { 'checkmark--selected': permission.partner && selectedRole === 'Partner' }
+        ]">
+          {{ permission.partner ? '✔' : '' }}
+        </td>
+        <td :class="[
+          'checkmark',
+          { 'checkmark--selected': permission.admin && selectedRole === 'Admin' }
+        ]">
+          {{ permission.admin ? '✔' : '' }}
+        </td>
       </tr>
     </tbody>
   </table>
@@ -57,7 +43,63 @@
 
 <script>
   export default {
-    name: 'PermissionsTable'
+    name: 'RolesTable',
+    props: {
+      selectedRole: String,
+    },
+    data() {
+      return {
+        roles: [
+          'User',
+          'Partner',
+          'Admin',
+        ],
+        permissions: [
+          {
+            name: 'Create reports',
+            user: true,
+            partner: true,
+            admin: true,
+          },
+          {
+            name: 'Configure services',
+            user: false,
+            partner: false,
+            admin: true,
+          },
+          {
+            name: 'Configure users',
+            user: false,
+            partner: false,
+            admin: true,
+          },
+          {
+            name: 'Edit company profile',
+            user: false,
+            partner: false,
+            admin: true,
+          },
+          {
+            name: 'Configure alerts',
+            user: false,
+            partner: false,
+            admin: true,
+          },
+          {
+            name: 'Configure escalation procedures',
+            user: false,
+            partner: false,
+            admin: true,
+          },
+          {
+            name: 'Configure API access',
+            user: false,
+            partner: true,
+            admin: true,
+          },
+        ],
+      }
+    },
   }
 </script>
 
@@ -79,5 +121,13 @@
   th:not(:first-child),
   .checkmark {
     text-align: center;
+
+    &.checkmark--selected {
+      color: var(--text-color--link);
+    }
+  }
+
+  th.selected {
+    color: var(--text-color--link);
   }
 </style>
