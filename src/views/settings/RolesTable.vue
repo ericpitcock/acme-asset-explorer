@@ -18,23 +18,12 @@
         :key="permission.name"
       >
         <td>{{ permission.name }}</td>
-        <td :class="[
-          'checkmark',
-          { 'checkmark--selected': permission.user && selectedRole === 'User' }
-        ]">
-          {{ permission.user ? '✔' : '' }}
-        </td>
-        <td :class="[
-          'checkmark',
-          { 'checkmark--selected': permission.partner && selectedRole === 'Partner' }
-        ]">
-          {{ permission.partner ? '✔' : '' }}
-        </td>
-        <td :class="[
-          'checkmark',
-          { 'checkmark--selected': permission.admin && selectedRole === 'Admin' }
-        ]">
-          {{ permission.admin ? '✔' : '' }}
+        <td
+          v-for="role in roles"
+          :key="role"
+          :class="['checkmark', { 'checkmark--selected': permission[role.toLowerCase()] && selectedRole === role }]"
+        >
+          {{ permission[role.toLowerCase()] ? '✔' : '' }}
         </td>
       </tr>
     </tbody>

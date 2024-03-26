@@ -175,7 +175,7 @@
         padding: 2rem 2.5rem 3rem 2.5rem;
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius);
-        background-color: var(--interface-surface);
+        background-color: var(--interface-surface--accent);
         text-align: center;
 
         &:hover {

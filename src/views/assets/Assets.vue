@@ -13,39 +13,40 @@
           @clear="updateSearch"
         />
       </template>
-      <template #right>
-        <ep-dropdown
-          :buttonProps="{
-            variant: 'ghost',
-            label: '',
-            iconRight: { name: 'f/columns' }
-          }"
-          align-right
-        >
-          <template #content>
-            <ep-container v-bind="containerProps">
-              <ep-flex-container
-                flex-flow="column nowrap"
-                gap="1rem"
-              >
-                <ep-checkbox
-                  v-for="filter in filters"
-                  :key="filter.id"
-                  v-bind="filter"
-                  @checkchange="handleFilter"
-                />
-              </ep-flex-container>
-            </ep-container>
-          </template>
-        </ep-dropdown>
-      </template>
     </ep-header>
-    <ep-table
-      v-bind="tableProps"
-      :search="search"
-      :hiddenColumns="hiddenColumns"
-      @data-changed="handleDataChanged"
-    />
+    <ep-flex-container
+      flex-flow="row nowrap"
+      gap="1rem"
+      padding="0 1.6rem"
+    >
+      <div class="sidebar">
+        <ep-container
+          :backgroundColor="containerProps.backgroundColor"
+          :borderColor="containerProps.borderColor"
+          :borderRadius="containerProps.borderRadius"
+          :containerPadding="containerProps.containerPadding"
+        >
+          <ep-flex-container
+            flex-flow="column nowrap"
+            gap="1rem"
+          >
+            <ep-checkbox
+              v-for="filter in filters"
+              :key="filter.id"
+              v-bind="filter"
+              @checkchange="handleFilter"
+            />
+          </ep-flex-container>
+        </ep-container>
+      </div>
+      <ep-table
+        v-bind="tableProps"
+        :search="search"
+        :hiddenColumns="hiddenColumns"
+        @data-changed="handleDataChanged"
+        style="width: 100%"
+      />
+    </ep-flex-container>
   </div>
 </template>
 

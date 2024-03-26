@@ -1,6 +1,6 @@
 <template>
   <div class="alerts">
-    Alerts
+    Notifications
   </div>
 </template>
 

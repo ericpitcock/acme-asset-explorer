@@ -9,7 +9,7 @@ import Files from '@/views/files/Files.vue'
 import Settings from '@/views/settings/Settings.vue'
 import ServiceConfig from '@/views/settings/ServiceConfig.vue'
 import Users from '@/views/settings/Users.vue'
-import Alerts from '@/views/settings/Alerts.vue'
+import Notifications from '@/views/settings/Notifications.vue'
 import CompanyProfile from '@/views/settings/CompanyProfile.vue'
 import EscalationProcedure from '@/views/settings/EscalationProcedure.vue'
 import ApiAccess from '@/views/settings/ApiAccess.vue'
@@ -101,7 +101,7 @@ const routes = [
 const componentMapping = {
   'Service Config': ServiceConfig,
   'Users': Users,
-  'Alerts': Alerts,
+  'Notifications': Notifications,
   'Company Profile': CompanyProfile,
   'Escalation Procedure': EscalationProcedure,
   'API Access': ApiAccess,

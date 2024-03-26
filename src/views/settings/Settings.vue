@@ -42,8 +42,8 @@
             path: '/settings/users'
           },
           {
-            label: 'Alerts',
-            path: '/settings/alerts'
+            label: 'Notifications',
+            path: '/settings/notifications'
           },
           {
             label: 'Company Profile',
@@ -85,10 +85,12 @@
 
 <style lang="scss" scoped>
   .settings {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--interface-surface);
 
+    // background-color: var(--interface-surface);
+    // background-color: green;
     &__content {
       // display: flex;
       // background: red;

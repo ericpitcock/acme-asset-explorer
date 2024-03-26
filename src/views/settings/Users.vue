@@ -40,101 +40,21 @@
       padding="0 1.6rem 10rem 1.6rem"
     />
     <modal v-if="showModal">
-      <ep-container
-        width="90rem"
-        container-padding="0 3rem 1rem 3rem"
-        content-padding="3rem 0"
-      >
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>New User</h1>
-            </template>
-            <template #right>
-              <p class="text--subtle">All fields required unless noted</p>
-            </template>
-          </ep-header>
-        </template>
-        <ep-flex-container
-          flex-flow="row nowrap"
-          gap="3rem"
-        >
-          <ep-flex-container
-            flex-flow="column nowrap"
-            gap="1rem"
-          >
-            <ep-select
-              placeholder="Choose a role…"
-              size="large"
-              :options="roleOptions"
-              select-id="userRole"
-              v-model="userRole"
-            />
-            <ep-input
-              label="Name"
-              size="large"
-              v-model="userName"
-            />
-            <p class="font-size--small text--subtle">
-              Approved domains: acme.io, test.acme.io
-            </p>
-            <ep-input
-              label="Email"
-              size="large"
-              v-model="userEmailmail"
-            />
-            <ep-input
-              label="Secondary Email (Optional)"
-              size="large"
-              v-model="secondaryEmail"
-            />
-            <p class="font-size--small text--subtle">
-              Mobile phone is used for authentication purposes.
-            </p>
-            <ep-input
-              label="Mobile Phone"
-              size="large"
-              v-model="userMobilePhone"
-            />
-            <ep-input
-              label="Office Phone (Optional)"
-              size="large"
-              v-model="userOfficePhone"
-            />
-          </ep-flex-container>
-          <roles />
-        </ep-flex-container>
-        <template #footer>
-          <ep-footer right-gap="1rem">
-            <template #right>
-              <ep-button
-                variant="secondary"
-                label="Cancel"
-                @click="dismissModal"
-              />
-              <ep-button
-                variant="primary"
-                label="Add User"
-                @click="addUser"
-              />
-            </template>
-          </ep-footer>
-        </template>
-      </ep-container>
+      <add-user @close="showModal = false" />
     </modal>
   </div>
 </template>
 
 <script>
   import Modal from '@/components/Modal.vue'
-  import Roles from './Roles.vue'
-  import { mapMutations, mapState } from 'vuex'
+  import AddUser from './AddUser.vue'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'Users',
     components: {
+      AddUser,
       Modal,
-      Roles,
     },
     data() {
       return {
@@ -160,21 +80,8 @@
           { label: 'test.acme.io', value: 'test.acme.io' },
         ],
         loading: true,
-        roleOptions: [
-          { label: 'User', value: 'User' },
-          { label: 'Partner', value: 'Partner' },
-          { label: 'Admin', value: 'Admin' },
-        ],
         showInactive: false,
         showModal: false,
-        userRole: '',
-        userName: '',
-        userEmail: '',
-        // userEmailDomain: 'acme.io',
-        userSecondaryEmail: '',
-        // userSecondaryEmailDomain: '',
-        userMobilePhone: '',
-        userOfficePhone: '',
       }
     },
     computed: {
@@ -184,30 +91,6 @@
           if (this.showInactive) return true
           return user.status === 'Active'
         })
-      }
-    },
-    methods: {
-      ...mapMutations(['addUserData']),
-      addUser() {
-        this.addUserData({
-          status: 'Active',
-          name: this.userName,
-          email: this.userEmail,
-          role: this.userRole,
-          last_active: new Date().toISOString(),
-        })
-        this.dismissModal()
-      },
-      dismissModal() {
-        this.showModal = false
-        this.userRole = ''
-        this.userName = ''
-        this.userEmail = ''
-        // this.userEmailDomain = 'acme.io'
-        this.userSecondaryEmail = ''
-        // this.userSecondaryEmailDomain = ''
-        this.userMobilePhone = ''
-        this.userOfficePhone = ''
       }
     },
     mounted() {

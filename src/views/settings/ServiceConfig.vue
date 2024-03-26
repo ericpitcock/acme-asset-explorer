@@ -1,24 +1,29 @@
 <template>
   <div class="service-config">
-    <div class="service-config__nav">
-      <ep-menu
-        :menu-items="menuItems"
-        menu-type="nav"
-        :container-props="containerProps"
-      />
-    </div>
-    <div class="service-config__body">
-      <ep-container height="300px">
-      </ep-container>
-    </div>
+    <SidebarLayout>
+      <template #sidebar>
+        <ep-menu
+          :menu-items="menuItems"
+          menu-type="nav"
+          :container-props="containerProps"
+        />
+      </template>
+      <template #content>
+        content
+      </template>
+    </SidebarLayout>
   </div>
 </template>
 
 <script>
+  import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import services from '../services/services.json'
 
   export default {
     name: 'ServiceConfig',
+    components: {
+      SidebarLayout
+    },
     data() {
       return {
         containerProps: {
