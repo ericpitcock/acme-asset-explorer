@@ -49,6 +49,7 @@
         <ep-input
           label="Secondary Email (Optional)"
           size="large"
+          :border-color="secondaryEmailBorderColor"
           v-model="secondaryEmail"
           :disabled="approvedDomains.length === 0"
         />
@@ -114,6 +115,7 @@
         userRoleBorderColor: null,
         userNameBorderColor: null,
         userEmailBorderColor: null,
+        secondaryEmailBorderColor: null,
         userMobilePhoneBorderColor: null,
       }
     },
@@ -128,11 +130,24 @@
     methods: {
       ...mapMutations(['addUserData']),
       addUser() {
-        if (!this.userRole || !this.userName || !this.userEmail || !this.userMobilePhone) {
-          if (!this.userRole) this.userRoleBorderColor = 'red'
-          if (!this.userName) this.userNameBorderColor = 'red'
-          if (!this.userEmail) this.userEmailBorderColor = 'red'
-          if (!this.userMobilePhone) this.userMobilePhoneBorderColor = 'red'
+        if (!this.hasRequiredFields()) {
+          return
+        }
+
+        let userEmailIsValid = this.isValidEmail(this.userEmail)
+        let secondaryEmailIsValid = !this.secondaryEmail || this.isValidEmail(this.secondaryEmail)
+
+        if (!userEmailIsValid) {
+          this.userEmailBorderColor = 'red'
+        }
+
+        if (!secondaryEmailIsValid) {
+          if (this.secondaryEmail) {
+            this.secondaryEmailBorderColor = 'red'
+          }
+        }
+
+        if (!userEmailIsValid || !secondaryEmailIsValid) {
           return
         }
 
@@ -143,7 +158,25 @@
           role: this.userRole,
           last_active: new Date().toISOString(),
         })
+
         this.$emit('close')
+      },
+      hasRequiredFields() {
+        const requiredFields = ['userRole', 'userName', 'userEmail', 'userMobilePhone']
+        let hasMissingField = false
+
+        for (const field of requiredFields) {
+          if (!this[field]) {
+            this[`${field}BorderColor`] = 'red'
+            hasMissingField = true
+          }
+        }
+
+        return !hasMissingField
+      },
+      isValidEmail(email) {
+        const userEmailDomain = email.split('@')[1]
+        return this.approvedDomains.includes(userEmailDomain)
       },
       dismissModal() {
         this.$emit('close')
