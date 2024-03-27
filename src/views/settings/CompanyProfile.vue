@@ -1,40 +1,6 @@
 <template>
   <div class="company-profile">
-    <settings-module-layout>
-      <template #sidebar>
-        <h1>Sites</h1>
-        <p class="text--subtle">Sites are used to allocate resources.</p>
-      </template>
-      <template #content>
-        <ep-flex-container gap="6rem">
-          <template v-for="{ name, address, phoneNumber } in sites">
-            <div class="site">
-              <h2>{{ name }}</h2>
-              <div class="address">
-                <p
-                  v-for="line in address"
-                  :key="line"
-                >
-                  {{ line }}
-                </p>
-              </div>
-              <p>{{ phoneNumber }}</p>
-              <ep-flex-container gap="1rem">
-                <ep-button
-                  variant="ghost"
-                  :icon-left="{ name: 'f/edit' }"
-                />
-                <ep-button
-                  variant="ghost"
-                  :icon-left="{ name: 'f/trash-2' }"
-                />
-              </ep-flex-container>
-            </div>
-            <!-- <ep-divider vertical /> -->
-          </template>
-        </ep-flex-container>
-      </template>
-    </settings-module-layout>
+    <sites-module />
     <settings-module-layout :show-empty-state="approvedDomains.length === 0">
       <template #sidebar>
         <h1>Approved Domains </h1>
@@ -80,11 +46,15 @@
 
 <script>
   import SettingsModuleLayout from '@/views/settings/SettingsModuleLayout.vue'
+  import SitesModule from './company-profile/SitesModule.vue'
   import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'CompanyProfile',
-    components: { SettingsModuleLayout },
+    components: {
+      SettingsModuleLayout,
+      SitesModule,
+    },
     data() {
       return {
         changesUpdated: false,
@@ -92,7 +62,7 @@
       }
     },
     computed: {
-      ...mapState(['approvedDomains', 'sites']),
+      ...mapState(['approvedDomains']),
     },
     methods: {
       ...mapMutations(['addApprovedDomain', 'removeApprovedDomain']),
@@ -168,14 +138,6 @@
     font-size: 1.5rem;
     // padding-bottom: 0.5rem;
     // border-bottom: 1px solid var(--border-color);
-  }
-
-  .site {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    line-height: 1.5;
   }
 
   .approved-domain-container {
