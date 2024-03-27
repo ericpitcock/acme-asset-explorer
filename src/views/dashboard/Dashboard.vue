@@ -95,7 +95,7 @@
     height: 100%;
     width: 100%;
     padding: 3rem;
-    gap: 1rem;
+    gap: 3rem;
 
     &__overview {
       grid-area: top;

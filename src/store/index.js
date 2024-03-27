@@ -18,6 +18,23 @@ export default createStore({
       backgroundColor: 'var(--interface-surface)'
     },
     fakeUserData: fakeUserData(10),
+    sites: [
+      {
+        name: 'New York City',
+        address: ['123 Maple Street', 'Suite 405', 'New York, NY 10001'],
+        phoneNumber: '+1 (212) 555-1234'
+      },
+      {
+        name: 'London',
+        address: ['45 Primrose Lane', 'Apartment 3B', 'London W1U 2RT'],
+        phoneNumber: '+44 20 1234 5678'
+      },
+      {
+        name: 'Tokyo',
+        address: ['7 Sakura Avenue', 'Shibuya District', 'Tokyo 150-0043'],
+        phoneNumber: '+81 3 1234 5678'
+      }
+    ],
     notifications: [
       {
         id: faker.string.uuid(),

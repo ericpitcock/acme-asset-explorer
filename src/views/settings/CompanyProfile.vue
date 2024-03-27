@@ -1,16 +1,44 @@
 <template>
   <div class="company-profile">
-    <!-- <ep-header padding="0 3rem">
-      <template #right>
-        <ep-button
-          label="Save Changes"
-          variant="primary"
-          @click="handleSave"
+    <div class="company-profile__sites">
+      <ep-container container-padding="0 3rem 3rem">
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>Sites</h1>
+            </template>
+            <template #right>
+              <ep-button
+                variant="secondary"
+                :icon-left="{ name: 'f/plus' }"
+                @click="handleAddSite"
+              />
+            </template>
+          </ep-header>
+        </template>
+        <ep-flex-container
+          align-items="flex-start"
+          padding="2rem 0 0"
+          gap="6rem"
         >
-          Save
-        </ep-button>
-      </template>
-    </ep-header> -->
+          <div
+            v-for="{ name, address, phoneNumber } in sites"
+            class="site"
+          >
+            <h2>{{ name }}</h2>
+            <div class="address">
+              <p
+                v-for="line in address"
+                :key="line"
+              >
+                {{ line }}
+              </p>
+            </div>
+            <p>{{ phoneNumber }}</p>
+          </div>
+        </ep-flex-container>
+      </ep-container>
+    </div>
     <div class="company-profile__approved-domains">
       <ep-container container-padding="0 3rem 3rem">
         <template #header>
@@ -19,19 +47,17 @@
               <h1>Approved Domains <span v-if="changesUpdated">Changes
                   saved!</span></h1>
             </template>
-            <!-- <template #right>
-              <ep-button
-                label="Save Changes"
-                variant="primary"
-                @click="handleSave"
-              />
-            </template> -->
           </ep-header>
         </template>
         <ep-flex-container
           flex-flow="column nowrap"
           align-items="flex-start"
+          padding="2rem 0 0"
         >
+          <p class="text--subtle">
+            Insight access is restricted to accounts registered under
+            approved domains only.
+          </p>
           <div
             v-for="(domain, index) in approvedDomains"
             class="approved-domain-container"
@@ -46,6 +72,7 @@
             <ep-button
               variant="ghost"
               :icon-left="{ name: 'f/trash-2' }"
+              text-hover-color="red"
               @click="handleRemoveDomain(index)"
             />
           </div>
@@ -72,17 +99,20 @@
       }
     },
     computed: {
-      ...mapState(['approvedDomains']),
+      ...mapState(['approvedDomains', 'sites']),
     },
     methods: {
       ...mapMutations(['addApprovedDomain', 'removeApprovedDomain']),
       handleAddDomain() {
         this.addApprovedDomain('')
-        // give focus to the last input
+
         this.$nextTick(() => {
           const inputs = document.querySelectorAll('.approved-domain-container input')
           inputs[inputs.length - 1].focus()
         })
+      },
+      handleAddSite() {
+        console.log('Add Site')
       },
       handleBlur() {
         this.changesUpdated = false
@@ -135,7 +165,22 @@
 
 <style lang="scss" scoped>
   .company-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
     padding: 3rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    // padding-bottom: 0.5rem;
+    // border-bottom: 1px solid var(--border-color);
+  }
+
+  .site {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .approved-domain-container {
@@ -146,9 +191,14 @@
     padding: 1rem 0;
     border-bottom: 1px solid var(--border-color);
 
-    // &:first-child {
-    //   border-top: 1px solid var(--border-color);
-    // }
+    &:first-of-type {
+      margin-top: 1rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 1rem;
+    }
+
     :deep(.ep-input-styler__container) {
       align-self: flex-start;
       flex: 0 0 40rem;

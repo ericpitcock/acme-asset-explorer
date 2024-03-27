@@ -139,12 +139,16 @@
 
         if (!userEmailIsValid) {
           this.userEmailBorderColor = 'red'
+        } else {
+          this.userEmailBorderColor = '' // Reset border color if email is valid
         }
 
         if (!secondaryEmailIsValid) {
           if (this.secondaryEmail) {
             this.secondaryEmailBorderColor = 'red'
           }
+        } else {
+          this.secondaryEmailBorderColor = '' // Reset border color if email is valid
         }
 
         if (!userEmailIsValid || !secondaryEmailIsValid) {
