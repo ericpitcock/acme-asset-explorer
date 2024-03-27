@@ -8,6 +8,7 @@
       padding="0 3rem"
       sticky
       stickyTop="6.1rem"
+      background-color="var(--interface-bg)"
       z-index="var(--z-index--fixed)"
     >
       <template #left>
@@ -38,6 +39,7 @@
       sortable
       width="100%"
       padding="0 1.6rem 10rem 1.6rem"
+      header-background-color="var(--interface-bg)"
     />
     <modal v-if="showModal">
       <add-user @close="showModal = false" />

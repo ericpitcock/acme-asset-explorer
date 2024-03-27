@@ -49,7 +49,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 2rem;
     padding-right: 3rem;
     border-right: 1px solid var(--border-color);
   }
