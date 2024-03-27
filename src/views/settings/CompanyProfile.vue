@@ -1,63 +1,54 @@
 <template>
   <div class="company-profile">
-    <div class="company-profile__sites">
-      <ep-container container-padding="0 3rem 3rem">
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>Sites</h1>
-            </template>
-            <template #right>
-              <ep-button
-                variant="secondary"
-                :icon-left="{ name: 'f/plus' }"
-                @click="handleAddSite"
-              />
-            </template>
-          </ep-header>
-        </template>
-        <ep-flex-container
-          align-items="flex-start"
-          padding="2rem 0 0"
-          gap="6rem"
-        >
-          <div
-            v-for="{ name, address, phoneNumber } in sites"
-            class="site"
-          >
-            <h2>{{ name }}</h2>
-            <div class="address">
-              <p
-                v-for="line in address"
-                :key="line"
-              >
-                {{ line }}
-              </p>
+    <settings-module-layout>
+      <template #sidebar>
+        <h1>Sites</h1>
+        <p class="text--subtle">Sites are used to allocate resources.</p>
+      </template>
+      <template #content>
+        <ep-flex-container gap="6rem">
+          <template v-for="{ name, address, phoneNumber } in sites">
+            <div class="site">
+              <h2>{{ name }}</h2>
+              <div class="address">
+                <p
+                  v-for="line in address"
+                  :key="line"
+                >
+                  {{ line }}
+                </p>
+              </div>
+              <p>{{ phoneNumber }}</p>
+              <ep-flex-container gap="1rem">
+                <ep-button
+                  variant="ghost"
+                  :icon-left="{ name: 'f/edit' }"
+                />
+                <ep-button
+                  variant="ghost"
+                  :icon-left="{ name: 'f/trash-2' }"
+                />
+              </ep-flex-container>
             </div>
-            <p>{{ phoneNumber }}</p>
-          </div>
+            <!-- <ep-divider vertical /> -->
+          </template>
         </ep-flex-container>
-      </ep-container>
-    </div>
-    <div class="company-profile__approved-domains">
-      <ep-container container-padding="0 3rem 3rem">
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>Approved Domains <span v-if="changesUpdated">Changes
-                  saved!</span></h1>
-            </template>
-          </ep-header>
-        </template>
+      </template>
+    </settings-module-layout>
+    <settings-module-layout :show-empty-state="approvedDomains.length === 0">
+      <template #sidebar>
+        <h1>Approved Domains </h1>
+        <p class="text--subtle">
+          Insight access is restricted to accounts registered under
+          approved domains only.
+        </p>
+        <p v-if="changesUpdated">Changes saved!</p>
+      </template>
+      <template #content>
         <ep-flex-container
           flex-flow="column nowrap"
           align-items="flex-start"
-          padding="2rem 0 0"
         >
-          <p class="text--subtle">
-            Insight access is restricted to accounts registered under
-            approved domains only.
-          </p>
           <div
             v-for="(domain, index) in approvedDomains"
             class="approved-domain-container"
@@ -82,16 +73,18 @@
             @click="handleAddDomain"
           />
         </ep-flex-container>
-      </ep-container>
-    </div>
+      </template>
+    </settings-module-layout>
   </div>
 </template>
 
 <script>
+  import SettingsModuleLayout from '@/views/settings/SettingsModuleLayout.vue'
   import { mapMutations, mapState } from 'vuex'
 
   export default {
     name: 'CompanyProfile',
+    components: { SettingsModuleLayout },
     data() {
       return {
         changesUpdated: false,
@@ -135,7 +128,7 @@
         // if the input is not empty, confirm the user wants to remove the domain
         this.$epDialog.open({
           title: 'Warning',
-          message: `Are you sure you want to remove the domain "${this.approvedDomains[index]}"?`, // eslint-disable-line no-template-curly-in-string
+          message: `Are you sure you want to remove the domain "${this.approvedDomains[index]}"? All users registered under this domain will be disabled.`, // eslint-disable-line no-template-curly-in-string
           buttons: [
             { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
             { variant: 'danger', text: 'Remove Domain', action: () => this.removeApprovedDomain(index) }
@@ -180,7 +173,9 @@
   .site {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
+    line-height: 1.5;
   }
 
   .approved-domain-container {
@@ -192,7 +187,7 @@
     border-bottom: 1px solid var(--border-color);
 
     &:first-of-type {
-      margin-top: 1rem;
+      border-top: 1px solid var(--border-color);
     }
 
     &:last-of-type {
