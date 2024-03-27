@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import SettingsModuleLayout from '@/views/settings/SettingsModuleLayout.vue'
+  import SettingsModuleLayout from '../SettingsModuleLayout.vue'
   import { mapMutations, mapState } from 'vuex'
 
   export default {
