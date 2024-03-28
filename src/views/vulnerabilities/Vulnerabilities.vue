@@ -23,7 +23,7 @@
       </template>
       <ep-chart
         :options="vulnChartOptions"
-        :chartColors="null"
+        :chart-colors="null"
       />
     </ep-container>
     <ep-container

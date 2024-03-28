@@ -28,12 +28,12 @@
       flex: 0 0 20rem;
       // height: 100%;
       border-right: 1px solid var(--border-color);
-      background: red;
+      // background: red;
     }
 
     .sidebar-layout__content {
       flex: 1;
-      background-color: blue;
+      // background-color: blue;
       // padding: 20px;
     }
   }

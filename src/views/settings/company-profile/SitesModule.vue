@@ -5,7 +5,7 @@
       <p class="text--subtle">Sites are used to allocate resources.</p>
     </template>
     <template #content>
-      <ep-flex-container gap="6rem">
+      <ep-flex-container gap="1rem">
         <template v-for="{ name, address, phoneNumber } in sites">
           <div class="site">
             <h2>{{ name }}</h2>
@@ -20,11 +20,12 @@
             <p>{{ phoneNumber }}</p>
             <ep-flex-container gap="1rem">
               <ep-button
-                variant="ghost"
+                label="Edit"
+                variant="secondary"
                 :icon-left="{ name: 'f/edit' }"
               />
               <ep-button
-                variant="ghost"
+                variant="secondary"
                 :icon-left="{ name: 'f/trash-2' }"
               />
             </ep-flex-container>
@@ -50,10 +51,15 @@
 
 <style lang="scss" scoped>
   .site {
+    flex: 0 1 20rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+    background: var(--interface-foreground);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     line-height: 1.5;
   }
 </style>

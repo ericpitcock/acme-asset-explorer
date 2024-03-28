@@ -41,7 +41,10 @@
           .filter(service => service.configurable === true)
           .map(service => ({
             label: service.name,
-            command: () => this.$router.push(`/settings/service-config/${service.name.toLowerCase().replace(' ', '-')}`)
+            // command: () => this.$router.push(`/settings/service-config/${service.name.toLowerCase().replace(' ', '-')}`)
+            bind: {
+              to: `/settings/service-config/${service.name.toLowerCase().replace(' ', '-')}`
+            }
           }))
 
         activeServices.unshift({
