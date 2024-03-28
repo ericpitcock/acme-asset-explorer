@@ -8,6 +8,9 @@ import Reports from '@/views/reports/Reports.vue'
 import Files from '@/views/files/Files.vue'
 import Settings from '@/views/settings/Settings.vue'
 import ServiceConfig from '@/views/settings/ServiceConfig.vue'
+import Network from '@/views/settings/service-config/Network.vue'
+import Endpoint from '@/views/settings/service-config/Endpoint.vue'
+import Cloud from '@/views/settings/service-config/Cloud.vue'
 import Users from '@/views/settings/Users.vue'
 import Notifications from '@/views/settings/Notifications.vue'
 import CompanyProfile from '@/views/settings/CompanyProfile.vue'
@@ -121,6 +124,34 @@ const settingsRoutes = settingsChildren.map((child) => {
 })
 
 routes[7].children.push(...settingsRoutes)
+
+// children routes for service-config
+routes[7].children[1].children = [
+  {
+    path: 'network',
+    name: 'network',
+    component: Network,
+    meta: {
+      title: 'Network',
+    },
+  },
+  {
+    path: 'endpoint',
+    name: 'endpoint',
+    component: Endpoint,
+    meta: {
+      title: 'Endpoint',
+    },
+  },
+  {
+    path: 'cloud',
+    name: 'cloud',
+    component: Cloud,
+    meta: {
+      title: 'Cloud',
+    },
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

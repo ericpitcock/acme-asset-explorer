@@ -9,7 +9,7 @@
         />
       </template>
       <template #content>
-        content
+        <router-view />
       </template>
     </SidebarLayout>
   </div>
@@ -18,6 +18,7 @@
 <script>
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import services from '../services/services.json'
+  import { compile } from 'vue'
 
   export default {
     name: 'ServiceConfig',
@@ -38,7 +39,10 @@
         const activeServices = this.services
           .filter(service => service.status === 'Active')
           .filter(service => service.configurable === true)
-          .map(service => ({ label: service.name }))
+          .map(service => ({
+            label: service.name,
+            command: () => this.$router.push(`/settings/service-config/${service.name.toLowerCase().replace(' ', '-')}`)
+          }))
 
         activeServices.unshift({
           section: true,
