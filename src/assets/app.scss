@@ -7,7 +7,7 @@
     hsl(0, 0%, 12%) 80%
   );
   // modal overlay background color
-  --modal-overlay-background: rgba(22, 22, 22, 0.95);
+  --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
 }
 
@@ -20,6 +20,14 @@ html[data-color-theme='light'] {
     hsl(0, 0%, 20%) 80%
   );
   // modal overlay background color
-  --modal-overlay-background: rgba(224, 224, 224, 0.95);
+  --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
+}
+
+// type
+h1 {
+  font-size: var(--font-size--body);
+}
+h2 {
+  font-size: var(--font-size--body);
 }

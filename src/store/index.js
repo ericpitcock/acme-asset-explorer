@@ -114,6 +114,9 @@ export default createStore({
         n => n.id !== notification.id
       )
     },
+    removeSite: (state, index) => {
+      state.sites.splice(index, 1)
+    },
     toggleNotificationCenter: state => {
       state.notificationCenterOpen = !state.notificationCenterOpen
     }

@@ -153,12 +153,11 @@
       flex-direction: column;
       gap: 1rem;
 
-      h2 {
-        // margin-bottom: 1rem;
-        font-size: var(--font-size--large);
-        font-variation-settings: 'wght' 300;
-      }
-
+      // h2 {
+      //   // margin-bottom: 1rem;
+      //   font-size: var(--font-size--large);
+      //   font-variation-settings: 'wght' 300;
+      // }
       .service-info__services {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));

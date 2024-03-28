@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div class="modal">
-      <div class="modal-content">
+      <div class="modal__content">
         <slot></slot>
       </div>
     </div>
@@ -27,5 +27,10 @@
     padding-top: 6rem;
     background-color: var(--modal-overlay-background);
     z-index: var(--z-index--modal);
+    backdrop-filter: blur(3px);
+
+    &__content {
+      box-shadow: var(--box-shadow--modal);
+    }
   }
 </style>

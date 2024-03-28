@@ -1,12 +1,12 @@
 <template>
-  <settings-module-layout>
+  <settings-module-layout :show-empty-state="sites.length === 0">
     <template #sidebar>
       <h1>Sites</h1>
       <p class="text--subtle">Sites are used to allocate resources.</p>
     </template>
     <template #content>
       <ep-flex-container gap="1rem">
-        <template v-for="{ name, address, phoneNumber } in sites">
+        <template v-for="({ name, address, phoneNumber }, index) in sites">
           <div class="site">
             <h2>{{ name }}</h2>
             <div class="address">
@@ -18,7 +18,11 @@
               </p>
             </div>
             <p>{{ phoneNumber }}</p>
-            <ep-flex-container gap="1rem">
+            <ep-flex-container
+              padding="1rem 0 0"
+              gap="1rem"
+              class="site__buttons"
+            >
               <ep-button
                 label="Edit"
                 variant="secondary"
@@ -27,6 +31,7 @@
               <ep-button
                 variant="secondary"
                 :icon-left="{ name: 'f/trash-2' }"
+                @click="handleRemoveSite(index)"
               />
             </ep-flex-container>
           </div>
@@ -46,6 +51,19 @@
     computed: {
       ...mapState(['sites']),
     },
+    methods: {
+      ...mapMutations(['removeSite']),
+      handleRemoveSite(index) {
+        this.$epDialog.open({
+          title: 'Warning',
+          message: `Are you sure you want to remove the site "${this.sites[index].name}"? All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
+          buttons: [
+            { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
+            { variant: 'danger', text: 'Remove Site', action: () => this.removeSite(index) }
+          ]
+        })
+      },
+    },
   }
 </script>
 
@@ -61,5 +79,10 @@
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     line-height: 1.5;
+
+    &__buttons {
+      border-top: 1px solid var(--border-color);
+      margin-top: 1rem;
+    }
   }
 </style>
