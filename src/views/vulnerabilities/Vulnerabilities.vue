@@ -15,46 +15,52 @@
         />
       </template>
     </ep-header>
-    <ep-container
-      v-bind="commonContainerProps"
-      content-padding="3rem 0 1rem 0"
-    >
-      <template #header>
-        <ep-header v-bind="commonHeaderProps">
-          <template #left>
-            <h1>Severity Over Time</h1>
-          </template>
-          <template #right>
-            <!-- <ep-date-picker
-              mode="range"
-              positionX="right"
-              :inputProps="{
-                size: 'large',
-                backgroundColor: 'var(--interface-foreground)'
-              }"
-            /> -->
-          </template>
-        </ep-header>
+    <sidebar-layout>
+      <template #sidebar>
+        <!-- <ep-menu
+          :menu-items="menuItems"
+          menu-type="nav"
+          :container-props="containerProps"
+        /> -->
+        sidebar
       </template>
-      <ep-chart
-        :options="vulnChartOptions"
-        :chart-colors="null"
-      />
-    </ep-container>
-    <ep-container
-      v-bind="commonContainerProps"
-      container-padding="3rem"
-    >
-      <ep-table
-        :columns="tableColumns"
-        :data="vulnData"
-        v-bind="tableProps"
-      />
-    </ep-container>
+      <template #content>
+
+        <ep-container
+          v-bind="commonContainerProps"
+          content-padding="3rem 0 1rem 0"
+        >
+          <template #header>
+            <ep-header v-bind="commonHeaderProps">
+              <template #left>
+                <h1>Severity Over Time</h1>
+              </template>
+              <template #right>
+              </template>
+            </ep-header>
+          </template>
+          <ep-chart
+            :options="vulnChartOptions"
+            :chart-colors="null"
+          />
+        </ep-container>
+        <ep-container
+          v-bind="commonContainerProps"
+          container-padding="3rem"
+        >
+          <ep-table
+            :columns="tableColumns"
+            :data="vulnData"
+            v-bind="tableProps"
+          />
+        </ep-container>
+      </template>
+    </sidebar-layout>
   </div>
 </template>
 
 <script>
+  import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions'
   import * as vulnData from './vulnData'
@@ -62,6 +68,7 @@
   export default {
     name: 'Vulnerabilities',
     components: {
+      SidebarLayout
     },
     data() {
       return {
@@ -124,7 +131,6 @@
         'rightPanelOpen',
       ])
     },
-    // watch leftPanelCollapsed and rightPanelOpen for changes and update the chart as if the window was resized
     watch: {
       leftPanelCollapsed() {
         this.$nextTick(() => {
@@ -146,11 +152,11 @@
     --chart-sequence-01: var(--severity-color--medium);
     --chart-sequence-02: var(--severity-color--high);
     --chart-sequence-03: var(--severity-color--critical);
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    height: 100%;
 
+    // display: flex;
+    // flex-direction: column;
+    // gap: 2rem;
+    // height: 100%;
     // // padding: 3rem;
     // > *:not(:first-child) {
     //   margin-top: 2rem;

@@ -18,23 +18,23 @@
 <style lang="scss" scoped>
   .sidebar-layout {
     display: flex;
-    width: 100%;
-    height: 100%;
 
-    // background-color: red;
-    // height: 100%;
-    // background-color: red;
     .sidebar-layout__sidebar {
       flex: 0 0 20rem;
-      // height: 100%;
-      border-right: 1px solid var(--border-color);
-      // background: red;
+      position: sticky;
+      top: 6.1rem;
+      align-self: flex-start;
+      padding: 1rem 3rem 20rem 3rem;
+      // border-right: 1px solid var(--border-color);
     }
 
     .sidebar-layout__content {
       flex: 1;
-      // background-color: blue;
-      // padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 1rem 20rem 0;
+      overflow: auto;
     }
   }
 </style>

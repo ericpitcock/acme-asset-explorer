@@ -3,6 +3,7 @@ yalc.lock
 .DS_Store
 node_modules
 /dist
+dashboard-features.txt
 
 
 # local env files
