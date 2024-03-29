@@ -74,7 +74,7 @@ export default createStore({
     ],
     // notificationCenterOpen: false,
     // sidebar: false,
-    leftPanelOpen: true,
+    leftPanelCollapsed: false,
     rightPanelOpen: false,
     theme: 'dark'
   },
@@ -120,8 +120,8 @@ export default createStore({
       state.sites.splice(index, 1)
     },
     toggleLeftPanel: state => {
-      state.leftPanelOpen = !state.leftPanelOpen
-      console.log('toggleLeftPanel mutation', state.leftPanelOpen)
+      state.leftPanelCollapsed = !state.leftPanelCollapsed
+      console.log('toggleLeftPanel mutation', state.leftPanelCollapsed)
     },
     toggleRightPanel: state => {
       state.rightPanelOpen = !state.rightPanelOpen

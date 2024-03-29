@@ -1,5 +1,7 @@
 <template>
-  <div :class="['nav-container', { 'nav-container--collapsed': collapsed }]">
+  <div
+    :class="['nav-container', { 'nav-container--collapsed': leftPanelCollapsed }]"
+  >
     <nav class="main-nav">
       <div class="main-nav__item main-nav__item--logo">
         <!-- <acme-logo :type="logoType" /> -->
@@ -37,12 +39,12 @@
       // AcmeLogo,
       EsentireLogo
     },
-    props: {
-      collapsed: {
-        type: Boolean,
-        default: false
-      }
-    },
+    // props: {
+    //   collapsed: {
+    //     type: Boolean,
+    //     default: false
+    //   }
+    // },
     data() {
       return {
         navItems: [
@@ -85,9 +87,9 @@
       }
     },
     computed: {
-      ...mapState(['sidebar']),
+      ...mapState(['leftPanelCollapsed']),
       logoType() {
-        return this.collapsed ? 'icon' : 'full'
+        return this.leftPanelCollapsed ? 'icon' : 'full'
       }
     }
   }

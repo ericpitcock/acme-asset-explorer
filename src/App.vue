@@ -36,11 +36,11 @@
     data() {
       return {
         // gridProps: {
-        //   leftPanelOpen: ,
+        //   leftPanelCollapsed: ,
         //   rightPanelOpen: false,
         // },
         navProps: {
-          collapsed: false,
+          collapsed: this.leftPanelCollapsed,
         }
       }
     },
@@ -60,7 +60,7 @@
       // }
     },
     computed: {
-      ...mapState(['theme']),
+      ...mapState(['theme', 'leftPanelCollapsed']),
       containerProps() {
         return {
           borderWidth: '0',

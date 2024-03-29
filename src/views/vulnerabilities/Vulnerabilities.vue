@@ -120,13 +120,13 @@
         'commonContainerProps',
         'commonHeaderProps',
         'commonFooterProps',
-        'leftPanelOpen',
+        'leftPanelCollapsed',
         'rightPanelOpen',
       ])
     },
-    // watch leftPanelOpen and rightPanelOpen for changes and update the chart as if the window was resized
+    // watch leftPanelCollapsed and rightPanelOpen for changes and update the chart as if the window was resized
     watch: {
-      leftPanelOpen() {
+      leftPanelCollapsed() {
         this.$nextTick(() => {
           window.dispatchEvent(new Event('resize'))
         })

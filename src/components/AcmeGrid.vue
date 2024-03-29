@@ -5,10 +5,7 @@
         <slot name="header" />
       </div>
       <div class="grid">
-        <div
-          v-show="leftPanelOpen"
-          class="left-panel"
-        >
+        <div class="left-panel">
           <slot name="left-panel" />
         </div>
         <div class="content">
@@ -31,7 +28,7 @@
   export default {
     name: 'AcmeGrid',
     // props: {
-    //   leftPanelOpen: {
+    //   leftPanelCollapsed: {
     //     type: Boolean,
     //     default: true
     //   },
@@ -41,13 +38,13 @@
     //   }
     // },
     computed: {
-      ...mapState(['leftPanelOpen', 'rightPanelOpen']),
-      gridClasses() {
-        return {
-          'left-panel-closed': !this.leftPanelOpen,
-          'right-panel-closed': !this.rightPanelOpen
-        }
-      }
+      ...mapState(['leftPanelCollapsed', 'rightPanelOpen']),
+      // gridClasses() {
+      //   return {
+      //     'left-panel-closed': !this.leftPanelCollapsed,
+      //     'right-panel-closed': !this.rightPanelOpen
+      //   }
+      // }
     }
   }
 </script>
