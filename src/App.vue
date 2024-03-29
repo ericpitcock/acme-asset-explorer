@@ -1,5 +1,5 @@
 <template>
-  <acme-grid v-bind="gridProps">
+  <acme-grid>
     <template #header>
       <acme-header
         @menuButtonClicked="toggleLeftPanel"
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapMutations } from 'vuex'
 
   import AcmeGrid from '@/components/AcmeGrid.vue'
   import AcmeHeader from '@/components/AcmeHeader.vue'
@@ -35,10 +35,10 @@
     name: 'AcmeAssetExplorer',
     data() {
       return {
-        gridProps: {
-          leftPanelOpen: true,
-          rightPanelOpen: false,
-        },
+        // gridProps: {
+        //   leftPanelOpen: ,
+        //   rightPanelOpen: false,
+        // },
         navProps: {
           collapsed: false,
         }
@@ -51,12 +51,13 @@
     },
     methods: {
       ...mapActions(['toggleTheme']),
-      toggleLeftPanel() {
-        this.navProps.collapsed = !this.navProps.collapsed
-      },
-      toggleRightPanel() {
-        this.gridProps.rightPanelOpen = !this.gridProps.rightPanelOpen
-      }
+      ...mapMutations(['toggleLeftPanel', 'toggleRightPanel']),
+      // toggleLeftPanel() {
+      //   this.navProps.collapsed = !this.navProps.collapsed
+      // },
+      // toggleRightPanel() {
+      //   this.gridProps.rightPanelOpen = !this.gridProps.rightPanelOpen
+      // }
     },
     computed: {
       ...mapState(['theme']),

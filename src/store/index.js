@@ -72,8 +72,10 @@ export default createStore({
         timestamp: faker.date.recent().toISOString()
       }
     ],
-    notificationCenterOpen: false,
+    // notificationCenterOpen: false,
     // sidebar: false,
+    leftPanelOpen: true,
+    rightPanelOpen: false,
     theme: 'dark'
   },
   getters: {
@@ -117,9 +119,17 @@ export default createStore({
     removeSite: (state, index) => {
       state.sites.splice(index, 1)
     },
-    toggleNotificationCenter: state => {
-      state.notificationCenterOpen = !state.notificationCenterOpen
+    toggleLeftPanel: state => {
+      state.leftPanelOpen = !state.leftPanelOpen
+      console.log('toggleLeftPanel mutation', state.leftPanelOpen)
+    },
+    toggleRightPanel: state => {
+      state.rightPanelOpen = !state.rightPanelOpen
+      console.log('toggleRightPanel mutation', state.rightPanelOpen)
     }
+    // toggleNotificationCenter: state => {
+    //   state.notificationCenterOpen = !state.notificationCenterOpen
+    // }
   },
   actions: {
     addNotification: ({ state, commit }, notification) => {

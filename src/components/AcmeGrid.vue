@@ -26,19 +26,22 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name: 'AcmeGrid',
-    props: {
-      leftPanelOpen: {
-        type: Boolean,
-        default: true
-      },
-      rightPanelOpen: {
-        type: Boolean,
-        default: false
-      }
-    },
+    // props: {
+    //   leftPanelOpen: {
+    //     type: Boolean,
+    //     default: true
+    //   },
+    //   rightPanelOpen: {
+    //     type: Boolean,
+    //     default: false
+    //   }
+    // },
     computed: {
+      ...mapState(['leftPanelOpen', 'rightPanelOpen']),
       gridClasses() {
         return {
           'left-panel-closed': !this.leftPanelOpen,

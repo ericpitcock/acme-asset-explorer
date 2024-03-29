@@ -119,14 +119,23 @@
       ...mapState([
         'commonContainerProps',
         'commonHeaderProps',
-        'commonFooterProps'
+        'commonFooterProps',
+        'leftPanelOpen',
+        'rightPanelOpen',
       ])
     },
-    methods: {
-
-    },
-    mounted() {
-
+    // watch leftPanelOpen and rightPanelOpen for changes and update the chart as if the window was resized
+    watch: {
+      leftPanelOpen() {
+        this.$nextTick(() => {
+          window.dispatchEvent(new Event('resize'))
+        })
+      },
+      rightPanelOpen() {
+        this.$nextTick(() => {
+          window.dispatchEvent(new Event('resize'))
+        })
+      }
     }
   }
 </script>
@@ -147,6 +156,12 @@
     //   margin-top: 2rem;
     // }
     :deep(.highcharts-legend-item-hidden text tspan) {
+      fill: var(--text-color--subtle) !important;
+    }
+
+    :deep(.highcharts-xaxis-labels text),
+    :deep(.highcharts-yaxis-labels text) {
+      font-size: var(--font-size--xsmall);
       fill: var(--text-color--subtle) !important;
     }
   }
