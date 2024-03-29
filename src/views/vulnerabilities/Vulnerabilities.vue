@@ -110,7 +110,8 @@
           bordered: true,
           verticalAlign: 'top',
           stickyHeader: true,
-          stickyTop: 0
+          stickyTop: 0,
+          sortable: true,
         }
       }
     },
@@ -132,10 +133,21 @@
 
 <style lang="scss" scoped>
   .vulnerabilities {
+    --chart-sequence-00: var(--severity-color--low);
+    --chart-sequence-01: var(--severity-color--medium);
+    --chart-sequence-02: var(--severity-color--high);
+    --chart-sequence-03: var(--severity-color--critical);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
 
-    // padding: 3rem;
-    > *:not(:first-child) {
-      margin-top: 2rem;
+    // // padding: 3rem;
+    // > *:not(:first-child) {
+    //   margin-top: 2rem;
+    // }
+    :deep(.highcharts-legend-item-hidden text tspan) {
+      fill: var(--text-color--subtle) !important;
     }
   }
 </style>

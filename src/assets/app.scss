@@ -1,3 +1,4 @@
+// dark mode
 :root {
   --app-header-background: linear-gradient(
     150deg, 
@@ -9,8 +10,15 @@
   // modal overlay background color
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
+
+  // severity colors for low, medium, high, critical
+  --severity-color--low: hsl(120, 6%, 67%);
+  --severity-color--medium: hsl(60, 62%, 65%);
+  --severity-color--high: hsl(31, 70%, 50%);
+  --severity-color--critical: hsl(341, 70%, 50%);
 }
 
+// light mode
 html[data-color-theme='light'] {
   --app-header-background: linear-gradient(
     150deg, 
@@ -22,6 +30,12 @@ html[data-color-theme='light'] {
   // modal overlay background color
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
+
+  // severity colors for low, medium, high, critical
+  --severity-color--low: hsl(0, 0%, 63%);
+  --severity-color--medium: hsl(41, 69%, 57%);
+  --severity-color--high: hsl(27, 75%, 56%);
+  --severity-color--critical: hsl(338, 63%, 49%);
 }
 
 // type

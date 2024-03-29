@@ -48,25 +48,19 @@ const vulnChartOptions = {
       fontFamily: 'Proxima Nova, sans-serif'
     },
     styledMode: true,
-    type: 'column'
+    type: 'column',
   },
-  colors: ['#e74c3c', '#f39c12', '#f1c40f', '#bdc3c7'],
   plotOptions: {
     column: {
       dataLabels: {
         enabled: false,
-        // color: textColor,
-        // position: 'left',
-        verticalAlign: 'top'
+        verticalAlign: 'top',
       }
     },
     series: {
       groupPadding: 0.2,
-      stacking: 'normal'
-      // dataLabels: {
-      //   enabled: true // IT'S HERE
-      // }
-    }
+      stacking: 'normal',
+    },
   },
   series: stackedColumnSeries(),
   xAxis: {
