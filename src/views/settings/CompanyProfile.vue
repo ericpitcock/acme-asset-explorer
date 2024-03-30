@@ -22,7 +22,7 @@
   .company-profile {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    padding: 3rem;
+    gap: 2rem;
+    padding: 2rem;
   }
 </style>

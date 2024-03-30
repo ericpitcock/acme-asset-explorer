@@ -32,9 +32,10 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding: 1rem 1rem 20rem 0;
-      overflow: auto;
+      gap: 2rem;
+      padding: 2rem 2rem 20rem 0;
+      // need this
+      overflow-x: auto;
     }
   }
 </style>

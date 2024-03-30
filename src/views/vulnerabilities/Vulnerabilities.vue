@@ -46,12 +46,13 @@
         </ep-container>
         <ep-container
           v-bind="commonContainerProps"
-          container-padding="3rem"
+          container-padding="1rem 3rem 3rem"
         >
           <ep-table
             :columns="tableColumns"
             :data="vulnData"
             v-bind="tableProps"
+            style="width: 100%;"
           />
         </ep-container>
       </template>
@@ -87,38 +88,55 @@
         tableColumns: [
           {
             header: 'ID',
-            key: 'id'
+            key: 'id',
+            formatter: (value) => {
+              return `<span style="white-space: nowrap;">${value}</span>`
+            }
           },
           {
             header: 'Description',
             key: 'description',
             formatter: (value) => {
-              return value.substring(0, 300)
+              const subString = value.substring(0, 100)
+              // span with 1.5 line height
+              return `<span style="line-height: 1.5;">${subString}...</span>`
             }
           },
           {
-            header: 'Base Score',
+            header: 'Score',
             key: 'baseScore'
           },
           {
-            header: 'Base Severity',
-            key: 'baseSeverity'
+            header: 'Severity',
+            key: 'baseSeverity',
+            // lower case all, capitalize the first letter of the string
+            formatter: (value) => {
+              return value.toLowerCase().replace(/\b\w/g, (l) => l.toUpperCase())
+            }
           },
           {
             header: 'Published Date',
-            key: 'publishedDate'
+            key: 'publishedDate',
+            formatter: (value) => {
+              const date = new Date(value).toLocaleString()
+              return `<span style="white-space: nowrap;">${date}</span>`
+            }
           },
           {
             header: 'Last Modified Date',
-            key: 'lastModifiedDate'
+            key: 'lastModifiedDate',
+            formatter: (value) => {
+              const date = new Date(value).toLocaleString()
+              return `<span style="white-space: nowrap;">${date}</span>`
+            }
           }
         ],
         tableProps: {
           bordered: true,
-          verticalAlign: 'top',
-          stickyHeader: true,
-          stickyTop: 0,
+          // stickyHeader: true,
+          // stickyTop: 61,
           sortable: true,
+          width: '100%',
         }
       }
     },
@@ -169,6 +187,11 @@
     :deep(.highcharts-yaxis-labels text) {
       font-size: var(--font-size--xsmall);
       fill: var(--text-color--subtle) !important;
+    }
+
+    :deep(.ep-table-container) {
+      // overflow: revert;
+      overflow-x: auto;
     }
   }
 </style>

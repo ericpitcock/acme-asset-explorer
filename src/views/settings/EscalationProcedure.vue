@@ -80,7 +80,7 @@
   .escalation-procedure {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    padding: 3rem;
+    gap: 1rem;
+    padding: 2rem;
   }
 </style>
