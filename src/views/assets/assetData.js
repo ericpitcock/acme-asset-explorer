@@ -81,7 +81,10 @@ const fakeArray = length => {
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
       ip_address: faker.internet.ipv4(),
       vulnerabilities: {
-        bar: []
+        value: null,
+        props : {
+          bar: []
+        },
       },
       location: faker.helpers.arrayElement([
         'New York City',
@@ -141,7 +144,9 @@ const assetData = fakeArray(100)
 
 // merge the two arrays with fakeData into fakeData2 at a specific index
 assetData.forEach((item, index) => {
-  assetData[index].vulnerabilities.bar = fakeData[index].vulnerabilities
+  assetData[index].vulnerabilities.props.bar = fakeData[index].vulnerabilities
+  // add total vulnerabilities.value to each object
+  assetData[index].vulnerabilities.value = fakeData[index].vulnerabilities[4]
 })
 
 export { assetColumns, assetData }
