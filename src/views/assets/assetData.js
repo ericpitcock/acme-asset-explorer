@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker'
+import { markRaw } from 'vue'
+import EpSparkBar from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/spark-bar/EpSparkBar.vue'
 
-const columns = [
+const assetColumns = [
   {
     header: 'ID',
     key: 'id'
@@ -24,7 +26,8 @@ const columns = [
   {
     header: 'Vulnerabilities',
     key: 'vulnerabilities',
-    cellType: 'component'
+    cellType: 'component',
+    component: markRaw(EpSparkBar),
   },
   {
     header: 'Location',
@@ -78,10 +81,7 @@ const fakeArray = length => {
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
       ip_address: faker.internet.ipv4(),
       vulnerabilities: {
-        component: 'ep-spark-bar',
-        props: {
-          bar: []
-        }
+        bar: []
       },
       location: faker.helpers.arrayElement([
         'New York City',
@@ -137,13 +137,11 @@ fakeData.forEach((item, index) => {
 })
 
 // create the array of objects with random data
-const fakeData2 = fakeArray(100)
+const assetData = fakeArray(100)
 
 // merge the two arrays with fakeData into fakeData2 at a specific index
-fakeData2.forEach((item, index) => {
-  fakeData2[index].vulnerabilities.props.bar = fakeData[index].vulnerabilities
+assetData.forEach((item, index) => {
+  assetData[index].vulnerabilities.bar = fakeData[index].vulnerabilities
 })
 
-const merged = fakeData2
-
-export { columns, merged }
+export { assetColumns, assetData }

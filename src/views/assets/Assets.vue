@@ -51,7 +51,7 @@
 </template>
 
 <script>
-  import { columns, merged } from './assetData'
+  import { assetColumns, assetData } from './assetData'
 
   export default {
     name: 'Assets',
@@ -59,7 +59,8 @@
     },
     data() {
       return {
-        assetCount: merged.length,
+        assetColumns,
+        assetCount: assetData.length,
         containerProps: {
           backgroundColor: 'var(--interface-overlay)',
           borderColor: 'var(--border-color--lighter)',
@@ -85,8 +86,8 @@
         },
         search: [],
         tableProps: {
-          columns,
-          data: merged,
+          columns: assetColumns,
+          data: assetData,
           exclude: ['id'],
           headerBackgroundColor: 'var(--interface-surface)',
           stickyHeader: true,
@@ -104,7 +105,7 @@
     },
     computed: {
       filters() {
-        const filters = columns.map(column => {
+        const filters = this.assetColumns.map(column => {
           return {
             id: column.key,
             name: 'columns',
