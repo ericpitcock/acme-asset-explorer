@@ -17,12 +17,18 @@
     </ep-header>
     <sidebar-layout>
       <template #sidebar>
-        <!-- <ep-checkbox
-          v-for="filter in filters"
-          :key="filter.id"
-          v-bind="filter"
-          @checkchange="handleFilter"
-        /> -->
+        <ep-flex-container
+          flex-flow="column nowrap"
+          gap="1rem"
+          padding="1rem 0"
+        >
+          <ep-checkbox
+            v-for="severity in severityFilters"
+            :key="severity"
+            v-bind="severity"
+            @checkchange="handleFilter"
+          />
+        </ep-flex-container>
       </template>
       <template #content>
 
@@ -47,7 +53,7 @@
         >
           <ep-table
             :columns="vulnTableColumns"
-            :data="vulnTableData"
+            :data="filteredVulnData"
             v-bind="tableProps"
             style="width: 100%;"
           />
@@ -62,11 +68,13 @@
   import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
+  import EpFlexContainer from '@ericpitcock/epicenter-vue-components/src/components/flexbox/EpFlexContainer.vue'
 
   export default {
     name: 'Vulnerabilities',
     components: {
-      SidebarLayout
+      SidebarLayout,
+      EpFlexContainer
     },
     data() {
       return {
@@ -80,8 +88,8 @@
           padding: '0 3rem',
           zIndex: 'var(--z-index--fixed)',
         },
+        filters: ['low'],
         hiddenColumns: [],
-        vulnChartOptions,
         tableProps: {
           bordered: true,
           // stickyHeader: true,
@@ -90,6 +98,7 @@
           width: '100%',
           exclude: [],
         },
+        vulnChartOptions,
         vulnTableColumns,
         vulnTableData,
       }
@@ -102,20 +111,50 @@
         'leftPanelCollapsed',
         'rightPanelOpen',
       ]),
-      filters() {
-        const filters = this.vulnTableColumns.map(column => {
+      filteredVulnData() {
+        // for each filter in this.filters, filter the vulnTableData prop severity column
+        return this.vulnTableData.filter(row => {
+          return !this.filters.includes(row.baseSeverity.toLowerCase())
+        })
+      },
+      // filters() {
+      //   const filters = this.vulnTableColumns.map(column => {
+      //     return {
+      //       id: column.key,
+      //       name: 'columns',
+      //       value: column.key,
+      //       checked: !this.hiddenColumns.includes(column.key),
+      //       label: column.header,
+      //       disabled: false,
+      //     }
+      //   })
+      //   // remove everything from this.tablesProps.exclude
+      //   return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
+      // },
+      severityFilters() {
+        const severityLevels = ['Low', 'Medium', 'High', 'Critical']
+        return severityLevels.map(severity => {
           return {
-            id: column.key,
-            name: 'columns',
-            value: column.key,
-            checked: !this.hiddenColumns.includes(column.key),
-            label: column.header,
+            id: severity.toLowerCase(),
+            name: 'severity',
+            value: severity.toLowerCase(),
+            checked: !this.filters.includes(severity.toLowerCase()),
+            label: severity,
             disabled: false,
           }
         })
-        // remove everything from this.tablesProps.exclude
-        return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
-      }
+      },
+    },
+    methods: {
+      handleFilter(event) {
+        // if unchecked, add to filters
+        if (event.target.checked === false) {
+          this.filters.push(event.target.id)
+        } else {
+          // if checked, remove from filters
+          this.filters = this.filters.filter(filter => filter !== event.target.id)
+        }
+      },
     },
     watch: {
       leftPanelCollapsed() {
@@ -147,8 +186,19 @@
     // > *:not(:first-child) {
     //   margin-top: 2rem;
     // }
+    :deep(.highcharts-series-inactive),
+    :deep(.highcharts-series-hover),
+    :deep(.highcharts-point-hover) {
+      opacity: 1 !important;
+      fill-opacity: 1 !important;
+    }
+
     :deep(.highcharts-legend-item-hidden text tspan) {
       fill: var(--text-color--subtle) !important;
+    }
+
+    :deep(.highcharts-legend-item:hover text) {
+      fill: var(--text-color) !important;
     }
 
     :deep(.highcharts-xaxis-labels text),
