@@ -137,7 +137,7 @@
       filteredVulnData() {
         // for each filter in this.filters, filter the vulnTableData prop severity column
         return this.vulnTableData.filter(row => {
-          return !this.filters.includes(row.baseSeverity.value.toLowerCase())
+          return !this.filters.includes(row.baseSeverity.props.label.toLowerCase())
         })
       },
       // filters() {
