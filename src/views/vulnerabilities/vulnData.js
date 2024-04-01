@@ -1,6 +1,15 @@
 import { faker } from '@faker-js/faker'
+import { markRaw } from 'vue'
+import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
+
 
 const vulnTableColumns = [
+  {
+    header: 'Severity',
+    key: 'baseSeverity',
+    cellType: 'component',
+    component: markRaw(EpBadge),
+  },
   {
     header: 'ID',
     key: 'id',
@@ -18,13 +27,6 @@ const vulnTableColumns = [
     key: 'baseScore'
   },
   {
-    header: 'Severity',
-    key: 'baseSeverity',
-    formatter: (value) => {
-      return `<span class="text--capitalize">${value}</span>`
-    }
-  },
-  {
     header: 'Published Date',
     key: 'publishedDate',
     formatter: (value) => {
@@ -34,6 +36,13 @@ const vulnTableColumns = [
   {
     header: 'Last Modified Date',
     key: 'lastModifiedDate',
+    formatter: (value) => {
+      return new Date(value).toLocaleString()
+    }
+  },
+  {
+    header: 'Date Seen',
+    key: 'dateSeen',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
@@ -126,13 +135,37 @@ function generateCveDesc() {
 const vulnTableData = []
 
 for (let i = 0; i < 100; i++) {
+  const severity = faker.helpers.arrayElement(['Low', 'Medium', 'High', 'Critical'])
+  const variant = severity === 'Low' ? 'success' : severity === 'Medium' ? 'warning' : severity === 'High' ? 'warning' : 'danger'
+
+  // sort order for severity
+  const severitySortMap = {
+    'low': '0',
+    'medium': '1',
+    'high': '2',
+    'critical': '3'
+  }
+
   vulnTableData.push({
+    baseSeverity: {
+      value: severitySortMap[severity.toLowerCase()],
+      props: {
+        label: severity,
+        variant,
+        outlined: true
+      },
+    },
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     description: generateCveDesc(),
     baseScore: faker.number.float({ min: 0, max: 10, precision: 0.1 }),
-    baseSeverity: faker.helpers.arrayElement(['low', 'medium', 'high', 'critical']),
     publishedDate: faker.date.past().toISOString(),
-    lastModifiedDate: faker.date.recent().toISOString()
+    lastModifiedDate: faker.date.recent().toISOString(),
+    dateSeen: faker.date.between({
+      // from 30 days ago
+      from: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString(),
+      // to today
+      to: new Date().toISOString()
+    }).toISOString()
   })
 }
 

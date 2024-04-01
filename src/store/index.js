@@ -9,13 +9,19 @@ export default createStore({
       backgroundColor: 'var(--interface-surface)',
       containerPadding: '0 3rem',
       borderRadius: 'var(--border-radius)',
-      overflow: 'hidden'
+      // overflow: 'hidden'
     },
     commonHeaderProps: {
       backgroundColor: 'var(--interface-surface)'
     },
     commonFooterProps: {
       backgroundColor: 'var(--interface-surface)'
+    },
+    dateRange: {
+      // start 30 days ago
+      from: faker.date.recent({ days: 30 }).toISOString(),
+      // end today
+      to: new Date().toISOString()
     },
     fakeUserData: fakeUserData(10),
     sites: [
@@ -92,10 +98,10 @@ export default createStore({
   },
   mutations: {
     addApprovedDomain(state, newDomain) {
-      state.approvedDomains.push(newDomain);
+      state.approvedDomains.push(newDomain)
     },
     addUserData(state, newUser) {
-      state.fakeUserData.push(newUser);
+      state.fakeUserData.push(newUser)
     },
     setTheme: (state, data) => {
       state.theme = data

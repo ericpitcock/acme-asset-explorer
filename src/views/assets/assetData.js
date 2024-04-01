@@ -81,8 +81,8 @@ const fakeArray = length => {
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
       ip_address: faker.internet.ipv4(),
       vulnerabilities: {
-        value: null,
-        props : {
+        value: null, // placeholder for total vulnerabilities
+        props: {
           bar: []
         },
       },

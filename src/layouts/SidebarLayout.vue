@@ -24,7 +24,7 @@
       position: sticky;
       top: 6.1rem;
       align-self: flex-start;
-      padding: 1rem 3rem 20rem 3rem;
+      padding: 2rem 3rem 20rem 3rem;
       // border-right: 1px solid var(--border-color);
     }
 
@@ -35,7 +35,7 @@
       gap: 2rem;
       padding: 2rem 2rem 20rem 0;
       // need this
-      overflow-x: auto;
+      overflow-x: clip;
     }
   }
 </style>

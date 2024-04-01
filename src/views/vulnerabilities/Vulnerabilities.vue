@@ -4,6 +4,15 @@
       <template #left>
         <p>Vulnerabilities</p>
       </template>
+      <template #center>
+        <ep-multi-search
+          v-bind="multiSearchProps"
+          @enter="updateSearch"
+          @delete="updateSearch"
+          @query-close="queryClose"
+          @clear="updateSearch"
+        />
+      </template>
       <template #right>
         <ep-date-picker
           mode="range"
@@ -22,16 +31,22 @@
           gap="1rem"
           padding="1rem 0"
         >
-          <ep-checkbox
-            v-for="severity in severityFilters"
-            :key="severity"
-            v-bind="severity"
-            @checkchange="handleFilter"
-          />
+          <h3 class="text-style--section">Severity</h3>
+          <ep-flex-container
+            flex-flow="column nowrap"
+            gap="1.5rem"
+            padding="1rem 0"
+          >
+            <ep-checkbox
+              v-for="severity in severityFilters"
+              :key="severity"
+              v-bind="severity"
+              @checkchange="handleFilter"
+            />
+          </ep-flex-container>
         </ep-flex-container>
       </template>
       <template #content>
-
         <ep-container
           v-bind="commonContainerProps"
           content-padding="3rem 0 1rem 0"
@@ -55,7 +70,7 @@
             :columns="vulnTableColumns"
             :data="filteredVulnData"
             v-bind="tableProps"
-            style="width: 100%;"
+            style="width: 100%; overflow: unset;"
           />
         </ep-container>
       </template>
@@ -68,32 +83,40 @@
   import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
-  import EpFlexContainer from '@ericpitcock/epicenter-vue-components/src/components/flexbox/EpFlexContainer.vue'
+  // import EpFlexContainer from '@ericpitcock/epicenter-vue-components/src/components/flexbox/EpFlexContainer.vue'
 
   export default {
     name: 'Vulnerabilities',
     components: {
       SidebarLayout,
-      EpFlexContainer
+      // EpFlexContainer,
     },
     data() {
       return {
         headerProps: {
           backgroundColor: 'var(--interface-surface)',
-          leftFlex: '0 0 10rem',
+          leftFlex: '0 0 20rem',
+          leftPadding: '0 0 0 3rem',
           centerFlex: '1',
-          rightFlex: '0 0 10rem',
+          rightFlex: '0 0 20rem',
+          rightPadding: '0 3rem',
           sticky: true,
           stickyTop: '0',
-          padding: '0 3rem',
+          itemGap: '0',
           zIndex: 'var(--z-index--fixed)',
         },
-        filters: ['low'],
+        filters: [],
         hiddenColumns: [],
+        multiSearchProps: {
+          height: '3.8rem',
+          backgroundColor: 'var(--interface-foreground)',
+          icon: { name: 'search' },
+          placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
+        },
         tableProps: {
           bordered: true,
-          // stickyHeader: true,
-          // stickyTop: 61,
+          stickyHeader: true,
+          stickyTop: '61',
           sortable: true,
           width: '100%',
           exclude: [],
@@ -114,7 +137,7 @@
       filteredVulnData() {
         // for each filter in this.filters, filter the vulnTableData prop severity column
         return this.vulnTableData.filter(row => {
-          return !this.filters.includes(row.baseSeverity.toLowerCase())
+          return !this.filters.includes(row.baseSeverity.value.toLowerCase())
         })
       },
       // filters() {
@@ -154,6 +177,12 @@
           // if checked, remove from filters
           this.filters = this.filters.filter(filter => filter !== event.target.id)
         }
+      },
+      updateSearch(query) {
+        console.log('searching for:', query)
+      },
+      queryClose() {
+        console.log('query closed')
       },
     },
     watch: {

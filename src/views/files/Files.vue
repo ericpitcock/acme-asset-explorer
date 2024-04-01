@@ -26,26 +26,32 @@
       <template #right>
         <ep-button
           label="Upload File"
-          variant="secondary"
+          variant="primary"
           :iconLeft="{ name: 'f/upload' }"
           @click=""
         />
       </template>
     </ep-header>
-    <ep-table
-      :columns="columns"
-      :data="fakeData"
-      sticky-header
-      sticky-top="0"
-      sortable
-      sortKey="date_uploaded"
-      striped
-      bordered
-      calculate-height
-      header-background-color="var(--interface-surface)"
-      padding="0 1.6rem 10rem 1.6rem"
-      width="100%"
-    />
+    <div class="files__content">
+      <ep-container
+        content-padding="1rem 3rem 3rem"
+        style="overflow: unset;"
+      >
+        <ep-table
+          :columns="columns"
+          :data="fakeData"
+          sticky-header
+          sticky-top="61"
+          sortable
+          sortKey="date_uploaded"
+          striped
+          bordered
+          header-background-color="var(--interface-surface)"
+          width="100%"
+          style="overflow: unset;"
+        />
+      </ep-container>
+    </div>
   </div>
 </template>
 
@@ -61,7 +67,8 @@
           {
             header: 'Name',
             key: 'name',
-            // formatter: (value) => `<a href="#" download>${value}</a>`,
+            // formatter that wraps the line no matter how long the text is
+            formatter: (value) => `<div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${value}</div>`
           },
           {
             header: 'Size',
@@ -169,6 +176,8 @@
 
 <style lang="scss" scoped>
   .files {
-    background-color: var(--interface-surface);
+    &__content {
+      padding: 2rem 2rem 20rem 2rem;
+    }
   }
 </style>
