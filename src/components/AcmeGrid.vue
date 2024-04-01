@@ -8,7 +8,10 @@
         <div class="left-panel">
           <slot name="left-panel" />
         </div>
-        <div class="content">
+        <div
+          ref="content"
+          class="content"
+        >
           <slot name="content" />
         </div>
       </div>
@@ -27,25 +30,17 @@
 
   export default {
     name: 'AcmeGrid',
-    // props: {
-    //   leftPanelCollapsed: {
-    //     type: Boolean,
-    //     default: true
-    //   },
-    //   rightPanelOpen: {
-    //     type: Boolean,
-    //     default: false
-    //   }
-    // },
     computed: {
       ...mapState(['leftPanelCollapsed', 'rightPanelOpen']),
-      // gridClasses() {
-      //   return {
-      //     'left-panel-closed': !this.leftPanelCollapsed,
-      //     'right-panel-closed': !this.rightPanelOpen
-      //   }
-      // }
-    }
+    },
+    watch: {
+      // when the route changes, scroll .content to the top
+      $route(to, from) {
+        this.$nextTick(() => {
+          this.$refs.content.scrollTop = 0
+        })
+      }
+    },
   }
 </script>
 

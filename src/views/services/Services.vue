@@ -1,55 +1,69 @@
 <template>
-  <div class="service-info">
-    <ep-banner
-      v-if="getExpiredServices"
-      :message="`Expired services: ${getExpiredServices.join(', ')}`"
-      subtext="Please renew them as soon as possible"
-      banner-style="error"
-      :icon-props="{ name: 'f/alert-triangle' }"
-    />
-    <div
-      v-for="category in categories"
-      class="service-info__category"
+  <div class="services">
+    <ep-header v-bind="headerProps">
+      <template #left>
+        <p>Services</p>
+      </template>
+      <template #right>
+        <ep-dropdown
+          v-bind="dropdownProps"
+          :menu-items="getInactiveServices"
+          alignRight
+        />
+      </template>
+    </ep-header>
+    <ep-flex-container
+      flex-flow="column nowrap"
+      gap="2rem"
+      padding="2rem 3rem 20rem 3rem"
     >
-      <ep-header background-color="transparent">
-        <template #left>
-          <h2>{{ category }}</h2>
-        </template>
-        <template #right>
-          <ep-dropdown
-            v-if="hasInactiveServices(category)"
-            v-bind="dropdownProps"
-            :menu-items="getInactiveServicesByCategory(category)"
-            alignRight
-          />
-        </template>
-      </ep-header>
-      <div class="service-info__services">
-        <template
-          v-for="service in getServicesByCategory(category)"
-          :key="service.id"
-        >
-          <router-link
-            :to="{ name: 'service-details', params: { serviceName: serviceSlug(service.name) } }"
-          >
-            <div class="service-info__service">
-              <div class="service-icon">
-                <ep-icon v-bind="service.iconProps" />
-              </div>
-              <div class="service-name">
-                <h3>{{ service.name }}</h3>
-              </div>
-              <div class="service-badge">
-                <ep-badge
-                  :label="service.status"
-                  :variant="getVariant(service.status)"
-                />
-              </div>
-            </div>
-          </router-link>
-        </template>
+      <ep-banner
+        v-if="getExpiredServices"
+        :message="`Expired services: ${getExpiredServices.join(', ')}`"
+        subtext="Please renew them as soon as possible"
+        banner-style="error"
+        :icon-props="{ name: 'f/alert-triangle' }"
+      />
+      <div
+        v-for="category in categories"
+        class="services__category"
+      >
+        <ep-container v-bind="containerProps">
+          <template #header>
+            <ep-header background-color="transparent">
+              <template #left>
+                <p>{{ category }}</p>
+              </template>
+            </ep-header>
+          </template>
+          <div class="services__services">
+            <template
+              v-for="service in getServicesByCategory(category)"
+              :key="service.id"
+            >
+              <router-link
+                :to="{ name: 'service-details', params: { serviceName: serviceSlug(service.name) } }"
+              >
+                <div class="services__service">
+                  <div class="service-icon">
+                    <ep-icon v-bind="service.iconProps" />
+                  </div>
+                  <div class="service-name">
+                    <h3>{{ service.name }}</h3>
+                  </div>
+                  <div class="service-badge">
+                    <ep-badge
+                      :label="service.status"
+                      :variant="getVariant(service.status)"
+                    />
+                  </div>
+                </div>
+              </router-link>
+            </template>
+          </div>
+        </ep-container>
       </div>
-    </div>
+    </ep-flex-container>
   </div>
 </template>
 
@@ -61,6 +75,10 @@
     data() {
       return {
         services,
+        containerProps: {
+          containerPadding: '0 3rem 3rem',
+          contentPadding: '1rem 0 0 0',
+        },
         dropdownProps: {
           buttonProps: {
             label: 'Add Service',
@@ -72,7 +90,19 @@
             borderRadius: 'var(--border-radius)',
             borderColor: 'var(--border-color--lighter)'
           }
-        }
+        },
+        headerProps: {
+          backgroundColor: 'var(--interface-surface)',
+          leftFlex: '0 0 20rem',
+          // leftPadding: '0 3rem',
+          centerFlex: '1',
+          // centerPadding: '0 3rem 0 0',
+          sticky: true,
+          stickyTop: '0',
+          itemGap: '0',
+          padding: '0 3rem',
+          zIndex: 'var(--z-index--fixed)',
+        },
       }
     },
     computed: {
@@ -92,15 +122,8 @@
         // map the expired services to return only the name
         return expiredServices.map(service => service.name)
       },
-    },
-    methods: {
-      getServicesByCategory(category) {
-        // return this.services.filter(service => service.category === category)
-        // return services by category and filter out those with service.status === 'Inactive'
-        return this.services.filter(service => service.category === category && service.status !== 'Inactive')
-      },
-      getInactiveServicesByCategory(category) {
-        const inactiveServices = this.services.filter(service => service.category === category && service.status === 'Inactive')
+      getInactiveServices() {
+        const inactiveServices = this.services.filter(service => service.status === 'Inactive')
 
         return inactiveServices.map(service => {
           if (service.status === 'Inactive') {
@@ -111,6 +134,25 @@
           return { divider: true }
         })
       },
+    },
+    methods: {
+      getServicesByCategory(category) {
+        // return this.services.filter(service => service.category === category)
+        // return services by category and filter out those with service.status === 'Inactive'
+        return this.services.filter(service => service.category === category && service.status !== 'Inactive')
+      },
+      // getInactiveServicesByCategory(category) {
+      //   const inactiveServices = this.services.filter(service => service.category === category && service.status === 'Inactive')
+
+      //   return inactiveServices.map(service => {
+      //     if (service.status === 'Inactive') {
+      //       return {
+      //         label: service.name,
+      //       }
+      //     }
+      //     return { divider: true }
+      //   })
+      // },
       getVariant(label) {
         switch (label) {
           case 'Active':
@@ -135,20 +177,20 @@
 </script>
 
 <style lang="scss" scoped>
-  .service-info {
+  .services {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    padding: 3rem;
-    padding-bottom: 20rem;
 
+    // gap: 3rem;
+    // padding: 3rem;
+    // padding-bottom: 20rem;
     // hack banner into submission
     // fix this in the component
     &:deep(.ep-banner__body) {
       justify-content: flex-start;
     }
 
-    .service-info__category {
+    .services__category {
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -158,13 +200,13 @@
       //   font-size: var(--font-size--large);
       //   font-variation-settings: 'wght' 300;
       // }
-      .service-info__services {
+      .services__services {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
         gap: 1rem;
       }
 
-      .service-info__service {
+      .services__service {
         display: flex;
         flex-direction: column;
         // align-items: center;
@@ -174,7 +216,7 @@
         padding: 2rem 2.5rem 3rem 2.5rem;
         border: 1px solid var(--border-color);
         border-radius: var(--border-radius);
-        background-color: var(--interface-surface);
+        background-color: var(--interface-foreground);
         text-align: center;
 
         &:hover {

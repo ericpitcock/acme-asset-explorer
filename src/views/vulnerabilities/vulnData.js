@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 
-
 const vulnTableColumns = [
   {
     header: 'Severity',

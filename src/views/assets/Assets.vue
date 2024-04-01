@@ -3,7 +3,7 @@
     <!-- <ep-chart :options="browserChartOptions" /> -->
     <ep-header v-bind="headerProps">
       <template #left>
-        <p class="text--subtle">{{ assetCount }} assets</p>
+        <p>Assets</p>
       </template>
       <template #center>
         <ep-multi-search
@@ -18,6 +18,7 @@
     <sidebar-layout>
       <template #sidebar>
         <div class="sidebar">
+          <p class="text--subtle">{{ assetCount }} assets</p>
           <ep-container>
             <ep-flex-container
               flex-flow="column nowrap"

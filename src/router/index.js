@@ -160,7 +160,10 @@ routes[7].children[1].children = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  // scrollBehavior(to, from, savedPosition) {
+  //   return { x: 0, y: 0 }
+  // }
 })
 
 router.beforeEach((to, from, next) => {

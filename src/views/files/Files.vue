@@ -12,7 +12,7 @@
       z-index="var(--z-index--fixed)"
     >
       <template #left>
-        <p class="text--subtle">{{ fakeData.length }} Files</p>
+        <p>Files</p>
       </template>
       <template #center>
         <ep-search
@@ -68,7 +68,7 @@
             header: 'Name',
             key: 'name',
             // formatter that wraps the line no matter how long the text is
-            formatter: (value) => `<div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${value}</div>`
+            formatter: (value) => `<div class="text--overflow">${value}</div>`,
           },
           {
             header: 'Size',

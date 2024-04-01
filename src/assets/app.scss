@@ -45,3 +45,9 @@ h1 {
 h2 {
   font-size: var(--font-size--body);
 }
+
+.text--overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

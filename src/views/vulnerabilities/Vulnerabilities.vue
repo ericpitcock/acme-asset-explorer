@@ -83,13 +83,11 @@
   import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
-  // import EpFlexContainer from '@ericpitcock/epicenter-vue-components/src/components/flexbox/EpFlexContainer.vue'
 
   export default {
     name: 'Vulnerabilities',
     components: {
       SidebarLayout,
-      // EpFlexContainer,
     },
     data() {
       return {
@@ -135,25 +133,12 @@
         'rightPanelOpen',
       ]),
       filteredVulnData() {
-        // for each filter in this.filters, filter the vulnTableData prop severity column
         return this.vulnTableData.filter(row => {
+          // need to compare to the props.label sent to the component
+          // because the actual value is a number used for sorting
           return !this.filters.includes(row.baseSeverity.props.label.toLowerCase())
         })
       },
-      // filters() {
-      //   const filters = this.vulnTableColumns.map(column => {
-      //     return {
-      //       id: column.key,
-      //       name: 'columns',
-      //       value: column.key,
-      //       checked: !this.hiddenColumns.includes(column.key),
-      //       label: column.header,
-      //       disabled: false,
-      //     }
-      //   })
-      //   // remove everything from this.tablesProps.exclude
-      //   return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
-      // },
       severityFilters() {
         const severityLevels = ['Low', 'Medium', 'High', 'Critical']
         return severityLevels.map(severity => {

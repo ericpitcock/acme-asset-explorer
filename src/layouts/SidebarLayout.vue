@@ -33,7 +33,7 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      padding: 2rem 2rem 20rem 0;
+      padding: 2rem 3rem 20rem 0;
       // need this
       overflow-x: clip;
     }

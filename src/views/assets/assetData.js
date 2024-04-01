@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import EpSparkBar from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/spark-bar/EpSparkBar.vue'
+import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 
 const assetColumns = [
   {
@@ -10,9 +11,11 @@ const assetColumns = [
   {
     header: 'Status',
     key: 'status',
-    formatter: (value, row) => {
-      return `<div class="status-dot status-dot--${value.toLowerCase()}">${value}</div>`
-    }
+    cellType: 'component',
+    component: markRaw(EpBadge),
+    // formatter: (value, row) => {
+    //   return `<div class="status-dot status-dot--${value.toLowerCase()}">${value}</div>`
+    // }
   },
   {
     header: 'User',
@@ -75,9 +78,20 @@ const vulnArraySum = () => {
 const fakeArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
+    const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
+    const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
+
     arr.push({
       id: faker.string.uuid(),
-      status: faker.helpers.arrayElement(['Active', 'Inactive', 'Archived']),
+      // status: faker.helpers.arrayElement(['Active', 'Inactive', 'Archived']),
+      status: {
+        value: status,
+        props: {
+          label: status,
+          variant,
+          outlined: true
+        },
+      },
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
       ip_address: faker.internet.ipv4(),
       vulnerabilities: {
