@@ -50,6 +50,7 @@
       <ep-container
         class="dashboard__asset-map"
         v-bind="commonContainerProps"
+        overflow="hidden"
         container-padding="0"
       >
         <template #header>

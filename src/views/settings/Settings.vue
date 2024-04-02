@@ -2,11 +2,7 @@
   <div class="settings">
     <ep-header v-bind="headerProps">
       <template #left>
-        <ep-tabs
-          :items="tabNames"
-          :active-tab-index="activeTab"
-          @tab-click="setActiveTab"
-        />
+        <ep-tabs :items="tabItems" />
       </template>
     </ep-header>
     <div class="settings__content">
@@ -24,31 +20,30 @@
     },
     data() {
       return {
-        activeTab: 0,
         tabItems: [
           {
             label: 'Service Config',
-            path: '/settings/service-config'
+            to: '/settings/service-config'
           },
           {
             label: 'User Management',
-            path: '/settings/users'
+            to: '/settings/users'
           },
           {
             label: 'Notifications',
-            path: '/settings/notifications'
+            to: '/settings/notifications'
           },
           {
             label: 'Company Profile',
-            path: '/settings/company-profile'
+            to: '/settings/company-profile'
           },
           {
             label: 'Escalation Procedure',
-            path: '/settings/escalation-procedure'
+            to: '/settings/escalation-procedure'
           },
           {
             label: 'API Access',
-            path: '/settings/api-access'
+            to: '/settings/api-access'
           }
         ]
       }
@@ -64,24 +59,24 @@
           // padding: '0 3rem'
         }
       },
-      tabNames() {
-        return this.tabItems.map(item => item.label)
-      }
+      // tabNames() {
+      //   return this.tabItems.map(item => item.label)
+      // }
     },
     methods: {
-      setActiveTab(index) {
-        this.activeTab = index
-        this.$router.push(this.tabItems[index].path)
-      }
+      // setActiveTab(index) {
+      //   this.activeTab = index
+      //   // this.$router.push(this.tabItems[index].path)
+      // }
     },
     mounted() {
-      this.activeTab = this.tabItems.findIndex(item => item.path === this.$route.path)
+      // this.activeTab = this.tabItems.findIndex(item => item.path === this.$route.path)
     },
     watch: {
-      $route(to) {
-        // Update activeTab when route changes
-        this.activeTab = this.tabItems.findIndex(item => item.path === to.path)
-      }
+      //   $route(to) {
+      //     // Update activeTab when route changes
+      //     this.activeTab = this.tabItems.findIndex(item => item.path === to.path)
+      //   }
     },
   }
 </script>
