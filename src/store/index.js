@@ -8,15 +8,22 @@ export default createStore({
     commonContainerProps: {
       backgroundColor: 'var(--interface-surface)',
       containerPadding: '0 3rem',
-      borderRadius: 'var(--border-radius)',
-      // overflow: 'hidden'
     },
     commonHeaderProps: {
       backgroundColor: 'var(--interface-surface)'
     },
-    commonFooterProps: {
-      backgroundColor: 'var(--interface-surface)'
+    commonPageHeaderProps: {
+      backgroundColor: 'var(--interface-surface)',
+      leftPadding: '0 0 0 3rem',
+      rightPadding: '0 3rem 0 0',
+      rightGap: '1rem',
+      sticky: true,
+      stickyTop: '0',
+      zIndex: 'var(--z-index--sticky)'
     },
+    // commonFooterProps: {
+    //   backgroundColor: 'var(--interface-surface)'
+    // },
     dateRange: {
       // start 30 days ago
       from: faker.date.recent({ days: 30 }).toISOString(),

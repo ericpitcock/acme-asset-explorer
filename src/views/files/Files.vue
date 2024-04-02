@@ -1,16 +1,6 @@
 <template>
   <div class="files">
-    <ep-header
-      background-color="var(--interface-surface)"
-      leftFlex="0 0 10rem"
-      centerFlex="1"
-      centerJustify="flex-start"
-      rightFlex="0 0 10rem"
-      sticky
-      stickyTop="0"
-      padding="0 3rem"
-      z-index="var(--z-index--fixed)"
-    >
+    <ep-header v-bind="headerProps">
       <template #left>
         <p>Files</p>
       </template>
@@ -57,6 +47,7 @@
 
 <script>
   import { faker } from '@faker-js/faker'
+  import { mapState } from 'vuex'
   import filenames from './filenames.js'
 
   export default {
@@ -110,6 +101,9 @@
       }
     },
     computed: {
+      ...mapState([
+        'commonPageHeaderProps'
+      ]),
       fakeData() {
         const names = []
         // Generate 9 random names
@@ -129,6 +123,14 @@
           })
         }
         return data
+      },
+      headerProps() {
+        return {
+          ...this.commonPageHeaderProps,
+          leftFlex: '0 0 20rem',
+          centerFlex: '1',
+          rightFlex: '0 0 20rem',
+        }
       },
     },
     methods: {

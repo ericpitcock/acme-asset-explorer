@@ -1,15 +1,6 @@
 <template>
   <div class="settings">
-    <ep-header
-      background-color="var(--interface-surface)"
-      leftFlex="0 0 10rem"
-      centerFlex="1"
-      rightFlex="0 0 10rem"
-      sticky
-      stickyTop="0"
-      padding="0 3rem"
-      z-index="var(--z-index--fixed)"
-    >
+    <ep-header v-bind="headerProps">
       <template #left>
         <ep-tabs
           :items="tabNames"
@@ -25,6 +16,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name: 'UserSettings',
     components: {
@@ -61,6 +54,16 @@
       }
     },
     computed: {
+      ...mapState([
+        'commonPageHeaderProps'
+      ]),
+      headerProps() {
+        return {
+          ...this.commonPageHeaderProps,
+          // leftFlex: '0 0 10rem',
+          // padding: '0 3rem'
+        }
+      },
       tabNames() {
         return this.tabItems.map(item => item.label)
       }

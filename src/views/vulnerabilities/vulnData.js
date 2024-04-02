@@ -151,7 +151,8 @@ for (let i = 0; i < 100; i++) {
       props: {
         label: severity,
         variant,
-        outlined: true
+        outlined: true,
+        borderColor: `var(--severity-color--${severity.toLowerCase()}--border)`,
       },
     },
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,

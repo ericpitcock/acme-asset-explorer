@@ -1,6 +1,6 @@
 <template>
   <ep-container container-padding="3rem">
-    <ep-flex-container gap="6rem">
+    <ep-flex-container gap="2rem">
       <div class="section-sidebar">
         <slot name="sidebar"></slot>
       </div>
@@ -49,9 +49,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
-    padding-right: 3rem;
-    border-right: 1px solid var(--border-color);
+    gap: 1rem;
+    padding: 1rem 3rem 0 0;
+    // border-right: 1px solid var(--border-color);
   }
 
   .section-content {

@@ -11,11 +11,17 @@
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
 
-  // severity colors for low, medium, high, critical
+  // severity fills
   --severity-color--low: hsl(120, 6%, 67%);
   --severity-color--medium: hsl(60, 62%, 65%);
   --severity-color--high: hsl(31, 70%, 50%);
   --severity-color--critical: hsl(341, 70%, 50%);
+  
+  // severity border
+  --severity-color--low--border: hsl(120, 6%, 47%);
+  --severity-color--medium--border: hsl(60, 40%, 65%);
+  --severity-color--high--border: hsl(31, 60%, 50%);
+  --severity-color--critical--border: hsl(341, 50%, 50%);
 }
 
 // light mode
@@ -31,11 +37,17 @@ html[data-color-theme='light'] {
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
 
-  // severity colors for low, medium, high, critical
+  // severity fills
   --severity-color--low: hsl(0, 0%, 63%);
   --severity-color--medium: hsl(41, 69%, 57%);
   --severity-color--high: hsl(27, 75%, 56%);
   --severity-color--critical: hsl(338, 63%, 49%);
+  
+  // severity border
+  --severity-color--low--border: hsl(0, 0%, 63%);
+  --severity-color--medium--border: hsl(41, 69%, 57%);
+  --severity-color--high--border: hsl(27, 75%, 56%);
+  --severity-color--critical--border: hsl(338, 63%, 49%);
 }
 
 // type

@@ -69,6 +69,7 @@
 
 <script>
   import services from './services.json'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'ServiceInfo',
@@ -82,7 +83,7 @@
         dropdownProps: {
           buttonProps: {
             label: 'Add Service',
-            variant: 'secondary',
+            variant: 'primary',
           },
           containerProps: {
             backgroundColor: 'var(--interface-overlay)',
@@ -91,21 +92,24 @@
             borderColor: 'var(--border-color--lighter)'
           }
         },
-        headerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          leftFlex: '0 0 20rem',
-          // leftPadding: '0 3rem',
-          centerFlex: '1',
-          // centerPadding: '0 3rem 0 0',
-          sticky: true,
-          stickyTop: '0',
-          itemGap: '0',
-          padding: '0 3rem',
-          zIndex: 'var(--z-index--fixed)',
-        },
+        // headerProps: {
+        //   backgroundColor: 'var(--interface-surface)',
+        //   leftFlex: '0 0 20rem',
+        //   // leftPadding: '0 3rem',
+        //   centerFlex: '1',
+        //   // centerPadding: '0 3rem 0 0',
+        //   sticky: true,
+        //   stickyTop: '0',
+        //   itemGap: '0',
+        //   padding: '0 3rem',
+        //   zIndex: 'var(--z-index--fixed)',
+        // },
       }
     },
     computed: {
+      ...mapState([
+        'commonPageHeaderProps',
+      ]),
       categories() {
         return [...new Set(this.services.map(service => service.category))]
       },
@@ -133,6 +137,11 @@
           }
           return { divider: true }
         })
+      },
+      headerProps() {
+        return {
+          ...this.commonPageHeaderProps,
+        }
       },
     },
     methods: {

@@ -52,7 +52,7 @@
           content-padding="3rem 0 1rem 0"
         >
           <template #header>
-            <ep-header v-bind="commonHeaderProps">
+            <ep-header>
               <template #left>
                 <h1>Severity Over Time</h1>
               </template>
@@ -91,18 +91,19 @@
     },
     data() {
       return {
-        headerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          leftFlex: '0 0 20rem',
-          leftPadding: '0 0 0 3rem',
-          centerFlex: '1',
-          rightFlex: '0 0 20rem',
-          rightPadding: '0 3rem',
-          sticky: true,
-          stickyTop: '0',
-          itemGap: '0',
-          zIndex: 'var(--z-index--fixed)',
-        },
+        // headerProps: {
+        //   ...this.commonPageHeaderProps,
+        //   // backgroundColor: 'var(--interface-surface)',
+        //   leftFlex: '0 0 20rem',
+        //   // leftPadding: '0 0 0 3rem',
+        //   centerFlex: '1',
+        //   rightFlex: '0 0 20rem',
+        //   rightPadding: '0 3rem',
+        //   // sticky: true,
+        //   // stickyTop: '0',
+        //   itemGap: '0',
+        //   // zIndex: 'var(--z-index--fixed)',
+        // },
         filters: [],
         hiddenColumns: [],
         multiSearchProps: {
@@ -127,8 +128,9 @@
     computed: {
       ...mapState([
         'commonContainerProps',
-        'commonHeaderProps',
-        'commonFooterProps',
+        // 'commonHeaderProps',
+        'commonPageHeaderProps',
+        // 'commonFooterProps',
         'leftPanelCollapsed',
         'rightPanelOpen',
       ]),
@@ -138,6 +140,16 @@
           // because the actual value is a number used for sorting
           return !this.filters.includes(row.baseSeverity.props.label.toLowerCase())
         })
+      },
+      headerProps() {
+        return {
+          ...this.commonPageHeaderProps,
+          leftFlex: '0 0 20rem',
+          centerFlex: '1',
+          rightFlex: '0 0 20rem',
+          rightPadding: '0 3rem',
+          itemGap: '0',
+        }
       },
       severityFilters() {
         const severityLevels = ['Low', 'Medium', 'High', 'Critical']

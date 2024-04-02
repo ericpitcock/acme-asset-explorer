@@ -68,17 +68,13 @@
         assetColumns,
         assetCount: assetData.length,
         browserChartOptions,
-        headerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          leftFlex: '0 0 20rem',
-          leftPadding: '0 3rem',
-          centerFlex: '1',
-          centerPadding: '0 3rem 0 0',
-          sticky: true,
-          stickyTop: '0',
-          itemGap: '0',
-          zIndex: 'var(--z-index--fixed)',
-        },
+        // headerProps: {
+        //   leftFlex: '0 0 20rem',
+        //   leftPadding: '0 3rem',
+        //   centerFlex: '1',
+        //   centerPadding: '0 3rem 0 0',
+        //   itemGap: '0',
+        // },
         hiddenColumns: ['ipv6_address', 'mac_address'],
         multiSearchProps: {
           height: '3.8rem',
@@ -107,6 +103,7 @@
     computed: {
       ...mapState([
         'commonContainerProps',
+        'commonPageHeaderProps',
       ]),
       filters() {
         const filters = this.assetColumns.map(column => {
@@ -121,7 +118,17 @@
         })
         // remove everything from this.tablesProps.exclude
         return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
-      }
+      },
+      headerProps() {
+        return {
+          ...this.commonPageHeaderProps,
+          leftFlex: '0 0 20rem',
+          leftPadding: '0 3rem',
+          centerFlex: '1',
+          centerPadding: '0 3rem 0 0',
+          itemGap: '0',
+        }
+      },
     },
     methods: {
       handleDataChanged(data) {

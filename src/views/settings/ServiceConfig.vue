@@ -27,7 +27,7 @@
     data() {
       return {
         containerProps: {
-          backgroundColor: 'var(--interface-surface)',
+          backgroundColor: 'var(--interface-bg)',
           borderWidth: '0',
         },
         services
