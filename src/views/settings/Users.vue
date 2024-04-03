@@ -1,46 +1,53 @@
 <template>
   <div class="users">
-    <ep-header
-      leftFlex="0 0 10rem"
-      centerFlex="1"
-      centerJustify="flex-start"
-      rightFlex="0 0 10rem"
-      padding="0 3rem"
-      sticky
-      stickyTop="6.1rem"
-      background-color="var(--interface-bg)"
-      z-index="var(--z-index--fixed)"
-    >
-      <template #left>
-        <p class="text--subtle">{{ filteredData.length }} Users</p>
+    <sidebar-layout>
+      <template #sidebar>
+        <ep-flex-container
+          flex-flow="column nowrap"
+          align-items="flex-start"
+          gap="3rem"
+          padding="1rem 0"
+        >
+          <ep-button
+            variant="primary"
+            label="New User"
+            @click="addUser"
+          />
+
+          <ep-flex-container
+            flex-flow="column nowrap"
+            gap="1.5rem"
+            padding="1rem 0"
+          >
+            <h3 class="text-style--section">Status</h3>
+            <ep-checkbox
+              v-for="filter in filters"
+              :key="filter.value"
+              :label="filter.label"
+              v-model="showInactive"
+            />
+          </ep-flex-container>
+        </ep-flex-container>
       </template>
-      <template #center>
-        <ep-checkbox
-          label="Show Deactivated"
-          v-model="showInactive"
-        />
+      <template #content>
+        <ep-container
+          v-bind="commonContainerProps"
+          container-padding="1rem 3rem 3rem"
+        >
+          <ep-table
+            v-show="!loading"
+            :columns="columns"
+            :data="filteredData"
+            sticky-header
+            sticky-top="6.1rem"
+            striped
+            bordered
+            sortable
+            width="100%"
+          />
+        </ep-container>
       </template>
-      <template #right>
-        <ep-button
-          variant="primary"
-          label="New User"
-          @click="addUser"
-        />
-      </template>
-    </ep-header>
-    <ep-table
-      v-show="!loading"
-      :columns="columns"
-      :data="filteredData"
-      sticky-header
-      sticky-top="12.2rem"
-      striped
-      bordered
-      sortable
-      width="100%"
-      padding="0 1.6rem 10rem 1.6rem"
-      header-background-color="var(--interface-bg)"
-    />
+    </sidebar-layout>
     <modal v-if="showModal">
       <add-user @close="showModal = false" />
     </modal>
@@ -48,8 +55,9 @@
 </template>
 
 <script>
-  import Modal from '@/components/Modal.vue'
   import AddUser from './AddUser.vue'
+  import Modal from '@/components/Modal.vue'
+  import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { mapState } from 'vuex'
 
   export default {
@@ -57,6 +65,7 @@
     components: {
       AddUser,
       Modal,
+      SidebarLayout,
     },
     data() {
       return {
@@ -64,9 +73,8 @@
           {
             header: 'Status',
             key: 'status',
-            formatter: (value, row) => {
-              return `<div class="status-dot status-dot--${value.toLowerCase()}">${value}</div>`
-            }
+            cellType: 'component',
+            component: 'ep-badge',
           },
           { header: 'Name', key: 'name' },
           { header: 'Email', key: 'email' },
@@ -77,21 +85,25 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        // approvedDomainOptions: [
-        //   { label: 'acme.io', value: 'acme.io' },
-        //   { label: 'test.acme.io', value: 'test.acme.io' },
-        // ],
+        filters: [
+          { label: 'Active', value: 'Active' },
+          { label: 'Deactivated', value: 'Deactivated' },
+        ],
         loading: true,
         showInactive: false,
         showModal: false,
       }
     },
     computed: {
-      ...mapState(['approvedDomains', 'fakeUserData']),
+      ...mapState([
+        'approvedDomains',
+        'commonContainerProps',
+        'fakeUserData',
+      ]),
       filteredData() {
         return this.fakeUserData.filter(user => {
           if (this.showInactive) return true
-          return user.status === 'Active'
+          return user.status.value === 'Active'
         })
       }
     },

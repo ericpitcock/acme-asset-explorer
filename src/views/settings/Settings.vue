@@ -1,6 +1,6 @@
 <template>
   <div class="settings">
-    <ep-header v-bind="headerProps">
+    <ep-header v-bind="commonPageHeaderProps">
       <template #left>
         <ep-tabs :items="tabItems" />
       </template>
@@ -52,31 +52,6 @@
       ...mapState([
         'commonPageHeaderProps'
       ]),
-      headerProps() {
-        return {
-          ...this.commonPageHeaderProps,
-          // leftFlex: '0 0 10rem',
-          // padding: '0 3rem'
-        }
-      },
-      // tabNames() {
-      //   return this.tabItems.map(item => item.label)
-      // }
-    },
-    methods: {
-      // setActiveTab(index) {
-      //   this.activeTab = index
-      //   // this.$router.push(this.tabItems[index].path)
-      // }
-    },
-    mounted() {
-      // this.activeTab = this.tabItems.findIndex(item => item.path === this.$route.path)
-    },
-    watch: {
-      //   $route(to) {
-      //     // Update activeTab when route changes
-      //     this.activeTab = this.tabItems.findIndex(item => item.path === to.path)
-      //   }
     },
   }
 </script>
@@ -87,11 +62,6 @@
     display: flex;
     flex-direction: column;
 
-    // background-color: var(--interface-surface);
-    // background-color: green;
-    &__content {
-      // display: flex;
-      // background: red;
-    }
+    &__content {}
   }
 </style>
