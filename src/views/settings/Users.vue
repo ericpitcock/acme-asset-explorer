@@ -46,11 +46,12 @@
             :columns="columns"
             :data="filteredData"
             sticky-header
-            sticky-top="6.1rem"
+            sticky-top="61"
             striped
             bordered
             sortable
             width="100%"
+            style="width: 100%; overflow: unset;"
           />
         </ep-container>
       </template>
@@ -150,12 +151,6 @@
         'commonContainerProps',
         'fakeUserData',
       ]),
-      // filteredData() {
-      //   return this.fakeUserData.filter(user => {
-      //     if (this.showInactive) return true
-      //     return user.status.value === 'Active'
-      //   })
-      // }
       filteredData() {
         let filtered = this.fakeUserData
 
@@ -206,5 +201,10 @@
 </script>
 
 <style lang="scss" scoped>
-  .users {}
+  .users {
+    :deep(.ep-table-container) {
+      // overflow: revert;
+      overflow-x: auto;
+    }
+  }
 </style>
