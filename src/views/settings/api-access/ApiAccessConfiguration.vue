@@ -1,3 +1,139 @@
 <template>
-  ApiAccessConfiguration
+  <ep-container
+    v-bind="commonContainerProps"
+    container-padding="1rem 3rem 3rem"
+  >
+    <ep-flex-container
+      flex-flow="column wrap"
+      gap="1rem"
+      align-items="flex-start"
+    >
+      <ep-table
+        :columns="columns"
+        :data="data"
+        v-bind="apiConfigTableProps"
+      />
+      <ep-button
+        label="Add New"
+        variant="secondary"
+        :icon-left="{ name: 'f/plus' }"
+        @click="addApiConfig"
+      />
+    </ep-flex-container>
+  </ep-container>
 </template>
+
+<script>
+  import { mapState } from 'vuex'
+
+  export default {
+    name: 'ApiAccessConfiguration',
+    data() {
+      return {
+        apiConfigTableProps: {
+          exclude: ['api_key'],
+          stickyHeader: true,
+          stickyTop: 61,
+          bordered: true,
+          sortable: true,
+          width: '100%',
+          style: 'width: 100%; overflow: unset;',
+        },
+        columns: [
+          {
+            header: 'Status',
+            key: 'status',
+            cellType: 'component',
+            component: 'ep-badge',
+          },
+          {
+            header: 'Nickname',
+            key: 'nickname',
+          },
+          {
+            header: 'Endpoint',
+            key: 'endpoint',
+          },
+          {
+            header: 'Auth Type',
+            key: 'auth_type',
+          },
+          {
+            header: 'API Key',
+            key: 'api_key',
+          },
+          {
+            header: 'Created',
+            key: 'created',
+            formatter: (value) => new Date(value).toLocaleString(),
+          },
+          {
+            header: 'Expires',
+            key: 'expires',
+            formatter: (value) => new Date(value).toLocaleString(),
+          },
+        ],
+        data: [
+          {
+            status: {
+              label: 'Active',
+              props: {
+                label: 'Active',
+                variant: 'success',
+                outlined: true,
+              },
+            },
+            nickname: 'Tickets',
+            endpoint: 'Ticketing API',
+            auth_type: 'OAuth (1/1)',
+            api_key: 'AbCdEfGhIjKlMnOpQrStUvWxYz123456',
+            created: Date.now(),
+            expires: Date.now() + 1000 * 60 * 60 * 24 * 30,
+          },
+          {
+            status: {
+              label: 'Active',
+              props: {
+                label: 'Active',
+                variant: 'success',
+                outlined: true,
+              },
+            },
+            nickname: 'Threat Intel New',
+            endpoint: 'Threat Intelligence API',
+            auth_type: 'Token (1/3)',
+            api_key: '1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p',
+            created: Date.now(),
+            expires: Date.now() + 1000 * 60 * 60 * 24 * 30,
+          },
+          {
+            status: {
+              label: 'Expired',
+              props: {
+                label: 'Expired',
+                variant: 'danger',
+                outlined: true,
+              },
+            },
+            nickname: 'Threat Intel',
+            endpoint: 'Threat Intelligence API',
+            auth_type: 'Token',
+            api_key: 'qwertyuiopasdfghjklzxcvbnm123456',
+            created: Date.now(),
+            expires: Date.now() - 1000 * 60 * 60 * 24 * 30,
+          },
+        ],
+      }
+    },
+    computed: {
+      ...mapState(['commonContainerProps']),
+    },
+    methods: {
+      addApiConfig() {
+        console.log('Add API Config')
+      },
+    },
+  }
+</script>
+
+<style lang="scss" scoped></style>
