@@ -15,7 +15,12 @@ import Users from '@/views/settings/Users.vue'
 import Notifications from '@/views/settings/Notifications.vue'
 import CompanyProfile from '@/views/settings/CompanyProfile.vue'
 import EscalationProcedure from '@/views/settings/EscalationProcedure.vue'
-import ApiAccess from '@/views/settings/ApiAccess.vue'
+import ApiAccess from '@/views/settings/api-access/ApiAccess.vue'
+import ApiAccessConfiguration from '@/views/settings/api-access/ApiAccessConfiguration.vue'
+import ApiAccessDocsOverview from '@/views/settings/api-access/ApiAccessDocsOverview.vue'
+import ApiAccessDocsThreatIntelligence from '@/views/settings/api-access/ApiAccessDocsThreatIntelligence.vue'
+import ApiAccessDocsTicketing from '@/views/settings/api-access/ApiAccessDocsTicketing.vue'
+import ApiAccessDocsTesting from '@/views/settings/api-access/ApiAccessDocsTesting.vue'
 import Login from '@/views/login/Login.vue'
 
 const routes = [
@@ -154,6 +159,55 @@ routes[7].children[1].children = [
     component: Cloud,
     meta: {
       title: 'Cloud',
+    },
+  },
+]
+
+// children routes for api-access: configuration, docs-overview, docs-threat-intelligence, docs-ticketing, docs-testing
+routes[7].children[6].children = [
+  {
+    path: '', // This is the default child route for '/settings'
+    name: 'api-access-default',
+    redirect: '/settings/api-access/configuration'
+  },
+  {
+    path: 'configuration',
+    name: 'configuration',
+    component: ApiAccessConfiguration,
+    meta: {
+      title: 'Configuration',
+    },
+  },
+  {
+    path: 'docs-overview',
+    name: 'docs-overview',
+    component: ApiAccessDocsOverview,
+    meta: {
+      title: 'Docs Overview',
+    },
+  },
+  {
+    path: 'docs-threat-intelligence',
+    name: 'docs-threat-intelligence',
+    component: ApiAccessDocsThreatIntelligence,
+    meta: {
+      title: 'Docs Threat Intelligence',
+    },
+  },
+  {
+    path: 'docs-ticketing',
+    name: 'docs-ticketing',
+    component: ApiAccessDocsTicketing,
+    meta: {
+      title: 'Docs Ticketing',
+    },
+  },
+  {
+    path: 'docs-testing',
+    name: 'docs-testing',
+    component: ApiAccessDocsTesting,
+    meta: {
+      title: 'Docs Testing',
     },
   },
 ]

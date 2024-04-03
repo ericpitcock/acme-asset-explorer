@@ -1,0 +1,3 @@
+<template>
+  ApiAccessDocsTesting
+</template>

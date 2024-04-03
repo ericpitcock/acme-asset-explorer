@@ -1,0 +1,3 @@
+<template>
+  ApiAccessDocsThreatIntelligence
+</template>
