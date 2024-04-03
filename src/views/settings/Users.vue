@@ -19,13 +19,20 @@
             gap="1.5rem"
             padding="1rem 0"
           >
-            <h3 class="text-style--section">Status</h3>
-            <ep-checkbox
-              v-for="filter in filters"
-              :key="filter.value"
-              :label="filter.label"
-              v-model="showInactive"
-            />
+            <template
+              v-for="(filterSet, category) in filters"
+              :key="category"
+            >
+              <h3 class="text-style--section">
+                {{ category }}
+              </h3>
+              <ep-checkbox
+                v-for="checkbox in filterSet"
+                :key="checkbox.label"
+                v-bind="checkbox"
+                v-model="checkbox.checked"
+              />
+            </template>
           </ep-flex-container>
         </ep-flex-container>
       </template>
@@ -59,6 +66,7 @@
   import Modal from '@/components/Modal.vue'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { mapState } from 'vuex'
+  import { faker } from '@faker-js/faker'
 
   export default {
     name: 'Users',
@@ -85,10 +93,52 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        filters: [
-          { label: 'Active', value: 'Active' },
-          { label: 'Deactivated', value: 'Deactivated' },
-        ],
+        filters: {
+          status: [
+            {
+              id: faker.string.uuid(),
+              name: 'status',
+              value: 'active',
+              checked: true,
+              label: 'Active',
+              disabled: false
+            },
+            {
+              id: faker.string.uuid(),
+              name: 'status',
+              value: 'deactivated',
+              checked: false,
+              label: 'Deactivated',
+              disabled: false
+            },
+          ],
+          role: [
+            {
+              id: faker.string.uuid(),
+              name: 'role',
+              value: 'admin',
+              checked: true,
+              label: 'Admin',
+              disabled: false
+            },
+            {
+              id: faker.string.uuid(),
+              name: 'role',
+              value: 'user',
+              checked: true,
+              label: 'User',
+              disabled: false
+            },
+            {
+              id: faker.string.uuid(),
+              name: 'role',
+              value: 'partner',
+              checked: true,
+              label: 'Partner',
+              disabled: false
+            },
+          ],
+        },
         loading: true,
         showInactive: false,
         showModal: false,
@@ -100,12 +150,31 @@
         'commonContainerProps',
         'fakeUserData',
       ]),
+      // filteredData() {
+      //   return this.fakeUserData.filter(user => {
+      //     if (this.showInactive) return true
+      //     return user.status.value === 'Active'
+      //   })
+      // }
       filteredData() {
-        return this.fakeUserData.filter(user => {
-          if (this.showInactive) return true
-          return user.status.value === 'Active'
+        let filtered = this.fakeUserData
+
+        // filter out fonts in filters.status array that are not checked
+        filtered = filtered.filter(user => {
+          const status = user.status.value.toLowerCase()
+          const checked = this.filters.status.find(filter => filter.value === status).checked
+          return checked
         })
-      }
+
+        // filter out fonts in filters.role array that are not checked
+        filtered = filtered.filter(user => {
+          const role = user.role.toLowerCase()
+          const checked = this.filters.role.find(filter => filter.value === role).checked
+          return checked
+        })
+
+        return filtered
+      },
     },
     methods: {
       addUser() {
