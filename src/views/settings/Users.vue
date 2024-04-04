@@ -149,9 +149,16 @@
             uniqueValues[column.key] = Array.from(new Set(this.fakeUserData.map(user => this.getColumnValue(user, column.key))))
           }
         })
+        //alphabetize unique values
+        for (const key in uniqueValues) {
+          uniqueValues[key].sort()
+        }
+
+        const filters = {}
+
         // Generate filter objects based on unique values
         for (const key in uniqueValues) {
-          this.filters[key] = uniqueValues[key].map(value => ({
+          filters[key] = uniqueValues[key].map(value => ({
             id: faker.string.uuid(),
             name: key,
             value: value,
@@ -160,6 +167,11 @@
             disabled: false
           }))
         }
+
+        // uncheck the following filters by default: Deactivated
+        filters.status.find(filter => filter.value === 'Deactivated').checked = false
+
+        this.filters = filters
       },
       getColumnValue(user, key) {
         const column = this.columns.find(column => column.key === key)
