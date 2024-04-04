@@ -94,52 +94,7 @@
             formatter: (value) => new Date(value).toLocaleString()
           },
         ],
-        filters: {
-          status: [
-            {
-              id: faker.string.uuid(),
-              name: 'status',
-              value: 'active',
-              checked: true,
-              label: 'Active',
-              disabled: false
-            },
-            {
-              id: faker.string.uuid(),
-              name: 'status',
-              value: 'deactivated',
-              checked: false,
-              label: 'Deactivated',
-              disabled: false
-            },
-          ],
-          role: [
-            {
-              id: faker.string.uuid(),
-              name: 'role',
-              value: 'admin',
-              checked: true,
-              label: 'Admin',
-              disabled: false
-            },
-            {
-              id: faker.string.uuid(),
-              name: 'role',
-              value: 'user',
-              checked: true,
-              label: 'User',
-              disabled: false
-            },
-            {
-              id: faker.string.uuid(),
-              name: 'role',
-              value: 'partner',
-              checked: true,
-              label: 'Partner',
-              disabled: false
-            },
-          ],
-        },
+        filters: {},
         loading: true,
         showInactive: false,
         showModal: false,
@@ -154,19 +109,14 @@
       filteredData() {
         let filtered = this.fakeUserData
 
-        // filter out fonts in filters.status array that are not checked
-        filtered = filtered.filter(user => {
-          const status = user.status.value.toLowerCase()
-          const checked = this.filters.status.find(filter => filter.value === status).checked
-          return checked
-        })
-
-        // filter out fonts in filters.role array that are not checked
-        filtered = filtered.filter(user => {
-          const role = user.role.toLowerCase()
-          const checked = this.filters.role.find(filter => filter.value === role).checked
-          return checked
-        })
+        // Apply filters
+        for (const key in this.filters) {
+          filtered = filtered.filter(user => {
+            const value = this.getColumnValue(user, key)
+            const checked = this.filters[key].find(filter => filter.value === value).checked
+            return checked
+          })
+        }
 
         return filtered
       },
@@ -190,9 +140,49 @@
               },
             ]
           })
-      }
+      },
+      generateFilters(columnsToFilter) {
+        const uniqueValues = {}
+        // Extract unique values for specified columns
+        this.columns.forEach(column => {
+          if (columnsToFilter.includes(column.key)) {
+            uniqueValues[column.key] = Array.from(new Set(this.fakeUserData.map(user => this.getColumnValue(user, column.key))))
+          }
+        })
+        // Generate filter objects based on unique values
+        for (const key in uniqueValues) {
+          this.filters[key] = uniqueValues[key].map(value => ({
+            id: faker.string.uuid(),
+            name: key,
+            value: value,
+            checked: true,
+            label: value,
+            disabled: false
+          }))
+        }
+      },
+      getColumnValue(user, key) {
+        const column = this.columns.find(column => column.key === key)
+        if (column.cellType === 'component') {
+          return user[key].value
+        } else {
+          return user[key]
+        }
+      },
+      // getLabelValue(value, key) {
+      //   // If the value is an object and has a 'value' property, return that
+      //   if (typeof value === 'object' && 'value' in value) {
+      //     return value.value
+      //   }
+      //   // Otherwise, return the original value
+      //   return value
+      // },
     },
     mounted() {
+      // Specify columns to generate filters for
+      const columnsToFilter = ['status', 'role']
+      // Generate filters for specified columns
+      this.generateFilters(columnsToFilter)
       setTimeout(() => {
         this.loading = false
       }, 100)
