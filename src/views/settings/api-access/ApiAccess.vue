@@ -1,6 +1,6 @@
 <template>
   <div class="api-access">
-    <SidebarLayout>
+    <sidebar-layout sidebar-padding="2rem 0 0 0">
       <template #sidebar>
         <ep-menu
           :menu-items="menuItems"
@@ -11,7 +11,7 @@
       <template #content>
         <router-view />
       </template>
-    </SidebarLayout>
+    </sidebar-layout>
   </div>
 </template>
 
@@ -73,3 +73,19 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  .api-access {
+    :deep(.ep-menu .ep-button--menu-item) {
+      padding: 1rem 3rem !important;
+    }
+
+    :deep(.ep-menu .ep-menu__section) {
+      padding-left: 3rem !important;
+    }
+
+    :deep(.ep-menu .ep-menu__section:not(:first-child)) {
+      margin-top: 1rem !important;
+    }
+  }
+</style>

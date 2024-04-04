@@ -30,7 +30,7 @@ export default createStore({
       // end today
       to: new Date().toISOString()
     },
-    fakeUserData: fakeUserData(80),
+    fakeUserData: fakeUserData(26),
     sites: [
       {
         name: 'New York City',

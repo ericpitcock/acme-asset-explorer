@@ -1,6 +1,6 @@
 <template>
   <div class="users">
-    <sidebar-layout>
+    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
@@ -202,6 +202,10 @@
 
 <style lang="scss" scoped>
   .users {
+    .text-style--section:not(:first-child) {
+      margin-top: 1rem;
+    }
+
     :deep(.ep-table-container) {
       // overflow: revert;
       overflow-x: auto;

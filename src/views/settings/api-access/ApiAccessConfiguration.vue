@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
 
   export default {
@@ -31,13 +32,14 @@
     data() {
       return {
         apiConfigTableProps: {
-          exclude: ['api_key'],
-          stickyHeader: true,
-          stickyTop: 61,
           bordered: true,
+          exclude: ['api_key'],
+          selectable: true,
           sortable: true,
-          width: '100%',
+          stickyHeader: true,
+          stickyTop: '61',
           style: 'width: 100%; overflow: unset;',
+          width: '100%',
         },
         columns: [
           {
@@ -85,10 +87,10 @@
             },
             nickname: 'Tickets',
             endpoint: 'Ticketing API',
-            auth_type: 'OAuth (1/1)',
+            auth_type: 'OAuth',
             api_key: 'AbCdEfGhIjKlMnOpQrStUvWxYz123456',
-            created: Date.now(),
-            expires: Date.now() + 1000 * 60 * 60 * 24 * 30,
+            created: faker.date.past(),
+            expires: faker.date.future(),
           },
           {
             status: {
@@ -101,10 +103,10 @@
             },
             nickname: 'Threat Intel New',
             endpoint: 'Threat Intelligence API',
-            auth_type: 'Token (1/3)',
+            auth_type: 'Token',
             api_key: '1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p',
-            created: Date.now(),
-            expires: Date.now() + 1000 * 60 * 60 * 24 * 30,
+            created: faker.date.past(),
+            expires: faker.date.future(),
           },
           {
             status: {
@@ -119,8 +121,8 @@
             endpoint: 'Threat Intelligence API',
             auth_type: 'Token',
             api_key: 'qwertyuiopasdfghjklzxcvbnm123456',
-            created: Date.now(),
-            expires: Date.now() - 1000 * 60 * 60 * 24 * 30,
+            created: faker.date.past(),
+            expires: faker.date.recent({ days: 10 }),
           },
         ],
       }
