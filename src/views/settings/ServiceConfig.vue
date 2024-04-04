@@ -1,6 +1,6 @@
 <template>
   <div class="service-config">
-    <SidebarLayout>
+    <sidebar-layout sidebar-padding="2rem 0 0 0">
       <template #sidebar>
         <ep-menu
           :menu-items="menuItems"
@@ -11,7 +11,7 @@
       <template #content>
         <router-view />
       </template>
-    </SidebarLayout>
+    </sidebar-layout>
   </div>
 </template>
 
@@ -59,6 +59,18 @@
 <style lang="scss" scoped>
   .service-config {
     display: flex;
+
+    :deep(.ep-menu .ep-button--menu-item) {
+      padding: 1rem 3rem !important;
+    }
+
+    :deep(.ep-menu .ep-menu__section) {
+      padding-left: 3rem !important;
+    }
+
+    :deep(.ep-menu .ep-menu__section:not(:first-child)) {
+      margin-top: 1rem !important;
+    }
 
     &__nav {
       flex: 0 0 20rem;
