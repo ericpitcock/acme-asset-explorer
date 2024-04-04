@@ -15,23 +15,23 @@
         />
       </template>
     </ep-header>
-    <sidebar-layout>
+    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
           <p class="text--subtle">{{ assetCount }} assets</p>
-          <ep-container>
-            <ep-flex-container
-              flex-flow="column nowrap"
-              gap="1rem"
-            >
-              <ep-checkbox
-                v-for="filter in filters"
-                :key="filter.id"
-                v-bind="filter"
-                @checkchange="handleFilter"
-              />
-            </ep-flex-container>
-          </ep-container>
+          <!-- <ep-container> -->
+          <ep-flex-container
+            flex-flow="column nowrap"
+            gap="1rem"
+          >
+            <ep-checkbox
+              v-for="filter in filters"
+              :key="filter.id"
+              v-bind="filter"
+              @checkchange="handleFilter"
+            />
+          </ep-flex-container>
+          <!-- </ep-container> -->
         </div>
       </template>
       <template #content>

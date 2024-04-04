@@ -24,7 +24,7 @@
         />
       </template>
     </ep-header>
-    <sidebar-layout>
+    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"

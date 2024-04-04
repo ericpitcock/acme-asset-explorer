@@ -115,7 +115,7 @@
       "bottom bottom bottom";
     height: 100%;
     width: 100%;
-    padding: 2rem;
+    padding: 2rem 2rem 20rem 2rem;
     gap: 2rem;
 
     &__overview {
