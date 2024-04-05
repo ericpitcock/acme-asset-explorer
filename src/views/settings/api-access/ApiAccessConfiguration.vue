@@ -38,7 +38,6 @@
           sortable: true,
           stickyHeader: true,
           stickyTop: '61',
-          striped: true,
           style: 'width: 100%; overflow: unset;',
           width: '100%',
         },

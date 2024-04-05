@@ -6,19 +6,19 @@
           flex-flow="column nowrap"
           gap="2rem"
         >
-          <h1>Atlas API Library Overview</h1>
-          <p>Welcome to eSentire's Atlas API Library – a collection of REST
+          <h1>API Library Overview</h1>
+          <p>Welcome to our API Library – a collection of REST
             endpoints
-            enabling customer developers to further integrate eSentire services
+            enabling customer developers to further integrate our services
             within
             your environment. To expose this functionality, the Altas API Library
             utilizes the REST protocol for developers to request data from, or
             post
             data
-            to eSentire’s web application servers.</p>
+            to our web application servers.</p>
           <p>These RESTful endpoints are available to customer organizations to,
             at
-            their will, make programmatic calls to eSentire’s application servers
+            their will, make programmatic calls to our application servers
             to
             GET
             existing data, POST new data and PATCH data for supported services.
@@ -26,7 +26,7 @@
           <ep-flex-container gap="3rem">
             <div class="intro-feature">
               <h2>Threat Intelligence API</h2>
-              <p>Access to eSentire’s proprietary blocklist of known malicious IP
+              <p>Access to our proprietary blocklist of known malicious IP
                 addresses.</p>
               <p>Threat Intelligence API Docs</p>
             </div>
@@ -46,13 +46,13 @@
           gap="2rem"
         >
           <h2>Provisioning</h2>
-          <p>At the core of eSentire’s Atlas API Library is the enforcement of the
+          <p>At the core of our API Library is the enforcement of the
             right-of-least-privilege across customer accounts, which segments
             organizational data to ensure each request is legitimate and specific
             to
             your organization.</p>
           <div class="callout">
-            To maintain the highest level of security, the Atlas API Library uses
+            To maintain the highest level of security, the API Library uses
             industry-standard authentication protocols, including Basic Token
             Authentication and OAuth 2.0, to authenticate each REST API call made
             to
@@ -75,17 +75,16 @@
           <h2>Use Cases</h2>
           <p>By ingesting this data, developers can then further integrate with
             exposed
-            eSentire services to accommodate several use cases, including:</p>
+            our services to accommodate several use cases, including:</p>
           <ul>
             <li>Adding the Threat Intelligence API payload to your existing
               firewalls'
               threat feed, for areas of your infrastructure unprotected by
-              eSentire
               Network sensors (labs, DMZs, remote locales, etc.)</li>
-            <li>Document or monitor eSentire’s Threat Intelligence feed for
+            <li>Document or monitor our Threat Intelligence feed for
               extended
               threat reporting capabilities</li>
-            <li>Integrate your eSentire ticketing data with your internal
+            <li>Integrate your ticketing data with your internal
               ticketing
               system of choice
               <ul>
@@ -98,7 +97,7 @@
             </li>
           </ul>
           <h2>Development Resourcing</h2>
-          <p>While the Atlas API Library enables your ability to automate
+          <p>While the API Library enables your ability to automate
             operational
             tasks and communication between our parties, it does require
             development
@@ -108,7 +107,7 @@
           <p>Usage of Atlas Ticketing API is self-service and the responsibility
             of
             the
-            Client. eSentire is not responsible for the implementation, usage, or
+            Client. We’re not responsible for the implementation, usage, or
             outcomes of using the Ticketing API feed in client applications.</p>
         </ep-flex-container>
       </div>

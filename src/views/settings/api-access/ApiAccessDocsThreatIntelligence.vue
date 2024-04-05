@@ -7,10 +7,10 @@
           gap="2rem"
         >
           <h1>Threat Intelligence API</h1>
-          <p>eSentire’s Atlas Threat Intelligence API provides customers with
+          <p>Atlas Threat Intelligence API provides customers with
             access
             to
-            eSentire’s proprietary blocklist of known malicious IP addresses.</p>
+            our proprietary blocklist of known malicious IP addresses.</p>
           <p>These addresses are actively blocked across your supported
             environments
             and
@@ -45,20 +45,20 @@
             Intelligence
             IP
             blocklist feed. This API has a single endpoint and no parameters.</p>
-          <div class="code-block">GET https://api.esentire.com/ti/rules</div>
+          <div class="code-block">GET https://api.domain.com/ti/rules</div>
           <h2>Authorization</h2>
           <p>The Threat Intelligence API uses the ‘Authorization’ HTTP header to
             authenticate requests with the value: {token}.</p>
           <div class="code-block">curl -H 'Authorization: {token}'
-            'https://api.esentire.com/ti/rules'</div>
+            'https://api.domain.com/ti/rules'</div>
           <h2>HTTP Header</h2>
           <div class="code-block">Authorization = {token}</div>
           <h2>Sample Threat Intelligence EDL Payload</h2>
           <div class="code-block">
-            # eSentire Threat Intelligence full IP Feed
-            # https://www.esentire.com
+            # Threat Intelligence full IP Feed
+            # https://www.domain.com
             #
-            # Note that this is for eSentire client use only.
+            # Note that this is for client use only.
             #
             1.2.1.22
             1.2.2.22

@@ -11,7 +11,7 @@
             read,
             update and resolve support tickets on behalf of their organization
             with
-            eSentire.</p>
+            us.</p>
           <ul>
             <li>Create a new support ticket</li>
             <li>Read the information for an existing ticket</li>
@@ -45,7 +45,7 @@
             <ep-badge label="New" />
             <p>A recently submitted ticket request that has yet to be assigned to
               the
-              appropriate eSentire analyst.</p>
+              appropriate company analyst.</p>
           </div>
           <div class="lifecycle-item">
             <ep-badge label="Open" />
@@ -78,7 +78,7 @@
           <p>The Ticketing API uses the Authorization HTTP header to authenticate
             requests, with the value: {token}.</p>
           <div class="code-block">curl -H 'Authorization: {token}'
-            'https:/api.esentire.com/tickets/cases'</div>
+            'https:/api.domain.com/tickets/cases'</div>
           <h2>HTTP Headers</h2>
           <div class="code-block">
             Authorization = {token}
@@ -93,14 +93,14 @@
             "username": "Firstname Lastname",
             "case_type": "API_TESTING",
             "customer_urgency": "LOW",
-            "short_description":"Customer Test 1 of eSentire's Atlas Ticketing
+            "short_description":"Customer Test 1 of Atlas Ticketing
             API",
             "description": "This is the body of a test ticket to validate the
             functionality of the API integration between the customer environment
             and
-            eSentire's ticketing system. Feel free to validate this case within
+            the ticketing system. Feel free to validate this case within
             the
-            Online Ticketing section located at insight.esentire.com/tickets.
+            Online Ticketing section located at insight.domain.com/tickets.
             Additional
             details can be included here a well.",
             "customer_field1":"JIRA-123",
@@ -136,15 +136,15 @@
     data() {
       return {
         endpoints: [
-          'https:/api.esentire.com/tickets/cases',
-          'https:/api.esentire.com/tickets/cases/{ticket_id}',
-          'https:/api.esentire.com/tickets/cases/{ticket_id}/emails',
-          'https:/api.esentire.com/tickets/cases/{ticket_id}/comments',
-          'https:/api.esentire.com/tickets/cases/{ticket_id}',
-          'https:/api.esentire.com/tickets/cases',
-        'https://api.esentire.com/tickets/cases?limit=1&offset_ptr=0&start_date=2022-06-01T15:47:43Z'
-      ]
-    }
-  },
-}
+          'https:/api.domain.com/tickets/cases',
+          'https:/api.domain.com/tickets/cases/{ticket_id}',
+          'https:/api.domain.com/tickets/cases/{ticket_id}/emails',
+          'https:/api.domain.com/tickets/cases/{ticket_id}/comments',
+          'https:/api.domain.com/tickets/cases/{ticket_id}',
+          'https:/api.domain.com/tickets/cases',
+          'https://api.domain.com/tickets/cases?limit=1&offset_ptr=0&start_date=2022-06-01T15:47:43Z'
+        ]
+      }
+    },
+  }
 </script>

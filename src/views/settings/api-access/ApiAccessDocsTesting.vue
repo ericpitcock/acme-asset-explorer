@@ -7,7 +7,7 @@
           gap="2rem"
         >
           <h1>Testing and Development</h1>
-          <p>Integrating with eSentire’s Atlas API Library is a simple and
+          <p>Integrating with our API Library is a simple and
             efficient
             way to retrieve important data specific to your organization.</p>
           <p>With this information, developers can then proceed to integrate it as
@@ -22,7 +22,7 @@
           gap="2rem"
         >
           <h2>Testing</h2>
-          <p>When first evaluating the Atlas API Library, developers are
+          <p>When first evaluating the API Library, developers are
             encouraged
             to
             use any of the following techniques to understand the expected
@@ -57,7 +57,7 @@
             <li>Use the Online Ticketing portal to create or reference test
               tickets
               manually</li>
-            <li>eSentire’s Online Ticketing portal relies entirely on the publicly
+            <li>our Online Ticketing portal relies entirely on the publicly
               available Ticketing APIs</li>
           </ul>
           <h2>Creating Test Cases</h2>
@@ -67,7 +67,7 @@
               to validate integrations</li>
             <li>Set the "case_type": "ATLAS_API_TESTING" field to create tickets
               that
-              will be unmonitored by eSentire’s SOC and not alert internal
+              will be unmonitored by our SOC and not alert internal
               stakeholders
             </li>
             <li>Upon subsequent request and providing the case number, your
@@ -79,7 +79,7 @@
           </ul>
           <h2>Swagger.io Test Playground</h2>
           <ul>
-            <li>eSentire’s official Atlas API Library documentation is formatted
+            <li>our official API Library documentation is formatted
               to
               Swagger.io specifications which allows for a dynamic environment for
               developers to receive interactive responses against their
@@ -90,7 +90,7 @@
               specific to your organization's cases</li>
           </ul>
           <h2>Development</h2>
-          <p>eSentire’s Atlas API Library is exposed via the REST protocol to
+          <p>our API Library is exposed via the REST protocol to
             support
             a
             broad developer audience across all modern development frameworks.
@@ -104,7 +104,7 @@
             upon
             changes to a potential payload. As such, developers are required to
             poll
-            eSentire’s Atlas API REST endpoints on a regular basis to run a
+            our API REST endpoints on a regular basis to run a
             comparison
             against the last data pulled and the most current data available.</p>
           <p>The following Python pseudo-code can serve as a framework:</p>
@@ -123,17 +123,18 @@
                         #  
                         previous_data = current_data 
                 else: 
-                    raise Exception(f"eSentire Atlas Platform API call failed with
+                    raise Exception(f"Atlas Platform API call failed with
             status code {response.status_code}") 
                 time.sleep(300) # Five minute wait period
           </div>
-      </ep-flex-container>
-    </div>
-  </ep-container>
-</div></template>
+        </ep-flex-container>
+      </div>
+    </ep-container>
+  </div>
+</template>
 
 <script>
-export default {
-  name: 'ApiAccessDocsTesting',
-}
+  export default {
+    name: 'ApiAccessDocsTesting',
+  }
 </script>
