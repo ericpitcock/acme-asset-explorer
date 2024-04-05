@@ -14,24 +14,37 @@
           @clear="updateSearch"
         />
       </template>
+      <template #right>
+        <ep-dropdown
+          :buttonProps="{
+            variant: 'ghost',
+            label: '',
+            iconRight: { name: 'f/columns' }
+          }"
+          align-right
+        >
+          <template #content>
+            <ep-container v-bind="containerProps">
+              <ep-flex-container
+                flex-flow="column nowrap"
+                gap="1rem"
+              >
+                <ep-checkbox
+                  v-for="filter in filters"
+                  :key="filter.id"
+                  v-bind="filter"
+                  @checkchange="handleFilter"
+                />
+              </ep-flex-container>
+            </ep-container>
+          </template>
+        </ep-dropdown>
+      </template>
     </ep-header>
     <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
           <p class="text--subtle">{{ assetCount }} assets</p>
-          <!-- <ep-container> -->
-          <ep-flex-container
-            flex-flow="column nowrap"
-            gap="1rem"
-          >
-            <ep-checkbox
-              v-for="filter in filters"
-              :key="filter.id"
-              v-bind="filter"
-              @checkchange="handleFilter"
-            />
-          </ep-flex-container>
-          <!-- </ep-container> -->
         </div>
       </template>
       <template #content>
@@ -68,6 +81,12 @@
         assetColumns,
         assetCount: assetData.length,
         browserChartOptions,
+        containerProps: {
+          backgroundColor: 'var(--interface-overlay)',
+          borderRadius: 'var(--border-radius)',
+          borderColor: 'var(--border-color--lighter)',
+          containerPadding: '2rem',
+        },
         // headerProps: {
         //   leftFlex: '0 0 20rem',
         //   leftPadding: '0 3rem',
