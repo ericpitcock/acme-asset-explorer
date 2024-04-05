@@ -141,7 +141,7 @@
             ]
           })
       },
-      generateFilters(columnsToFilter) {
+      generateFilters(columnsToFilter, disabledFilters) {
         const uniqueValues = {}
         // Extract unique values for specified columns
         this.columns.forEach(column => {
@@ -168,8 +168,14 @@
           }))
         }
 
-        // uncheck the following filters by default: Deactivated
-        filters.status.find(filter => filter.value === 'Deactivated').checked = false
+        // uncheck disabledFilters by default
+        for (const key in filters) {
+          filters[key].forEach(filter => {
+            if (disabledFilters.includes(filter.value)) {
+              filter.checked = false
+            }
+          })
+        }
 
         this.filters = filters
       },
@@ -181,20 +187,13 @@
           return user[key]
         }
       },
-      // getLabelValue(value, key) {
-      //   // If the value is an object and has a 'value' property, return that
-      //   if (typeof value === 'object' && 'value' in value) {
-      //     return value.value
-      //   }
-      //   // Otherwise, return the original value
-      //   return value
-      // },
     },
     mounted() {
-      // Specify columns to generate filters for
       const columnsToFilter = ['status', 'role']
-      // Generate filters for specified columns
-      this.generateFilters(columnsToFilter)
+      const disabledFilters = ['Deactivated']
+
+      this.generateFilters(columnsToFilter, disabledFilters)
+
       setTimeout(() => {
         this.loading = false
       }, 100)

@@ -138,6 +138,7 @@
       }
 
       &--logo {
+        color: var(--logo-color);
         margin-bottom: 30px;
 
         &:hover {

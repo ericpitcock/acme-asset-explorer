@@ -1,5 +1,15 @@
 // dark mode
-:root {
+:root, html[data-color-theme='dark'] {
+  // nav
+  --logo-color: hsl(0, 0%, 90%);
+  --nav-link-hover-bg-color: var(--gray-420);
+  --nav-link-active-bg-color: linear-gradient(45deg,
+      hsl(228, 68%, 60%) 50%,
+      hsl(199, 77%, 55%) 100%);
+  --nav-link-icon-color: var(--sky-300);
+  --nav-link-active-text-color: var(--white);
+  --nav-link-active-icon-color: var(--white);
+
   --app-header-background: linear-gradient(
     150deg, 
     hsl(0, 0%, 12%) 0%,
@@ -26,6 +36,14 @@
 
 // light mode
 html[data-color-theme='light'] {
+  // nav
+  --logo-color: var(--text-color);
+  --nav-link-hover-bg-color: var(--gray-20);
+  --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
+  --nav-link-icon-color: var(--color--primary);
+  --nav-link-active-icon-color: var(--text-color--inverse);
+  --nav-link-active-text-color: var(--text-color--inverse);
+  
   --app-header-background: linear-gradient(
     150deg, 
     hsl(0, 0%, 20%) 0%,
