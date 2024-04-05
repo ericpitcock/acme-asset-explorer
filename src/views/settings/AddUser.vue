@@ -156,7 +156,14 @@
         }
 
         this.addUserData({
-          status: 'Active',
+          status: {
+            value: 'Active',
+            props: {
+              label: 'Active',
+              variant: 'success',
+              outlined: true,
+            }
+          },
           name: this.userName,
           email: this.userEmail,
           role: this.userRole,

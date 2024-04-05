@@ -63,11 +63,12 @@
 </template>
 
 <script>
+  import { ref, computed, onMounted, getCurrentInstance } from 'vue'
+  import { useStore } from 'vuex'
   import AddUser from './AddUser.vue'
   import Modal from '@/components/Modal.vue'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
-  import { mapState } from 'vuex'
-  import { faker } from '@faker-js/faker'
+  import useFilters from '@/composables/useFilters.js'
 
   export default {
     name: 'Users',
@@ -76,127 +77,79 @@
       Modal,
       SidebarLayout,
     },
-    data() {
-      return {
-        columns: [
-          {
-            header: 'Status',
-            key: 'status',
-            cellType: 'component',
-            component: 'ep-badge',
-          },
-          { header: 'Name', key: 'name' },
-          { header: 'Email', key: 'email' },
-          { header: 'Role', key: 'role' },
-          {
-            header: 'Last Active',
-            key: 'last_active',
-            formatter: (value) => new Date(value).toLocaleString()
-          },
-        ],
-        filters: {},
-        loading: true,
-        showInactive: false,
-        showModal: false,
-      }
-    },
-    computed: {
-      ...mapState([
-        'approvedDomains',
-        'commonContainerProps',
-        'fakeUserData',
-      ]),
-      filteredData() {
-        let filtered = this.fakeUserData
+    setup() {
+      const instance = getCurrentInstance()
+      const $epDialog = instance.appContext.config.globalProperties.$epDialog
 
-        // Apply filters
-        for (const key in this.filters) {
-          filtered = filtered.filter(user => {
-            const value = this.getColumnValue(user, key)
-            const checked = this.filters[key].find(filter => filter.value === value).checked
-            return checked
-          })
-        }
+      const loading = ref(true)
 
-        return filtered
-      },
-    },
-    methods: {
-      addUser() {
-        return (this.approvedDomains.length)
-          ? this.showModal = true
-          : this.$epDialog.open({
+      const store = useStore()
+      const approvedDomains = computed(() => store.state.approvedDomains)
+      const commonContainerProps = computed(() => store.state.commonContainerProps)
+      const fakeUserData = computed(() => store.state.fakeUserData)
+
+      const columns = [
+        {
+          header: 'Status',
+          key: 'status',
+          cellType: 'component',
+          component: 'ep-badge',
+        },
+        { header: 'Name', key: 'name' },
+        { header: 'Email', key: 'email' },
+        { header: 'Role', key: 'role' },
+        {
+          header: 'Last Active',
+          key: 'last_active',
+          formatter: (value) => new Date(value).toLocaleString()
+        },
+      ]
+
+      const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
+
+      const showModal = ref(false)
+
+      const addUser = () => {
+        if (approvedDomains.value.length) {
+          showModal.value = true
+        } else {
+          $epDialog.open({
             title: 'No Approved Domains',
             message: 'You need to add an approved domain to your company profile before you can add a new user.',
             buttons: [
-              {
-                variant: 'secondary',
-                text: 'Cancel',
-              },
+              { variant: 'secondary', text: 'Cancel' },
               {
                 variant: 'primary',
                 text: 'Add Domain',
-                action: () => this.$router.push('/settings/company-profile')
+                action: () => $router.push('/settings/company-profile')
               },
             ]
           })
-      },
-      generateFilters(columnsToFilter, disabledFilters) {
-        const uniqueValues = {}
-        // Extract unique values for specified columns
-        this.columns.forEach(column => {
-          if (columnsToFilter.includes(column.key)) {
-            uniqueValues[column.key] = Array.from(new Set(this.fakeUserData.map(user => this.getColumnValue(user, column.key))))
-          }
-        })
-        //alphabetize unique values
-        for (const key in uniqueValues) {
-          uniqueValues[key].sort()
         }
+      }
 
-        const filters = {}
+      onMounted(() => {
+        const columnsToFilter = ['status', 'role']
+        const disabledFilters = ['Deactivated']
 
-        // Generate filter objects based on unique values
-        for (const key in uniqueValues) {
-          filters[key] = uniqueValues[key].map(value => ({
-            id: faker.string.uuid(),
-            name: key,
-            value: value,
-            checked: true,
-            label: value,
-            disabled: false
-          }))
-        }
+        generateFilters(columnsToFilter, disabledFilters)
 
-        // uncheck disabledFilters by default
-        for (const key in filters) {
-          filters[key].forEach(filter => {
-            if (disabledFilters.includes(filter.value)) {
-              filter.checked = false
-            }
-          })
-        }
+        setTimeout(() => {
+          loading.value = false
+        }, 100)
+      })
 
-        this.filters = filters
-      },
-      getColumnValue(user, key) {
-        const column = this.columns.find(column => column.key === key)
-        if (column.cellType === 'component') {
-          return user[key].value
-        } else {
-          return user[key]
-        }
-      },
-    },
-    mounted() {
-      const columnsToFilter = ['status', 'role']
-      const disabledFilters = ['Deactivated']
-
-      this.generateFilters(columnsToFilter, disabledFilters)
-
-      setTimeout(() => {
-        this.loading = false
-      }, 100)
+      return {
+        columns,
+        filters,
+        loading,
+        showModal,
+        addUser,
+        approvedDomains,
+        commonContainerProps,
+        fakeUserData,
+        filteredData
+      }
     }
   }
 </script>
