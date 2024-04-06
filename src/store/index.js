@@ -21,9 +21,6 @@ export default createStore({
       stickyTop: '0',
       zIndex: 'var(--z-index--sticky)'
     },
-    // commonFooterProps: {
-    //   backgroundColor: 'var(--interface-surface)'
-    // },
     dateRange: {
       // start 30 days ago
       from: faker.date.recent({ days: 30 }).toISOString(),
@@ -85,8 +82,6 @@ export default createStore({
         timestamp: faker.date.recent().toISOString()
       }
     ],
-    // notificationCenterOpen: false,
-    // sidebar: false,
     leftPanelCollapsed: false,
     rightPanelOpen: false,
     theme: 'dark'
@@ -99,7 +94,6 @@ export default createStore({
       return state.notifications.filter(n => !n.active)
     },
     hasActiveNotifications: state => {
-      // if notifications array isnt empty, return true
       return state.notifications.length > 0
     }
   },
@@ -114,7 +108,6 @@ export default createStore({
       state.theme = data
     },
     addNotification: (state, newNotification) => {
-      console.log('addNotification mutation', newNotification)
       state.notifications.push(newNotification)
     },
     clearNotifications: state => {
@@ -124,7 +117,6 @@ export default createStore({
       state.approvedDomains.splice(index, 1)
     },
     removeNotification: (state, notification) => {
-      console.log('removing notification', notification)
       state.notifications = state.notifications.filter(
         n => n.id !== notification.id
       )
@@ -134,39 +126,30 @@ export default createStore({
     },
     toggleLeftPanel: state => {
       state.leftPanelCollapsed = !state.leftPanelCollapsed
-      console.log('toggleLeftPanel mutation', state.leftPanelCollapsed)
     },
     toggleRightPanel: state => {
       state.rightPanelOpen = !state.rightPanelOpen
-      console.log('toggleRightPanel mutation', state.rightPanelOpen)
-    }
-    // toggleNotificationCenter: state => {
-    //   state.notificationCenterOpen = !state.notificationCenterOpen
-    // }
+    },
   },
   actions: {
     addNotification: ({ state, commit }, notification) => {
-      // build new notification object
       const newNotification = {
-        ...notification, // using spread syntax breaks the object reference, recevies message and variant (success, info, warning, error)
-        active: true, // add active property
-        id: faker.string.uuid(), // adds unique ID each time
-        timestamp: Date.now() // adds timestamp
+        ...notification,
+        active: true,
+        id: faker.string.uuid(),
+        timestamp: Date.now()
       }
 
-      // add the notification object to the array
       commit('addNotification', newNotification)
 
       // if it hasn't been dismissed, move it to the notifications center (active: false) after 5 seconds
       setTimeout(() => {
-        // if newNotification is not in the array, return
         if (!state.notifications.includes(newNotification)) return
 
-        // find newNotification in the array
         const index = state.notifications.findIndex(
           n => n.id === newNotification.id
         )
-        // active to false
+
         state.notifications[index].active = false
       }, 5000)
     },
