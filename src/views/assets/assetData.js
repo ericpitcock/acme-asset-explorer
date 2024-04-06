@@ -14,9 +14,6 @@ const assetColumns = [
     key: 'status',
     cellType: 'component',
     component: markRaw(EpBadge),
-    // formatter: (value, row) => {
-    //   return `<div class="status-dot status-dot--${value.toLowerCase()}">${value}</div>`
-    // }
   },
   {
     header: 'User',
@@ -32,6 +29,16 @@ const assetColumns = [
     key: 'vulnerabilities',
     cellType: 'component',
     component: markRaw(EpSparkBar),
+  },
+  {
+    header: 'Endpoint Version',
+    key: 'endpoint_version',
+    formatter: (value) => {
+      if (value != '1.0.2') {
+        return `<span style="color: var(--text-color--danger);">${value} △</span>`
+      }
+      return value
+    }
   },
   {
     header: 'Location',
@@ -75,19 +82,17 @@ const vulnArraySum = () => {
   return arr
 }
 
-// this function creates an array of objects with random data, placeholder for vulnerabilities
+// create an array of objects with random data, placeholder for vulnerabilities
 const fakeArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
     const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
-    // map store.state.sites.names to an array
 
     const sites = store.state.sites.map(site => site.name)
 
     arr.push({
       id: faker.string.uuid(),
-      // status: faker.helpers.arrayElement(['Active', 'Inactive', 'Archived']),
       status: {
         value: status,
         props: {
@@ -104,6 +109,7 @@ const fakeArray = length => {
           bar: []
         },
       },
+      endpoint_version: faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
       location: faker.helpers.arrayElement(sites),
       operating_system: faker.helpers.arrayElement(['Windows', 'macOS', 'Linux']),
       last_seen: faker.date.recent({ days: 10 }).toISOString(),

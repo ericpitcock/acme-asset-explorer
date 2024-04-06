@@ -87,6 +87,7 @@
             :hiddenColumns="hiddenColumns"
             style="width: 100%; overflow: unset;"
             @data-changed="handleDataChanged"
+            @row-click="handleRowClick"
           />
         </ep-container>
       </template>
@@ -111,7 +112,7 @@
     },
     setup() {
       const assetCount = ref(assetData.length)
-      const hiddenColumns = ref(['ipv6_address', 'mac_address'])
+      const hiddenColumns = ref(['ipv6_address', 'mac_address', 'operating_system'])
       const search = ref([])
 
       const store = useStore()
@@ -139,6 +140,7 @@
         // data: filteredData,
         exclude: ['id'],
         headerBackgroundColor: 'var(--interface-surface)',
+        selectable: true,
         stickyHeader: true,
         stickyTop: '61',
         sortable: true,
@@ -175,6 +177,10 @@
         assetCount.value = data.length
       }
 
+      const handleRowClick = (row) => {
+        console.log('row', row)
+      }
+
       const handleFilter = (event) => {
         if (!event.target.checked) {
           hiddenColumns.value.push(event.target.id)
@@ -192,8 +198,7 @@
       }
 
       onMounted(() => {
-        // console.console.log('assetData', assetData)
-        const columnsToFilter = ['status', 'location', 'operating_system']
+        const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
         const disabledFilters = ['Archived', 'Inactive']
 
         generateFilters(columnsToFilter, disabledFilters)
@@ -216,6 +221,7 @@
         filteredData,
         headerProps,
         handleDataChanged,
+        handleRowClick,
         handleFilter,
         hiddenColumns,
         updateSearch,
