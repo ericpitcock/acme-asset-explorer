@@ -52,7 +52,7 @@
             v-show="!loading"
             :columns="columns"
             :data="filteredData"
-            :exclude="['id']"
+            :exclude="['id', 'office_phone']"
             sticky-header
             sticky-top="61"
             striped
@@ -95,7 +95,7 @@
       const $epDialog = instance.appContext.config.globalProperties.$epDialog
 
       const loading = ref(true)
-      const selectedUser = ref({})
+      const selectedUser = ref(null)
 
       const store = useStore()
       const approvedDomains = computed(() => store.state.approvedDomains)
