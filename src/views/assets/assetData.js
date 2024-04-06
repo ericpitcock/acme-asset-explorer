@@ -109,10 +109,10 @@ const fakeArray = length => {
           bar: []
         },
       },
-      endpoint_version: faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
+      endpoint_version: status === 'Archived' ? '1.0.0' : faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
       location: faker.helpers.arrayElement(sites),
       operating_system: faker.helpers.arrayElement(['Windows', 'macOS', 'Linux']),
-      last_seen: faker.date.recent({ days: 10 }).toISOString(),
+      last_seen: status === 'Archived' ? faker.date.between({ from: '2017-01-01T00:00:00.000Z', to: '2022-01-01T00:00:00.000Z' }) : faker.date.recent({ days: 10 }),
       ipv6_address: faker.internet.ipv6(),
       mac_address: faker.internet.mac()
     })
