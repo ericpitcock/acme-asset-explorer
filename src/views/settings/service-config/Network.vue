@@ -1,17 +1,17 @@
 <template>
-  <div class="network">
-    <ep-container
-      v-bind="commonContainerProps"
-      container-padding="1rem 3rem 3rem"
-    >
-      <ep-table
-        :columns="columns"
-        :data="data"
-        bordered
-        width="100%"
-      />
-    </ep-container>
-  </div>
+  <!-- <div class="network"> -->
+  <ep-container
+    v-bind="commonContainerProps"
+    container-padding="1rem 3rem 3rem"
+  >
+    <ep-table
+      :columns="columns"
+      :data="data"
+      bordered
+      width="100%"
+    />
+  </ep-container>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -32,7 +32,11 @@
           { header: 'Name', key: 'name' },
           { header: 'Site', key: 'site' },
           { header: 'Type', key: 'type' },
-          { header: 'Last Config Modified', key: 'last_config_modified' }
+          {
+            header: 'Modified',
+            key: 'modified',
+            formatter: (value) => new Date(value).toLocaleString()
+          }
         ],
       }
     },
@@ -61,7 +65,7 @@
             name: `cyclops-${faker.number.int({ min: 1000, max: 9999 })}`,
             site: faker.helpers.arrayElement(sites),
             type: faker.helpers.arrayElement(['Physical', 'VMWare', 'AWS']),
-            last_config_modified: faker.date.recent()
+            modified: faker.date.recent().toISOString()
           })
         }
 

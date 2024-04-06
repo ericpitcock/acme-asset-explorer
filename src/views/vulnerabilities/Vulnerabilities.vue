@@ -28,25 +28,23 @@
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
-          gap="1rem"
+          gap="1.5rem"
           padding="1rem 0"
         >
-          <h3 class="text-style--section">Severity</h3>
-          <ep-flex-container
-            flex-flow="column nowrap"
-            gap="1.5rem"
-            padding="1rem 0"
+          <template
+            v-for="(filterSet, category) in filters"
+            :key="category"
           >
+            <h3 class="text-style--section">
+              {{ category.replace(/_/g, ' ') }}
+            </h3>
             <ep-checkbox
-              v-for="severity in severityFilters"
-              :key="severity.id"
-              :value="severity.value"
-              :label="severity.label"
-              :checked="severity.checked"
-              :disabled="severity.disabled"
-              @checkchange="handleFilter"
+              v-for="checkbox in filterSet"
+              :key="checkbox.label"
+              v-bind="checkbox"
+              v-model="checkbox.checked"
             />
-          </ep-flex-container>
+          </template>
         </ep-flex-container>
       </template>
       <template #content>
@@ -69,7 +67,7 @@
         >
           <ep-table
             :columns="vulnTableColumns"
-            :data="filteredVulnData"
+            :data="filteredData"
             v-bind="tableProps"
             style="width: 100%; overflow: unset;"
           />
@@ -80,11 +78,12 @@
 </template>
 
 <script>
-  import { ref, computed, watch } from 'vue'
+  import { ref, computed, watch, onMounted } from 'vue'
   import { useStore } from 'vuex'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
+  import useFilters from '@/composables/useFilters.js'
 
   export default {
     name: 'Vulnerabilities',
@@ -98,7 +97,9 @@
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
       const commonContainerProps = computed(() => store.state.commonContainerProps)
 
-      const filters = ref([])
+      const vulnTableDataRef = ref(vulnTableData)
+
+      // const filters = ref([])
       const multiSearchProps = {
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
@@ -114,11 +115,11 @@
         exclude: [],
       }
 
-      const filteredVulnData = computed(() => {
-        return vulnTableData.filter(row => {
-          return !filters.value.includes(row.baseSeverity.props.label.toLowerCase())
-        })
-      })
+      // const filteredVulnData = computed(() => {
+      //   return vulnTableData.filter(row => {
+      //     return !filters.value.includes(row.baseSeverity.props.label.toLowerCase())
+      //   })
+      // })
 
       const headerProps = computed(() => ({
         ...commonPageHeaderProps,
@@ -129,27 +130,27 @@
         itemGap: '0',
       }))
 
-      const severityFilters = computed(() => {
-        const severityLevels = ['Low', 'Medium', 'High', 'Critical']
-        return severityLevels.map(severity => {
-          return {
-            id: severity.toLowerCase(),
-            name: 'severity',
-            value: severity.toLowerCase(),
-            checked: !filters.value.includes(severity.toLowerCase()),
-            label: severity,
-            disabled: false,
-          }
-        })
-      })
+      // const severityFilters = computed(() => {
+      //   const severityLevels = ['Low', 'Medium', 'High', 'Critical']
+      //   return severityLevels.map(severity => {
+      //     return {
+      //       id: severity.toLowerCase(),
+      //       name: 'severity',
+      //       value: severity.toLowerCase(),
+      //       checked: !filters.value.includes(severity.toLowerCase()),
+      //       label: severity,
+      //       disabled: false,
+      //     }
+      //   })
+      // })
 
-      const handleFilter = (event) => {
-        if (event.target.checked === false) {
-          filters.value.push(event.target.id)
-        } else {
-          filters.value = filters.value.filter(filter => filter !== event.target.id)
-        }
-      }
+      // const handleFilter = (event) => {
+      //   if (event.target.checked === false) {
+      //     filters.value.push(event.target.id)
+      //   } else {
+      //     filters.value = filters.value.filter(filter => filter !== event.target.id)
+      //   }
+      // }
 
       const updateSearch = (query) => {
         console.log('searching for:', query)
@@ -167,17 +168,28 @@
         window.dispatchEvent(new Event('resize'))
       })
 
+      onMounted(() => {
+        const columnsToFilter = ['severity']
+        const disabledFilters = ['low']
+
+        generateFilters(columnsToFilter, disabledFilters)
+      })
+
+      const { filters, generateFilters, filteredData } = useFilters(vulnTableColumns, vulnTableDataRef)
+
       return {
         commonContainerProps,
         filters,
+        generateFilters,
+        filteredData,
         multiSearchProps,
         tableProps,
         vulnChartOptions,
         vulnTableColumns,
-        filteredVulnData,
+        // filteredVulnData,
         headerProps,
-        severityFilters,
-        handleFilter,
+        // severityFilters,
+        // handleFilter,
         updateSearch,
         queryClose,
       }

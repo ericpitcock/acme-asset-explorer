@@ -5,7 +5,7 @@ import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components
 const vulnTableColumns = [
   {
     header: 'Severity',
-    key: 'baseSeverity',
+    key: 'severity',
     cellType: 'component',
     component: markRaw(EpBadge),
   },
@@ -23,25 +23,25 @@ const vulnTableColumns = [
   },
   {
     header: 'Score',
-    key: 'baseScore'
+    key: 'base_score'
   },
   {
     header: 'Published Date',
-    key: 'publishedDate',
+    key: 'published_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
   },
   {
     header: 'Last Modified Date',
-    key: 'lastModifiedDate',
+    key: 'last_modified_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
   },
   {
     header: 'Date Seen',
-    key: 'dateSeen',
+    key: 'date_seen',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
@@ -138,16 +138,16 @@ for (let i = 0; i < 100; i++) {
   const variant = severity === 'Low' ? 'success' : severity === 'Medium' ? 'warning' : severity === 'High' ? 'warning' : 'danger'
 
   // sort order for severity
-  const severitySortMap = {
-    'low': '0',
-    'medium': '1',
-    'high': '2',
-    'critical': '3'
-  }
+  // const severitySortMap = {
+  //   'low': '0',
+  //   'medium': '1',
+  //   'high': '2',
+  //   'critical': '3'
+  // }
 
   vulnTableData.push({
-    baseSeverity: {
-      value: severitySortMap[severity.toLowerCase()],
+    severity: {
+      value: severity,
       props: {
         label: severity,
         variant,
@@ -157,10 +157,10 @@ for (let i = 0; i < 100; i++) {
     },
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     description: generateCveDesc(),
-    baseScore: faker.number.float({ min: 0, max: 10, precision: 0.1 }),
-    publishedDate: faker.date.past().toISOString(),
-    lastModifiedDate: faker.date.recent().toISOString(),
-    dateSeen: faker.date.between({
+    base_score: faker.number.float({ min: 0, max: 10, precision: 0.1 }),
+    published_date: faker.date.past().toISOString(),
+    last_modified_date: faker.date.recent().toISOString(),
+    date_seen: faker.date.between({
       // from 30 days ago
       from: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString(),
       // to today

@@ -115,14 +115,14 @@
     },
     computed: {
       ...mapState([
-        'commonPageHeaderProps'
+        'commonPageHeaderProps',
+        'fakeUserData'
       ]),
       fakeData() {
-        const names = []
-        // Generate 9 random names
-        for (let i = 0; i < 9; i++) {
-          names.push(faker.person.fullName())
-        }
+        const names = this.fakeUserData.map(user => user.name)
+
+        // return only 6 names
+        names.length = 6
 
         const data = []
         for (let i = 0; i < 34; i++) {

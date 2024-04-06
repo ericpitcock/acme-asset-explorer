@@ -16,6 +16,7 @@
             type="email"
             id="email"
             v-model="email"
+            size="large"
             placeholder="Enter your email"
             background-color="var(--interface-foreground)"
           />
@@ -23,13 +24,15 @@
             type="password"
             id="password"
             v-model="password"
+            size="large"
             placeholder="Enter your password"
             background-color="var(--interface-foreground)"
           />
           <ep-button
             type="submit"
             label="Sign In"
-            kind="primary"
+            size="large"
+            variant="primary"
           />
         </form>
       </div>
@@ -83,8 +86,7 @@
     // a beautiful gradient with purples and blues
     // background: linear-gradient(135deg, #5f2c82, #49a09d);
     // that but darker
-    background: linear-gradient(135deg, #3d0c40, #2a7e5b);
-    // because I'm faking the login view as essentially a modal
+    background: var(--app-header-background); // because I'm faking the login view as essentially a modal
     z-index: var(--z-index--modal);
 
     // give it one more step in between to smooth it out
