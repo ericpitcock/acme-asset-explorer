@@ -7,7 +7,7 @@
     <template #header>
       <ep-header>
         <template #left>
-          <h1>New User</h1>
+          <h1>{{ modalTitle }}</h1>
         </template>
         <template #right>
           <p class="text--subtle">All fields required unless noted</p>
@@ -80,7 +80,7 @@
           />
           <ep-button
             variant="primary"
-            label="Add User"
+            :label="buttonLabel"
             @click="addUser"
           />
         </template>
@@ -92,11 +92,18 @@
 <script>
   import RolesTable from './RolesTable.vue'
   import { mapMutations, mapState } from 'vuex'
+  import { faker } from '@faker-js/faker'
 
   export default {
     name: 'AddUser',
     components: {
       RolesTable,
+    },
+    props: {
+      user: {
+        type: Object,
+        default: () => ({}),
+      },
     },
     emits: ['close'],
     data() {
@@ -106,6 +113,7 @@
           { label: 'Partner', value: 'Partner' },
           { label: 'Admin', value: 'Admin' },
         ],
+        userId: '',
         userRole: '',
         userName: '',
         userEmail: '',
@@ -125,7 +133,13 @@
         return this.approvedDomains.length
           ? `Approved domains: ${this.approvedDomains.join(', ')}`
           : 'You don’t have any approved domains. Add a domain to company profile to add a new user.'
-      }
+      },
+      buttonLabel() {
+        return this.user ? 'Save Changes' : 'Add User'
+      },
+      modalTitle() {
+        return this.user ? `Edit User: ${this.userId}` : 'Add User'
+      },
     },
     methods: {
       ...mapMutations(['addUserData']),
@@ -156,6 +170,7 @@
         }
 
         this.addUserData({
+          id: this.userId || faker.string.uuid(),
           status: {
             value: 'Active',
             props: {
@@ -166,6 +181,8 @@
           },
           name: this.userName,
           email: this.userEmail,
+          user_mobile_phone: this.userMobilePhone,
+          office_phone: this.userOfficePhone,
           role: this.userRole,
           last_active: new Date().toISOString(),
         })
@@ -197,7 +214,15 @@
         this.userSecondaryEmail = ''
         this.userMobilePhone = ''
         this.userOfficePhone = ''
-      }
+      },
+      populateFields() {
+        this.userId = this.user.id
+        this.userRole = this.user.role
+        this.userName = this.user.name
+        this.userEmail = this.user.email
+        this.userMobilePhone = this.user.user_mobile_phone
+        this.userOfficePhone = this.user.office_phone
+      },
     },
     watch: {
       userRole() {
@@ -212,7 +237,12 @@
       userMobilePhone() {
         this.userMobilePhoneBorderColor = null
       },
-    }
+    },
+    mounted() {
+      if (this.user) {
+        this.populateFields()
+      }
+    },
   }
 </script>
 

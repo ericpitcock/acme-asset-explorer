@@ -52,19 +52,25 @@
             v-show="!loading"
             :columns="columns"
             :data="filteredData"
+            :exclude="['id']"
             sticky-header
             sticky-top="61"
             striped
+            selectable
             bordered
             sortable
             width="100%"
             style="width: 100%; overflow: unset;"
+            @row-click="editUser"
           />
         </ep-container>
       </template>
     </sidebar-layout>
     <modal v-if="showModal">
-      <add-user @close="showModal = false" />
+      <add-user
+        :user="selectedUser"
+        @close="showModal = false"
+      />
     </modal>
   </div>
 </template>
@@ -89,6 +95,7 @@
       const $epDialog = instance.appContext.config.globalProperties.$epDialog
 
       const loading = ref(true)
+      const selectedUser = ref({})
 
       const store = useStore()
       const approvedDomains = computed(() => store.state.approvedDomains)
@@ -97,6 +104,10 @@
 
       const columns = [
         {
+          header: 'ID',
+          key: 'id'
+        },
+        {
           header: 'Status',
           key: 'status',
           cellType: 'component',
@@ -104,6 +115,8 @@
         },
         { header: 'Name', key: 'name' },
         { header: 'Email', key: 'email' },
+        { header: 'Mobile Phone', key: 'user_mobile_phone' },
+        { header: 'Office Phone', key: 'office_phone' },
         { header: 'Role', key: 'role' },
         {
           header: 'Last Active',
@@ -135,6 +148,12 @@
         }
       }
 
+      const editUser = (user) => {
+        console.log('Edit user:', user)
+        selectedUser.value = user
+        showModal.value = true
+      }
+
       onMounted(() => {
         const columnsToFilter = ['status', 'role']
         const disabledFilters = ['Deactivated']
@@ -148,6 +167,7 @@
 
       return {
         columns,
+        editUser,
         filters,
         loading,
         showModal,
@@ -155,7 +175,8 @@
         approvedDomains,
         commonContainerProps,
         fakeUserData,
-        filteredData
+        filteredData,
+        selectedUser,
       }
     }
   }
@@ -170,6 +191,10 @@
     :deep(.ep-table-container) {
       // overflow: revert;
       overflow-x: auto;
+    }
+
+    :deep(.ep-table tr td span) {
+      pointer-events: none;
     }
   }
 </style>

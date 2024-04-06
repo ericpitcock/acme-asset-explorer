@@ -102,6 +102,13 @@ export default createStore({
       state.approvedDomains.push(newDomain)
     },
     addUserData(state, newUser) {
+      // check if the user already exists by id and change that user's data
+      const existingUser = state.fakeUserData.find(u => u.id === newUser.id)
+      if (existingUser) {
+        // replace user data
+        Object.assign(existingUser, newUser)
+        return
+      }
       state.fakeUserData.push(newUser)
     },
     setTheme: (state, data) => {
