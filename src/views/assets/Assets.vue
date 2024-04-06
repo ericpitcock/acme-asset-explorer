@@ -55,7 +55,7 @@
               :key="category"
             >
               <h3 class="text-style--section">
-                {{ category }}
+                {{ category.replace(/_/g, ' ') }}
               </h3>
               <ep-checkbox
                 v-for="checkbox in filterSet"
@@ -156,6 +156,8 @@
         leftPadding: '0 3rem',
         centerFlex: '1',
         centerPadding: '0 3rem 0 0',
+        rightFlex: '0 0 10rem',
+        rightPadding: '0 3rem',
         itemGap: '0',
       }))
 
