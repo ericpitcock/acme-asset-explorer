@@ -13,45 +13,58 @@
           @search="searchFiles"
         />
       </template>
-      <template #right>
-        <ep-button
-          label="Upload File"
-          variant="primary"
-          :iconLeft="{ name: 'f/upload' }"
-          @click=""
-        />
-      </template>
     </ep-header>
-    <div class="files__content">
-      <ep-container
-        content-padding="1rem 3rem 3rem"
-        style="overflow: unset;"
-      >
-        <ep-table
-          :columns="columns"
-          :data="fakeData"
-          sticky-header
-          sticky-top="61"
-          sortable
-          sortKey="date_uploaded"
-          striped
-          bordered
-          header-background-color="var(--interface-surface)"
-          width="100%"
+    <sidebar-layout sidebar-padding="3rem 0 0 3rem">
+      <template #sidebar>
+        <ep-flex-container
+          flex-flow="column nowrap"
+          align-items="flex-start"
+          gap="2rem"
+        >
+          <p>{{ fakeData.length }} Files</p>
+          <ep-button
+            label="Upload File"
+            variant="primary"
+            :iconLeft="{ name: 'f/upload' }"
+            @click=""
+          />
+        </ep-flex-container>
+      </template>
+      <template #content>
+        <ep-container
+          content-padding="1rem 3rem 3rem"
           style="overflow: unset;"
-        />
-      </ep-container>
-    </div>
+        >
+          <ep-table
+            :columns="columns"
+            :data="fakeData"
+            sticky-header
+            sticky-top="61"
+            sortable
+            sortKey="date_uploaded"
+            striped
+            bordered
+            header-background-color="var(--interface-surface)"
+            width="100%"
+            style="overflow: unset;"
+          />
+        </ep-container>
+      </template>
+    </sidebar-layout>
   </div>
 </template>
 
 <script>
+  import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
   import filenames from './filenames.js'
 
   export default {
     name: 'Files',
+    components: {
+      SidebarLayout
+    },
     data() {
       return {
         columns: [
@@ -128,8 +141,8 @@
         return {
           ...this.commonPageHeaderProps,
           leftFlex: '0 0 20rem',
-          centerFlex: '1',
-          rightFlex: '0 0 20rem',
+          centerJustify: 'flex-start',
+          itemGap: '0',
         }
       },
     },
@@ -177,9 +190,5 @@
 </script>
 
 <style lang="scss" scoped>
-  .files {
-    &__content {
-      padding: 2rem 2rem 20rem 2rem;
-    }
-  }
+  .files {}
 </style>
