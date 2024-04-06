@@ -30,7 +30,7 @@
                 gap="1rem"
               >
                 <ep-checkbox
-                  v-for="filter in filters"
+                  v-for="filter in columnFilters"
                   :key="filter.id"
                   v-bind="filter"
                   @checkchange="handleFilter"
@@ -44,7 +44,27 @@
     <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
-          <p class="text--subtle">{{ assetCount }} assets</p>
+          <!-- <p class="text--subtle">{{ assetCount }} assets</p> -->
+          <ep-flex-container
+            flex-flow="column nowrap"
+            gap="1.5rem"
+            padding="1rem 0"
+          >
+            <template
+              v-for="(filterSet, category) in filters"
+              :key="category"
+            >
+              <h3 class="text-style--section">
+                {{ category }}
+              </h3>
+              <ep-checkbox
+                v-for="checkbox in filterSet"
+                :key="checkbox.label"
+                v-bind="checkbox"
+                v-model="checkbox.checked"
+              />
+            </template>
+          </ep-flex-container>
         </div>
       </template>
       <template #content>
@@ -53,11 +73,12 @@
           container-padding="1rem 3rem 3rem"
         >
           <ep-table
+            :columns="assetColumns"
+            :data="filteredData"
             v-bind="tableProps"
             :search="search"
             :hiddenColumns="hiddenColumns"
-            @data-changed="handleDataChanged"
-            style="width: 100%  overflow: unset;"
+            style="width: 100%; overflow: unset;"
           />
         </ep-container>
       </template>
@@ -66,117 +87,138 @@
 </template>
 
 <script>
+  import { ref, computed, onMounted } from 'vue'
+  import { useStore } from 'vuex'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
-  import { mapState } from 'vuex'
-  import { assetColumns, assetData } from './assetData'
-  import browserChartOptions from './browsers.js'
+  import { assetColumns, assetData } from './assetData.js'
+  import useFilters from '@/composables/useFilters.js'
+  // import browserChartOptions from './browsers.js'
 
   export default {
     name: 'Assets',
     components: {
       SidebarLayout,
     },
-    data() {
-      return {
-        assetColumns,
-        assetCount: assetData.length,
-        browserChartOptions,
-        containerProps: {
-          backgroundColor: 'var(--interface-overlay)',
-          borderRadius: 'var(--border-radius)',
-          borderColor: 'var(--border-color--lighter)',
-          containerPadding: '2rem',
-        },
-        // headerProps: {
-        //   leftFlex: '0 0 20rem',
-        //   leftPadding: '0 3rem',
-        //   centerFlex: '1',
-        //   centerPadding: '0 3rem 0 0',
-        //   itemGap: '0',
-        // },
-        hiddenColumns: ['ipv6_address', 'mac_address'],
-        multiSearchProps: {
-          height: '3.8rem',
-          backgroundColor: 'var(--interface-foreground)',
-          icon: { name: 'search' },
-          placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
-        },
-        search: [],
-        tableProps: {
-          columns: assetColumns,
-          data: assetData,
-          exclude: ['id'],
-          headerBackgroundColor: 'var(--interface-surface)',
-          stickyHeader: true,
-          stickyTop: '61',
-          sortable: true,
-          sortDir: 'asc',
-          striped: true,
-          bordered: true,
-          searchable: true,
-          // calculateHeight: true,
-          width: '100%',
+    setup() {
+      // const assetCount = ref(assetData.length)
+      const hiddenColumns = ref(['ipv6_address', 'mac_address'])
+      const search = ref([])
+
+      const store = useStore()
+      const commonContainerProps = computed(() => store.state.commonContainerProps)
+      const commonPageHeaderProps = store.state.commonPageHeaderProps
+
+      const assetDataRef = ref(assetData)
+
+      const containerProps = {
+        backgroundColor: 'var(--interface-overlay)',
+        borderRadius: 'var(--border-radius)',
+        borderColor: 'var(--border-color--lighter)',
+        containerPadding: '2rem',
+      }
+
+      const multiSearchProps = {
+        height: '3.8rem',
+        backgroundColor: 'var(--interface-foreground)',
+        icon: { name: 'search' },
+        placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
+      }
+
+      const tableProps = {
+        // columns: assetColumns,
+        // data: filteredData,
+        exclude: ['id'],
+        headerBackgroundColor: 'var(--interface-surface)',
+        stickyHeader: true,
+        stickyTop: '61',
+        sortable: true,
+        sortDir: 'asc',
+        striped: true,
+        bordered: true,
+        searchable: true,
+        width: '100%',
+      }
+
+      const columnFilters = computed(() => {
+        return assetColumns.map(column => ({
+          id: column.key,
+          name: 'columns',
+          value: column.key,
+          checked: !hiddenColumns.value.includes(column.key),
+          label: column.header,
+          disabled: false,
+        })).filter(filter => !tableProps.exclude.includes(filter.id))
+      })
+
+      const headerProps = computed(() => ({
+        ...commonPageHeaderProps,
+        leftFlex: '0 0 20rem',
+        leftPadding: '0 3rem',
+        centerFlex: '1',
+        centerPadding: '0 3rem 0 0',
+        itemGap: '0',
+      }))
+
+      // const handleDataChanged = (data) => {
+      //   assetCount.value = data.length
+      // }
+
+      const handleFilter = (event) => {
+        if (!event.target.checked) {
+          hiddenColumns.value.push(event.target.id)
+        } else {
+          hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
         }
       }
-    },
-    computed: {
-      ...mapState([
-        'commonContainerProps',
-        'commonPageHeaderProps',
-      ]),
-      filters() {
-        const filters = this.assetColumns.map(column => {
-          return {
-            id: column.key,
-            name: 'columns',
-            value: column.key,
-            checked: !this.hiddenColumns.includes(column.key),
-            label: column.header,
-            disabled: false,
-          }
-        })
-        // remove everything from this.tablesProps.exclude
-        return filters.filter(filter => !this.tableProps.exclude.includes(filter.id))
-      },
-      headerProps() {
-        return {
-          ...this.commonPageHeaderProps,
-          leftFlex: '0 0 20rem',
-          leftPadding: '0 3rem',
-          centerFlex: '1',
-          centerPadding: '0 3rem 0 0',
-          itemGap: '0',
-        }
-      },
-    },
-    methods: {
-      handleDataChanged(data) {
-        this.assetCount = data.length
-      },
-      handleFilter(event) {
-        // if unchecked, add to hiddenColumns
-        if (event.target.checked === false) {
-          this.hiddenColumns.push(event.target.id)
-        } else {
-          // if checked, remove from hiddenColumns
-          this.hiddenColumns = this.hiddenColumns.filter(column => column !== event.target.id)
-        }
-      },
-      updateSearch(value) {
-        this.search = value
-      },
-      queryClose(query) {
-        this.search = this.search.filter(item => item !== query)
-      },
-      queryDelete(query) {
-        this.search = query
-      },
+
+      const updateSearch = (value) => {
+        search.value = value
+      }
+
+      const queryClose = (query) => {
+        search.value = search.value.filter(item => item !== query)
+      }
+
+      onMounted(() => {
+        // console.console.log('assetData', assetData)
+        const columnsToFilter = ['status', 'location', 'operating_system']
+        const disabledFilters = ['Archived', 'Inactive']
+
+        generateFilters(columnsToFilter, disabledFilters)
+      })
+
+      const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
+
+      return {
+        // assetCount,
+        assetColumns,
+        assetData,
+        columnFilters,
+        commonContainerProps,
+        commonPageHeaderProps,
+        containerProps,
+        multiSearchProps,
+        search,
+        tableProps,
+        filters,
+        filteredData,
+        headerProps,
+        // handleDataChanged,
+        handleFilter,
+        hiddenColumns,
+        updateSearch,
+        queryClose,
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .assets {
+    .text-style--section:not(:first-child) {
+      margin-top: 1rem;
+    }
+
     :deep(.ep-table-container) {
       // overflow: revert;
       overflow: unset;

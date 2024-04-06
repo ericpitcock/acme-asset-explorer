@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import EpSparkBar from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/spark-bar/EpSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
+import store from '../../store'
 
 const assetColumns = [
   {
@@ -80,6 +81,9 @@ const fakeArray = length => {
   for (let i = 0; i < length; i++) {
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
     const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
+    // map store.state.sites.names to an array
+
+    const sites = store.state.sites.map(site => site.name)
 
     arr.push({
       id: faker.string.uuid(),
@@ -100,22 +104,7 @@ const fakeArray = length => {
           bar: []
         },
       },
-      location: faker.helpers.arrayElement([
-        'New York City',
-        'Los Angeles',
-        'Chicago',
-        'Houston',
-        'Phoenix',
-        'Philadelphia',
-        'San Antonio',
-        'San Diego',
-        'Dallas',
-        'Seattle',
-        'Austin',
-        'Jacksonville',
-        'San Francisco',
-        'Indianapolis'
-      ]),
+      location: faker.helpers.arrayElement(sites),
       operating_system: faker.helpers.arrayElement(['Windows', 'macOS', 'Linux']),
       last_seen: faker.date.recent({ days: 10 }).toISOString(),
       ipv6_address: faker.internet.ipv6(),

@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue' // Import computed from vue package
 import { faker } from '@faker-js/faker'
 
-export default function useFilters(columns, fakeUserData) {
+export default function useFilters(columns, data) {
   const filters = ref({})
   // const loading = ref(true)
 
@@ -10,7 +10,7 @@ export default function useFilters(columns, fakeUserData) {
     // Extract unique values for specified columns
     columns.forEach(column => {
       if (columnsToFilter.includes(column.key)) {
-        uniqueValues[column.key] = Array.from(new Set(fakeUserData.value.map(user => getColumnValue(user, column.key))))
+        uniqueValues[column.key] = Array.from(new Set(data.value.map(user => getColumnValue(user, column.key))))
       }
     })
     // Alphabetize unique values
@@ -55,7 +55,7 @@ export default function useFilters(columns, fakeUserData) {
 
   const filteredData = computed(() => {
     console.log('filteredData computed')
-    let filtered = fakeUserData.value
+    let filtered = data.value
 
     // Apply filters
     for (const key in filters.value) {
