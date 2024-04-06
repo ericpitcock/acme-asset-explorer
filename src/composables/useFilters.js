@@ -54,7 +54,6 @@ export default function useFilters(columns, data) {
   }
 
   const filteredData = computed(() => {
-    console.log('filteredData computed')
     let filtered = data.value
 
     // Apply filters

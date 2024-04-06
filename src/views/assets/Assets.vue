@@ -3,7 +3,7 @@
     <!-- <ep-chart :options="browserChartOptions" /> -->
     <ep-header v-bind="headerProps">
       <template #left>
-        <p>Assets</p>
+        <p>Assets ({{ assetCount }})</p>
       </template>
       <template #center>
         <ep-multi-search
@@ -72,13 +72,21 @@
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
         >
+          <ep-empty-state
+            v-if="filteredData.length === 0"
+            message="No Assets Found"
+            subtext="Try adjusting your filters"
+            style="margin-bottom: 1.5rem;"
+          />
           <ep-table
+            v-else
             :columns="assetColumns"
             :data="filteredData"
             v-bind="tableProps"
             :search="search"
             :hiddenColumns="hiddenColumns"
             style="width: 100%; overflow: unset;"
+            @data-changed="handleDataChanged"
           />
         </ep-container>
       </template>
@@ -92,15 +100,17 @@
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { assetColumns, assetData } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
+  import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
   // import browserChartOptions from './browsers.js'
 
   export default {
     name: 'Assets',
     components: {
       SidebarLayout,
+      EpEmptyState
     },
     setup() {
-      // const assetCount = ref(assetData.length)
+      const assetCount = ref(assetData.length)
       const hiddenColumns = ref(['ipv6_address', 'mac_address'])
       const search = ref([])
 
@@ -161,9 +171,9 @@
         itemGap: '0',
       }))
 
-      // const handleDataChanged = (data) => {
-      //   assetCount.value = data.length
-      // }
+      const handleDataChanged = (data) => {
+        assetCount.value = data.length
+      }
 
       const handleFilter = (event) => {
         if (!event.target.checked) {
@@ -192,7 +202,7 @@
       const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
 
       return {
-        // assetCount,
+        assetCount,
         assetColumns,
         assetData,
         columnFilters,
@@ -205,7 +215,7 @@
         filters,
         filteredData,
         headerProps,
-        // handleDataChanged,
+        handleDataChanged,
         handleFilter,
         hiddenColumns,
         updateSearch,

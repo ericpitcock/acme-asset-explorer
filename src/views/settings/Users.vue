@@ -41,7 +41,14 @@
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
         >
+          <ep-empty-state
+            v-if="filteredData.length === 0"
+            message="No users found"
+            subtext="Try adjusting your filters"
+            style="margin-bottom: 1.5rem;"
+          />
           <ep-table
+            v-else
             v-show="!loading"
             :columns="columns"
             :data="filteredData"
