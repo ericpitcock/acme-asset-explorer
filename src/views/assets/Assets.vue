@@ -112,7 +112,7 @@
     },
     setup() {
       const assetCount = ref(assetData.length)
-      const hiddenColumns = ref(['ipv6_address', 'mac_address', 'operating_system'])
+      const hiddenColumns = ref(['ipv6_address', 'mac_address'])
       const search = ref([])
 
       const store = useStore()

@@ -12,6 +12,9 @@ const vulnTableColumns = [
   {
     header: 'ID',
     key: 'id',
+    formatter: (value) => {
+      return `<span class="text--overflow">${value}</span>`
+    }
   },
   {
     header: 'Description',

@@ -68,6 +68,7 @@
           <ep-table
             :columns="vulnTableColumns"
             :data="filteredData"
+            :hiddenColumns="hiddenColumns"
             v-bind="tableProps"
             style="width: 100%; overflow: unset;"
           />
@@ -97,9 +98,9 @@
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
       const commonContainerProps = computed(() => store.state.commonContainerProps)
 
+      const hiddenColumns = ref(['published_date', 'last_modified_date', 'date_seen'])
       const vulnTableDataRef = ref(vulnTableData)
 
-      // const filters = ref([])
       const multiSearchProps = {
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
@@ -115,12 +116,6 @@
         exclude: [],
       }
 
-      // const filteredVulnData = computed(() => {
-      //   return vulnTableData.filter(row => {
-      //     return !filters.value.includes(row.baseSeverity.props.label.toLowerCase())
-      //   })
-      // })
-
       const headerProps = computed(() => ({
         ...commonPageHeaderProps,
         leftFlex: '0 0 20rem',
@@ -129,28 +124,6 @@
         rightPadding: '0 3rem',
         itemGap: '0',
       }))
-
-      // const severityFilters = computed(() => {
-      //   const severityLevels = ['Low', 'Medium', 'High', 'Critical']
-      //   return severityLevels.map(severity => {
-      //     return {
-      //       id: severity.toLowerCase(),
-      //       name: 'severity',
-      //       value: severity.toLowerCase(),
-      //       checked: !filters.value.includes(severity.toLowerCase()),
-      //       label: severity,
-      //       disabled: false,
-      //     }
-      //   })
-      // })
-
-      // const handleFilter = (event) => {
-      //   if (event.target.checked === false) {
-      //     filters.value.push(event.target.id)
-      //   } else {
-      //     filters.value = filters.value.filter(filter => filter !== event.target.id)
-      //   }
-      // }
 
       const updateSearch = (query) => {
         console.log('searching for:', query)
@@ -181,15 +154,13 @@
         commonContainerProps,
         filters,
         generateFilters,
+        hiddenColumns,
         filteredData,
         multiSearchProps,
         tableProps,
         vulnChartOptions,
         vulnTableColumns,
-        // filteredVulnData,
         headerProps,
-        // severityFilters,
-        // handleFilter,
         updateSearch,
         queryClose,
       }
