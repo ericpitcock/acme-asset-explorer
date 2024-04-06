@@ -39,8 +39,11 @@
           >
             <ep-checkbox
               v-for="severity in severityFilters"
-              :key="severity"
-              v-bind="severity"
+              :key="severity.id"
+              :value="severity.value"
+              :label="severity.label"
+              :checked="severity.checked"
+              :disabled="severity.disabled"
               @checkchange="handleFilter"
             />
           </ep-flex-container>
@@ -55,8 +58,6 @@
             <ep-header>
               <template #left>
                 <h1>Severity Over Time</h1>
-              </template>
-              <template #right>
               </template>
             </ep-header>
           </template>
@@ -79,8 +80,9 @@
 </template>
 
 <script>
+  import { ref, computed, watch } from 'vue'
+  import { useStore } from 'vuex'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
-  import { mapState } from 'vuex'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
 
@@ -89,109 +91,95 @@
     components: {
       SidebarLayout,
     },
-    data() {
-      return {
-        // headerProps: {
-        //   ...this.commonPageHeaderProps,
-        //   // backgroundColor: 'var(--interface-surface)',
-        //   leftFlex: '0 0 20rem',
-        //   // leftPadding: '0 0 0 3rem',
-        //   centerFlex: '1',
-        //   rightFlex: '0 0 20rem',
-        //   rightPadding: '0 3rem',
-        //   // sticky: true,
-        //   // stickyTop: '0',
-        //   itemGap: '0',
-        //   // zIndex: 'var(--z-index--fixed)',
-        // },
-        filters: [],
-        hiddenColumns: [],
-        multiSearchProps: {
-          height: '3.8rem',
-          backgroundColor: 'var(--interface-foreground)',
-          icon: { name: 'search' },
-          placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
-        },
-        tableProps: {
-          bordered: true,
-          stickyHeader: true,
-          stickyTop: '61',
-          sortable: true,
-          width: '100%',
-          exclude: [],
-        },
-        vulnChartOptions,
-        vulnTableColumns,
-        vulnTableData,
+    setup() {
+      const store = useStore()
+      const commonPageHeaderProps = store.state.commonPageHeaderProps
+      const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+      const rightPanelOpen = computed(() => store.state.rightPanelOpen)
+      const commonContainerProps = computed(() => store.state.commonContainerProps)
+
+      const filters = ref([])
+      const multiSearchProps = {
+        height: '3.8rem',
+        backgroundColor: 'var(--interface-foreground)',
+        icon: { name: 'search' },
+        placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
       }
-    },
-    computed: {
-      ...mapState([
-        'commonContainerProps',
-        // 'commonHeaderProps',
-        'commonPageHeaderProps',
-        // 'commonFooterProps',
-        'leftPanelCollapsed',
-        'rightPanelOpen',
-      ]),
-      filteredVulnData() {
-        return this.vulnTableData.filter(row => {
-          // need to compare to the props.label sent to the component
-          // because the actual value is a number used for sorting
-          return !this.filters.includes(row.baseSeverity.props.label.toLowerCase())
+      const tableProps = {
+        bordered: true,
+        stickyHeader: true,
+        stickyTop: '61',
+        sortable: true,
+        width: '100%',
+        exclude: [],
+      }
+
+      const filteredVulnData = computed(() => {
+        return vulnTableData.filter(row => {
+          return !filters.value.includes(row.baseSeverity.props.label.toLowerCase())
         })
-      },
-      headerProps() {
-        return {
-          ...this.commonPageHeaderProps,
-          leftFlex: '0 0 20rem',
-          centerFlex: '1',
-          rightFlex: '0 0 20rem',
-          rightPadding: '0 3rem',
-          itemGap: '0',
-        }
-      },
-      severityFilters() {
+      })
+
+      const headerProps = computed(() => ({
+        ...commonPageHeaderProps,
+        leftFlex: '0 0 20rem',
+        centerFlex: '1',
+        rightFlex: '0 0 20rem',
+        rightPadding: '0 3rem',
+        itemGap: '0',
+      }))
+
+      const severityFilters = computed(() => {
         const severityLevels = ['Low', 'Medium', 'High', 'Critical']
         return severityLevels.map(severity => {
           return {
             id: severity.toLowerCase(),
             name: 'severity',
             value: severity.toLowerCase(),
-            checked: !this.filters.includes(severity.toLowerCase()),
+            checked: !filters.value.includes(severity.toLowerCase()),
             label: severity,
             disabled: false,
           }
         })
-      },
-    },
-    methods: {
-      handleFilter(event) {
-        // if unchecked, add to filters
+      })
+
+      const handleFilter = (event) => {
         if (event.target.checked === false) {
-          this.filters.push(event.target.id)
+          filters.value.push(event.target.id)
         } else {
-          // if checked, remove from filters
-          this.filters = this.filters.filter(filter => filter !== event.target.id)
+          filters.value = filters.value.filter(filter => filter !== event.target.id)
         }
-      },
-      updateSearch(query) {
+      }
+
+      const updateSearch = (query) => {
         console.log('searching for:', query)
-      },
-      queryClose() {
+      }
+
+      const queryClose = () => {
         console.log('query closed')
-      },
-    },
-    watch: {
-      leftPanelCollapsed() {
-        this.$nextTick(() => {
-          window.dispatchEvent(new Event('resize'))
-        })
-      },
-      rightPanelOpen() {
-        this.$nextTick(() => {
-          window.dispatchEvent(new Event('resize'))
-        })
+      }
+
+      watch(() => leftPanelCollapsed.value, () => {
+        window.dispatchEvent(new Event('resize'))
+      })
+
+      watch(() => rightPanelOpen.value, () => {
+        window.dispatchEvent(new Event('resize'))
+      })
+
+      return {
+        commonContainerProps,
+        filters,
+        multiSearchProps,
+        tableProps,
+        vulnChartOptions,
+        vulnTableColumns,
+        filteredVulnData,
+        headerProps,
+        severityFilters,
+        handleFilter,
+        updateSearch,
+        queryClose,
       }
     },
   }
@@ -204,14 +192,6 @@
     --chart-sequence-02: var(--severity-color--high);
     --chart-sequence-03: var(--severity-color--critical);
 
-    // display: flex;
-    // flex-direction: column;
-    // gap: 2rem;
-    // height: 100%;
-    // // padding: 3rem;
-    // > *:not(:first-child) {
-    //   margin-top: 2rem;
-    // }
     :deep(.highcharts-series-inactive),
     :deep(.highcharts-series-hover),
     :deep(.highcharts-point-hover) {
@@ -234,7 +214,6 @@
     }
 
     :deep(.ep-table-container) {
-      // overflow: revert;
       overflow-x: auto;
     }
   }
