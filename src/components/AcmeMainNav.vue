@@ -31,21 +31,13 @@
 
 <script>
   import { mapState } from 'vuex'
-  // import AcmeLogo from '@/components/AcmeLogo.vue'
   import EsentireLogo from '@/components/EsentireLogo.vue'
 
   export default {
     name: 'AcmeMainNav',
     components: {
-      // AcmeLogo,
       EsentireLogo
     },
-    // props: {
-    //   collapsed: {
-    //     type: Boolean,
-    //     default: false
-    //   }
-    // },
     data() {
       return {
         navItems: [

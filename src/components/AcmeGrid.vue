@@ -107,8 +107,6 @@
       &::-webkit-scrollbar {
         display: none; // Chrome, Safari, Opera
       }
-
-      // border-left: 1px solid var(--border-color);
     }
   }
 </style>

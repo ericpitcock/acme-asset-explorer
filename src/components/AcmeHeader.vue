@@ -4,7 +4,7 @@
       <ep-button
         variant="ghost"
         :iconLeft="{ name: 'menu' }"
-        @click="this.$emit('menuButtonClicked')"
+        @click="toggleLeftPanel"
       />
       <ep-dropdown v-bind="userDropdownProps" />
       <p>
@@ -26,14 +26,14 @@
         :iconRight="null"
         :iconLeft="{ name: 'notifications' }"
         :class="{ 'hasNotifications': hasActiveNotifications }"
-        @click="this.$emit('notificationsButtonClicked')"
+        @click="toggleRightPanel"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions, mapGetters } from 'vuex'
+  import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 
   export default {
     name: 'AcmeHeader',
@@ -103,6 +103,7 @@
     },
     methods: {
       ...mapActions(['toggleTheme']),
+      ...mapMutations(['toggleLeftPanel', 'toggleRightPanel']),
     },
     computed: {
       ...mapGetters(['hasActiveNotifications']),

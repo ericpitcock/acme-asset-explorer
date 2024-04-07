@@ -1,14 +1,11 @@
 <template>
   <acme-grid>
     <template #header>
-      <acme-header
-        @menuButtonClicked="toggleLeftPanel"
-        @notificationsButtonClicked="toggleRightPanel"
-      />
+      <acme-header />
     </template>
     <template #left-panel>
       <div class="left-panel__container">
-        <acme-main-nav v-bind="navProps" />
+        <acme-main-nav />
       </div>
     </template>
     <template #content>
@@ -25,32 +22,18 @@
 </template>
 
 <script>
-  import { mapState, mapActions, mapMutations } from 'vuex'
-
   import AcmeGrid from '@/components/AcmeGrid.vue'
   import AcmeHeader from '@/components/AcmeHeader.vue'
   import AcmeMainNav from '@/components/AcmeMainNav.vue'
 
   export default {
     name: 'AcmeAssetExplorer',
-    data() {
-      return {
-        navProps: {
-          collapsed: this.leftPanelCollapsed,
-        }
-      }
-    },
     components: {
       AcmeGrid,
       AcmeHeader,
       AcmeMainNav
     },
-    methods: {
-      ...mapActions(['toggleTheme']),
-      ...mapMutations(['toggleLeftPanel', 'toggleRightPanel']),
-    },
     computed: {
-      ...mapState(['theme', 'leftPanelCollapsed']),
       containerProps() {
         return {
           borderWidth: '0',
