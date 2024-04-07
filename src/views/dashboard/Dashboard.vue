@@ -2,7 +2,7 @@
   <one-column-layout>
     <ep-header v-bind="commonPageHeaderProps">
       <template #left>
-        <p>Dashboard</p>
+        <h1>Dashboard</h1>
       </template>
       <template #right>
         <ep-date-picker
@@ -29,7 +29,7 @@
         <template #header>
           <ep-header v-bind="commonHeaderProps">
             <template #left>
-              <p>Overview</p>
+              <h2>Overview</h2>
             </template>
           </ep-header>
         </template>
@@ -41,7 +41,7 @@
         <template #header>
           <ep-header v-bind="commonHeaderProps">
             <template #left>
-              <p>Vulnerabilty Summary</p>
+              <h2>Vulnerabilty Summary</h2>
             </template>
           </ep-header>
         </template>
@@ -60,7 +60,7 @@
             style="border-radius: var(--border-radius--large) var(--border-radius--large) 0 0;"
           >
             <template #left>
-              <p>Asset Locations</p>
+              <h2>Asset Locations</h2>
             </template>
           </ep-header>
         </template>

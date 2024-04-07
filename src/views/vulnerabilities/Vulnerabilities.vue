@@ -2,7 +2,7 @@
   <div class="vulnerabilities">
     <ep-header v-bind="headerProps">
       <template #left>
-        <p>Vulnerabilities</p>
+        <h1>Vulnerabilities</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -134,10 +134,12 @@
       }
 
       watch(() => leftPanelCollapsed.value, () => {
+        console.log('left panel collapsed:', leftPanelCollapsed.value)
         window.dispatchEvent(new Event('resize'))
       })
 
       watch(() => rightPanelOpen.value, () => {
+        console.log('right panel open:', rightPanelOpen.value)
         window.dispatchEvent(new Event('resize'))
       })
 
@@ -152,17 +154,17 @@
 
       return {
         commonContainerProps,
+        filteredData,
         filters,
         generateFilters,
+        headerProps,
         hiddenColumns,
-        filteredData,
         multiSearchProps,
+        queryClose,
         tableProps,
+        updateSearch,
         vulnChartOptions,
         vulnTableColumns,
-        headerProps,
-        updateSearch,
-        queryClose,
       }
     },
   }

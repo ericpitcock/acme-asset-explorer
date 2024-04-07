@@ -2,7 +2,7 @@
   <div class="services">
     <ep-header v-bind="headerProps">
       <template #left>
-        <p>Services</p>
+        <h1>Services</h1>
       </template>
       <template #right>
         <ep-dropdown
@@ -32,7 +32,7 @@
           <template #header>
             <ep-header background-color="transparent">
               <template #left>
-                <p>{{ category }}</p>
+                <h2>{{ category }}</h2>
               </template>
             </ep-header>
           </template>
@@ -55,6 +55,7 @@
                     <ep-badge
                       :label="service.status"
                       :variant="getVariant(service.status)"
+                      outlined
                     />
                   </div>
                 </div>
@@ -229,7 +230,7 @@
         text-align: center;
 
         &:hover {
-          background-color: var(--interface-surface--hover);
+          background-color: var(--interface-surface--accent);
           cursor: pointer;
         }
 

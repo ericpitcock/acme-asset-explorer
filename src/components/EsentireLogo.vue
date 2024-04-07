@@ -73,6 +73,10 @@
 </script>
 
 <style lang="scss">
+  .logo {
+    cursor: pointer;
+  }
+
   svg {
     display: block;
   }

@@ -34,6 +34,7 @@
 <style lang="scss" scoped>
   .sidebar-layout {
     display: flex;
+    width: 100%;
 
     .sidebar-layout__sidebar {
       flex: 0 0 20rem;

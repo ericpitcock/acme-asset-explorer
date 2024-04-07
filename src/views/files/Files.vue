@@ -2,7 +2,7 @@
   <div class="files">
     <ep-header v-bind="headerProps">
       <template #left>
-        <p>Files</p>
+        <h1>Files</h1>
       </template>
       <template #center>
         <ep-search

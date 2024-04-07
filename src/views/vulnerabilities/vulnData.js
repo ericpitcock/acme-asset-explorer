@@ -18,6 +18,10 @@ const vulnTableColumns = [
     }
   },
   {
+    header: 'Affected Assets',
+    key: 'affected_assets',
+  },
+  {
     header: 'Score',
     key: 'base_score'
   },
@@ -138,15 +142,19 @@ const vulnTableData = []
 
 for (let i = 0; i < 100; i++) {
   const severity = faker.helpers.arrayElement(['Low', 'Medium', 'High', 'Critical'])
-  const variant = severity === 'Low' ? 'success' : severity === 'Medium' ? 'warning' : severity === 'High' ? 'warning' : 'danger'
+  const variant = severity === 'Low' ? 'success' :
+    severity === 'Medium' ? 'warning' :
+      severity === 'High' ? 'warning' : 'danger'
 
-  // sort order for severity
-  // const severitySortMap = {
-  //   'low': '0',
-  //   'medium': '1',
-  //   'high': '2',
-  //   'critical': '3'
-  // }
+  // generate base_score based on severity
+  // 0.0 to 3.9: Low
+  // 4.0 to 6.9: Medium
+  // 7.0 to 8.9: High
+  // 9.0 to 10.0: Critical
+  const baseScore = severity === 'Low' ? faker.number.float({ min: 0, max: 3.9, multipleOf: 0.1 }) :
+    severity === 'Medium' ? faker.number.float({ min: 4, max: 6.9, multipleOf: 0.1 }) :
+      severity === 'High' ? faker.number.float({ min: 7, max: 8.9, multipleOf: 0.1 }) :
+        faker.number.float({ min: 9, max: 10, multipleOf: 0.1 })
 
   vulnTableData.push({
     severity: {
@@ -159,7 +167,8 @@ for (let i = 0; i < 100; i++) {
       },
     },
     description: generateCveDesc(),
-    base_score: faker.number.float({ min: 0, max: 10, precision: 0.1 }),
+    affected_assets: faker.number.int({ min: 1, max: 100 }),
+    base_score: baseScore,
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     published_date: faker.date.past().toISOString(),
     last_modified_date: faker.date.recent().toISOString(),

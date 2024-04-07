@@ -4,8 +4,9 @@
   >
     <nav class="main-nav">
       <div class="main-nav__item main-nav__item--logo">
-        <!-- <acme-logo :type="logoType" /> -->
-        <esentire-logo :type="logoType" />
+        <router-link to="/">
+          <esentire-logo :type="logoType" />
+        </router-link>
       </div>
       <template
         v-for="(navItem, index) in navItems"

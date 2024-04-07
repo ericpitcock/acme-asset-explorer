@@ -35,10 +35,6 @@
     name: 'AcmeAssetExplorer',
     data() {
       return {
-        // gridProps: {
-        //   leftPanelCollapsed: ,
-        //   rightPanelOpen: false,
-        // },
         navProps: {
           collapsed: this.leftPanelCollapsed,
         }
@@ -52,12 +48,6 @@
     methods: {
       ...mapActions(['toggleTheme']),
       ...mapMutations(['toggleLeftPanel', 'toggleRightPanel']),
-      // toggleLeftPanel() {
-      //   this.navProps.collapsed = !this.navProps.collapsed
-      // },
-      // toggleRightPanel() {
-      //   this.gridProps.rightPanelOpen = !this.gridProps.rightPanelOpen
-      // }
     },
     computed: {
       ...mapState(['theme', 'leftPanelCollapsed']),
