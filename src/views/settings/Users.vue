@@ -93,7 +93,7 @@
     setup() {
       const store = useStore()
       const approvedDomains = computed(() => store.state.approvedDomains)
-      const commonContainerProps = computed(() => store.state.commonContainerProps)
+      const commonContainerProps = computed(() => store.state.commonProps.commonContainerProps)
       const fakeUserData = computed(() => store.state.fakeUserData)
 
       const loading = ref(true)

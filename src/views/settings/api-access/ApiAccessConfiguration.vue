@@ -128,7 +128,9 @@
       }
     },
     computed: {
-      ...mapState(['commonContainerProps']),
+      ...mapState('commonProps', {
+        commonContainerProps: state => state.commonContainerProps,
+      }),
     },
     methods: {
       addApiConfig() {

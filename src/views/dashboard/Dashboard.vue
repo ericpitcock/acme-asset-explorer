@@ -90,11 +90,12 @@
       }
     },
     computed: {
+      ...mapState('commonProps', {
+        commonContainerProps: state => state.commonContainerProps,
+        commonHeaderProps: state => state.commonHeaderProps,
+        commonPageHeaderProps: state => state.commonPageHeaderProps,
+      }),
       ...mapState([
-        'commonContainerProps',
-        'commonHeaderProps',
-        'commonPageHeaderProps',
-        // 'commonFooterProps',
         'theme'
       ]),
       mapStyle() {

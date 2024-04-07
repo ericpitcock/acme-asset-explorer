@@ -41,8 +41,10 @@
       }
     },
     computed: {
+      ...mapState('commonProps', {
+        commonContainerProps: state => state.commonContainerProps,
+      }),
       ...mapState([
-        'commonContainerProps',
         'sites'
       ]),
       data() {

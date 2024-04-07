@@ -38,7 +38,7 @@
       </div>
       <template #footer>
         <div class="ep-login__footer">
-          <p class="text--subtle">You can just click Sign In :-)</p>
+          <p class="text--subtle">You can just click Sign In 😀</p>
         </div>
       </template>
     </ep-container>

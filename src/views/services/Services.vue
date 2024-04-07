@@ -108,9 +108,9 @@
       }
     },
     computed: {
-      ...mapState([
-        'commonPageHeaderProps',
-      ]),
+      ...mapState('commonProps', {
+        commonPageHeaderProps: state => state.commonPageHeaderProps,
+      }),
       categories() {
         return [...new Set(this.services.map(service => service.category))]
       },

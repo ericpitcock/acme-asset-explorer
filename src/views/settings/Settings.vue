@@ -49,9 +49,9 @@
       }
     },
     computed: {
-      ...mapState([
-        'commonPageHeaderProps'
-      ]),
+      ...mapState('commonProps', {
+        commonPageHeaderProps: state => state.commonPageHeaderProps,
+      }),
     },
   }
 </script>

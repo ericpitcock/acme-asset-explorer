@@ -114,8 +114,10 @@
       }
     },
     computed: {
+      ...mapState('commonProps', {
+        commonPageHeaderProps: state => state.commonPageHeaderProps,
+      }),
       ...mapState([
-        'commonPageHeaderProps',
         'fakeUserData'
       ]),
       fakeData() {

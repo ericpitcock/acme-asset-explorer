@@ -116,8 +116,7 @@
       const search = ref([])
 
       const store = useStore()
-      const commonContainerProps = computed(() => store.state.commonContainerProps)
-      const commonPageHeaderProps = store.state.commonPageHeaderProps
+      const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
 
       const assetDataRef = ref(assetData)
 

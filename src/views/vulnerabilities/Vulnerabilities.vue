@@ -93,10 +93,10 @@
     },
     setup() {
       const store = useStore()
-      const commonPageHeaderProps = store.state.commonPageHeaderProps
+      const commonPageHeaderProps = store.state.commonProps.commonPageHeaderProps
+      const commonContainerProps = computed(() => store.state.commonProps.commonContainerProps)
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
-      const commonContainerProps = computed(() => store.state.commonContainerProps)
 
       const hiddenColumns = ref(['published_date', 'last_modified_date', 'date_seen'])
       const vulnTableDataRef = ref(vulnTableData)
