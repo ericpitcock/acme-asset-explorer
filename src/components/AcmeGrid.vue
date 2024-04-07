@@ -17,7 +17,7 @@
       </div>
     </div>
     <div
-      v-show="rightPanelOpen"
+      v-if="rightPanelOpen"
       class="right-panel"
     >
       <slot name="right-panel" />
