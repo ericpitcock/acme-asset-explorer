@@ -3,19 +3,20 @@ import { faker } from '@faker-js/faker'
 
 export default function useFilters(columns, data) {
   const filters = ref({})
-  // const loading = ref(true)
 
   const generateFilters = (columnsToFilter, disabledFilters) => {
     const uniqueValues = {}
     // Extract unique values for specified columns
     columns.forEach(column => {
       if (columnsToFilter.includes(column.key)) {
-        uniqueValues[column.key] = Array.from(new Set(data.value.map(user => getColumnValue(user, column.key))))
+        uniqueValues[column.key] = Array.from(
+          new Set(data.value.map(user => getColumnValue(user, column.key))))
       }
     })
+
     // Alphabetize unique values
     for (const key in uniqueValues) {
-      uniqueValues[key].sort()
+      uniqueValues[key].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
     }
 
     const generatedFilters = {}
@@ -70,7 +71,6 @@ export default function useFilters(columns, data) {
 
   return {
     filters,
-    // loading,
     generateFilters,
     filteredData
   }

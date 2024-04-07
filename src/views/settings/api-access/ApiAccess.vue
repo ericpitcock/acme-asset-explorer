@@ -97,7 +97,13 @@
 
     &__intro {
       padding: var(--container-padding);
-      // background: var(--interface-surface);
+      background:
+        radial-gradient(ellipse at 40% 0%,
+          #bf398910 0,
+          transparent 75%),
+        radial-gradient(ellipse at 60% 0%,
+          #096bde10 0,
+          transparent 75%);
       border-bottom: 1px solid var(--border-color);
 
       h1 {

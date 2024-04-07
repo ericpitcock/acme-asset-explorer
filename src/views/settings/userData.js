@@ -24,8 +24,8 @@ const fakeUserData = length => {
       },
       name: `${firstName} ${lastName}`,
       email: email,
-      user_mobile_phone: faker.phone.number(),
-      office_phone: faker.phone.number(),
+      user_mobile_phone: `206-${faker.number.int({ min: 100, max: 999 })}-${faker.number.int({ min: 1000, max: 9999 })}`,
+      office_phone: `206-${faker.number.int({ min: 100, max: 999 })}-${faker.number.int({ min: 1000, max: 9999 })}`,
       role: faker.helpers.arrayElement(['Admin', 'Partner', 'User']),
       last_active: faker.date.recent().toISOString(),
     })

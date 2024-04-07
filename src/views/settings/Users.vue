@@ -69,7 +69,7 @@
     <modal v-if="showModal">
       <add-user
         :user="selectedUser"
-        @close="showModal = false"
+        @close="handleClose"
       />
     </modal>
   </div>
@@ -91,17 +91,14 @@
       SidebarLayout,
     },
     setup() {
-      const instance = getCurrentInstance()
-      const $epDialog = instance.appContext.config.globalProperties.$epDialog
-
-      const loading = ref(true)
-      const selectedUser = ref(null)
-
       const store = useStore()
       const approvedDomains = computed(() => store.state.approvedDomains)
       const commonContainerProps = computed(() => store.state.commonContainerProps)
       const fakeUserData = computed(() => store.state.fakeUserData)
 
+      const loading = ref(true)
+      const selectedUser = ref(null)
+      const showModal = ref(false)
       const columns = [
         {
           header: 'ID',
@@ -127,7 +124,8 @@
 
       const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
 
-      const showModal = ref(false)
+      const instance = getCurrentInstance()
+      const $epDialog = instance.appContext.config.globalProperties.$epDialog
 
       const addUser = () => {
         if (approvedDomains.value.length) {
@@ -149,9 +147,13 @@
       }
 
       const editUser = (user) => {
-        console.log('Edit user:', user)
         selectedUser.value = user
         showModal.value = true
+      }
+
+      const handleClose = () => {
+        selectedUser.value = null
+        showModal.value = false
       }
 
       onMounted(() => {
@@ -166,17 +168,18 @@
       })
 
       return {
-        columns,
-        editUser,
-        filters,
-        loading,
-        showModal,
         addUser,
         approvedDomains,
+        columns,
         commonContainerProps,
+        editUser,
         fakeUserData,
         filteredData,
+        filters,
+        handleClose,
+        loading,
         selectedUser,
+        showModal,
       }
     }
   }

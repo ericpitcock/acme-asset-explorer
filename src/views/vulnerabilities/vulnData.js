@@ -10,13 +10,6 @@ const vulnTableColumns = [
     component: markRaw(EpBadge),
   },
   {
-    header: 'ID',
-    key: 'id',
-    formatter: (value) => {
-      return `<span class="text--overflow">${value}</span>`
-    }
-  },
-  {
     header: 'Description',
     key: 'description',
     formatter: (value) => {
@@ -27,6 +20,13 @@ const vulnTableColumns = [
   {
     header: 'Score',
     key: 'base_score'
+  },
+  {
+    header: 'ID',
+    key: 'id',
+    formatter: (value) => {
+      return `<span class="text--overflow">${value}</span>`
+    }
   },
   {
     header: 'Published Date',
@@ -158,9 +158,9 @@ for (let i = 0; i < 100; i++) {
         borderColor: `var(--severity-color--${severity.toLowerCase()}--border)`,
       },
     },
-    id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     description: generateCveDesc(),
     base_score: faker.number.float({ min: 0, max: 10, precision: 0.1 }),
+    id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     published_date: faker.date.past().toISOString(),
     last_modified_date: faker.date.recent().toISOString(),
     date_seen: faker.date.between({
