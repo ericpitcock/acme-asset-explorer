@@ -1,25 +1,34 @@
 <template>
-  <!-- <div class="network"> -->
-  <ep-container
-    v-bind="commonContainerProps"
-    container-padding="1rem 3rem 3rem"
-  >
-    <ep-table
-      :columns="columns"
-      :data="data"
-      bordered
-      width="100%"
-    />
-  </ep-container>
-  <!-- </div> -->
+  <div class="network">
+    <ep-container
+      v-bind="commonContainerProps"
+      container-padding="1rem 3rem 3rem"
+    >
+      <ep-table
+        :columns="columns"
+        :data="data"
+        bordered
+        selectable
+        width="100%"
+        @row-click="showModal = true"
+      />
+    </ep-container>
+    <modal v-if="showModal">
+      network config
+    </modal>
+  </div>
 </template>
 
 <script>
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
+  import Modal from '@/components/Modal.vue'
 
   export default {
     name: 'Network',
+    components: {
+      Modal
+    },
     data() {
       return {
         columns: [
@@ -38,6 +47,7 @@
             formatter: (value) => new Date(value).toLocaleString()
           }
         ],
+        showModal: false
       }
     },
     computed: {
@@ -51,7 +61,7 @@
         const data = []
         const sites = this.sites.map(site => site.name)
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 8; i++) {
           const configStatus = faker.helpers.arrayElement(['Configured', 'Not Configured'])
           const variant = configStatus === 'Configured' ? 'success' : 'warning'
 

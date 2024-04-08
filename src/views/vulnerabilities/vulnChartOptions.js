@@ -29,7 +29,7 @@ const fakeArrayOfNumbers = (length) => {
 
 const stackedColumnSeries = () => {
   let array = []
-  
+
   categories.forEach((category, index) => {
     array.push({
       name: category,
@@ -66,7 +66,7 @@ const vulnChartOptions = {
   xAxis: {
     categories: fakeArrayOfDates(30),
     labels: {
-      formatter: function () {
+      formatter: function() {
         // let value = this.value
         var value = new Date(this.value)
         return value.toLocaleDateString({
@@ -86,14 +86,14 @@ const vulnChartOptions = {
     min: 0,
     title: {
       text: 'Total Vulnerabilities',
-      style: {
-        color: textColor,
-        fontSize: '12px'
-      }
+      // style: {
+      //   color: 'red',
+      //   fontSize: '12px'
+      // }
     },
     labels: {
       style: {
-        color: textColor,
+        color: 'red',
         fontSize: '12px'
       }
     },

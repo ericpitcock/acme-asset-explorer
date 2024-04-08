@@ -163,6 +163,7 @@
 
       &.router-link-active {
         background-image: var(--nav-link-active-bg-color);
+        cursor: default;
 
         .main-nav__item__name {
           color: var(--nav-link-active-text-color) !important;
