@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { faker } from '@faker-js/faker'
-import { fakeUserData } from '@/views/settings/userData'
+import { fakeUserData } from './userData.js'
 import commonProps from './commonProps.js'
 
 export default createStore({

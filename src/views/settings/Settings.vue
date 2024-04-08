@@ -27,7 +27,7 @@
           },
           {
             label: 'User Management',
-            to: '/settings/users'
+            to: '/settings/user-management'
           },
           {
             label: 'Notifications',

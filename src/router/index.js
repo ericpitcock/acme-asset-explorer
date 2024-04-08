@@ -7,11 +7,11 @@ import ServiceDetails from '@/views/services/ServiceDetails.vue'
 import Reports from '@/views/reports/Reports.vue'
 import Files from '@/views/files/Files.vue'
 import Settings from '@/views/settings/Settings.vue'
-import ServiceConfig from '@/views/settings/ServiceConfig.vue'
+import ServiceConfig from '@/views/settings/service-config/ServiceConfig.vue'
 import Network from '@/views/settings/service-config/Network.vue'
 import Endpoint from '@/views/settings/service-config/Endpoint.vue'
 import Cloud from '@/views/settings/service-config/Cloud.vue'
-import Users from '@/views/settings/Users.vue'
+import UserManagement from '@/views/settings/user-management/UserManagement.vue'
 import Notifications from '@/views/settings/Notifications.vue'
 import CompanyProfile from '@/views/settings/CompanyProfile.vue'
 import EscalationProcedure from '@/views/settings/EscalationProcedure.vue'
@@ -108,7 +108,7 @@ const routes = [
 
 const componentMapping = {
   'Service Config': ServiceConfig,
-  'Users': Users,
+  'User Management': UserManagement,
   'Notifications': Notifications,
   'Company Profile': CompanyProfile,
   'Escalation Procedure': EscalationProcedure,
@@ -215,9 +215,6 @@ routes[7].children[6].children = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  // scrollBehavior(to, from, savedPosition) {
-  //   return { x: 0, y: 0 }
-  // }
 })
 
 router.beforeEach((to, from, next) => {

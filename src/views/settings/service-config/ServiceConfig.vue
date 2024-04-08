@@ -17,7 +17,7 @@
 
 <script>
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
-  import services from '../services/services.json'
+  import services from '../../services/services.json'
 
   export default {
     name: 'ServiceConfig',
