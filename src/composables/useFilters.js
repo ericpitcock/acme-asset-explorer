@@ -1,10 +1,10 @@
-import { ref, computed } from 'vue' // Import computed from vue package
+import { ref, computed } from 'vue'
 import { faker } from '@faker-js/faker'
 
 export default function useFilters(columns, data) {
   const filters = ref({})
 
-  const generateFilters = (columnsToFilter, disabledFilters) => {
+  const generateFilters = (columnsToFilter, disabledFilters, customSortOrder = {}) => {
     const uniqueValues = {}
     // Extract unique values for specified columns
     columns.forEach(column => {
@@ -14,9 +14,17 @@ export default function useFilters(columns, data) {
       }
     })
 
-    // Alphabetize unique values
+    // Sort unique values based on custom sort order if provided
     for (const key in uniqueValues) {
-      uniqueValues[key].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+      if (customSortOrder[key]) {
+        uniqueValues[key].sort((a, b) => {
+          const indexA = customSortOrder[key].indexOf(a)
+          const indexB = customSortOrder[key].indexOf(b)
+          return indexA - indexB
+        })
+      } else {
+        uniqueValues[key].sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+      }
     }
 
     const generatedFilters = {}
@@ -27,19 +35,10 @@ export default function useFilters(columns, data) {
         id: faker.string.uuid(),
         name: key,
         value: value,
-        checked: true,
+        checked: disabledFilters.includes(value) ? false : true,
         label: value,
         disabled: false
       }))
-    }
-
-    // uncheck disabledFilters by default
-    for (const key in generatedFilters) {
-      generatedFilters[key].forEach(filter => {
-        if (disabledFilters.includes(filter.value)) {
-          filter.checked = false
-        }
-      })
     }
 
     filters.value = generatedFilters

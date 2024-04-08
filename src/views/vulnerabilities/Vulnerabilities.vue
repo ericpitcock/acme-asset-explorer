@@ -159,9 +159,12 @@
 
       onMounted(() => {
         const columnsToFilter = ['severity']
-        const disabledFilters = ['Low']
+        const disabledFilters = []
+        const customSortOrder = {
+          'severity': ['Critical', 'High', 'Medium', 'Low']
+        }
 
-        generateFilters(columnsToFilter, disabledFilters)
+        generateFilters(columnsToFilter, disabledFilters, customSortOrder)
       })
 
       const { filters, generateFilters, filteredData } = useFilters(vulnTableColumns, vulnTableDataRef)
