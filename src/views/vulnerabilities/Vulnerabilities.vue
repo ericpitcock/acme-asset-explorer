@@ -68,8 +68,9 @@
           <ep-table
             :columns="vulnTableColumns"
             :data="filteredData"
-            :hiddenColumns="hiddenColumns"
             v-bind="tableProps"
+            :search="search"
+            :hiddenColumns="hiddenColumns"
             style="width: 100%; overflow: unset;"
           />
         </ep-container>
@@ -98,6 +99,7 @@
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
+      const search = ref([])
       const hiddenColumns = ref(['published_date', 'last_modified_date', 'date_seen'])
       const vulnTableDataRef = ref(vulnTableData)
 
@@ -105,13 +107,15 @@
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
         icon: { name: 'search' },
-        placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
+        placeholder: 'CVE ID Search',
       }
+
       const tableProps = {
         bordered: true,
         stickyHeader: true,
         stickyTop: '61',
         sortable: true,
+        searchable: true,
         width: '100%',
         exclude: [],
       }
@@ -125,27 +129,26 @@
         itemGap: '0',
       }))
 
-      const updateSearch = (query) => {
-        console.log('searching for:', query)
+      const updateSearch = (value) => {
+        search.value = value
+        console.log('search:', search.value)
       }
 
-      const queryClose = () => {
-        console.log('query closed')
+      const queryClose = (query) => {
+        search.value = search.value.filter(item => item !== query)
       }
 
       watch(() => leftPanelCollapsed.value, () => {
-        console.log('left panel collapsed:', leftPanelCollapsed.value)
         window.dispatchEvent(new Event('resize'))
       })
 
       watch(() => rightPanelOpen.value, () => {
-        console.log('right panel open:', rightPanelOpen.value)
         window.dispatchEvent(new Event('resize'))
       })
 
       onMounted(() => {
         const columnsToFilter = ['severity']
-        const disabledFilters = ['low']
+        const disabledFilters = ['Low']
 
         generateFilters(columnsToFilter, disabledFilters)
       })
@@ -161,10 +164,12 @@
         hiddenColumns,
         multiSearchProps,
         queryClose,
+        search,
         tableProps,
         updateSearch,
         vulnChartOptions,
         vulnTableColumns,
+        // vulnTableData,
       }
     },
   }
