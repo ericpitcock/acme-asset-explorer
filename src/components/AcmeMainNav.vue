@@ -90,24 +90,18 @@
 
 <style lang="scss" scoped>
   .nav-container {
-    // grid-column: 1 / 1;
-    // grid-row: 2 / 2;
+    height: 100%;
     padding: 30px 20px;
 
-    // background: var(--interface-surface);
     &--collapsed {
       padding-left: 0;
       padding-right: 0;
     }
-
-    @media (max-width: 1024px) {
-      // display: none;
-    }
   }
 
   .main-nav {
-    // position: fixed;
     width: 200px;
+    height: 100%;
     display: flex;
     flex-direction: column;
 
@@ -137,6 +131,10 @@
         &:hover {
           background: transparent !important;
         }
+      }
+
+      &:last-child {
+        margin-top: auto;
       }
 
       .nav-container--collapsed & {

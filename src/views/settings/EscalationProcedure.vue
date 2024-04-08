@@ -8,17 +8,24 @@
         </p>
       </template>
       <template #content>
-        <ep-table
-          :columns="columns"
-          :data="escalationProcedures"
-          width="100%"
-          bordered
-        />
-        <ep-button
-          variant="secondary"
-          :icon-left="{ name: 'f/plus' }"
-          @click="addEscalationProcedure"
-        />
+        <ep-flex-container
+          flex-flow="column nowrap"
+          align-items="flex-start"
+          gap="1rem"
+        >
+          <ep-table
+            :columns="columns"
+            :data="escalationProcedures"
+            width="100%"
+            bordered
+            style="align-self: stretch"
+          />
+          <ep-button
+            variant="secondary"
+            :icon-left="{ name: 'f/plus' }"
+            @click="addEscalationProcedure"
+          />
+        </ep-flex-container>
       </template>
     </settings-module-layout>
     <modal v-if="showModal">

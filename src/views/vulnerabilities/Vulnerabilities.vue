@@ -136,12 +136,8 @@
         itemGap: '0',
       }))
 
-      // const router = useRouter()
       const handleRowClick = (row) => {
-        // console.log('handleRowClick', row.id)
-        // run addSelectedVulnerability mutation
         store.commit('addSelectedVulnerability', row)
-        // route to vulnerability details path /vulnerabilities/:id
         router.push({ path: `/vulnerabilities/${row.id}` })
       }
 
