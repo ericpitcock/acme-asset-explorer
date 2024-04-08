@@ -196,8 +196,8 @@
       overflow-x: auto;
     }
 
-    :deep(.ep-table tr td span) {
-      pointer-events: none;
-    }
+    // :deep(.ep-table tr td span) {
+    //   pointer-events: none;
+    // }
   }
 </style>

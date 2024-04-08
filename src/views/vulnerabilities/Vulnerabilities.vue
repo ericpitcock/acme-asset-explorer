@@ -7,6 +7,7 @@
       <template #center>
         <ep-multi-search
           v-bind="multiSearchProps"
+          v-model="search"
           @enter="updateSearch"
           @delete="updateSearch"
           @query-close="queryClose"
@@ -72,6 +73,7 @@
             :search="search"
             :hiddenColumns="hiddenColumns"
             style="width: 100%; overflow: unset;"
+            @row-click="handleRowClick"
           />
         </ep-container>
       </template>
@@ -82,6 +84,7 @@
 <script>
   import { ref, computed, watch, onMounted } from 'vue'
   import { useStore } from 'vuex'
+  import { useRoute, useRouter } from 'vue-router'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from './vulnData.js'
@@ -99,7 +102,10 @@
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-      const search = ref([])
+      const router = useRouter()
+      const route = useRoute()
+      const search = ref(route.query.id ? [route.query.id] : []) // Use route.query.id instead of router.currentRoute.value.query.id
+
       const hiddenColumns = ref(['published_date', 'last_modified_date', 'date_seen'])
       const vulnTableDataRef = ref(vulnTableData)
 
@@ -112,6 +118,7 @@
 
       const tableProps = {
         bordered: true,
+        selectable: true,
         stickyHeader: true,
         stickyTop: '61',
         sortable: true,
@@ -129,9 +136,15 @@
         itemGap: '0',
       }))
 
+      // const router = useRouter()
+      const handleRowClick = (row) => {
+        console.log('handleRowClick', row.id)
+        // route to vulnerability details path /vulnerabilities/:id
+        router.push({ path: `/vulnerabilities/${row.id}` })
+      }
+
       const updateSearch = (value) => {
         search.value = value
-        console.log('search:', search.value)
       }
 
       const queryClose = (query) => {
@@ -160,6 +173,7 @@
         filteredData,
         filters,
         generateFilters,
+        handleRowClick,
         headerProps,
         hiddenColumns,
         multiSearchProps,
@@ -169,7 +183,6 @@
         updateSearch,
         vulnChartOptions,
         vulnTableColumns,
-        // vulnTableData,
       }
     },
   }

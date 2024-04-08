@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Assets from '@/views/assets/Assets.vue'
 import Vulnerabilities from '@/views/vulnerabilities/Vulnerabilities.vue'
+import VulnerabilityDetails from '@/views/vulnerabilities/VulnerabilityDetails.vue'
 import Services from '@/views/services/Services.vue'
 import ServiceDetails from '@/views/services/ServiceDetails.vue'
 import Reports from '@/views/reports/Reports.vue'
@@ -47,6 +48,17 @@ const routes = [
     meta: {
       title: 'Vulnerabilities',
     },
+  },
+  // routes for each vulnerability which would be like /vulnerabilities/:vulnerabilityID
+  // and needs to accept a prop for the vulnerabilityID
+  {
+    path: '/vulnerabilities/:vulnerabilityID',
+    name: 'vulnerability-details',
+    component: VulnerabilityDetails,
+    meta: {
+      title: 'Vulnerability Details',
+    },
+    props: true,
   },
   {
     path: '/services',
@@ -128,10 +140,10 @@ const settingsRoutes = settingsChildren.map((child) => {
   }
 })
 
-routes[7].children.push(...settingsRoutes)
+routes[8].children.push(...settingsRoutes)
 
 // children routes for service-config
-routes[7].children[1].children = [
+routes[8].children[1].children = [
   {
     path: '', // This is the default child route for '/settings'
     name: 'network-default',
@@ -164,7 +176,7 @@ routes[7].children[1].children = [
 ]
 
 // children routes for api-access: configuration, docs-overview, docs-threat-intelligence, docs-ticketing, docs-testing
-routes[7].children[6].children = [
+routes[8].children[6].children = [
   {
     path: '', // This is the default child route for '/settings'
     name: 'api-access-default',
