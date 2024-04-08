@@ -1,6 +1,5 @@
 <template>
   <div class="assets">
-    <!-- <ep-chart :options="browserChartOptions" /> -->
     <ep-header v-bind="headerProps">
       <template #left>
         <h1>Assets</h1>
@@ -68,6 +67,7 @@
         </div>
       </template>
       <template #content>
+        <in-version-chart />
         <ep-container
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
@@ -102,13 +102,15 @@
   import { assetColumns, assetData } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
+  import InVersionChart from './InVersionChart.vue'
   // import browserChartOptions from './browsers.js'
 
   export default {
     name: 'Assets',
     components: {
       SidebarLayout,
-      EpEmptyState
+      EpEmptyState,
+      InVersionChart,
     },
     setup() {
       const assetCount = ref(assetData.length)
