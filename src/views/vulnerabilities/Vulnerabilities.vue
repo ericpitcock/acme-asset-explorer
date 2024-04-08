@@ -87,7 +87,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import vulnChartOptions from './vulnChartOptions.js'
-  import { vulnTableColumns, vulnTableData } from './vulnData.js'
+  import { vulnTableColumns, vulnTableData } from '../../store/vulnData.js'
   import useFilters from '@/composables/useFilters.js'
 
   export default {
@@ -138,7 +138,9 @@
 
       // const router = useRouter()
       const handleRowClick = (row) => {
-        console.log('handleRowClick', row.id)
+        // console.log('handleRowClick', row.id)
+        // run addSelectedVulnerability mutation
+        store.commit('addSelectedVulnerability', row)
         // route to vulnerability details path /vulnerabilities/:id
         router.push({ path: `/vulnerabilities/${row.id}` })
       }

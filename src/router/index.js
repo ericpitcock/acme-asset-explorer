@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
 import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Assets from '@/views/assets/Assets.vue'
 import Vulnerabilities from '@/views/vulnerabilities/Vulnerabilities.vue'
@@ -59,6 +60,18 @@ const routes = [
       title: 'Vulnerability Details',
     },
     props: true,
+    beforeEnter: (to, from, next) => {
+      // if the vulnerability is already selected, move on
+      if (store.state.selectedVulnerability !== null) {
+        return next()
+      }
+      // get the first vulnerability from the store
+      const vulnerability = store.state.vulnerabilities[0]
+      // set the first vulnerability as the selected vulnerability
+      store.commit('addSelectedVulnerability', vulnerability)
+      // change the route to the vulnerability.id
+      next()
+    }
   },
   {
     path: '/services',

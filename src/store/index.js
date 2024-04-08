@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { faker } from '@faker-js/faker'
 import { fakeUserData } from './userData.js'
+import { vulnTableData } from './vulnData.js'
 import commonProps from './commonProps.js'
 
 export default createStore({
@@ -72,7 +73,9 @@ export default createStore({
     ],
     leftPanelCollapsed: false,
     rightPanelOpen: false,
-    theme: 'dark'
+    selectedVulnerability: null,
+    theme: 'dark',
+    vulnerabilities: vulnTableData
   },
   getters: {
     getActiveNotifications: state => {
@@ -83,6 +86,9 @@ export default createStore({
     },
     hasActiveNotifications: state => {
       return state.notifications.length > 0
+    },
+    getVulnerabilityById: state => id => {
+      return state.vulnerabilities.find(v => v.id === id)
     }
   },
   mutations: {
@@ -98,6 +104,9 @@ export default createStore({
         return
       }
       state.fakeUserData.push(newUser)
+    },
+    addSelectedVulnerability: (state, vulnerability) => {
+      state.selectedVulnerability = vulnerability
     },
     setTheme: (state, data) => {
       state.theme = data
