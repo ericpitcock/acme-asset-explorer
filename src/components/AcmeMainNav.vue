@@ -20,7 +20,7 @@
           <div class="main-nav__item__name">{{ navItem.name }}</div>
         </router-link>
         <div
-          v-if="index === 2"
+          v-if="index === 1"
           class="main-nav__item__divider"
           :key="`divider${index}`"
         ></div>
@@ -41,15 +41,15 @@
     data() {
       return {
         navItems: [
-          {
-            name: 'Dashboard',
-            icon: 'dashboard',
-            path: '/'
-          },
+          // {
+          //   name: 'Dashboard',
+          //   icon: 'dashboard',
+          //   path: '/'
+          // },
           {
             name: 'Assets',
             icon: 'display',
-            path: '/assets'
+            path: '/'
           },
           {
             name: 'Vulnerabilities',

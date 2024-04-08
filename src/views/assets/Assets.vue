@@ -1,6 +1,6 @@
 <template>
   <div class="assets">
-    <ep-header v-bind="headerProps">
+    <ep-header v-bind="pageHeaderProps">
       <template #left>
         <h1>Assets</h1>
       </template>
@@ -67,7 +67,32 @@
         </div>
       </template>
       <template #content>
-        <in-version-chart />
+        <ep-flex-container
+          flex-flow="row nowrap"
+          gap="1.5rem"
+          padding="1rem 0"
+        >
+          <ep-container v-bind="chartContainerProps">
+            <template #header>
+              <ep-header>
+                <template #left>
+                  <h1>Vulnerabilties by severity</h1>
+                </template>
+              </ep-header>
+            </template>
+            <in-severity-chart />
+          </ep-container>
+          <ep-container v-bind="chartContainerProps">
+            <template #header>
+              <ep-header>
+                <template #left>
+                  <h1>Endpoint Versions</h1>
+                </template>
+              </ep-header>
+            </template>
+            <in-version-chart />
+          </ep-container>
+        </ep-flex-container>
         <ep-container
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
@@ -102,14 +127,15 @@
   import { assetColumns, assetData } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
+  import InSeverityChart from './InSeverityChart.vue'
   import InVersionChart from './InVersionChart.vue'
-  // import browserChartOptions from './browsers.js'
 
   export default {
     name: 'Assets',
     components: {
       SidebarLayout,
       EpEmptyState,
+      InSeverityChart,
       InVersionChart,
     },
     setup() {
@@ -127,6 +153,11 @@
         borderRadius: 'var(--border-radius)',
         borderColor: 'var(--border-color--lighter)',
         containerPadding: '2rem',
+      }
+
+      const chartContainerProps = {
+        ...commonContainerProps,
+        contentPadding: '3rem 0',
       }
 
       const multiSearchProps = {
@@ -163,7 +194,7 @@
         })).filter(filter => !tableProps.exclude.includes(filter.id))
       })
 
-      const headerProps = computed(() => ({
+      const pageHeaderProps = computed(() => ({
         ...commonPageHeaderProps,
         leftFlex: '0 0 20rem',
         leftPadding: '0 3rem',
@@ -211,6 +242,7 @@
         assetCount,
         assetColumns,
         assetData,
+        chartContainerProps,
         columnFilters,
         commonContainerProps,
         commonPageHeaderProps,
@@ -220,13 +252,13 @@
         tableProps,
         filters,
         filteredData,
-        headerProps,
         handleDataChanged,
         handleRowClick,
         handleFilter,
         hiddenColumns,
-        updateSearch,
+        pageHeaderProps,
         queryClose,
+        updateSearch,
       }
     }
   }

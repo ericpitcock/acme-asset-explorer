@@ -57,7 +57,7 @@
               label: 'User Profile',
               iconLeft: { name: 'user' },
               bind: {
-                to: '/settings'
+                to: '/settings/user-management'
               }
             },
             {
