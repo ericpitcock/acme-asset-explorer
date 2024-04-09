@@ -31,7 +31,7 @@
   export default {
     name: 'AcmeGrid',
     computed: {
-      ...mapState(['leftPanelCollapsed', 'rightPanelOpen']),
+      ...mapState(['rightPanelOpen']),
     },
     watch: {
       // when the route changes, scroll .content to the top

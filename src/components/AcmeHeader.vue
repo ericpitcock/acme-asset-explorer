@@ -4,7 +4,7 @@
       <ep-button
         variant="ghost"
         :iconLeft="{ name: 'menu' }"
-        @click="toggleLeftPanel"
+        @click="toggleleftPanelCollapsedUser"
       />
       <ep-dropdown v-bind="userDropdownProps" />
       <p>
@@ -103,7 +103,7 @@
     },
     methods: {
       ...mapActions(['toggleTheme']),
-      ...mapMutations(['toggleLeftPanel', 'toggleRightPanel']),
+      ...mapMutations(['toggleleftPanelCollapsedUser', 'toggleRightPanel']),
     },
     computed: {
       ...mapGetters(['hasActiveNotifications']),

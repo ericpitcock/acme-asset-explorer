@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="['nav-container', { 'nav-container--collapsed': leftPanelCollapsed }]"
-  >
+  <div :class="['nav-container', { 'nav-container--collapsed': isCollapsed }]">
     <nav class="main-nav">
       <div class="main-nav__item main-nav__item--logo">
         <router-link to="/">
@@ -30,7 +28,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapMutations, mapState } from 'vuex'
   import EsentireLogo from '@/components/EsentireLogo.vue'
 
   export default {
@@ -80,11 +78,34 @@
       }
     },
     computed: {
-      ...mapState(['leftPanelCollapsed']),
+      ...mapState(['leftPanelCollapsed', 'leftPanelCollapsedUser']),
       logoType() {
-        return this.leftPanelCollapsed ? 'icon' : 'full'
+        return this.isCollapsed ? 'icon' : 'full'
+      },
+      isCollapsed() {
+        return this.leftPanelCollapsed || this.leftPanelCollapsedUser
       }
-    }
+    },
+    methods: {
+      ...mapMutations(['setLeftPanel']),
+      checkViewportWidth() {
+        if (this.leftPanelCollapsedUser) return
+
+        const viewportWidth = window.innerWidth
+        if (viewportWidth <= 1500 && !this.leftPanelCollapsed) {
+          this.setLeftPanel(true)
+        } else if (viewportWidth > 1500 && this.leftPanelCollapsed) {
+          this.setLeftPanel(false)
+        }
+      },
+    },
+    mounted() {
+      this.checkViewportWidth()
+      window.addEventListener('resize', this.checkViewportWidth)
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.checkViewportWidth)
+    },
   }
 </script>
 

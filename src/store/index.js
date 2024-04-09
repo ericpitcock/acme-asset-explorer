@@ -72,6 +72,7 @@ export default createStore({
       }
     ],
     leftPanelCollapsed: false,
+    leftPanelCollapsedUser: false,
     rightPanelOpen: false,
     selectedVulnerability: null,
     theme: 'dark',
@@ -128,8 +129,17 @@ export default createStore({
     removeSite: (state, index) => {
       state.sites.splice(index, 1)
     },
-    toggleLeftPanel: state => {
-      state.leftPanelCollapsed = !state.leftPanelCollapsed
+    // toggleLeftPanel: state => {
+    //   state.leftPanelCollapsed = !state.leftPanelCollapsed
+    // },
+    // when the user clicks the menu button
+    toggleleftPanelCollapsedUser: state => {
+      console.log('toggleleftPanelCollapsedUser')
+      state.leftPanelCollapsedUser = !state.leftPanelCollapsedUser
+    },
+    // when the viewport is resized
+    setLeftPanel: (state, value) => {
+      state.leftPanelCollapsed = value
     },
     toggleRightPanel: state => {
       state.rightPanelOpen = !state.rightPanelOpen
@@ -170,6 +180,6 @@ export default createStore({
       let newTheme = state.theme == 'dark' ? 'light' : 'dark'
       document.documentElement.setAttribute('data-color-theme', newTheme)
       commit('setTheme', newTheme)
-    }
+    },
   }
 })
