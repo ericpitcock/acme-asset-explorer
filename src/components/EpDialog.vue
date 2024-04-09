@@ -1,5 +1,5 @@
 <template>
-  <modal>
+  <modal padding="6rem 0 0 0">
     <div class="ep-dialog">
       <div class="ep-dialog-header">
         <h2>{{ title }}</h2>
@@ -53,16 +53,16 @@
 
 <style lang="scss" scoped>
   /* .ep-dialog-overlay {
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                            background-color: var(--interface-surface);
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                          } */
+                              position: fixed;
+                              top: 0;
+                              left: 0;
+                              width: 100%;
+                              height: 100%;
+                              background-color: var(--interface-surface);
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                            } */
   .ep-dialog {
     max-width: 40rem;
     background-color: var(--interface-surface);
