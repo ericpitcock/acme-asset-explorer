@@ -49,8 +49,9 @@
           <h2>Authorization</h2>
           <p>The Threat Intelligence API uses the ‘Authorization’ HTTP header to
             authenticate requests with the value: {token}.</p>
-          <div class="code-block">curl -H 'Authorization: {token}'
-            'https://api.domain.com/ti/rules'</div>
+          <ep-code-view
+            code="curl -H 'Authorization: {token}' 'https://api.domain.com/ti/rules'"
+          />
           <h2>HTTP Header</h2>
           <div class="code-block">Authorization = {token}</div>
           <h2>Sample Threat Intelligence EDL Payload</h2>

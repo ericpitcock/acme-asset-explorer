@@ -61,7 +61,7 @@
 
         for (let i = 0; i < 2; i++) {
           escalationProcedures.push({
-            name: `Escalation Procedure ${i + 1}`,
+            name: i === 0 ? 'Primary' : `Secondary`,
             services: `${this.services[i].name}, ${this.services[i + 1].name}`,
             contacts: `${this.fakeUserData[i].name}, ${this.fakeUserData[i + 1].name}, ${this.fakeUserData[i + 2].name}`,
             instructions: ''

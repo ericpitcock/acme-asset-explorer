@@ -16,6 +16,7 @@
     <modal
       v-if="showModal"
       modal-height="100%"
+      padding="2rem"
     >
       <config-modal
         :config="selectedConfig"

@@ -28,31 +28,36 @@
     </template>
     <ep-flex-container gap="3rem">
       <div class="sidebar">
-        <ep-menu :menu-items="sections" />
+        <ep-menu
+          :menu-items="sections"
+          v-bind="menuProps"
+        />
       </div>
       <ep-flex-container
         flex-flow="column nowrap"
         align-items="flex-start"
         gap="1rem"
+        padding="0 0 10rem 0"
       >
-        <!-- {{ config }} -->
-        <ep-header>
-          <template #left>
-            <h2>Network Information</h2>
+        <template v-for="(inputs, section) in inputs">
+          <ep-header v-bind="sectionHeaderProps">
+            <template #left>
+              <h2>{{ section }}</h2>
+            </template>
+          </ep-header>
+          <template v-for="input in inputs">
+            <ep-input
+              v-bind="input"
+              size="large"
+              v-model="input.value"
+            />
           </template>
-        </ep-header>
-        <template v-for="input in inputs">
-          <ep-input
-            v-bind="input"
-            size="xlarge"
-            v-model="input.value"
-          />
         </template>
       </ep-flex-container>
     </ep-flex-container>
-    <template #footer>
+    <!-- <template #footer>
       <ep-footer />
-    </template>
+    </template> -->
   </ep-container>
 </template>
 
@@ -69,71 +74,118 @@
     data() {
       return {
         containerProps: {
-          width: '100rem',
+          width: '70rem',
           height: '100%',
-          borderRadius: '0',
-          overflow: 'scroll',
+          // borderRadius: '0',
+          // calculatedHeight: true,
+          // calculateHeightOffset: 8.1,
           containerPadding: '0 3rem',
           contentPadding: '0 0 0 0',
+          overflow: 'auto',
+          stickyHeader: true,
         },
         headerProps: {
           height: '8.1rem',
           leftGap: '2rem',
           rightGap: '1rem',
         },
-        inputs: [
-          {
-            type: 'text',
-            label: 'Site Name',
-            value: this.config.name,
-            required: true,
-          },
-          {
-            type: 'text',
-            label: 'Internal IP Address',
-            value: this.config.internal_ip_address,
-            required: true,
-          },
-          {
-            type: 'text',
-            label: 'Subnet Mask',
-            value: this.config.subnet_mask,
-            required: true,
-          },
-          {
-            type: 'text',
-            label: 'Gateway',
-            value: this.config.gateway,
-            required: true,
-          },
-          {
-            type: 'text',
-            label: 'DNS Server',
-            value: this.config.dns_server,
-            required: true,
-          },
-        ],
+        inputs: {
+          'Network Information': [
+            {
+              type: 'text',
+              label: 'Site Name',
+              value: this.config.name,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'Internal IP Address',
+              value: this.config.internal_ip_address,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'Subnet Mask',
+              value: this.config.subnet_mask,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'Gateway',
+              value: this.config.gateway,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'DNS Server',
+              value: this.config.dns_server,
+              required: true,
+            },
+          ],
+          'IPMI Configuration': [
+            {
+              type: 'text',
+              label: 'IPMI IP Address',
+              value: this.config.ipmi_ip_address,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'IPMI Subnet Mask',
+              value: this.config.ipmi_subnet_mask,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'IPMI Gateway',
+              value: this.config.ipmi_gateway,
+              required: true,
+            },
+          ],
+          'Shipping Location': [
+            {
+              type: 'text',
+              label: 'Address',
+              value: this.config.shipping_address,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'City',
+              value: this.config.shipping_city,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'State',
+              value: this.config.shipping_state,
+              required: true,
+            },
+            {
+              type: 'text',
+              label: 'Zip Code',
+              value: this.config.shipping_zip,
+              required: true,
+            },
+          ],
+          'Sensor Location': [
+            {
+              type: 'text',
+              label: 'Sensor Location',
+              value: this.config.sensor_location,
+              required: true,
+            },
+          ],
+        },
         sections: [
           {
             label: 'Sensor Configuration',
           },
           {
-            label: 'Maintenance Windows',
-          },
-          {
             label: 'Authorized Users',
           },
           {
-            label: 'Alert Lists',
-          },
-          {
-            label: 'Escalation Procedure',
-          },
-          {
             label: 'Optional Modules',
-          },
-          {
-            label: 'Response Protocol',
           },
           {
             label: 'IP Addresses',
@@ -141,7 +193,16 @@
           {
             label: 'Policy Detections',
           },
-        ]
+        ],
+        sectionHeaderProps: {
+          sticky: true,
+          stickyTop: '8.1rem',
+        },
+        menuProps: {
+          containerProps: {
+            borderWidth: '0',
+          }
+        }
       }
     },
     methods: {
@@ -151,3 +212,12 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .sidebar {
+    position: sticky;
+    top: 8.1rem;
+    align-self: flex-start;
+    padding: 2rem 0 0 0;
+  }
+</style>
