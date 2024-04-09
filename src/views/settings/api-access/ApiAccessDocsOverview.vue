@@ -28,14 +28,21 @@
               <h2>Threat Intelligence API</h2>
               <p>Access to our proprietary blocklist of known malicious IP
                 addresses.</p>
-              <p>Threat Intelligence API Docs</p>
+              <router-link
+                to="/settings/api-access/docs-threat-intelligence"
+                class="font-size--small"
+              >Threat Intelligence API
+                Docs</router-link>
             </div>
             <div class="intro-feature">
               <h2>Ticketing API</h2>
               <p>Create, read, update and resolve support tickets on behalf of
                 your
                 organization.</p>
-              <p>Ticketing API Docs</p>
+              <router-link
+                to="/settings/api-access/docs-ticketing"
+                class="font-size--small"
+              >Ticketing API Docs</router-link>
             </div>
           </ep-flex-container>
         </ep-flex-container>
@@ -122,60 +129,13 @@
 </script>
 
 <style lang="scss" scoped>
-  // .docs {
-  //   --container-padding: 4rem;
-  //   max-width: 80rem;
-  //   &__intro {
-  //     padding: var(--container-padding);
-  //     background: var(--interface-surface);
-  //     border-bottom: 1px solid var(--border-color);
-  //     h1 {
-  //       font-size: var(--font-size--large);
-  //       font-variation-settings: 'wght' 350;
-  //       padding-bottom: 1rem;
-  //       border-bottom: 1px solid var(--border-color);
-  //       color: var(--text-color--primary);
-  //     }
-  //     .intro-feature {
-  //       width: 40rem;
-  //       padding: 3rem;
-  //       background: var(--interface-surface--accent);
-  //       border: 1px solid var(--border-color);
-  //       border-radius: var(--border-radius);
-  //       border-left: 4px solid var(--primary-color-base);
-  //       h2 {
-  //         // margin-bottom: 1rem;
-  //       }
-  //     }
-  //   }
-  //   &__body {
-  //     padding: var(--container-padding);
-  //     padding-bottom: 6rem;
-  //     h2 {
-  //       padding-bottom: 1rem;
-  //       border-bottom: 1px solid var(--border-color);
-  //       color: var(--text-color--primary);
-  //       // margin-bottom: 1rem;
-  //       &:not(:first-child) {
-  //         margin-top: 3rem;
-  //       }
-  //     }
-  //     ul {
-  //       font-size: var(--font-size--body);
-  //       list-style-type: disc;
-  //       padding-left: 2.8rem;
-  //       li {
-  //         line-height: 2.4rem;
-  //         ul {
-  //           list-style-type: circle;
-  //           margin-top: 1.4rem;
-  //           padding-left: 2rem;
-  //         }
-  //       }
-  //       li:not(:first-child) {
-  //         margin-top: 0.8rem;
-  //       }
-  //     }
-  //   }
-  // }
+  .intro-feature {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      font-size: var(--font-size--body)
+    }
+  }
 </style>
