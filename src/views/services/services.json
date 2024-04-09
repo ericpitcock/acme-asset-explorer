@@ -39,14 +39,14 @@
     "category": "Exposure Management",
     "configurable": false,
     "status": "Active",
-    "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f/alert-circle", "size": 35, "weight": "light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Threat Intelligence",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Active",
-    "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f/eye", "size": 50, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Managed Vulnerability Service",
@@ -81,20 +81,20 @@
     "category": "Exposure Management",
     "configurable": false,
     "status": "Active",
-    "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f/book", "size": 40, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Security Incident Response Planning Services",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Expired",
-    "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f/list", "size": 50, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "On-Demand 24/7 Incident Response Retainer",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Active",
-    "iconProps": { "name": "circle", "size": 20, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f/life-buoy", "size": 35, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   }
 ]

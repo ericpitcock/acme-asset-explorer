@@ -10,11 +10,17 @@
         bordered
         selectable
         width="100%"
-        @row-click="showModal = true"
+        @row-click="handleRowClick"
       />
     </ep-container>
-    <modal v-if="showModal">
-      network config
+    <modal
+      v-if="showModal"
+      modal-height="100%"
+    >
+      <config-modal
+        :config="selectedConfig"
+        @close="showModal = false"
+      />
     </modal>
   </div>
 </template>
@@ -23,11 +29,13 @@
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
   import Modal from '@/components/Modal.vue'
+  import ConfigModal from './ConfigModal.vue'
 
   export default {
     name: 'Network',
     components: {
-      Modal
+      ConfigModal,
+      Modal,
     },
     data() {
       return {
@@ -47,6 +55,7 @@
             formatter: (value) => new Date(value).toLocaleString()
           }
         ],
+        selectedConfig: null,
         showModal: false
       }
     },
@@ -84,6 +93,12 @@
         return data
       }
     },
+    methods: {
+      handleRowClick(row) {
+        this.selectedConfig = row
+        this.showModal = true
+      }
+    }
   }
 </script>
 

@@ -121,7 +121,7 @@
 </template>
 
 <script>
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
   import SidebarLayout from '@/layouts/SidebarLayout.vue'
   import { assetColumns, assetData } from './assetData.js'
@@ -145,6 +145,8 @@
 
       const store = useStore()
       const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
+      const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+      const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
       const assetDataRef = ref(assetData)
 
@@ -228,6 +230,14 @@
       const queryClose = (query) => {
         search.value = search.value.filter(item => item !== query)
       }
+
+      watch(() => leftPanelCollapsed.value, () => {
+        window.dispatchEvent(new Event('resize'))
+      })
+
+      watch(() => rightPanelOpen.value, () => {
+        window.dispatchEvent(new Event('resize'))
+      })
 
       onMounted(() => {
         const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']

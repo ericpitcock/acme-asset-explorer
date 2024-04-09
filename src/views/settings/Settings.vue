@@ -29,18 +29,18 @@
             label: 'User Management',
             to: '/settings/user-management'
           },
-          {
-            label: 'Notifications',
-            to: '/settings/notifications'
-          },
+          // {
+          //   label: 'Notifications',
+          //   to: '/settings/notifications'
+          // },
           {
             label: 'Company Profile',
             to: '/settings/company-profile'
           },
-          {
-            label: 'Escalation Procedure',
-            to: '/settings/escalation-procedure'
-          },
+          // {
+          //   label: 'Escalation Procedure',
+          //   to: '/settings/escalation-procedure'
+          // },
           {
             label: 'API Access',
             to: '/settings/api-access'

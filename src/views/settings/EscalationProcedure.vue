@@ -1,38 +1,33 @@
 <template>
-  <div class="escalation-procedure">
-    <settings-module-layout>
-      <template #sidebar>
-        <h1>Escalation Procedure</h1>
-        <p class="text--subtle">
-          Specify the order in which contacts are notified of security incidents.
-        </p>
-      </template>
-      <template #content>
-        <ep-flex-container
-          flex-flow="column nowrap"
-          align-items="flex-start"
-          gap="1rem"
-        >
-          <ep-table
-            :columns="columns"
-            :data="escalationProcedures"
-            width="100%"
-            bordered
-            style="align-self: stretch"
-          />
-          <ep-button
-            label="Add New"
-            variant="secondary"
-            :icon-left="{ name: 'f/plus' }"
-            @click="addEscalationProcedure"
-          />
-        </ep-flex-container>
-      </template>
-    </settings-module-layout>
-    <modal v-if="showModal">
-      Modal content here
-    </modal>
-  </div>
+  <settings-module-layout>
+    <template #sidebar>
+      <h1>Escalation Procedure</h1>
+      <p class="text--subtle">
+        Specify the order in which contacts are notified of security incidents.
+      </p>
+    </template>
+    <template #content>
+      <ep-flex-container
+        flex-flow="column nowrap"
+        align-items="flex-start"
+        gap="1rem"
+      >
+        <ep-table
+          :columns="columns"
+          :data="escalationProcedures"
+          width="100%"
+          bordered
+          style="align-self: stretch"
+        />
+        <ep-button
+          label="Add New"
+          variant="secondary"
+          :icon-left="{ name: 'f/plus' }"
+          @click="addEscalationProcedure"
+        />
+      </ep-flex-container>
+    </template>
+  </settings-module-layout>
 </template>
 
 <script>
@@ -78,7 +73,7 @@
     },
     methods: {
       addEscalationProcedure() {
-        this.showModal = true
+        // this.showModal = true
       }
     }
   }

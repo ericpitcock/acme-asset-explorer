@@ -66,7 +66,10 @@
         </ep-container>
       </template>
     </sidebar-layout>
-    <modal v-if="showModal">
+    <modal
+      v-if="showModal"
+      padding="6rem 0 0 0"
+    >
       <add-user
         :user="selectedUser"
         @close="handleClose"

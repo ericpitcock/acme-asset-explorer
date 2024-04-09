@@ -11,6 +11,16 @@
 <script>
   export default {
     name: 'Modal',
+    props: {
+      padding: {
+        type: String,
+        default: '0',
+      },
+      modalHeight: {
+        type: String,
+        default: 'auto',
+      },
+    },
   }
 </script>
 
@@ -24,12 +34,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding-top: 6rem;
+    padding: v-bind(padding);
     background-color: var(--modal-overlay-background);
     z-index: var(--z-index--modal);
     backdrop-filter: blur(3px);
 
     &__content {
+      height: v-bind(modalHeight);
       box-shadow: var(--box-shadow--modal);
     }
   }
