@@ -1,8 +1,30 @@
 <template>
   <div class="vulnerabilities">
-    <ep-header v-bind="headerProps">
+    <ep-container v-bind="headerContainerProps">
+      <template #header>
+        <ep-header>
+          <template #left>
+            <h1 class="page-head">Vulnerabilities</h1>
+          </template>
+        </ep-header>
+      </template>
+      <ep-container v-bind="chartContainerProps">
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>Severity Over Time</h1>
+            </template>
+          </ep-header>
+        </template>
+        <ep-chart
+          :options="vulnChartOptions"
+          :height="300"
+        />
+      </ep-container>
+    </ep-container>
+    <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <h1>Vulnerabilities</h1>
+        <h1>{{ filteredData.length }} Vulnerabilities</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -49,19 +71,6 @@
         </ep-flex-container>
       </template>
       <template #content>
-        <ep-container
-          v-bind="commonContainerProps"
-          content-padding="3rem 0 1rem 0"
-        >
-          <template #header>
-            <ep-header>
-              <template #left>
-                <h1>Severity Over Time</h1>
-              </template>
-            </ep-header>
-          </template>
-          <ep-chart :options="vulnChartOptions" />
-        </ep-container>
         <ep-container
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
@@ -127,7 +136,7 @@
         exclude: [],
       }
 
-      const headerProps = computed(() => ({
+      const contentHeaderProps = computed(() => ({
         ...commonPageHeaderProps,
         leftFlex: '0 0 20rem',
         centerFlex: '1',
@@ -135,6 +144,17 @@
         rightPadding: '0 3rem',
         itemGap: '0',
       }))
+
+      const headerContainerProps = computed(() => ({
+        borderWidth: '0',
+        containerPadding: '0 3rem',
+        contentPadding: '2rem 3rem 0 3rem',
+      }))
+
+      const chartContainerProps = {
+        borderWidth: 'none',
+        contentPadding: '3rem 0',
+      }
 
       const handleRowClick = (row) => {
         store.commit('addSelectedVulnerability', row)
@@ -170,12 +190,14 @@
       const { filters, generateFilters, filteredData } = useFilters(vulnTableColumns, vulnTableDataRef)
 
       return {
+        chartContainerProps,
         commonContainerProps,
+        contentHeaderProps,
         filteredData,
         filters,
         generateFilters,
         handleRowClick,
-        headerProps,
+        headerContainerProps,
         hiddenColumns,
         multiSearchProps,
         queryClose,
@@ -184,6 +206,7 @@
         updateSearch,
         vulnChartOptions,
         vulnTableColumns,
+        vulnTableData,
       }
     },
   }
@@ -220,5 +243,4 @@
     :deep(.ep-table-container) {
       overflow-x: auto;
     }
-  }
-</style>
+  }</style>

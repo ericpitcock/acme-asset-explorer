@@ -1,6 +1,9 @@
 <template>
   <div class="in-severity-chart">
-    <ep-chart :options="chartOptions" />
+    <ep-chart
+      :options="chartOptions"
+      :height="300"
+    />
   </div>
 </template>
 
@@ -30,19 +33,11 @@
     chart: {
       type: 'column',
       styledMode: true,
-      // height: '300px',
       backgroundColor: 'transparent',
       style: {
         fontFamily: '"Inter var", sans-serif',
       },
     },
-    // title: {
-    //   text: 'Vulnerabilities by Severity',
-    //   style: {
-    //     color: 'var(--text-color)',
-    //     fontSize: 'var(--font-size--large)',
-    //   },
-    // },
     xAxis: {
       categories: categories,
       labels: {

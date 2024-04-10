@@ -1,45 +1,52 @@
 <template>
   <div class="assets">
-    <ep-header v-bind="pageHeaderProps">
-      <template #left>
-        <h1>Assets</h1>
+    <ep-container v-bind="headerContainerProps">
+      <template #header>
+        <ep-header>
+          <template #left>
+            <h1 class="page-head">Assets</h1>
+          </template>
+        </ep-header>
       </template>
-    </ep-header>
-    <ep-flex-container flex-flow="row nowrap">
-      <ep-container v-bind="chartContainerProps">
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>Vulnerabilties by severity</h1>
-            </template>
-          </ep-header>
-        </template>
-        <in-severity-chart />
-      </ep-container>
-      <ep-container v-bind="chartContainerProps">
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>Endpoint Versions</h1>
-            </template>
-          </ep-header>
-        </template>
-        <in-version-chart />
-      </ep-container>
-      <ep-container v-bind="chartContainerProps">
-        <template #header>
-          <ep-header>
-            <template #left>
-              <h1>Endpoint Versions</h1>
-            </template>
-          </ep-header>
-        </template>
-        <in-version-chart />
-      </ep-container>
-    </ep-flex-container>
-    <ep-header v-bind="pageHeaderProps">
+      <ep-flex-container
+        flex-flow="row nowrap"
+        gap="6rem"
+      >
+        <ep-container v-bind="chartContainerProps">
+          <template #header>
+            <ep-header>
+              <template #left>
+                <h1>Vulnerabilties by severity</h1>
+              </template>
+            </ep-header>
+          </template>
+          <in-severity-chart />
+        </ep-container>
+        <ep-container v-bind="chartContainerProps">
+          <template #header>
+            <ep-header>
+              <template #left>
+                <h1>Endpoint Versions</h1>
+              </template>
+            </ep-header>
+          </template>
+          <in-version-chart />
+        </ep-container>
+        <ep-container v-bind="chartContainerProps">
+          <template #header>
+            <ep-header>
+              <template #left>
+                <h1>Endpoint Versions</h1>
+              </template>
+            </ep-header>
+          </template>
+          <in-version-chart />
+        </ep-container>
+      </ep-flex-container>
+    </ep-container>
+    <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <p class="text--subtle">{{ assetCount }} assets</p>
+        <p class="text--subtle">{{ filteredData.length }} assets</p>
       </template>
       <template #center>
         <ep-multi-search
@@ -107,13 +114,11 @@
           />
           <ep-table
             v-else
-            :columns="assetColumns"
             :data="filteredData"
             v-bind="tableProps"
             :search="search"
             :hiddenColumns="hiddenColumns"
             style="width: 100%; overflow: unset;"
-            @data-changed="handleDataChanged"
             @row-click="handleRowClick"
           />
         </ep-container>
@@ -141,7 +146,6 @@
       InVersionChart,
     },
     setup() {
-      const assetCount = ref(assetData.length)
       const hiddenColumns = ref(['ipv6_address', 'mac_address'])
       const search = ref([])
 
@@ -159,32 +163,28 @@
         containerPadding: '2rem',
       }
 
-      const chartContainerProps = {
-        borderWidth: 'none',
-        containerPadding: '0 3rem',
-        contentPadding: '6rem 0',
-      }
+
 
       const multiSearchProps = {
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
         icon: { name: 'search' },
-        placeholder: 'Multi Search - Enter to search - Use quotes for exact match, e.g. "active"',
+        placeholder: 'Asset Search - Use quotes for exact match, e.g. "10.64.5.46"',
       }
 
       const tableProps = {
-        // columns: assetColumns,
+        columns: assetColumns,
         // data: filteredData,
+        bordered: true,
         exclude: ['id'],
         headerBackgroundColor: 'var(--interface-surface)',
+        searchable: true,
         selectable: true,
         stickyHeader: true,
         stickyTop: '61',
-        sortable: true,
-        sortDir: 'asc',
         striped: true,
-        bordered: true,
-        searchable: true,
+        sortDir: 'asc',
+        sortable: true,
         width: '100%',
       }
 
@@ -207,7 +207,7 @@
         },
       }
 
-      const pageHeaderProps = computed(() => ({
+      const contentHeaderProps = computed(() => ({
         ...commonPageHeaderProps,
         leftFlex: '0 0 20rem',
         leftPadding: '0 3rem',
@@ -218,8 +218,15 @@
         itemGap: '0',
       }))
 
-      const handleDataChanged = (data) => {
-        assetCount.value = data.length
+      const headerContainerProps = computed(() => ({
+        borderWidth: '0',
+        containerPadding: '0 3rem',
+        contentPadding: '2rem 3rem 0 3rem',
+      }))
+
+      const chartContainerProps = {
+        borderWidth: 'none',
+        contentPadding: '3rem 0',
       }
 
       const handleRowClick = (row) => {
@@ -260,7 +267,6 @@
       const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
 
       return {
-        assetCount,
         assetColumns,
         assetData,
         chartContainerProps,
@@ -269,16 +275,16 @@
         commonContainerProps,
         commonPageHeaderProps,
         containerProps,
+        contentHeaderProps,
         multiSearchProps,
         search,
         tableProps,
         filters,
         filteredData,
-        handleDataChanged,
         handleRowClick,
         handleFilter,
+        headerContainerProps,
         hiddenColumns,
-        pageHeaderProps,
         queryClose,
         updateSearch,
       }
@@ -291,10 +297,5 @@
     .text-style--section:not(:first-child) {
       margin-top: 1rem;
     }
-
-    // :deep(.ep-table-container) {
-    //   // overflow: revert;
-    //   overflow: unset;
-    // }
   }
 </style>

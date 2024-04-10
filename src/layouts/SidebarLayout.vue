@@ -41,8 +41,7 @@
       position: sticky;
       top: 6.1rem;
       align-self: flex-start;
-      // padding: 2rem 3rem 0 3rem;
-      // border-right: 1px solid var(--border-color);
+      z-index: var(--z-index--sticky);
     }
 
     .sidebar-layout__content {

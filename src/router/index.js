@@ -167,7 +167,7 @@ routes[7].children[1].children = [
     name: 'network',
     component: Network,
     meta: {
-      title: 'Network',
+      title: 'Service Config / Network',
     },
   },
   {
@@ -175,7 +175,7 @@ routes[7].children[1].children = [
     name: 'endpoint',
     component: Endpoint,
     meta: {
-      title: 'Endpoint',
+      title: 'Service Config / Endpoint',
     },
   },
   {
@@ -183,7 +183,7 @@ routes[7].children[1].children = [
     name: 'cloud',
     component: Cloud,
     meta: {
-      title: 'Cloud',
+      title: 'Service Config / Cloud',
     },
   },
 ]
@@ -200,7 +200,7 @@ routes[7].children[6].children = [
     name: 'configuration',
     component: ApiAccessConfiguration,
     meta: {
-      title: 'Configuration',
+      title: 'API Access / Configuration',
     },
   },
   {
@@ -208,7 +208,7 @@ routes[7].children[6].children = [
     name: 'docs-overview',
     component: ApiAccessDocsOverview,
     meta: {
-      title: 'Docs Overview',
+      title: 'API Access / API Library Overview',
     },
   },
   {
@@ -216,7 +216,7 @@ routes[7].children[6].children = [
     name: 'docs-threat-intelligence',
     component: ApiAccessDocsThreatIntelligence,
     meta: {
-      title: 'Docs Threat Intelligence',
+      title: 'API Access / Threat Intelligence API Docs',
     },
   },
   {
@@ -224,7 +224,7 @@ routes[7].children[6].children = [
     name: 'docs-ticketing',
     component: ApiAccessDocsTicketing,
     meta: {
-      title: 'Docs Ticketing',
+      title: 'API Access / Ticketing API Docs',
     },
   },
   {
@@ -232,7 +232,7 @@ routes[7].children[6].children = [
     name: 'docs-testing',
     component: ApiAccessDocsTesting,
     meta: {
-      title: 'Docs Testing',
+      title: 'API Access / Testing and Development',
     },
   },
 ]
@@ -243,7 +243,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const pageTitle = `${to.meta.title} — Acme Asset Explorer` || 'Acme Asset Explorer'
+  const pageTitle = `${to.meta.title} — Insight` || 'Insight'
   document.title = pageTitle
   next()
 })

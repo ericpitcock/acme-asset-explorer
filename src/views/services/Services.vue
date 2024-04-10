@@ -19,11 +19,16 @@
     >
       <ep-banner
         v-if="getExpiredServices"
-        :message="`Expired services: ${getExpiredServices.join(', ')}`"
-        subtext="Please renew them as soon as possible"
         banner-style="error"
         :icon-props="{ name: 'f/alert-triangle' }"
-      />
+      >
+        <template #message>
+          Expired services: {{ getExpiredServices.join(', ') }}
+        </template>
+        <template #subtext>
+          Please renew them as soon as possible
+        </template>
+      </ep-banner>
       <div
         v-for="category in categories"
         class="services__category"
@@ -196,10 +201,9 @@
     // padding-bottom: 20rem;
     // hack banner into submission
     // fix this in the component
-    &:deep(.ep-banner__body) {
-      justify-content: flex-start;
-    }
-
+    // &:deep(.ep-banner__body) {
+    //   justify-content: flex-start;
+    // }
     .services__category {
       display: flex;
       flex-direction: column;

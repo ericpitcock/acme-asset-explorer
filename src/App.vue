@@ -49,6 +49,11 @@
     background: var(--interface-bg);
   }
 
+  h1.page-head {
+    font-size: var(--font-size--body);
+    color: var(--text-color--primary);
+  }
+
   .content-container {
     height: auto;
     min-height: 100%;

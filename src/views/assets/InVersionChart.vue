@@ -1,6 +1,9 @@
 <template>
   <div class="in-version-chart">
-    <ep-chart :options="chartOptions" />
+    <ep-chart
+      :options="chartOptions"
+      :height="300"
+    />
   </div>
 </template>
 
@@ -205,14 +208,6 @@
     title: {
       text: undefined
     },
-    // title: {
-    //   text: 'Browser market share, January, 2022',
-    //   align: 'left'
-    // },
-    // subtitle: {
-    //   text: 'Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>',
-    //   align: 'left'
-    // },
     plotOptions: {
       pie: {
         shadow: false,
@@ -248,27 +243,6 @@
       },
       id: 'versions'
     }],
-    // responsive: {
-    //   rules: [{
-    //     condition: {
-    //       maxWidth: 400
-    //     },
-    //     chartOptions: {
-    //       series: [{}, {
-    //         id: 'versions',
-    //         dataLabels: {
-    //           distance: 10,
-    //           format: '{point.custom.version}',
-    //           filter: {
-    //             property: 'percentage',
-    //             operator: '>',
-    //             value: 2
-    //           }
-    //         }
-    //       }]
-    //     }
-    //   }]
-    // }
   }
 </script>
 

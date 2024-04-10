@@ -102,7 +102,9 @@ const fakeArray = length => {
         },
       },
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
-      ip_address: faker.internet.ipv4(),
+      // ip_address: `10.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 0, max: 255 })}`,
+      // Generate a random IP address with more realistic constraints
+      ip_address: `10.${faker.helpers.arrayElement([0, 16, 32, 64, 128, 192])}.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 1, max: 254 })}`,
       vulnerabilities: {
         value: null, // placeholder for total vulnerabilities
         props: {

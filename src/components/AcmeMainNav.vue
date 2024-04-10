@@ -24,6 +24,11 @@
         ></div>
       </template>
     </nav>
+    <div class="credits">
+      <p>© 2024 εSentiɾe, Inc.<br />
+        Waterloo, ON<br />
+        1-888-231-8392</p>
+    </div>
   </div>
 </template>
 
@@ -111,6 +116,9 @@
 
 <style lang="scss" scoped>
   .nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     height: 100%;
     padding: 30px 20px;
 
@@ -219,6 +227,22 @@
           display: none;
         }
       }
+    }
+  }
+
+  .credits {
+    padding: 2rem 3rem 0;
+    border-top: 1px solid var(--border-color);
+    user-select: none;
+
+    .nav-container--collapsed & {
+      display: none;
+    }
+
+    p {
+      font-size: var(--font-size--xsmall);
+      line-height: var(--text-line-height--tight);
+      color: var(--text-color--subtle);
     }
   }
 </style>
