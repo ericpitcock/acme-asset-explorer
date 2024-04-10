@@ -6,6 +6,16 @@
           <template #left>
             <h1 class="page-head">Assets</h1>
           </template>
+          <template #right>
+            <ep-date-picker
+              mode="range"
+              positionX="right"
+              :inputProps="{
+                size: 'large',
+                backgroundColor: 'var(--interface-foreground)'
+              }"
+            />
+          </template>
         </ep-header>
       </template>
       <ep-flex-container
@@ -46,7 +56,7 @@
     </ep-container>
     <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <p class="text--subtle">{{ filteredData.length }} assets</p>
+        <h1>{{ filteredData.length }} assets</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -163,8 +173,6 @@
         containerPadding: '2rem',
       }
 
-
-
       const multiSearchProps = {
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
@@ -213,8 +221,6 @@
         leftPadding: '0 3rem',
         centerFlex: '1',
         centerPadding: '0 3rem 0 0',
-        rightFlex: '0 0 10rem',
-        rightPadding: '0 3rem',
         itemGap: '0',
       }))
 

@@ -6,6 +6,16 @@
           <template #left>
             <h1 class="page-head">Vulnerabilities</h1>
           </template>
+          <template #right>
+            <ep-date-picker
+              mode="range"
+              positionX="right"
+              :inputProps="{
+                size: 'large',
+                backgroundColor: 'var(--interface-foreground)'
+              }"
+            />
+          </template>
         </ep-header>
       </template>
       <ep-container v-bind="chartContainerProps">
@@ -34,16 +44,6 @@
           @delete="updateSearch"
           @query-close="queryClose"
           @clear="updateSearch"
-        />
-      </template>
-      <template #right>
-        <ep-date-picker
-          mode="range"
-          positionX="right"
-          :inputProps="{
-            size: 'large',
-            backgroundColor: 'var(--interface-foreground)'
-          }"
         />
       </template>
     </ep-header>
@@ -139,9 +139,9 @@
       const contentHeaderProps = computed(() => ({
         ...commonPageHeaderProps,
         leftFlex: '0 0 20rem',
+        leftPadding: '0 3rem',
         centerFlex: '1',
-        rightFlex: '0 0 20rem',
-        rightPadding: '0 3rem',
+        centerPadding: '0 3rem 0 0',
         itemGap: '0',
       }))
 
@@ -243,4 +243,5 @@
     :deep(.ep-table-container) {
       overflow-x: auto;
     }
-  }</style>
+  }
+</style>
