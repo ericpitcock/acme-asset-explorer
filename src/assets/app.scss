@@ -27,7 +27,8 @@
       radial-gradient(ellipse at 60% 0%,
         #096bde10 0,
         transparent 75%
-      );
+      ),
+      var(--interface-surface);
 
   // modal overlay background color
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
