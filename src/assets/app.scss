@@ -10,13 +10,25 @@
   --nav-link-active-text-color: var(--white);
   --nav-link-active-icon-color: var(--white);
 
-  --app-header-background: linear-gradient(
-    150deg, 
-    hsl(0, 0%, 12%) 0%,
-    hsl(242, 31%, 34%) 40%, 
-    hsl(277, 32%, 29%) 60%, 
-    hsl(0, 0%, 12%) 80%
-  );
+  --app-header-background:
+    linear-gradient(
+      150deg, 
+      hsl(0, 0%, 12%) 0%,
+      hsl(242, 31%, 34%) 40%, 
+      hsl(277, 32%, 29%) 60%, 
+      hsl(0, 0%, 12%) 80%
+    );
+
+  --page-header-background:
+      radial-gradient(ellipse at 40% 0%,
+        #bf398910 0,
+        transparent 75%
+      ),
+      radial-gradient(ellipse at 60% 0%,
+        #096bde10 0,
+        transparent 75%
+      );
+
   // modal overlay background color
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
@@ -44,13 +56,24 @@ html[data-color-theme='light'] {
   --nav-link-active-icon-color: var(--text-color--inverse);
   --nav-link-active-text-color: var(--text-color--inverse);
   
-  --app-header-background: linear-gradient(
-    150deg, 
-    hsl(0, 0%, 20%) 0%,
-    hsl(242, 31%, 54%) 40%, 
-    hsl(277, 32%, 49%) 60%, 
-    hsl(0, 0%, 20%) 80%
-  );
+  --app-header-background:
+    linear-gradient(
+      150deg, 
+      hsl(0, 0%, 20%) 0%,
+      hsl(242, 31%, 54%) 40%, 
+      hsl(277, 32%, 49%) 60%, 
+      hsl(0, 0%, 20%) 80%
+    );
+
+  --page-header-background:
+    radial-gradient(ellipse at 40% 0%,
+      #bf398910 0,
+      transparent 75%
+    ),
+    radial-gradient(ellipse at 60% 0%,
+      #096bde10 0,
+      transparent 75%
+    );
   // modal overlay background color
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
