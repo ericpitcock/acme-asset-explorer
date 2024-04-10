@@ -4,6 +4,43 @@
       <template #left>
         <h1>Assets</h1>
       </template>
+    </ep-header>
+    <ep-flex-container flex-flow="row nowrap">
+      <ep-container v-bind="chartContainerProps">
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>Vulnerabilties by severity</h1>
+            </template>
+          </ep-header>
+        </template>
+        <in-severity-chart />
+      </ep-container>
+      <ep-container v-bind="chartContainerProps">
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>Endpoint Versions</h1>
+            </template>
+          </ep-header>
+        </template>
+        <in-version-chart />
+      </ep-container>
+      <ep-container v-bind="chartContainerProps">
+        <template #header>
+          <ep-header>
+            <template #left>
+              <h1>Endpoint Versions</h1>
+            </template>
+          </ep-header>
+        </template>
+        <in-version-chart />
+      </ep-container>
+    </ep-flex-container>
+    <ep-header v-bind="pageHeaderProps">
+      <template #left>
+        <p class="text--subtle">{{ assetCount }} assets</p>
+      </template>
       <template #center>
         <ep-multi-search
           v-bind="multiSearchProps"
@@ -13,42 +50,37 @@
           @clear="updateSearch"
         />
       </template>
-      <template #right>
-        <ep-dropdown
-          :buttonProps="{
-            variant: 'ghost',
-            label: '',
-            iconRight: { name: 'f/columns' }
-          }"
-          align-right
-        >
-          <template #content>
-            <ep-container v-bind="containerProps">
-              <ep-flex-container
-                flex-flow="column nowrap"
-                gap="1rem"
-              >
-                <ep-checkbox
-                  v-for="filter in columnFilters"
-                  :key="filter.id"
-                  v-bind="filter"
-                  @checkchange="handleFilter"
-                />
-              </ep-flex-container>
-            </ep-container>
-          </template>
-        </ep-dropdown>
-      </template>
     </ep-header>
     <sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
-          <p class="text--subtle">{{ assetCount }} assets</p>
           <ep-flex-container
             flex-flow="column nowrap"
             gap="1.5rem"
             padding="1rem 0"
           >
+            <ep-dropdown :buttonProps="{
+              label: 'Columns',
+              variant: 'secondary',
+              iconLeft: { name: 'f/columns' }
+            }">
+              <template #content>
+                <ep-container v-bind="containerProps">
+                  <ep-flex-container
+                    flex-flow="column nowrap"
+                    gap="1rem"
+                  >
+                    <ep-checkbox
+                      v-for="filter in columnFilters"
+                      :key="filter.id"
+                      v-bind="filter"
+                      @checkchange="handleFilter"
+                    />
+                  </ep-flex-container>
+                </ep-container>
+              </template>
+            </ep-dropdown>
+
             <template
               v-for="(filterSet, category) in filters"
               :key="category"
@@ -67,32 +99,6 @@
         </div>
       </template>
       <template #content>
-        <ep-flex-container
-          flex-flow="row nowrap"
-          gap="1.5rem"
-          padding="1rem 0"
-        >
-          <ep-container v-bind="chartContainerProps">
-            <template #header>
-              <ep-header>
-                <template #left>
-                  <h1>Vulnerabilties by severity</h1>
-                </template>
-              </ep-header>
-            </template>
-            <in-severity-chart />
-          </ep-container>
-          <ep-container v-bind="chartContainerProps">
-            <template #header>
-              <ep-header>
-                <template #left>
-                  <h1>Endpoint Versions</h1>
-                </template>
-              </ep-header>
-            </template>
-            <in-version-chart />
-          </ep-container>
-        </ep-flex-container>
         <ep-container
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
@@ -158,7 +164,9 @@
       }
 
       const chartContainerProps = {
-        ...commonContainerProps,
+        // ...commonContainerProps,
+        borderWidth: 'none',
+        containerPadding: '3rem',
         contentPadding: '3rem 0',
       }
 
@@ -280,9 +288,9 @@
       margin-top: 1rem;
     }
 
-    :deep(.ep-table-container) {
-      // overflow: revert;
-      overflow: unset;
-    }
+    // :deep(.ep-table-container) {
+    //   // overflow: revert;
+    //   overflow: unset;
+    // }
   }
 </style>
