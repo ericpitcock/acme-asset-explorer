@@ -59,11 +59,7 @@
             gap="1.5rem"
             padding="1rem 0"
           >
-            <ep-dropdown :buttonProps="{
-              label: 'Columns',
-              variant: 'secondary',
-              iconLeft: { name: 'f/columns' }
-            }">
+            <ep-dropdown v-bind="columnFiltersDropdownProps">
               <template #content>
                 <ep-container v-bind="containerProps">
                   <ep-flex-container
@@ -164,10 +160,9 @@
       }
 
       const chartContainerProps = {
-        // ...commonContainerProps,
         borderWidth: 'none',
-        containerPadding: '3rem',
-        contentPadding: '3rem 0',
+        containerPadding: '0 3rem',
+        contentPadding: '6rem 0',
       }
 
       const multiSearchProps = {
@@ -203,6 +198,14 @@
           disabled: false,
         })).filter(filter => !tableProps.exclude.includes(filter.id))
       })
+
+      const columnFiltersDropdownProps = {
+        buttonProps: {
+          label: 'Columns',
+          variant: 'secondary',
+          iconLeft: { name: 'f/columns' },
+        },
+      }
 
       const pageHeaderProps = computed(() => ({
         ...commonPageHeaderProps,
@@ -262,6 +265,7 @@
         assetData,
         chartContainerProps,
         columnFilters,
+        columnFiltersDropdownProps,
         commonContainerProps,
         commonPageHeaderProps,
         containerProps,
