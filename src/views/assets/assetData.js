@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
-import EpSparkBar from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/spark-bar/EpSparkBar.vue'
+import InSparkBar from '../../components/InSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 import store from '../../store'
 
@@ -28,7 +28,7 @@ const assetColumns = [
     header: 'Vulnerabilities',
     key: 'vulnerabilities',
     cellType: 'component',
-    component: markRaw(EpSparkBar),
+    component: markRaw(InSparkBar),
   },
   {
     header: 'Endpoint Version',
