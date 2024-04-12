@@ -2,7 +2,10 @@
   <div class="vulnerabilities">
     <ep-container v-bind="headerContainerProps">
       <template #header>
-        <ep-header>
+        <ep-header
+          height="9.1rem"
+          border-width="0"
+        >
           <template #left>
             <h1 class="page-head">Vulnerabilities</h1>
           </template>
@@ -73,6 +76,7 @@
       <template #content>
         <ep-container
           v-bind="commonContainerProps"
+          max-width="fit-content"
           container-padding="1rem 3rem 3rem"
         >
           <ep-table
@@ -122,16 +126,17 @@
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
         icon: { name: 'search' },
-        placeholder: 'CVE ID Search',
+        placeholder: 'Search vulnerabilities',
       }
 
       const tableProps = {
         bordered: true,
+        searchable: true,
         selectable: true,
+        sortable: true,
         stickyHeader: true,
         stickyTop: '61',
-        sortable: true,
-        searchable: true,
+        striped: true,
         width: '100%',
         exclude: [],
       }
@@ -146,9 +151,10 @@
       }))
 
       const headerContainerProps = computed(() => ({
+        backgroundColor: 'var(--page-header-background)',
         borderWidth: '0',
-        containerPadding: '0 3rem',
-        contentPadding: '2rem 3rem 0 3rem',
+        containerPadding: '0 4rem',
+        // contentPadding: '2rem 0 0 0',
       }))
 
       const chartContainerProps = {
@@ -185,6 +191,7 @@
         }
 
         generateFilters(columnsToFilter, disabledFilters, customSortOrder)
+
       })
 
       const { filters, generateFilters, filteredData } = useFilters(vulnTableColumns, vulnTableDataRef)

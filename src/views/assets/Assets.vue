@@ -2,7 +2,10 @@
   <div class="assets">
     <ep-container v-bind="headerContainerProps">
       <template #header>
-        <ep-header>
+        <ep-header
+          height="9.1rem"
+          border-width="0"
+        >
           <template #left>
             <h1 class="page-head">Assets</h1>
           </template>
@@ -26,7 +29,7 @@
           <template #header>
             <ep-header>
               <template #left>
-                <h1>Vulnerabilties by severity</h1>
+                <h1>Vulnerabilties by Severity</h1>
               </template>
             </ep-header>
           </template>
@@ -36,21 +39,21 @@
           <template #header>
             <ep-header>
               <template #left>
-                <h1>Endpoint Versions</h1>
+                <h1>Operating System</h1>
               </template>
             </ep-header>
           </template>
-          <in-version-chart />
+          <in-os-version-chart />
         </ep-container>
         <ep-container v-bind="chartContainerProps">
           <template #header>
             <ep-header>
               <template #left>
-                <h1>Endpoint Versions</h1>
+                <h1>Vulnerabilties by Type</h1>
               </template>
             </ep-header>
           </template>
-          <in-version-chart />
+          <in-vuln-trend-chart />
         </ep-container>
       </ep-flex-container>
     </ep-container>
@@ -115,6 +118,7 @@
         <ep-container
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
+          max-width="fit-content"
         >
           <ep-empty-state
             v-if="filteredData.length === 0"
@@ -145,7 +149,8 @@
   import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
   import InSeverityChart from './InSeverityChart.vue'
-  import InVersionChart from './InVersionChart.vue'
+  import InVulnTrendChart from './InVulnTrendChart.vue'
+  import InOsVersionChart from './InOsVersionChart.vue'
 
   export default {
     name: 'Assets',
@@ -153,7 +158,8 @@
       SidebarLayout,
       EpEmptyState,
       InSeverityChart,
-      InVersionChart,
+      InVulnTrendChart,
+      InOsVersionChart,
     },
     setup() {
       const hiddenColumns = ref(['ipv6_address', 'mac_address'])
@@ -177,12 +183,11 @@
         height: '3.8rem',
         backgroundColor: 'var(--interface-foreground)',
         icon: { name: 'search' },
-        placeholder: 'Asset Search - Use quotes for exact match, e.g. "10.64.5.46"',
+        placeholder: 'Search assets',
       }
 
       const tableProps = {
         columns: assetColumns,
-        // data: filteredData,
         bordered: true,
         exclude: ['id'],
         headerBackgroundColor: 'var(--interface-surface)',
@@ -225,12 +230,14 @@
       }))
 
       const headerContainerProps = computed(() => ({
+        backgroundColor: 'var(--page-header-background)',
         borderWidth: '0',
-        containerPadding: '0 3rem',
-        contentPadding: '2rem 3rem 0 3rem',
+        containerPadding: '0 4rem',
+        // contentPadding: '2rem 1rem 0 1rem',
       }))
 
       const chartContainerProps = {
+        background: 'transparent',
         borderWidth: 'none',
         contentPadding: '3rem 0',
       }
@@ -302,6 +309,14 @@
   .assets {
     .text-style--section:not(:first-child) {
       margin-top: 1rem;
+    }
+
+    :deep(.highcharts-series-inactive),
+    :deep(.highcharts-series-hover),
+    :deep(.highcharts-point-inactive),
+    :deep(.highcharts-point-hover) {
+      opacity: 1 !important;
+      fill-opacity: 1 !important;
     }
   }
 </style>

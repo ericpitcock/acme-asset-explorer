@@ -20,14 +20,14 @@
             padding="1rem 0"
           >
             <template
-              v-for="(filterSet, category) in filters"
-              :key="category"
+              v-for="(checkboxes, categoryName) in filters"
+              :key="categoryName"
             >
               <h3 class="text-style--section">
-                {{ category }}
+                {{ categoryName }}
               </h3>
               <ep-checkbox
-                v-for="checkbox in filterSet"
+                v-for="checkbox in checkboxes"
                 :key="checkbox.label"
                 v-bind="checkbox"
                 v-model="checkbox.checked"
@@ -37,16 +37,23 @@
         </ep-flex-container>
       </template>
       <template #content>
-        <ep-container
-          v-bind="commonContainerProps"
-          container-padding="1rem 3rem 3rem"
-        >
+        <ep-container v-bind="containerProps">
           <ep-empty-state
             v-if="filteredData.length === 0"
-            message="No users found"
-            subtext="Try adjusting your filters"
-            style="margin-bottom: 1.5rem;"
-          />
+            style="padding-top: 2rem;"
+          >
+            <p>No users found</p>
+            <template #subtext>
+              <p>Try
+                <span
+                  class="text--link"
+                  @click="resetFilters"
+                >
+                  reseting your filters
+                </span>
+              </p>
+            </template>
+          </ep-empty-state>
           <ep-table
             v-else
             v-show="!loading"
@@ -125,6 +132,14 @@
         },
       ]
 
+      const containerProps = computed(() => {
+        return {
+          ...commonContainerProps.value,
+          maxWidth: '120rem',
+          containerPadding: '1rem 3rem 3rem',
+        }
+      })
+
       const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
 
       const instance = getCurrentInstance()
@@ -159,6 +174,15 @@
         showModal.value = false
       }
 
+      const resetFilters = () => {
+        // within every key in filters, set checked to true
+        Object.keys(filters.value).forEach((key) => {
+          filters.value[key].forEach((filter) => {
+            filter.checked = true
+          })
+        })
+      }
+
       onMounted(() => {
         const columnsToFilter = ['status', 'role']
         const disabledFilters = ['Deactivated']
@@ -175,12 +199,14 @@
         approvedDomains,
         columns,
         commonContainerProps,
+        containerProps,
         editUser,
         fakeUserData,
         filteredData,
         filters,
         handleClose,
         loading,
+        resetFilters,
         selectedUser,
         showModal,
       }

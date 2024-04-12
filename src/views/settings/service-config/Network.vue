@@ -3,6 +3,7 @@
     <ep-container
       v-bind="commonContainerProps"
       container-padding="1rem 3rem 3rem"
+      max-width="120rem"
     >
       <ep-table
         :columns="columns"

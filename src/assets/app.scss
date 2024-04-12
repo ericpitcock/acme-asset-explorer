@@ -74,7 +74,9 @@ html[data-color-theme='light'] {
     radial-gradient(ellipse at 60% 0%,
       #096bde10 0,
       transparent 75%
-    );
+    ),
+    var(--interface-surface);
+    
   // modal overlay background color
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);

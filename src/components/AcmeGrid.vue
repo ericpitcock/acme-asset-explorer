@@ -64,23 +64,9 @@
         flex: 1;
         display: flex;
         overflow-y: scroll;
-        -ms-overflow-style: none; // Internet Explorer, Edge
-        scrollbar-width: none; // Firefox
-
-        &::-webkit-scrollbar {
-          display: none; // Chrome, Safari, Opera
-        }
 
         .left-panel {
           overflow: auto;
-          -ms-overflow-style: none; // Internet Explorer, Edge
-          scrollbar-width: none; // Firefox
-          background: var(--interface-surface);
-
-          &::-webkit-scrollbar {
-            display: none; // Chrome, Safari, Opera
-          }
-
           z-index: var(--z-index--fixed);
         }
 
@@ -88,12 +74,6 @@
           flex: 1;
           height: 100%;
           overflow: auto;
-          -ms-overflow-style: none; // Internet Explorer, Edge
-          scrollbar-width: none; // Firefox
-
-          &::-webkit-scrollbar {
-            display: none; // Chrome, Safari, Opera
-          }
         }
       }
     }
@@ -101,12 +81,6 @@
     .right-panel {
       flex: 0 0 361px;
       overflow: auto;
-      -ms-overflow-style: none; // Internet Explorer, Edge
-      scrollbar-width: none; // Firefox
-
-      &::-webkit-scrollbar {
-        display: none; // Chrome, Safari, Opera
-      }
     }
   }
 </style>

@@ -6,6 +6,7 @@ export default function useFilters(columns, data) {
 
   const generateFilters = (columnsToFilter, disabledFilters, customSortOrder = {}) => {
     const uniqueValues = {}
+
     // Extract unique values for specified columns
     columns.forEach(column => {
       if (columnsToFilter.includes(column.key)) {

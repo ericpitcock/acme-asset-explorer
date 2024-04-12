@@ -2,7 +2,7 @@
   <div class="files">
     <ep-header v-bind="headerProps">
       <template #left>
-        <h1>Files</h1>
+        <h1 class="page-head">Files</h1>
       </template>
       <template #center>
         <ep-search
@@ -32,6 +32,7 @@
       </template>
       <template #content>
         <ep-container
+          background-color="var(--interface-surface)"
           content-padding="1rem 3rem 3rem"
           style="overflow: unset;"
         >

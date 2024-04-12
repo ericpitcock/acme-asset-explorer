@@ -26,7 +26,7 @@
         </template>
       </ep-header>
     </template>
-    <ep-flex-container gap="3rem">
+    <ep-flex-container gap="2rem">
       <div class="sidebar">
         <ep-menu
           :menu-items="sections"
@@ -74,20 +74,23 @@
     data() {
       return {
         containerProps: {
+          backgroundColor: 'var(--interface-surface)',
           width: '70rem',
           height: '100%',
           // borderRadius: '0',
           // calculatedHeight: true,
           // calculateHeightOffset: 8.1,
           containerPadding: '0 3rem',
-          contentPadding: '0 0 0 0',
+          // contentPadding: '0 3rem 0 0',
           overflow: 'auto',
           stickyHeader: true,
         },
         headerProps: {
+          backgroundColor: 'var(--interface-surface)',
           height: '8.1rem',
           leftGap: '2rem',
           rightGap: '1rem',
+          // padding: '0 3rem',
         },
         inputs: {
           'Network Information': [
@@ -195,6 +198,7 @@
           },
         ],
         sectionHeaderProps: {
+          backgroundColor: 'var(--interface-surface)',
           sticky: true,
           stickyTop: '8.1rem',
         },
@@ -219,5 +223,6 @@
     top: 8.1rem;
     align-self: flex-start;
     padding: 2rem 0 0 0;
+    margin-left: -2.4rem;
   }
 </style>

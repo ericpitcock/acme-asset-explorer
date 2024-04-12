@@ -202,16 +202,24 @@
       type: 'pie',
       styledMode: true,
     },
-    credits: {
-      enabled: false
-    },
-    title: {
-      text: undefined
-    },
+    // credits: {
+    //   enabled: false
+    // },
+    // title: {
+    //   text: undefined
+    // },
     plotOptions: {
       pie: {
         shadow: false,
         center: ['50%', '50%']
+      },
+      series: {
+        animation: {
+          duration: 500,
+        },
+        borderRadius: {
+          radius: 0
+        },
       }
     },
     tooltip: {

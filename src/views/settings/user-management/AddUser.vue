@@ -3,6 +3,7 @@
     width="90rem"
     container-padding="0 3rem 1rem 3rem"
     content-padding="3rem 0"
+    background-color="var(--interface-surface)"
   >
     <template #header>
       <ep-header>

@@ -2,114 +2,68 @@
   <div class="services">
     <ep-header v-bind="headerProps">
       <template #left>
-        <h1>Services</h1>
+        <h1 class="page-head">Services</h1>
       </template>
       <template #right>
-        <ep-dropdown
-          v-bind="dropdownProps"
-          :menu-items="getInactiveServices"
-          alignRight
-        />
+        <ep-dropdown v-bind="dropdownProps" />
       </template>
     </ep-header>
-    <ep-flex-container
-      flex-flow="column nowrap"
-      gap="2rem"
-      padding="2rem 3rem 20rem 3rem"
-    >
-      <ep-banner
-        v-if="getExpiredServices"
-        banner-style="error"
-        :icon-props="{ name: 'f/alert-triangle' }"
-      >
-        <template #message>
-          Expired services: {{ getExpiredServices.join(', ') }}
-        </template>
-        <template #subtext>
-          Please renew them as soon as possible
-        </template>
-      </ep-banner>
-      <div
-        v-for="category in categories"
-        class="services__category"
-      >
-        <ep-container v-bind="containerProps">
-          <template #header>
-            <ep-header background-color="transparent">
-              <template #left>
-                <h2>{{ category }}</h2>
-              </template>
-            </ep-header>
+    <div class="services__content">
+      <template v-for="category in categories">
+        <settings-module-layout>
+          <template #sidebar>
+            <h1>{{ category }}</h1>
+            <p class="text--subtle">24/7 managed threat detection and
+              response capabilities services</p>
           </template>
-          <div class="services__services">
+          <template #content>
             <template
               v-for="service in getServicesByCategory(category)"
               :key="service.id"
             >
-              <router-link
-                :to="{ name: 'service-details', params: { serviceName: serviceSlug(service.name) } }"
-              >
-                <div class="services__service">
-                  <div class="service-icon">
-                    <ep-icon v-bind="service.iconProps" />
-                  </div>
-                  <div class="service-name">
-                    <h3>{{ service.name }}</h3>
-                  </div>
-                  <div class="service-badge">
-                    <ep-badge
-                      :label="service.status"
-                      :variant="getVariant(service.status)"
-                      outlined
-                    />
-                  </div>
+              <div class="service">
+                <div class="service__badge">
+                  <ep-badge
+                    :label="service.status"
+                    :variant="getVariant(service.status)"
+                    outlined
+                  />
                 </div>
-              </router-link>
+                <div class="service__icon">
+                  <ep-icon v-bind="service.iconProps" />
+                </div>
+                <div class="service__name">
+                  <h3>{{ service.name }}</h3>
+                </div>
+                <div class="service__actions">
+                  <ep-button
+                    v-if="isConfigurable(service)"
+                    :iconLeft="{ name: 'settings' }"
+                    variant="ghost"
+                    :disabled="service.status === 'Unsubscribed'"
+                    :to="{ path: `/settings/service-config/${serviceSlug(service.name)}` }"
+                  />
+                </div>
+              </div>
             </template>
-          </div>
-        </ep-container>
-      </div>
-    </ep-flex-container>
+          </template>
+        </settings-module-layout>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
+  import SettingsModuleLayout from '../settings/SettingsModuleLayout.vue'
   import services from './services.json'
   import { mapState } from 'vuex'
 
   export default {
     name: 'ServiceInfo',
+    components: { SettingsModuleLayout },
     data() {
       return {
         services,
-        containerProps: {
-          containerPadding: '0 3rem 3rem',
-          contentPadding: '1rem 0 0 0',
-        },
-        dropdownProps: {
-          buttonProps: {
-            label: 'Add Service',
-            variant: 'primary',
-          },
-          containerProps: {
-            backgroundColor: 'var(--interface-overlay)',
-            containerPadding: '1rem 0',
-            borderRadius: 'var(--border-radius)',
-            borderColor: 'var(--border-color--lighter)'
-          }
-        },
-        // headerProps: {
-        //   backgroundColor: 'var(--interface-surface)',
-        //   leftFlex: '0 0 20rem',
-        //   // leftPadding: '0 3rem',
-        //   centerFlex: '1',
-        //   // centerPadding: '0 3rem 0 0',
-        //   sticky: true,
-        //   stickyTop: '0',
-        //   itemGap: '0',
-        //   padding: '0 3rem',
-        //   zIndex: 'var(--z-index--fixed)',
-        // },
       }
     },
     computed: {
@@ -119,9 +73,21 @@
       categories() {
         return [...new Set(this.services.map(service => service.category))]
       },
-      // hasExpiredServices() {
-      //   return this.services.some(service => service.status === 'Expired')
-      // },
+      dropdownProps() {
+        return {
+          alignRight: true,
+          buttonProps: {
+            label: 'Add Service',
+            variant: 'primary',
+          },
+          containerProps: {
+            backgroundColor: 'var(--interface-overlay)',
+            borderRadius: 'var(--border-radius)',
+            borderColor: 'var(--border-color--lighter)'
+          },
+          menuItems: this.getInactiveServices,
+        }
+      },
       getExpiredServices() {
         // if none of the services are expired, return false
         if (!this.services.some(service => service.status === 'Expired')) {
@@ -147,32 +113,21 @@
       headerProps() {
         return {
           ...this.commonPageHeaderProps,
+          backgroundColor: 'var(--page-header-background)',
         }
       },
     },
     methods: {
       getServicesByCategory(category) {
-        // return this.services.filter(service => service.category === category)
-        // return services by category and filter out those with service.status === 'Inactive'
-        return this.services.filter(service => service.category === category && service.status !== 'Inactive')
+        const subscribed = this.services.filter(service => service.category === category && service.status !== 'Unsubscribed')
+        const unsubscribed = this.services.filter(service => service.category === category && service.status === 'Unsubscribed')
+        return [...subscribed, ...unsubscribed]
       },
-      // getInactiveServicesByCategory(category) {
-      //   const inactiveServices = this.services.filter(service => service.category === category && service.status === 'Inactive')
-
-      //   return inactiveServices.map(service => {
-      //     if (service.status === 'Inactive') {
-      //       return {
-      //         label: service.name,
-      //       }
-      //     }
-      //     return { divider: true }
-      //   })
-      // },
       getVariant(label) {
         switch (label) {
-          case 'Active':
+          case 'Subscribed':
             return 'success'
-          case 'Inactive':
+          case 'Unsubscribed':
             return 'secondary'
           case 'Expired':
             return 'danger'
@@ -182,6 +137,9 @@
       },
       hasInactiveServices(category) {
         return this.services.some(service => service.category === category && service.status === 'Inactive')
+      },
+      isConfigurable(service) {
+        return service.configurable
       },
       serviceSlug(serviceName) {
         // return serviceName as lowercase with spaces and special characters replaced with hyphens
@@ -196,69 +154,47 @@
     display: flex;
     flex-direction: column;
 
-    // gap: 3rem;
-    // padding: 3rem;
-    // padding-bottom: 20rem;
-    // hack banner into submission
-    // fix this in the component
-    // &:deep(.ep-banner__body) {
-    //   justify-content: flex-start;
-    // }
-    .services__category {
+    &__content {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 2rem;
+      max-width: 120rem;
+      padding: 2rem 3rem 20rem 3rem;
+    }
 
-      // h2 {
-      //   // margin-bottom: 1rem;
-      //   font-size: var(--font-size--large);
-      //   font-variation-settings: 'wght' 300;
-      // }
-      .services__services {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        gap: 1rem;
+    .service {
+      display: flex;
+      align-items: center;
+      height: 6rem;
+      border-top: 1px solid var(--border-color);
+
+      &:last-child {
+        border-bottom: 1px solid var(--border-color);
       }
 
-      .services__service {
+      &__badge {
+        flex: 0 0 10rem;
+        order: 2;
+      }
+
+      &__icon {
+        flex: 0 0 5rem;
         display: flex;
-        flex-direction: column;
-        // align-items: center;
-        // justify-content: space-around;
-        // gap: 1rem;
-        // height: 15rem;
-        padding: 2rem 2.5rem 3rem 2.5rem;
-        border: 1px solid var(--border-color);
-        border-radius: var(--border-radius);
-        background-color: var(--interface-foreground);
-        text-align: center;
+        justify-content: center;
+        align-items: center;
+        order: 0;
+      }
 
-        &:hover {
-          background-color: var(--interface-surface--accent);
-          cursor: pointer;
-        }
+      &__name {
+        flex: 1;
+        order: 1;
+      }
 
-        .service-icon {
-          flex: 0 0 5rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          // background-color: red;
-        }
-
-        .service-name {
-          flex: 0 0 4rem;
-          font-size: var(--font-size--body);
-          // background-color: blue;
-        }
-
-        .service-badge {
-          flex: 0 0 1rem;
-          padding-top: 1rem;
-          border-top: 1px solid var(--border-color);
-          margin-top: 1rem;
-          // background-color: green;
-        }
+      &__actions {
+        flex: 0 0 10rem;
+        display: flex;
+        justify-content: flex-end;
+        order: 3;
       }
     }
   }

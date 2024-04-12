@@ -36,7 +36,7 @@
     computed: {
       menuItems() {
         const activeServices = this.services
-          .filter(service => service.status === 'Active')
+          .filter(service => service.status === 'Subscribed')
           .filter(service => service.configurable === true)
           .map(service => ({
             label: service.name,

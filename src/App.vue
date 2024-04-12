@@ -50,7 +50,8 @@
   }
 
   h1.page-head {
-    font-size: var(--font-size--body);
+    font-size: var(--font-size--large);
+    font-variation-settings: var(--font-weight--light);
     color: var(--text-color--primary);
   }
 

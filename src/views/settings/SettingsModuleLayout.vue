@@ -1,5 +1,8 @@
 <template>
-  <ep-container container-padding="3rem">
+  <ep-container
+    container-padding="3rem"
+    background-color="var(--interface-surface)"
+  >
     <ep-flex-container gap="2rem">
       <div class="section-sidebar">
         <slot name="sidebar"></slot>
@@ -56,5 +59,4 @@
 
   .section-content {
     flex: 1;
-  }
-</style>
+}</style>

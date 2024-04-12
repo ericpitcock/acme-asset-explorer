@@ -67,8 +67,19 @@
     },
     plotOptions: {
       series: {
+        animation: {
+          duration: 500,
+        },
+        borderRadius: {
+          radius: 0
+        },
         colorByPoint: true,
         colors: colors,
+        groupPadding: 0.05,
+        // bar width
+        // pointWidth: 30,
+        // space between bars
+        pointPadding: 0.25,
       },
     },
     series: [

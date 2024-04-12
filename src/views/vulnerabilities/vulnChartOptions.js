@@ -58,6 +58,12 @@ const vulnChartOptions = {
       }
     },
     series: {
+      animation: {
+        duration: 500,
+      },
+      borderRadius: {
+        radius: 0
+      },
       groupPadding: 0.2,
       stacking: 'normal',
     },
