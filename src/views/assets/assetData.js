@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
+import { generateIpAddress } from '../../utils/helpers'
 import InSparkBar from '../../components/InSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 import store from '../../store'
@@ -65,30 +66,12 @@ const assetColumns = [
   }
 ]
 
-// create array with four random numbers [0, 0, 0, 0]
-const vulnArray = () => {
-  let arr = []
-  for (let i = 0; i < 4; i++) {
-    arr.push(faker.number.int({ min: 0, max: 100 }))
-  }
-  return arr
-}
-
-// add the sum to the end of the array [0, 0, 0, 0, sum] — combine these two functions
-const vulnArraySum = () => {
-  let arr = vulnArray()
-  let sum = arr.reduce((a, b) => a + b, 0)  // sum of array
-  arr.push(sum)
-  return arr
-}
-
 // create an array of objects with random data, placeholder for vulnerabilities
-const fakeArray = length => {
+const assetDataArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
     const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
-
     const sites = store.state.sites.map(site => site.name)
 
     arr.push({
@@ -102,9 +85,7 @@ const fakeArray = length => {
         },
       },
       user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
-      // ip_address: `10.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 0, max: 255 })}`,
-      // Generate a random IP address with more realistic constraints
-      ip_address: `10.${faker.helpers.arrayElement([0, 16, 32, 64, 128, 192])}.${faker.number.int({ min: 0, max: 255 })}.${faker.number.int({ min: 1, max: 254 })}`,
+      ip_address: generateIpAddress(10),
       vulnerabilities: {
         value: null, // placeholder for total vulnerabilities
         props: {
@@ -122,42 +103,54 @@ const fakeArray = length => {
   return arr
 }
 
-// create array of vulnerability objects
-const fakeVulnArray = length => {
+// create array with counts for
+// low, medium, high, critical vulns and the sum of all
+// [low, medium, high, critical, sum]
+const generateVulnerabilityCounts = () => {
+  let arr = []
+  for (let i = 0; i < 4; i++) {
+    arr.push(faker.number.int({ min: 0, max: 100 }))
+  }
+  // push the sum of the array to the end of the array
+  arr.push(arr.reduce((a, b) => a + b, 0))
+  return arr
+}
+
+// create array of vulnerability count arrays to process
+const generateVulnerabilityData = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
-    arr.push({
-      vulnerabilities: vulnArraySum()
-    })
+    arr.push(generateVulnerabilityCounts())
   }
   return arr
 }
 
-const fakeData = fakeVulnArray(100)
+// create the array of objects with random data
+const assetData = assetDataArray(100)
 
-// find the index of the array with the highest sum of vulnerabilities, which is the last element in the vulnerabilities property
-const maxVulnIndex = fakeData.reduce((iMax, x, i, arr) => x.vulnerabilities[4] > arr[iMax].vulnerabilities[4] ? i : iMax, 0)
+const vulnData = generateVulnerabilityData(100)
 
-// append 'highest' value to the vulnerabilities array with the highest sum of vulnerabilities
-// don't really need this, but it's here for reference
-// fakeData[maxVulnIndex].vulnerabilities.push('highest')
+// find the index of the array with the highest sum of vulnerabilities,
+// which is the last element in the vulnerabilities property
+const maxVulnIndex = vulnData.reduce((iMax, x, i, arr) => x[4] > arr[iMax][4] ? i : iMax, 0)
 
 // find the actual value of the highest sum of vulnerabilities
-const maxVuln = fakeData[maxVulnIndex].vulnerabilities[4]
+const maxVuln = vulnData[maxVulnIndex][4]
 
-// for each in fakedata, what percentage of the maxVuln is the sum of vulnerabilities
-fakeData.forEach((item, index) => {
-  fakeData[index].vulnerabilities[5] = Math.round((item.vulnerabilities[4] / maxVuln) * 100)
+// give the maxVulnIndex 100% 
+vulnData[maxVulnIndex][5] = 100
+
+// for each vuln sum, calculate what percentage it is of maxVuln
+// add it to the last element in the array
+vulnData.forEach((item, index) => {
+  vulnData[index][5] = Math.round((item[4] / maxVuln) * 100)
 })
 
-// create the array of objects with random data
-const assetData = fakeArray(100)
-
-// merge the two arrays with fakeData into fakeData2 at a specific index
+// merge the two arrays with vulnData into vulnData2 at a specific index
 assetData.forEach((item, index) => {
-  assetData[index].vulnerabilities.props.bar = fakeData[index].vulnerabilities
+  assetData[index].vulnerabilities.props.bar = vulnData[index]
   // add total vulnerabilities.value to each object
-  assetData[index].vulnerabilities.value = fakeData[index].vulnerabilities[4]
+  assetData[index].vulnerabilities.value = vulnData[index][4]
 })
 
 export { assetColumns, assetData }

@@ -1,17 +1,19 @@
 <template>
-  <div
-    class="in-spark-bar"
-    :style="{ width: `${bar[5]}%` }"
-  >
+  <div class="in-spark-bar-container">
     <div
-      v-for="(segment, index) in segmentWidth"
-      :key="index"
-      class="in-spark-bar__segment"
-      :style="{ width: `${segment}%` }"
+      class="in-spark-bar"
+      :style="{ width: `${bar[5]}%` }"
     >
-      <span class="in-spark-bar__segment__info">
-        {{ segmentHoverInfo(index) }}
-      </span>
+      <div
+        v-for="(segment, index) in segmentWidth"
+        :key="index"
+        class="in-spark-bar__segment"
+        :style="{ flex: `0 0 ${segment}%` }"
+      >
+        <span class="in-spark-bar__segment__info">
+          {{ segmentHoverInfo(index) }}
+        </span>
+      </div>
     </div>
     <p class="in-spark-bar__label font-size--tiny">
       {{ bar[4] }}
@@ -24,7 +26,8 @@
     name: 'InSparkBar',
     props: {
       bar: {
-        // value is an array that consists of [low, medium, high, critical, sum, percentage (of largest vuln total)]
+        // value is an array of numbers
+        // [low, medium, high, critical, sum, percentage (of largest vuln total)]
         type: Array,
         required: true
       }
@@ -38,9 +41,8 @@
       // return percentage of the sum for each segment
       // to be used as width
       segmentWidth() {
-        const sum = this.bar.slice(4).reduce((acc, curr) => {
-          return acc + curr
-        }, 0)
+        const sum = this.bar[4]
+
         return this.bar.slice(0, 4).map((segment) => {
           return (segment / sum) * 100
         })
@@ -50,13 +52,13 @@
       segmentHoverInfo(index) {
         switch (index) {
           case 0:
-            return `${this.segments[index]} low vulnerabilities`
+            return `${this.segments[index]} Low Vulnerabilities`
           case 1:
-            return `${this.segments[index]} medium vulnerabilities`
+            return `${this.segments[index]} Medium Vulnerabilities`
           case 2:
-            return `${this.segments[index]} high vulnerabilities`
+            return `${this.segments[index]} High Vulnerabilities`
           case 3:
-            return `${this.segments[index]} critical vulnerabilities`
+            return `${this.segments[index]} Critical Vulnerabilities`
         }
       }
     }
@@ -64,6 +66,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .in-spark-bar-container {
+    display: flex;
+    align-items: center;
+    // gap: 1rem;
+  }
+
   .in-spark-bar {
     display: flex;
     flex-direction: row;
@@ -75,9 +83,8 @@
 
     &:hover {
       position: relative;
-      background-color: var(--interface--surface);
       transform: scale(4);
-      gap: 0.5px;
+      gap: calc(2px / 4);
       z-index: var(--z-index--tooltip);
 
       .in-spark-bar__label {
@@ -86,14 +93,6 @@
         font-size: var(--font-size--tiny);
         opacity: 1;
         margin-left: 0.2rem;
-      }
-
-      .in-spark-bar__segment {
-        border-radius: 0;
-      }
-
-      & > .in-spark-bar__segment:not(:hover) {
-        opacity: 0.5;
       }
     }
 
@@ -104,7 +103,7 @@
 
       .in-spark-bar__segment__info {
         position: absolute;
-        top: -120%;
+        top: -130%;
         transform: scale(0.25, 0.25);
         transform-origin: left top;
         display: none;
@@ -112,7 +111,8 @@
         background: var(--interface-overlay);
         border: 1px solid var(--border-color--lighter);
         border-radius: var(--border-radius);
-        font-size: var(--font-size--tiny);
+        font-size: var(--font-size--small);
+        color: var(--text-color--loud);
         z-index: var(--z-index--tooltip);
         white-space: normal;
       }
@@ -141,7 +141,7 @@
     }
 
     &__label {
-      margin-left: 0.5rem;
+      margin-left: 2rem;
     }
   }
 </style>
