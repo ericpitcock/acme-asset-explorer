@@ -1,13 +1,13 @@
 <template>
-  <modal padding="6rem 0 0 0">
-    <div class="ep-dialog">
-      <div class="ep-dialog-header">
+  <in-modal padding="6rem 0 0 0">
+    <div class="in-dialog">
+      <div class="in-dialog-header">
         <h2>{{ title }}</h2>
       </div>
-      <div class="ep-dialog-body">
+      <div class="in-dialog-body">
         <p>{{ message }}</p>
       </div>
-      <div class="ep-dialog-footer">
+      <div class="in-dialog-footer">
         <ep-button
           v-for="(button, index) in buttons"
           :key="index"
@@ -17,16 +17,16 @@
         />
       </div>
     </div>
-  </modal>
+  </in-modal>
 </template>
 
 <script>
-  import Modal from '@/components/Modal.vue'
+  import InModal from '@/components/InModal.vue'
 
   export default {
-    name: 'EpDialog',
+    name: 'InDialog',
     components: {
-      Modal
+      InModal
     },
     emits: ['close'],
     props: {
@@ -52,18 +52,18 @@
 </script>
 
 <style lang="scss" scoped>
-  /* .ep-dialog-overlay {
-                              position: fixed;
-                              top: 0;
-                              left: 0;
-                              width: 100%;
-                              height: 100%;
-                              background-color: var(--interface-surface);
-                              display: flex;
-                              justify-content: center;
-                              align-items: center;
-                            } */
-  .ep-dialog {
+  /* .in-dialog-overlay {
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        background-color: var(--interface-surface);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                      } */
+  .in-dialog {
     max-width: 40rem;
     background-color: var(--interface-surface);
     border: 1px solid var(--border-color);
@@ -72,17 +72,17 @@
     padding: 3rem;
   }
 
-  .ep-dialog-header {
+  .in-dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .ep-dialog-body {
+  .in-dialog-body {
     margin-top: 10px;
   }
 
-  .ep-dialog-footer {
+  .in-dialog-footer {
     margin-top: 20px;
     text-align: right;
   }

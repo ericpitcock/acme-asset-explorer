@@ -1,11 +1,11 @@
 <template>
-  <acme-grid>
+  <in-grid>
     <template #header>
-      <acme-header />
+      <in-header />
     </template>
     <template #left-panel>
       <div class="left-panel__container">
-        <acme-main-nav />
+        <in-main-nav />
       </div>
     </template>
     <template #content>
@@ -18,20 +18,20 @@
         <ep-notifications :containerProps="containerProps" />
       </div>
     </template>
-  </acme-grid>
+  </in-grid>
 </template>
 
 <script>
-  import AcmeGrid from '@/components/AcmeGrid.vue'
-  import AcmeHeader from '@/components/AcmeHeader.vue'
-  import AcmeMainNav from '@/components/AcmeMainNav.vue'
+  import InGrid from '@/components/InGrid.vue'
+  import InHeader from '@/components/InHeader.vue'
+  import InMainNav from '@/components/InMainNav.vue'
 
   export default {
     name: 'AcmeAssetExplorer',
     components: {
-      AcmeGrid,
-      AcmeHeader,
-      AcmeMainNav
+      InGrid,
+      InHeader,
+      InMainNav
     },
     computed: {
       containerProps() {
@@ -47,12 +47,6 @@
 <style lang="scss">
   body {
     background: var(--interface-bg);
-  }
-
-  h1.page-head {
-    font-size: var(--font-size--large);
-    font-variation-settings: var(--font-weight--light);
-    color: var(--text-color--primary);
   }
 
   .content-container {

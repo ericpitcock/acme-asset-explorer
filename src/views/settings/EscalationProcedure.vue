@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import Modal from '@/components/Modal.vue'
+  import InModal from '@/components/InModal.vue'
   import SettingsModuleLayout from './SettingsModuleLayout.vue'
   import services from '../services/services.json'
   import { mapState } from 'vuex'
@@ -40,7 +40,7 @@
     name: 'EscalationProcedure',
     components: {
       SettingsModuleLayout,
-      Modal,
+      InModal,
     },
     data() {
       return {

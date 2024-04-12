@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-layout">
+  <div class="in-sidebar-layout">
     <div
       class="sidebar-layout__sidebar"
       :style="sidebarStyle"
@@ -32,7 +32,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .sidebar-layout {
+  .in-sidebar-layout {
     display: flex;
     width: 100%;
 

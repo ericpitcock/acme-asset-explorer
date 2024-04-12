@@ -1,6 +1,6 @@
 <template>
   <div class="api-access">
-    <sidebar-layout sidebar-padding="2rem 0 0 0">
+    <in-sidebar-layout sidebar-padding="2rem 0 0 0">
       <template #sidebar>
         <ep-menu
           :menu-items="menuItems"
@@ -11,17 +11,17 @@
       <template #content>
         <router-view />
       </template>
-    </sidebar-layout>
+    </in-sidebar-layout>
   </div>
 </template>
 
 <script>
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
 
   export default {
     name: 'ApiAccess',
     components: {
-      SidebarLayout
+      InSidebarLayout
     },
     data() {
       return {

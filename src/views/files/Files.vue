@@ -14,7 +14,7 @@
         />
       </template>
     </ep-header>
-    <sidebar-layout sidebar-padding="3rem 0 0 3rem">
+    <in-sidebar-layout sidebar-padding="3rem 0 0 3rem">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
@@ -51,12 +51,12 @@
           />
         </ep-container>
       </template>
-    </sidebar-layout>
+    </in-sidebar-layout>
   </div>
 </template>
 
 <script>
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
   import filenames from './filenames.js'
@@ -64,7 +64,7 @@
   export default {
     name: 'Files',
     components: {
-      SidebarLayout
+      InSidebarLayout
     },
     data() {
       return {

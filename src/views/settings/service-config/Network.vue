@@ -14,7 +14,7 @@
         @row-click="handleRowClick"
       />
     </ep-container>
-    <modal
+    <in-modal
       v-if="showModal"
       modal-height="100%"
       padding="2rem"
@@ -23,21 +23,21 @@
         :config="selectedConfig"
         @close="showModal = false"
       />
-    </modal>
+    </in-modal>
   </div>
 </template>
 
 <script>
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
-  import Modal from '@/components/Modal.vue'
+  import InModal from '@/components/InModal.vue'
   import ConfigModal from './ConfigModal.vue'
 
   export default {
     name: 'Network',
     components: {
       ConfigModal,
-      Modal,
+      InModal,
     },
     data() {
       return {

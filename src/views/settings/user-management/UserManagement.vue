@@ -1,6 +1,6 @@
 <template>
   <div class="users">
-    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
@@ -72,8 +72,8 @@
           />
         </ep-container>
       </template>
-    </sidebar-layout>
-    <modal
+    </in-sidebar-layout>
+    <in-modal
       v-if="showModal"
       padding="6rem 0 0 0"
     >
@@ -81,7 +81,7 @@
         :user="selectedUser"
         @close="handleClose"
       />
-    </modal>
+    </in-modal>
   </div>
 </template>
 
@@ -89,16 +89,16 @@
   import { ref, computed, onMounted, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import AddUser from './AddUser.vue'
-  import Modal from '@/components/Modal.vue'
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InModal from '@/components/InModal.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import useFilters from '@/composables/useFilters.js'
 
   export default {
     name: 'Users',
     components: {
       AddUser,
-      Modal,
-      SidebarLayout,
+      InModal,
+      InSidebarLayout,
     },
     setup() {
       const store = useStore()

@@ -50,7 +50,7 @@
         />
       </template>
     </ep-header>
-    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
@@ -90,7 +90,7 @@
           />
         </ep-container>
       </template>
-    </sidebar-layout>
+    </in-sidebar-layout>
   </div>
 </template>
 
@@ -98,7 +98,7 @@
   import { ref, computed, watch, onMounted } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from '../../store/vulnData.js'
   import useFilters from '@/composables/useFilters.js'
@@ -106,7 +106,7 @@
   export default {
     name: 'Vulnerabilities',
     components: {
-      SidebarLayout,
+      InSidebarLayout,
     },
     setup() {
       const store = useStore()

@@ -1,5 +1,6 @@
 // dark mode
-:root, html[data-color-theme='dark'] {
+:root,
+html[data-color-theme='dark'] {
   // nav
   --logo-color: hsl(0, 0%, 90%);
   --nav-link-hover-bg-color: var(--gray-420);
@@ -9,37 +10,28 @@
   --nav-link-icon-color: var(--sky-300);
   --nav-link-active-text-color: var(--white);
   --nav-link-active-icon-color: var(--white);
-
   --app-header-background:
-    linear-gradient(
-      150deg, 
+    linear-gradient(150deg,
       hsl(0, 0%, 12%) 0%,
-      hsl(242, 31%, 34%) 40%, 
-      hsl(277, 32%, 29%) 60%, 
-      hsl(0, 0%, 12%) 80%
-    );
-
+      hsl(242, 31%, 34%) 40%,
+      hsl(277, 32%, 29%) 60%,
+      hsl(0, 0%, 12%) 80%);
   --page-header-background:
-      radial-gradient(ellipse at 40% 0%,
-        #bf398910 0,
-        transparent 75%
-      ),
-      radial-gradient(ellipse at 60% 0%,
-        #096bde10 0,
-        transparent 75%
-      ),
-      var(--interface-surface);
-
+    radial-gradient(ellipse at 40% 0%,
+      #bf398910 0,
+      transparent 75%),
+    radial-gradient(ellipse at 60% 0%,
+      #096bde10 0,
+      transparent 75%),
+    var(--interface-surface);
   // modal overlay background color
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
-
   // severity fills
   --severity-color--low: hsl(120, 6%, 67%);
   --severity-color--medium: hsl(60, 62%, 65%);
   --severity-color--high: hsl(31, 70%, 50%);
   --severity-color--critical: hsl(341, 70%, 50%);
-  
   // severity border
   --severity-color--low--border: hsl(120, 6%, 47%);
   --severity-color--medium--border: hsl(60, 40%, 65%);
@@ -56,37 +48,28 @@ html[data-color-theme='light'] {
   --nav-link-icon-color: var(--color--primary);
   --nav-link-active-icon-color: var(--text-color--inverse);
   --nav-link-active-text-color: var(--text-color--inverse);
-  
   --app-header-background:
-    linear-gradient(
-      150deg, 
+    linear-gradient(150deg,
       hsl(0, 0%, 20%) 0%,
-      hsl(242, 31%, 54%) 40%, 
-      hsl(277, 32%, 49%) 60%, 
-      hsl(0, 0%, 20%) 80%
-    );
-
+      hsl(242, 31%, 54%) 40%,
+      hsl(277, 32%, 49%) 60%,
+      hsl(0, 0%, 20%) 80%);
   --page-header-background:
     radial-gradient(ellipse at 40% 0%,
       #bf398910 0,
-      transparent 75%
-    ),
+      transparent 75%),
     radial-gradient(ellipse at 60% 0%,
       #096bde10 0,
-      transparent 75%
-    ),
+      transparent 75%),
     var(--interface-surface);
-    
   // modal overlay background color
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
-
   // severity fills
   --severity-color--low: hsl(0, 0%, 63%);
   --severity-color--medium: hsl(41, 69%, 57%);
   --severity-color--high: hsl(27, 75%, 56%);
   --severity-color--critical: hsl(338, 63%, 49%);
-  
   // severity border
   --severity-color--low--border: hsl(0, 0%, 63%);
   --severity-color--medium--border: hsl(41, 69%, 57%);
@@ -95,11 +78,10 @@ html[data-color-theme='light'] {
 }
 
 // type
-h1 {
-  // font-size: var(--font-size--body);
-}
-h2 {
-  // font-size: var(--font-size--body);
+h1.page-head {
+  font-size: var(--font-size--large);
+  font-variation-settings: var(--font-weight--light);
+  color: var(--text-color--primary);
 }
 
 .text--overflow {

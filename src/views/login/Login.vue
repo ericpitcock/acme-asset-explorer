@@ -2,12 +2,13 @@
   <div class="ep-login">
     <ep-container
       width="400px"
-      contentPadding="0 3rem 6rem 3rem"
+      content-padding="0 3rem 6rem 3rem"
+      background-color="var(--interface-surface)"
       style="box-shadow: var(--drop-shadow);"
     >
       <template #header>
         <div class="ep-login__header">
-          <acme-logo />
+          <in-logo type="full" />
         </div>
       </template>
       <div class="ep-login__form">
@@ -46,12 +47,12 @@
 </template>
 
 <script>
-  import AcmeLogo from '@/components/AcmeLogo.vue'
+  import InLogo from '@/components/InLogo.vue'
 
   export default {
     name: 'EpAcmeAssetExplorerLogin',
     components: {
-      AcmeLogo
+      InLogo
     },
     data() {
       return {

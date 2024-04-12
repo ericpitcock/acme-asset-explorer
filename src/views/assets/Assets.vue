@@ -71,7 +71,7 @@
         />
       </template>
     </ep-header>
-    <sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
           <ep-flex-container
@@ -137,14 +137,14 @@
           />
         </ep-container>
       </template>
-    </sidebar-layout>
+    </in-sidebar-layout>
   </div>
 </template>
 
 <script>
   import { ref, computed, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import { assetColumns, assetData } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
@@ -155,7 +155,7 @@
   export default {
     name: 'Assets',
     components: {
-      SidebarLayout,
+      InSidebarLayout,
       EpEmptyState,
       InSeverityChart,
       InVulnTrendChart,

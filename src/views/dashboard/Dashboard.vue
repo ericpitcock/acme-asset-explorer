@@ -1,5 +1,5 @@
 <template>
-  <one-column-layout>
+  <in-one-column-layout>
     <ep-header v-bind="commonPageHeaderProps">
       <template #left>
         <h1>Dashboard</h1>
@@ -73,17 +73,17 @@
         />
       </ep-container>
     </div>
-  </one-column-layout>
+  </in-one-column-layout>
 </template>
 
 <script>
-  import OneColumnLayout from '@/layouts/OneColumnLayout.vue'
+  import InOneColumnLayout from '@/layouts/InOneColumnLayout.vue'
   import { mapState } from 'vuex'
 
   export default {
     name: 'Dashboard',
     components: {
-      OneColumnLayout
+      InOneColumnLayout
     },
     data() {
       return {

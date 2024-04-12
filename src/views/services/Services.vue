@@ -99,10 +99,10 @@
         return expiredServices.map(service => service.name)
       },
       getInactiveServices() {
-        const inactiveServices = this.services.filter(service => service.status === 'Inactive')
+        const inactiveServices = this.services.filter(service => service.status === 'Unsubscribed')
 
         return inactiveServices.map(service => {
-          if (service.status === 'Inactive') {
+          if (service.status === 'Unsubscribed') {
             return {
               label: service.name,
             }

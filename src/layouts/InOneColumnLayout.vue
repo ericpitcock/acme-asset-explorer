@@ -1,5 +1,5 @@
 <template>
-  <div class="one-column-layout">
+  <div class="in-one-column-layout">
     <!-- <div
       v-if="$slots.header"
       class="one-column__header"
@@ -14,12 +14,12 @@
 
 <script>
   export default {
-    name: 'OneColumnLayout',
+    name: 'InOneColumnLayout',
   }
 </script>
 
 <style lang="scss" scoped>
-  .one-column-layout {
+  .in-one-column-layout {
     display: flex;
     flex-direction: column;
 

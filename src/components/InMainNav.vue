@@ -3,7 +3,7 @@
     <nav class="main-nav">
       <div class="main-nav__item main-nav__item--logo">
         <router-link to="/">
-          <esentire-logo :type="logoType" />
+          <in-logo :type="logoType" />
         </router-link>
       </div>
       <template
@@ -34,12 +34,12 @@
 
 <script>
   import { mapMutations, mapState } from 'vuex'
-  import EsentireLogo from '@/components/EsentireLogo.vue'
+  import InLogo from '@/components/InLogo.vue'
 
   export default {
     name: 'AcmeMainNav',
     components: {
-      EsentireLogo
+      InLogo
     },
     data() {
       return {

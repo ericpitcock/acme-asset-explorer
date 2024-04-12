@@ -1,6 +1,6 @@
 <template>
   <div class="service-config">
-    <sidebar-layout sidebar-padding="2rem 0 0 0">
+    <in-sidebar-layout sidebar-padding="2rem 0 0 0">
       <template #sidebar>
         <ep-menu
           :menu-items="menuItems"
@@ -11,18 +11,18 @@
       <template #content>
         <router-view />
       </template>
-    </sidebar-layout>
+    </in-sidebar-layout>
   </div>
 </template>
 
 <script>
-  import SidebarLayout from '@/layouts/SidebarLayout.vue'
+  import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import services from '../../services/services.json'
 
   export default {
     name: 'ServiceConfig',
     components: {
-      SidebarLayout
+      InSidebarLayout
     },
     data() {
       return {
