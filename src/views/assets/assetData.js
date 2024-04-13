@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
-import { generateIpAddress } from '../../utils/helpers'
+import { generateIpAddress, generateOsVersion } from '../../utils/helpers'
 import InSparkBar from '../../components/InSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 import store from '../../store'
@@ -50,6 +50,10 @@ const assetColumns = [
     key: 'operating_system'
   },
   {
+    header: 'OS Version',
+    key: 'os_version'
+  },
+  {
     header: 'Last Seen',
     key: 'last_seen',
     formatter: (value) => new Date(value).toLocaleString()
@@ -74,6 +78,8 @@ const assetDataArray = length => {
     const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
     const sites = store.state.sites.map(site => site.name)
 
+    const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
+
     arr.push({
       id: faker.string.uuid(),
       status: {
@@ -94,7 +100,8 @@ const assetDataArray = length => {
       },
       endpoint_version: status === 'Archived' ? '1.0.0' : faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
       location: faker.helpers.arrayElement(sites),
-      operating_system: faker.helpers.arrayElement(['Windows', 'macOS', 'Linux']),
+      operating_system: operatingSystem,
+      os_version: generateOsVersion(operatingSystem),
       last_seen: status === 'Archived' ? faker.date.between({ from: '2017-01-01T00:00:00.000Z', to: '2022-01-01T00:00:00.000Z' }) : faker.date.recent({ days: 10 }),
       ipv6_address: faker.internet.ipv6(),
       mac_address: faker.internet.mac()
@@ -125,9 +132,8 @@ const generateVulnerabilityData = length => {
   return arr
 }
 
-// create the array of objects with random data
+// create asset and vulnerability arrays
 const assetData = assetDataArray(100)
-
 const vulnData = generateVulnerabilityData(100)
 
 // find the index of the array with the highest sum of vulnerabilities,
@@ -146,7 +152,7 @@ vulnData.forEach((item, index) => {
   vulnData[index][5] = Math.round((item[4] / maxVuln) * 100)
 })
 
-// merge the two arrays with vulnData into vulnData2 at a specific index
+// add the vulnData to the assetData
 assetData.forEach((item, index) => {
   assetData[index].vulnerabilities.props.bar = vulnData[index]
   // add total vulnerabilities.value to each object
