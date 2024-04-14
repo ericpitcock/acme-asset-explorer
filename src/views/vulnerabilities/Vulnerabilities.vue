@@ -7,13 +7,15 @@
           border-width="0"
         >
           <template #left>
-            <h1 class="page-head">Vulnerabilities</h1>
+            <h1 class="page-head">
+              Vulnerabilities
+            </h1>
           </template>
           <template #right>
             <ep-date-picker
               mode="range"
-              positionX="right"
-              :inputProps="{
+              position-x="right"
+              :input-props="{
                 size: 'large',
                 backgroundColor: 'var(--interface-foreground)'
               }"
@@ -84,7 +86,7 @@
             :data="filteredData"
             v-bind="tableProps"
             :search="search"
-            :hiddenColumns="hiddenColumns"
+            :hidden-columns="hiddenColumns"
             style="width: 100%; overflow: unset;"
             @row-click="handleRowClick"
           />
@@ -113,6 +115,7 @@
       const commonPageHeaderProps = store.state.commonProps.commonPageHeaderProps
       const commonContainerProps = computed(() => store.state.commonProps.commonContainerProps)
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+      const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
       const router = useRouter()
@@ -175,11 +178,11 @@
         search.value = search.value.filter(item => item !== query)
       }
 
-      watch(() => leftPanelCollapsed.value, () => {
-        window.dispatchEvent(new Event('resize'))
-      })
-
-      watch(() => rightPanelOpen.value, () => {
+      watch([
+        leftPanelCollapsed,
+        leftPanelCollapsedUser,
+        rightPanelOpen
+      ], () => {
         window.dispatchEvent(new Event('resize'))
       })
 

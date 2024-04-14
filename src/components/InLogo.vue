@@ -1,8 +1,7 @@
 <template>
   <div :class="['logo', { 'logo--icon': type == 'icon' }]">
     <svg
-      version="1.1"
-      id="Layer_1"
+      id="in-logo"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       x="0px"

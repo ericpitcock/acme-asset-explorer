@@ -2,7 +2,9 @@
   <div class="files">
     <ep-header v-bind="headerProps">
       <template #left>
-        <h1 class="page-head">Files</h1>
+        <h1 class="page-head">
+          Files
+        </h1>
       </template>
       <template #center>
         <ep-search
@@ -25,8 +27,7 @@
           <ep-button
             label="Upload File"
             variant="primary"
-            :iconLeft="{ name: 'f/upload' }"
-            @click=""
+            :icon-left="{ name: 'f/upload' }"
           />
         </ep-flex-container>
       </template>
@@ -42,7 +43,7 @@
             sticky-header
             sticky-top="61"
             sortable
-            sortKey="date_uploaded"
+            sort-key="date_uploaded"
             striped
             bordered
             header-background-color="var(--interface-surface)"
@@ -149,6 +150,15 @@
         }
       },
     },
+    mounted() {
+      // this.searchResults = this.fakeData.map(file => file.name)
+      // map file.name from this.fakeData to this.searchResults as an array of objects with name: file.name
+      this.searchResults = this.fakeData.map(file => {
+        return {
+          name: file.name
+        }
+      })
+    },
     methods: {
       getFileType(fileName) {
         const extension = fileName.split('.').pop()
@@ -179,15 +189,6 @@
         )
         this.searchResults = results
       }
-    },
-    mounted() {
-      // this.searchResults = this.fakeData.map(file => file.name)
-      // map file.name from this.fakeData to this.searchResults as an array of objects with name: file.name
-      this.searchResults = this.fakeData.map(file => {
-        return {
-          name: file.name
-        }
-      })
     }
   }
 </script>

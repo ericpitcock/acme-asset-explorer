@@ -14,7 +14,7 @@ const plugin = {
         })
         const container = document.createElement('div')
         document.body.appendChild(container)
-        dialogInstance.component('ep-button', EpButton)
+        dialogInstance.component('EpButton', EpButton)
         dialogInstance.mount(container)
       }
     }

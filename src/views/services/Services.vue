@@ -2,7 +2,9 @@
   <div class="services">
     <ep-header v-bind="headerProps">
       <template #left>
-        <h1 class="page-head">Services</h1>
+        <h1 class="page-head">
+          Services
+        </h1>
       </template>
       <template #right>
         <ep-dropdown v-bind="dropdownProps" />
@@ -13,8 +15,10 @@
         <settings-module-layout>
           <template #sidebar>
             <h1>{{ category }}</h1>
-            <p class="text--subtle">24/7 managed threat detection and
-              response capabilities services</p>
+            <p class="text--subtle">
+              24/7 managed threat detection and
+              response capabilities services
+            </p>
           </template>
           <template #content>
             <template
@@ -38,7 +42,7 @@
                 <div class="service__actions">
                   <ep-button
                     v-if="isConfigurable(service)"
-                    :iconLeft="{ name: 'settings' }"
+                    :icon-left="{ name: 'settings' }"
                     variant="ghost"
                     :disabled="service.status === 'Unsubscribed'"
                     :to="{ path: `/settings/service-config/${serviceSlug(service.name)}` }"

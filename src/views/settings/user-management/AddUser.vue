@@ -11,7 +11,9 @@
           <h1>{{ modalTitle }}</h1>
         </template>
         <template #right>
-          <p class="text--subtle">All fields required unless noted</p>
+          <p class="text--subtle">
+            All fields required unless noted
+          </p>
         </template>
       </ep-header>
     </template>
@@ -24,49 +26,49 @@
         gap="1rem"
       >
         <ep-select
+          v-model="userRole"
           placeholder="Choose a role…"
           size="large"
           :options="roleOptions"
           :border-color="userRoleBorderColor"
           select-id="userRole"
-          v-model="userRole"
         />
         <ep-input
+          v-model="userName"
           label="Name"
           size="large"
           :border-color="userNameBorderColor"
-          v-model="userName"
         />
         <p class="font-size--small text--subtle">
           {{ approvedDomainsMessage }}
         </p>
         <ep-input
+          v-model="userEmail"
           label="Email"
           size="large"
           :border-color="userEmailBorderColor"
-          v-model="userEmail"
           :disabled="approvedDomains.length === 0"
         />
         <ep-input
+          v-model="secondaryEmail"
           label="Secondary Email (Optional)"
           size="large"
           :border-color="secondaryEmailBorderColor"
-          v-model="secondaryEmail"
           :disabled="approvedDomains.length === 0"
         />
         <p class="font-size--small text--subtle">
           Mobile phone is used for authentication purposes.
         </p>
         <ep-input
+          v-model="userMobilePhone"
           label="Mobile Phone"
           size="large"
           :border-color="userMobilePhoneBorderColor"
-          v-model="userMobilePhone"
         />
         <ep-input
+          v-model="userOfficePhone"
           label="Office Phone (Optional)"
           size="large"
-          v-model="userOfficePhone"
         />
       </ep-flex-container>
       <roles-table :selected-role="userRole" />

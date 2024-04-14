@@ -14,17 +14,17 @@
       <div class="ep-login__form">
         <form @submit.prevent="login">
           <ep-input
-            type="email"
             id="email"
             v-model="email"
+            type="email"
             size="large"
             placeholder="Enter your email"
             background-color="var(--interface-foreground)"
           />
           <ep-input
-            type="password"
             id="password"
             v-model="password"
+            type="password"
             size="large"
             placeholder="Enter your password"
             background-color="var(--interface-foreground)"
@@ -39,7 +39,9 @@
       </div>
       <template #footer>
         <div class="ep-login__footer">
-          <p class="text--subtle">You can just click Sign In 😀</p>
+          <p class="text--subtle">
+            You can just click Sign In 😀
+          </p>
         </div>
       </template>
     </ep-container>

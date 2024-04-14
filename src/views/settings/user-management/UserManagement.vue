@@ -44,7 +44,8 @@
           >
             <p>No users found</p>
             <template #subtext>
-              <p>Try
+              <p>
+                Try
                 <span
                   class="text--link"
                   @click="resetFilters"

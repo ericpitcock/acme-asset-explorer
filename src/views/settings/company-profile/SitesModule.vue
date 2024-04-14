@@ -2,7 +2,9 @@
   <settings-module-layout :show-empty-state="sites.length === 0">
     <template #sidebar>
       <h1>Sites</h1>
-      <p class="text--subtle">Sites are used to allocate resources.</p>
+      <p class="text--subtle">
+        Sites are used to allocate resources.
+      </p>
     </template>
     <template #content>
       <ep-flex-container gap="1rem">

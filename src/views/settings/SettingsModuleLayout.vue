@@ -5,17 +5,19 @@
   >
     <ep-flex-container gap="2rem">
       <div class="section-sidebar">
-        <slot name="sidebar"></slot>
+        <slot name="sidebar" />
       </div>
       <div class="section-content">
         <slot
           v-if="showEmptyState"
           name="empty-state"
         >
-          <ep-empty-state
-            message="No data available"
-            subtext="There is no data available for this section."
-          />
+          <ep-empty-state>
+            <p>No data available</p>
+            <template #subtext>
+              <p>There is no data available for this section.</p>
+            </template>
+          </ep-empty-state>
         </slot>
         <slot
           v-else
@@ -59,4 +61,5 @@
 
   .section-content {
     flex: 1;
-}</style>
+  }
+</style>

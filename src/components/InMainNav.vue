@@ -15,19 +15,23 @@
           class="main-nav__item"
         >
           <ep-icon :name="navItem.icon" />
-          <div class="main-nav__item__name">{{ navItem.name }}</div>
+          <div class="main-nav__item__name">
+            {{ navItem.name }}
+          </div>
         </router-link>
         <div
           v-if="index === 1"
-          class="main-nav__item__divider"
           :key="`divider${index}`"
-        ></div>
+          class="main-nav__item__divider"
+        />
       </template>
     </nav>
     <div class="credits">
-      <p>© 2024 εSentiɾe, Inc.<br />
-        Waterloo, ON<br />
-        1-888-231-8392</p>
+      <p>
+        © 2024 εSentiɾe, Inc.<br>
+        Waterloo, ON<br>
+        1-888-231-8392
+      </p>
     </div>
   </div>
 </template>
@@ -44,11 +48,6 @@
     data() {
       return {
         navItems: [
-          // {
-          //   name: 'Dashboard',
-          //   icon: 'dashboard',
-          //   path: '/'
-          // },
           {
             name: 'Assets',
             icon: 'display',
@@ -64,11 +63,6 @@
             icon: 'info',
             path: '/services'
           },
-          // {
-          //   name: 'Reports',
-          //   icon: 'report',
-          //   path: '/reports'
-          // },
           {
             name: 'Files',
             icon: 'file',
@@ -91,6 +85,13 @@
         return this.leftPanelCollapsed || this.leftPanelCollapsedUser
       }
     },
+    mounted() {
+      this.checkViewportWidth()
+      window.addEventListener('resize', this.checkViewportWidth)
+    },
+    beforeUnmount() {
+      window.removeEventListener('resize', this.checkViewportWidth)
+    },
     methods: {
       ...mapMutations(['setLeftPanel']),
       checkViewportWidth() {
@@ -103,13 +104,6 @@
           this.setLeftPanel(false)
         }
       },
-    },
-    mounted() {
-      this.checkViewportWidth()
-      window.addEventListener('resize', this.checkViewportWidth)
-    },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.checkViewportWidth)
     },
   }
 </script>

@@ -7,8 +7,8 @@
       <template #right>
         <ep-date-picker
           mode="range"
-          positionX="right"
-          :inputProps="{
+          position-x="right"
+          :input-props="{
             size: 'large',
             backgroundColor: 'var(--interface-foreground)'
           }"

@@ -48,8 +48,8 @@
           <template v-for="input in inputs">
             <ep-input
               v-bind="input"
-              size="large"
               v-model="input.value"
+              size="large"
             />
           </template>
         </template>
@@ -64,13 +64,13 @@
 <script>
   export default {
     name: 'ConfigModal',
-    emits: ['close'],
     props: {
       config: {
         type: Object,
         required: true
       }
     },
+    emits: ['close'],
     data() {
       return {
         containerProps: {

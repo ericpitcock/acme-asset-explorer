@@ -3,7 +3,7 @@
     <div class="app-controls app-controls--left">
       <ep-button
         variant="ghost"
-        :iconLeft="{ name: 'menu' }"
+        :icon-left="{ name: 'menu' }"
         @click="toggleleftPanelCollapsedUser"
       />
       <ep-dropdown v-bind="userDropdownProps" />
@@ -16,15 +16,15 @@
     <div class="app-controls app-controls--right">
       <ep-button
         variant="ghost"
-        :iconLeft="themeIcon"
+        :icon-left="themeIcon"
         @click="toggleTheme"
       />
       <ep-dropdown v-bind="helpDropdownProps" />
       <ep-button
         variant="ghost"
         :label="''"
-        :iconRight="null"
-        :iconLeft="{ name: 'notifications' }"
+        :icon-right="null"
+        :icon-left="{ name: 'notifications' }"
         :class="{ 'hasNotifications': hasActiveNotifications }"
         @click="toggleRightPanel"
       />
@@ -97,19 +97,17 @@
         }
       }
     },
-    components: {
-    },
-    methods: {
-      ...mapActions(['toggleTheme']),
-      ...mapMutations(['toggleleftPanelCollapsedUser', 'toggleRightPanel']),
-    },
     computed: {
       ...mapGetters(['hasActiveNotifications']),
       ...mapState(['theme']),
       themeIcon() {
         return this.theme == 'dark' ? { name: 'light-mode' } : { name: 'dark-mode' }
       }
-    }
+    },
+    methods: {
+      ...mapActions(['toggleTheme']),
+      ...mapMutations(['toggleleftPanelCollapsedUser', 'toggleRightPanel']),
+    },
   }
 </script>
 

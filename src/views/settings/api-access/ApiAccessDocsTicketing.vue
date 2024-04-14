@@ -7,15 +7,18 @@
           gap="2rem"
         >
           <h1>Ticketing API</h1>
-          <p>Requests to the Atlas Ticketing API enable developers to create,
+          <p>
+            Requests to the Atlas Ticketing API enable developers to create,
             read,
             update and resolve support tickets on behalf of their organization
             with
-            us.</p>
+            us.
+          </p>
           <ul>
             <li>Create a new support ticket</li>
             <li>Read the information for an existing ticket</li>
-            <li>Update an existing ticket with a comment, or change its details
+            <li>
+              Update an existing ticket with a comment, or change its details
             </li>
             <li>Resolve a case</li>
           </ul>
@@ -27,7 +30,8 @@
           gap="2rem"
         >
           <h2>Searching by State Changes</h2>
-          <p>Searching by state does not mean the ticket is currently in that
+          <p>
+            Searching by state does not mean the ticket is currently in that
             state.
             For
             example, if you want to search for all cases opened in the last week,
@@ -36,49 +40,65 @@
             closed.
           </p>
           <h2>ServiceNow Integration</h2>
-          <p>If your organization uses ServiceNow as its ticketing agent, it is
+          <p>
+            If your organization uses ServiceNow as its ticketing agent, it is
             suggested to use ServiceNow’s REST API Explorer feature to reduce
             development efforts and response times. The REST API Explorer supports
-            OAuth2.0 credentials which can be generated above.</p>
+            OAuth2.0 credentials which can be generated above.
+          </p>
           <h2>Ticket Lifecycle</h2>
           <div class="lifecycle-item">
             <ep-badge label="New" />
-            <p>A recently submitted ticket request that has yet to be assigned to
+            <p>
+              A recently submitted ticket request that has yet to be assigned to
               the
-              appropriate company analyst.</p>
+              appropriate company analyst.
+            </p>
           </div>
           <div class="lifecycle-item">
             <ep-badge label="Open" />
-            <p>Once assigned, the case will be in an open state for the duration
+            <p>
+              Once assigned, the case will be in an open state for the duration
               of
               its
-              engagement.</p>
+              engagement.
+            </p>
           </div>
           <div class="lifecycle-item">
             <ep-badge label="Resolved" />
-            <p>Once a case has concluded, its state will be changed to resolved.
+            <p>
+              Once a case has concluded, its state will be changed to resolved.
               If
               a
               comment is posted back to a resolved ticket, the state of the ticket
               will
-              move back to an Open state, until resolved once again.</p>
+              move back to an Open state, until resolved once again.
+            </p>
           </div>
           <div class="lifecycle-item">
             <ep-badge label="Closed" />
-            <p>After sitting in a Resolved state for 30 days, a ticket is
+            <p>
+              After sitting in a Resolved state for 30 days, a ticket is
               permanently
-              closed to a Read-Only state.</p>
+              closed to a Read-Only state.
+            </p>
           </div>
           <h2>Endpoints</h2>
           <div
             v-for="endpoint in endpoints"
             class="code-block"
-          >{{ endpoint }}</div>
+          >
+            {{ endpoint }}
+          </div>
           <h2>Authorization</h2>
-          <p>The Ticketing API uses the Authorization HTTP header to authenticate
-            requests, with the value: {token}.</p>
-          <div class="code-block">curl -H 'Authorization: {token}'
-            'https:/api.domain.com/tickets/cases'</div>
+          <p>
+            The Ticketing API uses the Authorization HTTP header to authenticate
+            requests, with the value: {token}.
+          </p>
+          <div class="code-block">
+            curl -H 'Authorization: {token}'
+            'https:/api.domain.com/tickets/cases'
+          </div>
           <h2>HTTP Headers</h2>
           <div class="code-block">
             Authorization = {token}
@@ -109,7 +129,9 @@
             "customer_field4":"DevOps"
             }
           </div>
-          <div class="code-block read-get">N/A</div>
+          <div class="code-block read-get">
+            N/A
+          </div>
           <div class="code-block comment-update-patch">
             {
             "username": "Firsname Lastname",

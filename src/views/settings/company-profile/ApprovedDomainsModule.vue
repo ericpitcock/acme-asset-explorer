@@ -6,7 +6,9 @@
         Insight access is restricted to accounts registered under
         approved domains only.
       </p>
-      <p v-if="changesUpdated">Changes saved!</p>
+      <p v-if="changesUpdated">
+        Changes saved!
+      </p>
     </template>
     <template #content>
       <ep-flex-container

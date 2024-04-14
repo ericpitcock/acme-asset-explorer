@@ -15,7 +15,7 @@
     </template>
     <template #right-panel>
       <div class="right-panel__container">
-        <ep-notifications :containerProps="containerProps" />
+        <ep-notifications :container-props="containerProps" />
       </div>
     </template>
   </in-grid>
@@ -40,7 +40,7 @@
           borderRadius: '0',
         }
       },
-    }
+    },
   }
 </script>
 

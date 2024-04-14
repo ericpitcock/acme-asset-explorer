@@ -7,13 +7,15 @@
           border-width="0"
         >
           <template #left>
-            <h1 class="page-head">Assets</h1>
+            <h1 class="page-head">
+              Assets
+            </h1>
           </template>
           <template #right>
             <ep-date-picker
               mode="range"
-              positionX="right"
-              :inputProps="{
+              position-x="right"
+              :input-props="{
                 size: 'large',
                 backgroundColor: 'var(--interface-foreground)'
               }"
@@ -131,7 +133,7 @@
             :data="filteredData"
             v-bind="tableProps"
             :search="search"
-            :hiddenColumns="hiddenColumns"
+            :hidden-columns="hiddenColumns"
             style="width: 100%; overflow: unset;"
             @row-click="handleRowClick"
           />
@@ -168,6 +170,7 @@
       const store = useStore()
       const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+      const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
       const assetDataRef = ref(assetData)
@@ -262,11 +265,11 @@
         search.value = search.value.filter(item => item !== query)
       }
 
-      watch(() => leftPanelCollapsed.value, () => {
-        window.dispatchEvent(new Event('resize'))
-      })
-
-      watch(() => rightPanelOpen.value, () => {
+      watch([
+        leftPanelCollapsed,
+        leftPanelCollapsedUser,
+        rightPanelOpen
+      ], () => {
         window.dispatchEvent(new Event('resize'))
       })
 

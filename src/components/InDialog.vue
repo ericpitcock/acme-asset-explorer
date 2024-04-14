@@ -28,12 +28,12 @@
     components: {
       InModal
     },
-    emits: ['close'],
     props: {
       title: String,
       message: String,
       buttons: Array
     },
+    emits: ['close'],
     methods: {
       closeDialog() {
         // Emit an event to indicate closing the dialog
