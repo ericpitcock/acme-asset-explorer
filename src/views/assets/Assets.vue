@@ -146,6 +146,7 @@
 <script>
   import { ref, computed, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
+  import { useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import { assetColumns, assetData } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
@@ -155,7 +156,7 @@
   import InOsVersionChart from './InOsVersionChart.vue'
 
   export default {
-    name: 'Assets',
+    name: 'InAssets',
     components: {
       InSidebarLayout,
       EpEmptyState,
@@ -168,6 +169,7 @@
       const search = ref([])
 
       const store = useStore()
+      const router = useRouter()
       const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
       const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
       const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
@@ -246,7 +248,8 @@
       }
 
       const handleRowClick = (row) => {
-        console.log('row', row)
+        store.commit('addSelectedAsset', row)
+        router.push({ path: `/assets/${row.id}` })
       }
 
       const handleFilter = (event) => {

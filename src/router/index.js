@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 // import Dashboard from '@/views/dashboard/Dashboard.vue'
 import Assets from '@/views/assets/Assets.vue'
+import InAssetDetails from '@/views/assets/InAssetDetails.vue'
 import Vulnerabilities from '@/views/vulnerabilities/Vulnerabilities.vue'
 import VulnerabilityDetails from '@/views/vulnerabilities/VulnerabilityDetails.vue'
 import Services from '@/views/services/Services.vue'
@@ -41,6 +42,33 @@ const routes = [
     meta: {
       title: 'Assets',
     },
+  },
+  {
+    path: '/assets',
+    redirect: '/',
+  },
+  {
+    path: '/assets/:assetID',
+    name: 'asset-details',
+    component: InAssetDetails,
+    meta: {
+      title: 'Asset Details',
+    },
+    props: true,
+    beforeEnter: (to, from, next) => {
+      // using the assetID from the route, get the asset from the store
+      // and commit addSelectedAsset mutation
+
+      // if the asset is already selected, move on
+      if (store.state.selectedAsset !== null) {
+        return next()
+      }
+      // get first asset in the store
+      const asset = store.state.assets[0]
+      // set the first asset as the selected asset
+      store.commit('addSelectedAsset', asset)
+      next()
+    }
   },
   {
     path: '/vulnerabilities',
@@ -153,10 +181,10 @@ const settingsRoutes = settingsChildren.map((child) => {
   }
 })
 
-routes[7].children.push(...settingsRoutes)
+routes[9].children.push(...settingsRoutes)
 
 // children routes for service-config
-routes[7].children[1].children = [
+routes[9].children[1].children = [
   {
     path: '', // This is the default child route for '/settings'
     name: 'network-default',
@@ -189,7 +217,7 @@ routes[7].children[1].children = [
 ]
 
 // children routes for api-access: configuration, docs-overview, docs-threat-intelligence, docs-ticketing, docs-testing
-routes[7].children[6].children = [
+routes[9].children[6].children = [
   {
     path: '', // This is the default child route for '/settings'
     name: 'api-access-default',
