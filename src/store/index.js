@@ -74,6 +74,7 @@ export default createStore({
     leftPanelCollapsed: false,
     leftPanelCollapsedUser: false,
     rightPanelOpen: false,
+    selectedAsset: null,
     selectedVulnerability: null,
     theme: 'dark',
     vulnerabilities: vulnTableData
@@ -108,6 +109,9 @@ export default createStore({
     },
     addSelectedVulnerability: (state, vulnerability) => {
       state.selectedVulnerability = vulnerability
+    },
+    addSelectedAsset: (state, asset) => {
+      state.selectedAsset = asset
     },
     setTheme: (state, data) => {
       state.theme = data
