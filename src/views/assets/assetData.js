@@ -83,33 +83,84 @@ const assetColumns = [
   }
 ]
 
+// create array with counts for
+// low, medium, high, critical vulns and the sum of all
+// [low, medium, high, critical, sum]
+const generateVulnCounts = () => {
+  let arr = []
+  for (let index = 0; index < 4; index++) {
+    // as the index gets higher, the number of vulnerabilities decreases
+    arr.push(faker.number.int({ min: 0, max: 100 - index * 10 }))
+  }
+  // push the sum of the array to the end of the array
+  arr.push(arr.reduce((a, b) => a + b, 0))
+  return arr
+}
+
+// const calculateRiskScore = (status, severityCounts) => {
+//   if (status === 'Archived') {
+//     return 'N/A'
+//   }
+
+//   const weights = [1, 2, 3, 4]
+//   let riskScore = 0
+
+//   // Ensure severityCounts and weights have the same length
+//   if (severityCounts.length !== weights.length) {
+//     throw new Error("Severity counts and weights arrays must have the same length.")
+//   }
+
+//   for (let i = 0; i < severityCounts.length; i++) {
+//     riskScore += severityCounts[i] * weights[i]
+//   }
+
+//   return riskScore.toString()
+// }
+const calculateRiskScore = (status, severityCounts) => {
+  if (status === 'Archived') {
+    return 'N/A'
+  }
+
+  const weights = { low: 1, medium: 3, high: 5, critical: 10 }
+  const vulnerabilities = severityCounts
+
+  const weightedCounts = vulnerabilities.map((count, index) => count * weights[Object.keys(weights)[index]])
+  const totalWeightedScore = weightedCounts.reduce((acc, curr) => acc + curr, 0)
+  const normalizedScore = Math.floor((totalWeightedScore / (vulnerabilities.reduce((acc, curr) => acc + curr * 10, 0))) * 100)
+
+  // console.log("Total Weighted Score:", totalWeightedScore)
+  // console.log("Normalized Risk Score (0-100):", normalizedScore);
+
+  return normalizedScore
+}
+
 // create an array of objects with random data, placeholder for vulnerabilities
 const assetDataArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
+    const vulnCounts = generateVulnCounts()
+
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
+    const riskScore = calculateRiskScore(status, vulnCounts.slice(0, 4))
 
-    const riskScore = status === 'Active'
-      ? faker.number.int({ min: 0, max: 100 })
-      : status === 'Inactive' ? faker.number.int({ min: 0, max: 50 })
-        : 'N/A'
+    // create riskScoreVariant based on riskScore
+    // Low(0 - 29)
+    // Medium(30 - 59)
+    // High(60 - 84)
+    // Critical(85 - 100)
 
-    const riskScoreVariant = riskScore === 'N/A'
-      ? 'secondary'
-      : riskScore < 50 ? 'success'
-        : riskScore < 75 ? 'warning'
-          : 'danger'
+    const riskScoreVariant =
+      riskScore === 'N/A'
+        ? 'secondary'
+        : riskScore < 30 ? 'success'
+          : riskScore < 60 ? 'warning'
+            : riskScore < 85 ? 'warning'
+              : 'danger'
 
     const sites = ['New York City', 'London', 'Tokyo']
     const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
     const user = `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`
 
-    // const userStatusTooltip = status === 'Active'
-    //   ? `Activity within the last 24 hours`
-    //   : status === 'Inactive' ? `No activity in the last 24 hours`
-    //     : `Archived since ${faker.date.between({ from: '2017-01-01T00:00:00.000Z', to: '2022-01-01T00:00:00.000Z' })}`
-
-    // convert the above to a map for easier access
     const userStatusTooltipMap = {
       Active: `Activity within the last 24 hours`,
       Inactive: `No activity in the last 24 hours`,
@@ -135,9 +186,9 @@ const assetDataArray = length => {
       id: faker.string.uuid(),
       status: status,
       risk_score: {
-        value: riskScore === 'N/A' ? 0 : riskScore,
+        value: riskScore === 'N/A' ? 0 : riskScore * 10,
         props: {
-          label: riskScore.toString(),
+          label: riskScore,
           variant: riskScoreVariant,
           outlined: true,
         },
@@ -153,9 +204,9 @@ const assetDataArray = length => {
       hostname: faker.internet.domainName(),
       ip_address: generateIpAddress(10),
       vulnerabilities: {
-        value: null, // placeholder for total vulnerabilities
+        value: vulnCounts[4],
         props: {
-          bar: [],
+          bar: vulnCounts,
         },
       },
       endpoint_version: status === 'Archived'
@@ -174,55 +225,25 @@ const assetDataArray = length => {
   return arr
 }
 
-// create array with counts for
-// low, medium, high, critical vulns and the sum of all
-// [low, medium, high, critical, sum]
-const generateVulnCounts = () => {
-  let arr = []
-  for (let index = 0; index < 4; index++) {
-    // as the index gets higher, the number of vulnerabilities decreases
-    arr.push(faker.number.int({ min: 0, max: 100 - index * 30 }))
-  }
-  // push the sum of the array to the end of the array
-  arr.push(arr.reduce((a, b) => a + b, 0))
-  return arr
-}
-
-// create array of vulnerability count arrays to process
-const generateVulnData = length => {
-  let arr = []
-  for (let index = 0; index < length; index++) {
-    arr.push(generateVulnCounts())
-  }
-  return arr
-}
-
 // create asset and vulnerability arrays
 const assetData = assetDataArray(100)
-const vulnData = generateVulnData(100)
+// const vulnData = generateVulnData(100)
 
-// find the index of the array with the highest sum of vulnerabilities,
-// which is the last element in the vulnerabilities property
-// const maxVulnIndex = vulnData.reduce((iMax, x, i, arr) => x[4] > arr[iMax][4] ? i : iMax, 0)
-const maxVulnIndex = vulnData.reduce((maxIndex, data, currentIndex, dataArray) => data[4] > dataArray[maxIndex][4] ? currentIndex : maxIndex, 0)
+// find the index of the array with the highest sum of vulnerabilities in the assetData
+const maxVulnIndex = assetData.reduce((maxIndex, data, currentIndex, dataArray) => data.vulnerabilities.value > dataArray[maxIndex].vulnerabilities.value ? currentIndex : maxIndex, 0)
 
 // find the actual value of the highest sum of vulnerabilities
-const maxVuln = vulnData[maxVulnIndex][4]
-
-// give the maxVulnIndex 100% 
-vulnData[maxVulnIndex][5] = 100
+const maxVuln = assetData[maxVulnIndex].vulnerabilities.value
 
 // for each vuln sum, calculate what percentage it is of maxVuln
 // add it to the last element in the array
-vulnData.forEach((item, index) => {
-  vulnData[index][5] = Math.round((item[4] / maxVuln) * 100)
+assetData.forEach((item, index) => {
+  console.log(assetData[index].vulnerabilities.props.bar)
+  console.log(assetData[index].vulnerabilities.value)
+  assetData[index].vulnerabilities.props.bar.push(Math.round((assetData[index].vulnerabilities.props.bar[4] / maxVuln) * 100))
 })
 
-// add the vulnData to the assetData
-assetData.forEach((item, index) => {
-  assetData[index].vulnerabilities.props.bar = vulnData[index]
-  // add total vulnerabilities.value to each object
-  assetData[index].vulnerabilities.value = vulnData[index][4]
-})
+// give the maxVulnIndex 100%
+assetData[maxVulnIndex].vulnerabilities.props.bar.push(100)
 
 export { assetColumns, assetData }
