@@ -1,29 +1,39 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import { generateIpAddress, generateOsVersion } from '../../utils/helpers'
+import InUserStatus from '../../components/InUserStatus.vue'
 import InSparkBar from '../../components/InSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
-import store from '../../store'
 
 const assetColumns = [
   {
     header: 'ID',
-    key: 'id'
+    key: 'id',
   },
   {
     header: 'Status',
     key: 'status',
+  },
+  {
+    header: 'Risk Score',
+    key: 'risk_score',
     cellType: 'component',
     component: markRaw(EpBadge),
   },
   {
     header: 'User',
-    key: 'user'
+    key: 'user',
+    cellType: 'component',
+    component: markRaw(InUserStatus),
+  },
+  {
+    header: 'Hostname',
+    key: 'hostname',
   },
   {
     header: 'IP Address',
     key: 'ip_address',
-    style: 'tabular-numbers'
+    style: 'tabular-numbers',
   },
   {
     header: 'Vulnerabilities',
@@ -43,30 +53,30 @@ const assetColumns = [
   },
   {
     header: 'Location',
-    key: 'location'
+    key: 'location',
   },
   {
     header: 'Operating System',
-    key: 'operating_system'
+    key: 'operating_system',
   },
   {
     header: 'OS Version',
-    key: 'os_version'
+    key: 'os_version',
   },
   {
     header: 'Last Seen',
     key: 'last_seen',
-    formatter: (value) => new Date(value).toLocaleString()
+    formatter: (value) => new Date(value).toLocaleString(),
   },
   {
     header: 'IPv6 Address',
     key: 'ipv6_address',
-    style: 'tabular-numbers'
+    style: 'tabular-numbers',
   },
   {
     header: 'MAC Address',
     key: 'mac_address',
-    style: 'tabular-numbers'
+    style: 'tabular-numbers',
   }
 ]
 
@@ -74,28 +84,50 @@ const assetColumns = [
 const assetDataArray = length => {
   let arr = []
   for (let i = 0; i < length; i++) {
+    const riskScore = faker.number.int({ min: 0, max: 100 })
+    const riskScoreVariant = riskScore < 50 ? 'success' : riskScore < 75 ? 'warning' : 'danger'
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
-    const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
-    const sites = store.state.sites.map(site => site.name)
-
+    // const variant = status === 'Active' ? 'success' : status === 'Inactive' ? 'warning' : 'danger'
+    const sites = ['New York City', 'London', 'Tokyo']
     const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
+    const user = `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`
+    const tooltip = status === 'Active'
+      ? `Active since ${faker.date.between({ from: '2017-01-01T00:00:00.000Z', to: '2022-01-01T00:00:00.000Z' })}`
+      : status === 'Inactive' ? `Last seen ${faker.date.recent({ days: 10 })}`
+        : `Archived since ${faker.date.between({ from: '2017-01-01T00:00:00.000Z', to: '2022-01-01T00:00:00.000Z' })}`
+    // create status indicator colors based on status
+    // if active, both are green, if inactive, both are yellow, if archived, both are red
+    const statusIndicator = status === 'Active'
+      ? { backgroundColor: 'green', borderColor: 'green' }
+      : status === 'Inactive' ? { backgroundColor: 'yellow', borderColor: 'yellow' }
+        : { backgroundColor: 'red', borderColor: 'red' }
+
 
     arr.push({
       id: faker.string.uuid(),
-      status: {
-        value: status,
+      status: status,
+      risk_score: {
+        value: riskScore,
         props: {
-          label: status,
-          variant,
-          outlined: true
+          label: riskScore,
+          variant: riskScoreVariant,
+          outlined: true,
         },
       },
-      user: `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`,
+      user: {
+        value: user,
+        props: {
+          value: user,
+          tooltip: tooltip,
+          ...statusIndicator
+        },
+      },
+      hostname: faker.internet.domainName(),
       ip_address: generateIpAddress(10),
       vulnerabilities: {
         value: null, // placeholder for total vulnerabilities
         props: {
-          bar: []
+          bar: [],
         },
       },
       endpoint_version: status === 'Archived' ? '1.0.0' : faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),

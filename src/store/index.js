@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { faker } from '@faker-js/faker'
+import { assetData } from '../views/assets/assetData.js'
 import { fakeUserData } from './userData.js'
 import { vulnTableData } from './vulnData.js'
 import commonProps from './commonProps.js'
@@ -10,6 +11,7 @@ export default createStore({
   },
   state: {
     approvedDomains: ['acme.io', 'test.acme.io'],
+    assets: assetData,
     dateRange: {
       // start 30 days ago
       from: faker.date.recent({ days: 30 }).toISOString(),

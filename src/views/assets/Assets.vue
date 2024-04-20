@@ -148,7 +148,7 @@
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
-  import { assetColumns, assetData } from './assetData.js'
+  import { assetColumns } from './assetData.js'
   import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
   import InSeverityChart from './InSeverityChart.vue'
@@ -175,7 +175,7 @@
       const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
       const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-      const assetDataRef = ref(assetData)
+      const assetDataRef = computed(() => store.state.assets)
 
       const containerProps = {
         backgroundColor: 'var(--interface-overlay)',
@@ -194,14 +194,14 @@
       const tableProps = {
         columns: assetColumns,
         bordered: true,
-        exclude: ['id'],
+        exclude: ['id', 'status'],
         headerBackgroundColor: 'var(--interface-surface)',
         searchable: true,
         selectable: true,
         stickyHeader: true,
         stickyTop: '61',
         striped: true,
-        sortDir: 'asc',
+        sortDir: 'desc',
         sortable: true,
         width: '100%',
       }
@@ -287,7 +287,6 @@
 
       return {
         assetColumns,
-        assetData,
         chartContainerProps,
         columnFilters,
         columnFiltersDropdownProps,
