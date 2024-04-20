@@ -26,6 +26,7 @@
 <script>
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
+  import { generateFutureDate, generateRecentDate, generatePastDate } from '../../../utils/helpers'
 
   export default {
     name: 'ApiAccessConfiguration',
@@ -67,12 +68,10 @@
           {
             header: 'Created',
             key: 'created',
-            formatter: (value) => new Date(value).toLocaleString(),
           },
           {
             header: 'Expires',
             key: 'expires',
-            formatter: (value) => new Date(value).toLocaleString(),
           },
         ],
         data: [
@@ -89,8 +88,8 @@
             endpoint: 'Ticketing API',
             auth_type: 'OAuth',
             api_key: 'AbCdEfGhIjKlMnOpQrStUvWxYz123456',
-            created: faker.date.past(),
-            expires: faker.date.future(),
+            created: generatePastDate(),
+            expires: generateFutureDate(),
           },
           {
             status: {
@@ -105,8 +104,8 @@
             endpoint: 'Threat Intelligence API',
             auth_type: 'Token',
             api_key: '1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p',
-            created: faker.date.past(),
-            expires: faker.date.future(),
+            created: generatePastDate(),
+            expires: generateFutureDate(),
           },
           {
             status: {
@@ -121,8 +120,8 @@
             endpoint: 'Threat Intelligence API',
             auth_type: 'Token',
             api_key: 'qwertyuiopasdfghjklzxcvbnm123456',
-            created: faker.date.past(),
-            expires: faker.date.recent({ days: 10 }),
+            created: generatePastDate(),
+            expires: generateRecentDate({ days: 10 }),
           },
         ],
       }

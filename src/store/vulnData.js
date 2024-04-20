@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import EpBadge from '../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
+import { generatePastDate, generateRecentDate } from '../utils/helpers.js'
 
 const vulnTableColumns = [
   {
@@ -29,7 +30,7 @@ const vulnTableColumns = [
     header: 'ID',
     key: 'id',
     formatter: (value) => {
-      return `<span class="text--overflow">${value}</span>`
+      return `<span class="text--overflow-hidden">${value}</span>`
     }
   },
   {
@@ -170,8 +171,8 @@ for (let i = 0; i < 100; i++) {
     affected_assets: faker.number.int({ min: 1, max: 100 }),
     base_score: baseScore,
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
-    published_date: faker.date.past().toISOString(),
-    last_modified_date: faker.date.recent().toISOString(),
+    published_date: generatePastDate(),
+    last_modified_date: generateRecentDate(),
     date_seen: faker.date.between({
       // from 30 days ago
       from: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString(),

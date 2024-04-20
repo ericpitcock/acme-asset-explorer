@@ -27,14 +27,6 @@ import ApiAccessDocsTesting from '@/views/settings/api-access/ApiAccessDocsTesti
 import Login from '@/views/login/Login.vue'
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'dashboard',
-  //   component: Dashboard,
-  //   meta: {
-  //     title: 'Dashboard',
-  //   },
-  // },
   {
     path: '/',
     name: 'assets',

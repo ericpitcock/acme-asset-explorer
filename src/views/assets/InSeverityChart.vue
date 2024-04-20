@@ -21,7 +21,7 @@
   // get the length of each severity level in an array
   const data = [severity.filter((s) => s === 'Low').length, severity.filter((s) => s === 'Medium').length, severity.filter((s) => s === 'High').length, severity.filter((s) => s === 'Critical').length]
 
-  const colors = Highcharts.getOptions().colors
+  // const colors = Highcharts.getOptions().colors
   const categories = [
     'Low',
     'Medium',
@@ -70,16 +70,16 @@
         animation: {
           duration: 500,
         },
-        borderRadius: {
-          radius: 0
-        },
+        // borderRadius: {
+        //   radius: 0
+        // },
         colorByPoint: true,
-        colors: colors,
-        groupPadding: 0.05,
+        // colors: colors,
+        // groupPadding: 0.9,
         // bar width
         // pointWidth: 30,
         // space between bars
-        pointPadding: 0.25,
+        // pointPadding: 0.9,
       },
     },
     series: [

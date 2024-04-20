@@ -106,7 +106,7 @@
   import useFilters from '@/composables/useFilters.js'
 
   export default {
-    name: 'Vulnerabilities',
+    name: 'InVulnerabilities',
     components: {
       InSidebarLayout,
     },

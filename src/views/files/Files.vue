@@ -58,12 +58,13 @@
 
 <script>
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
+  import { generatePastDate } from '../../utils/helpers'
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
   import filenames from './filenames.js'
 
   export default {
-    name: 'Files',
+    name: 'InFiles',
     components: {
       InSidebarLayout
     },
@@ -74,7 +75,7 @@
             header: 'Name',
             key: 'name',
             // formatter that wraps the line no matter how long the text is
-            formatter: (value) => `<div class="text--overflow">${value}</div>`,
+            formatter: (value) => `<div class="text--overflow-hidden">${value}</div>`,
           },
           {
             header: 'Size',
@@ -95,7 +96,6 @@
           {
             header: 'Date Uploaded',
             key: 'date_uploaded',
-            formatter: (value) => new Date(value).toLocaleString()
           },
           {
             header: 'Uploaded By',
@@ -135,7 +135,7 @@
             name: filenames[i],
             size: this.generateFileSize(),
             type: this.getFileType(filenames[i]),
-            date_uploaded: faker.date.past().toISOString(),
+            date_uploaded: generatePastDate(),
             uploaded_by: names[randomIndex]
           })
         }

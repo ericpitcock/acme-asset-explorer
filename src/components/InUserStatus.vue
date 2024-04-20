@@ -1,11 +1,10 @@
 <template>
-  <ep-tooltip>
+  <ep-tooltip :delay="1000">
     <template #tooltip>
       {{ tooltip }}
     </template>
     <ep-status-indicator
-      :background-color="backgroundColor"
-      :border-color="borderColor"
+      :styles="styles"
       class="text--overflow-hidden"
     >
       {{ value }}
@@ -15,13 +14,9 @@
 
 <script setup>
   const props = defineProps({
-    backgroundColor: {
-      type: String,
-      default: 'green'
-    },
-    borderColor: {
-      type: String,
-      default: 'green'
+    styles: {
+      type: Object,
+      default: () => ({})
     },
     tooltip: {
       type: String,

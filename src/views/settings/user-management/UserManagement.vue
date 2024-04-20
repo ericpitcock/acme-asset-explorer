@@ -95,7 +95,7 @@
   import useFilters from '@/composables/useFilters.js'
 
   export default {
-    name: 'Users',
+    name: 'InUsers',
     components: {
       AddUser,
       InModal,
@@ -129,7 +129,6 @@
         {
           header: 'Last Active',
           key: 'last_active',
-          formatter: (value) => new Date(value).toLocaleString()
         },
       ]
 

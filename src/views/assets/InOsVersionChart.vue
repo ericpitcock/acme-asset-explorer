@@ -29,10 +29,10 @@
           categories: windowsVersions,
           data: [
             25,
+            20,
             15,
-            10,
-            5,
-            5,
+            // 5,
+            // 5,
           ]
         }
       },
@@ -58,11 +58,11 @@
           name: 'Linux',
           categories: linuxDistributions,
           data: [
-            5,
+            8,
             2,
-            1,
-            1,
-            1,
+            // 1,
+            // 1,
+            // 1,
           ]
         }
       },
@@ -174,6 +174,15 @@
 
 <style lang="scss" scoped>
   .in-version-chart {
+    :deep(.highcharts-point) {
+      stroke: var(--interface-bg) !important;
+      stroke-width: 2px !important;
+    }
+
+    :deep(.highcharts-container text) {
+      fill: var(--text-color--loud) !important;
+    }
+
     // --chart-sequence-00: var(--severity-color--low);
     // --chart-sequence-01: var(--severity-color--medium);
     // --chart-sequence-02: var(--severity-color--high);

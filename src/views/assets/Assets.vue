@@ -117,19 +117,21 @@
         </div>
       </template>
       <template #content>
+        <ep-empty-state
+          v-if="filteredData.length === 0"
+          style="height: 100%;"
+        >
+          <p>No assets found</p>
+          <template #subtext>
+            <p>Try adjusting your filters</p>
+          </template>
+        </ep-empty-state>
         <ep-container
+          v-else
           v-bind="commonContainerProps"
           container-padding="1rem 3rem 3rem"
-          max-width="fit-content"
         >
-          <ep-empty-state
-            v-if="filteredData.length === 0"
-            message="No Assets Found"
-            subtext="Try adjusting your filters"
-            style="margin-bottom: 1.5rem;"
-          />
           <ep-table
-            v-else
             :data="filteredData"
             v-bind="tableProps"
             :search="search"
@@ -165,7 +167,14 @@
       InOsVersionChart,
     },
     setup() {
-      const hiddenColumns = ref(['ipv6_address', 'mac_address'])
+      const hiddenColumns = ref([
+        'ipv6_address',
+        'mac_address',
+        'last_seen',
+        'os_version',
+        'operating_system',
+        'endpoint_version',
+      ])
       const search = ref([])
 
       const store = useStore()
@@ -278,7 +287,7 @@
 
       onMounted(() => {
         const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
-        const disabledFilters = ['Archived', 'Inactive']
+        const disabledFilters = ['Archived']
 
         generateFilters(columnsToFilter, disabledFilters)
       })

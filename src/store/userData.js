@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { generateRecentDate } from '../utils/helpers'
 
 const sanitizeName = name => name.toLowerCase().replace(/[^\w\s]/gi, '')
 
@@ -27,7 +28,7 @@ const fakeUserData = length => {
       user_mobile_phone: `206-${faker.number.int({ min: 100, max: 999 })}-${faker.number.int({ min: 1000, max: 9999 })}`,
       office_phone: `206-${faker.number.int({ min: 100, max: 999 })}-${faker.number.int({ min: 1000, max: 9999 })}`,
       role: faker.helpers.arrayElement(['Admin', 'Partner', 'User']),
-      last_active: faker.date.recent().toISOString(),
+      last_active: generateRecentDate(),
     })
   }
   return users

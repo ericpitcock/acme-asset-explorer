@@ -77,15 +77,30 @@ html[data-color-theme='light'] {
   --severity-color--critical--border: hsl(338, 63%, 49%);
 }
 
+// severity classes
+.severity--low {
+  background-color: var(--severity-color--low);
+  border-color: var(--severity-color--low--border);
+}
+
+.severity--medium {
+  background-color: var(--severity-color--medium);
+  border-color: var(--severity-color--medium--border);
+}
+
+.severity--high {
+  background-color: var(--severity-color--high);
+  border-color: var(--severity-color--high--border);
+}
+
+.severity--critical {
+  background-color: var(--severity-color--critical);
+  border-color: var(--severity-color--critical--border);
+}
+
 // type
 h1.page-head {
   font-size: var(--font-size--large);
   font-variation-settings: var(--font-weight--light);
   color: var(--text-color--primary);
-}
-
-.text--overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

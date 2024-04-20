@@ -4,6 +4,7 @@ import { assetData } from '../views/assets/assetData.js'
 import { fakeUserData } from './userData.js'
 import { vulnTableData } from './vulnData.js'
 import commonProps from './commonProps.js'
+import { generatePastDate, generateRecentDate } from '../utils/helpers.js'
 
 export default createStore({
   modules: {
@@ -14,7 +15,7 @@ export default createStore({
     assets: assetData,
     dateRange: {
       // start 30 days ago
-      from: faker.date.recent({ days: 30 }).toISOString(),
+      from: generateRecentDate({ days: 30 }),
       // end today
       to: new Date().toISOString()
     },
@@ -42,35 +43,35 @@ export default createStore({
         active: false,
         message: 'Welcome to Acme Asset Explorer! You just unlocked new levels of visibility into your assets and vulnerabilities.',
         variant: 'info',
-        timestamp: faker.date.past().toISOString()
+        timestamp: generatePastDate(),
       },
       {
         id: faker.string.uuid(),
         active: false,
         message: 'App version 1.0.3 is now available',
         variant: 'info',
-        timestamp: faker.date.past().toISOString()
+        timestamp: generatePastDate(),
       },
       {
         id: faker.string.uuid(),
         active: false,
         message: 'Your support request was sent successfully',
         variant: 'success',
-        timestamp: faker.date.recent().toISOString()
+        timestamp: generateRecentDate(),
       },
       {
         id: faker.string.uuid(),
         active: false,
         message: 'You’re running low on endpoint licenses',
         variant: 'warning',
-        timestamp: faker.date.recent().toISOString()
+        timestamp: generateRecentDate(),
       },
       {
         id: faker.string.uuid(),
         active: false,
         message: 'Your organization has 34 assets with new critical vulnerabilities',
         variant: 'error',
-        timestamp: faker.date.recent().toISOString()
+        timestamp: generateRecentDate(),
       }
     ],
     leftPanelCollapsed: false,

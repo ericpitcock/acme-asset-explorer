@@ -28,13 +28,14 @@
 </template>
 
 <script>
+  import ConfigModal from './ConfigModal.vue'
+  import InModal from '@/components/InModal.vue'
+  import { generateRecentDate } from '../../../utils/helpers'
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
-  import InModal from '@/components/InModal.vue'
-  import ConfigModal from './ConfigModal.vue'
 
   export default {
-    name: 'Network',
+    name: 'InNetwork',
     components: {
       ConfigModal,
       InModal,
@@ -54,7 +55,6 @@
           {
             header: 'Modified',
             key: 'modified',
-            formatter: (value) => new Date(value).toLocaleString()
           }
         ],
         selectedConfig: null,
@@ -88,7 +88,7 @@
             name: `cyclops-${faker.number.int({ min: 1000, max: 9999 })}`,
             site: faker.helpers.arrayElement(sites),
             type: faker.helpers.arrayElement(['Physical', 'VMWare', 'AWS']),
-            modified: faker.date.recent().toISOString()
+            modified: generateRecentDate()
           })
         }
 
