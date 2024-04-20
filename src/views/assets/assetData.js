@@ -1,6 +1,11 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
-import { generateIpAddress, generateOsVersion, generatePastDate, generateRecentDate } from '../../utils/helpers'
+import {
+  generateIpAddress,
+  generateOsVersion,
+  generatePastDate,
+  generateRecentDate
+} from '../../utils/helpers'
 import InUserStatus from '../../components/InUserStatus.vue'
 import InSparkBar from '../../components/InSparkBar.vue'
 import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
@@ -90,32 +95,13 @@ const generateVulnCounts = () => {
   let arr = []
   for (let index = 0; index < 4; index++) {
     // as the index gets higher, the number of vulnerabilities decreases
-    arr.push(faker.number.int({ min: 0, max: 100 - index * 10 }))
+    arr.push(faker.number.int({ min: 0, max: 100 - index * 20 }))
   }
   // push the sum of the array to the end of the array
   arr.push(arr.reduce((a, b) => a + b, 0))
   return arr
 }
 
-// const calculateRiskScore = (status, severityCounts) => {
-//   if (status === 'Archived') {
-//     return 'N/A'
-//   }
-
-//   const weights = [1, 2, 3, 4]
-//   let riskScore = 0
-
-//   // Ensure severityCounts and weights have the same length
-//   if (severityCounts.length !== weights.length) {
-//     throw new Error("Severity counts and weights arrays must have the same length.")
-//   }
-
-//   for (let i = 0; i < severityCounts.length; i++) {
-//     riskScore += severityCounts[i] * weights[i]
-//   }
-
-//   return riskScore.toString()
-// }
 const calculateRiskScore = (status, severityCounts) => {
   if (status === 'Archived') {
     return 'N/A'
@@ -126,10 +112,8 @@ const calculateRiskScore = (status, severityCounts) => {
 
   const weightedCounts = vulnerabilities.map((count, index) => count * weights[Object.keys(weights)[index]])
   const totalWeightedScore = weightedCounts.reduce((acc, curr) => acc + curr, 0)
+  // normalized risk score (0-100)
   const normalizedScore = Math.floor((totalWeightedScore / (vulnerabilities.reduce((acc, curr) => acc + curr * 10, 0))) * 100)
-
-  // console.log("Total Weighted Score:", totalWeightedScore)
-  // console.log("Normalized Risk Score (0-100):", normalizedScore);
 
   return normalizedScore
 }
@@ -143,19 +127,12 @@ const assetDataArray = length => {
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
     const riskScore = calculateRiskScore(status, vulnCounts.slice(0, 4))
 
-    // create riskScoreVariant based on riskScore
-    // Low(0 - 29)
-    // Medium(30 - 59)
-    // High(60 - 84)
-    // Critical(85 - 100)
-
     const riskScoreVariant =
       riskScore === 'N/A'
         ? 'secondary'
         : riskScore < 30 ? 'success'
           : riskScore < 60 ? 'warning'
-            : riskScore < 85 ? 'warning'
-              : 'danger'
+            : 'danger'
 
     const sites = ['New York City', 'London', 'Tokyo']
     const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
@@ -230,7 +207,16 @@ const assetData = assetDataArray(100)
 // const vulnData = generateVulnData(100)
 
 // find the index of the array with the highest sum of vulnerabilities in the assetData
-const maxVulnIndex = assetData.reduce((maxIndex, data, currentIndex, dataArray) => data.vulnerabilities.value > dataArray[maxIndex].vulnerabilities.value ? currentIndex : maxIndex, 0)
+const maxVulnIndex = assetData.reduce((maxIndex, data, currentIndex, dataArray) => {
+  // Check if the current asset has more vulnerabilities than the one at maxIndex
+  if (data.vulnerabilities.value > dataArray[maxIndex].vulnerabilities.value) {
+    // If so, update maxIndex to currentIndex
+    return currentIndex
+  } else {
+    // Otherwise, keep maxIndex unchanged
+    return maxIndex
+  }
+}, 0)
 
 // find the actual value of the highest sum of vulnerabilities
 const maxVuln = assetData[maxVulnIndex].vulnerabilities.value
