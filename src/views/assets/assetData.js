@@ -136,7 +136,10 @@ const assetDataArray = length => {
 
     const sites = ['New York City', 'London', 'Tokyo']
     const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
-    const user = `${faker.person.firstName()}.${faker.person.lastName()}@acme.io`
+    const userFirstName = faker.person.firstName()
+    const userLastName = faker.person.lastName()
+    const user = `${userFirstName}.${userLastName}@acme.io`
+    const hostname = `${faker.helpers.arrayElement(sites).slice(0, 3)}-${operatingSystem.slice(0, 3)}-${userFirstName.slice(0, 1) + userLastName}`
 
     const userStatusTooltipMap = {
       Active: `Activity within the last 24 hours`,
@@ -165,7 +168,7 @@ const assetDataArray = length => {
       risk_score: {
         value: riskScore === 'N/A' ? 0 : riskScore * 10,
         props: {
-          label: riskScore,
+          label: riskScore.toString(),
           variant: riskScoreVariant,
           outlined: true,
         },
@@ -178,7 +181,7 @@ const assetDataArray = length => {
           styles: userStatusStylesMap[status]
         },
       },
-      hostname: faker.internet.domainName(),
+      hostname: hostname.toLowerCase(),
       ip_address: generateIpAddress(10),
       vulnerabilities: {
         value: vulnCounts[4],
@@ -224,8 +227,8 @@ const maxVuln = assetData[maxVulnIndex].vulnerabilities.value
 // for each vuln sum, calculate what percentage it is of maxVuln
 // add it to the last element in the array
 assetData.forEach((item, index) => {
-  console.log(assetData[index].vulnerabilities.props.bar)
-  console.log(assetData[index].vulnerabilities.value)
+  // console.log(assetData[index].vulnerabilities.props.bar)
+  // console.log(assetData[index].vulnerabilities.value)
   assetData[index].vulnerabilities.props.bar.push(Math.round((assetData[index].vulnerabilities.props.bar[4] / maxVuln) * 100))
 })
 
