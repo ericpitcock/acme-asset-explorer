@@ -5,13 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "build:css": "node build-css.js"
   },
   "dependencies": {
     "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
     "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
     "@faker-js/faker": "^8.4.1",
     "core-js": "^3.8.3",
+    "highcharts": "^11.4.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
@@ -23,7 +25,10 @@
     "@vue/cli-service": "~5.0.0",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
+    "js-yaml": "^4.1.0",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.0.0",
+    "style-dictionary": "^3.9.2",
+    "yaml": "^2.4.1"
   }
 }

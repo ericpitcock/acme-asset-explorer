@@ -41,7 +41,7 @@ export default createStore({
       {
         id: faker.string.uuid(),
         active: false,
-        message: 'Welcome to Acme Asset Explorer! You just unlocked new levels of visibility into your assets and vulnerabilities.',
+        message: 'Welcome to Insight! You just unlocked new levels of visibility into your assets and vulnerabilities.',
         variant: 'info',
         timestamp: generatePastDate(),
       },

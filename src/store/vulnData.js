@@ -143,9 +143,16 @@ const vulnTableData = []
 
 for (let i = 0; i < 100; i++) {
   const severity = faker.helpers.arrayElement(['Low', 'Medium', 'High', 'Critical'])
-  const variant = severity === 'Low' ? 'success' :
-    severity === 'Medium' ? 'warning' :
-      severity === 'High' ? 'warning' : 'danger'
+  // const variant = severity === 'Low' ? 'success' :
+  //   severity === 'Medium' ? 'warning' :
+  //     severity === 'High' ? 'warning' : 'danger'
+
+  const severityBadgeBorderMap = {
+    Low: 'var(--severity-color--low--border)',
+    Medium: 'var(--severity-color--medium--border)',
+    High: 'var(--severity-color--high--border)',
+    Critical: 'var(--severity-color--critical--border)'
+  }
 
   // generate base_score based on severity
   // 0.0 to 3.9: Low
@@ -162,9 +169,10 @@ for (let i = 0; i < 100; i++) {
       value: severity,
       props: {
         label: severity,
-        variant,
-        outlined: true,
-        borderColor: `var(--severity-color--${severity.toLowerCase()}--border)`,
+        styles: {
+          '--ep-badge-bg-color': 'var(--interface-surface)',
+          '--ep-badge-border-color': severityBadgeBorderMap[severity],
+        }
       },
     },
     description: generateCveDesc(),

@@ -118,6 +118,18 @@ const calculateRiskScore = (status, severityCounts) => {
   return normalizedScore
 }
 
+const calculateRiskScoreBadgeBorderColor = (riskScore) => {
+  if (riskScore === 'N/A') {
+    return 'var(--border-color)'
+  } else if (riskScore < 30) {
+    return 'var(--severity-color--medium--border)'
+  } else if (riskScore < 60) {
+    return 'var(--severity-color--high--border)'
+  } else {
+    return 'var(--severity-color--critical--border)'
+  }
+}
+
 // create an array of objects with random data, placeholder for vulnerabilities
 const assetDataArray = length => {
   let arr = []
@@ -125,24 +137,9 @@ const assetDataArray = length => {
     const vulnCounts = generateVulnCounts()
 
     const status = faker.helpers.arrayElement(['Active', 'Inactive', 'Archived'])
-    const riskScore = calculateRiskScore(status, vulnCounts.slice(0, 4))
-
-    const riskScoreVariant =
-      riskScore === 'N/A'
-        ? 'secondary'
-        : riskScore < 30 ? 'success'
-          : riskScore < 60 ? 'warning'
-            : 'danger'
-
-    const sites = ['New York City', 'London', 'Tokyo']
-    const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
-    const userFirstName = faker.person.firstName()
-    const userLastName = faker.person.lastName()
-    const user = `${userFirstName}.${userLastName}@acme.io`
-    const hostname = `${faker.helpers.arrayElement(sites).slice(0, 3)}-${operatingSystem.slice(0, 3)}-${userFirstName.slice(0, 1) + userLastName}`
 
     const userStatusTooltipMap = {
-      Active: `Activity within the last 24 hours`,
+      Active: `Active within the last 24 hours`,
       Inactive: `No activity in the last 24 hours`,
       Archived: `Archived ${generatePastDate()}`
     }
@@ -162,6 +159,19 @@ const assetDataArray = length => {
       }
     }
 
+    const riskScore = calculateRiskScore(status, vulnCounts.slice(0, 4))
+    const riskScoreBadgeStyles = {
+      '--ep-badge-bg-color': 'transparent',
+      '--ep-badge-border-color': calculateRiskScoreBadgeBorderColor(riskScore)
+    }
+
+    const sites = ['New York City', 'London', 'Tokyo']
+    const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
+    const userFirstName = faker.person.firstName()
+    const userLastName = faker.person.lastName()
+    const user = `${userFirstName}.${userLastName}@acme.io`
+    const hostname = `${faker.helpers.arrayElement(sites).slice(0, 3)}-${operatingSystem.slice(0, 3)}-${userFirstName.slice(0, 1) + userLastName}`
+
     arr.push({
       id: faker.string.uuid(),
       status: status,
@@ -169,8 +179,7 @@ const assetDataArray = length => {
         value: riskScore === 'N/A' ? 0 : riskScore * 10,
         props: {
           label: riskScore.toString(),
-          variant: riskScoreVariant,
-          outlined: true,
+          styles: riskScoreBadgeStyles
         },
       },
       user: {
@@ -227,8 +236,6 @@ const maxVuln = assetData[maxVulnIndex].vulnerabilities.value
 // for each vuln sum, calculate what percentage it is of maxVuln
 // add it to the last element in the array
 assetData.forEach((item, index) => {
-  // console.log(assetData[index].vulnerabilities.props.bar)
-  // console.log(assetData[index].vulnerabilities.value)
   assetData[index].vulnerabilities.props.bar.push(Math.round((assetData[index].vulnerabilities.props.bar[4] / maxVuln) * 100))
 })
 

@@ -11,7 +11,10 @@
       </template>
     </ep-header>
     <div class="services__content">
-      <template v-for="category in categories">
+      <template
+        v-for="(category, index) in categories"
+        :key="index"
+      >
         <settings-module-layout>
           <template #sidebar>
             <h1>{{ category }}</h1>
@@ -29,8 +32,7 @@
                 <div class="service__badge">
                   <ep-badge
                     :label="service.status"
-                    :variant="getVariant(service.status)"
-                    outlined
+                    :styles="getbadgeStyles(service.status)"
                   />
                 </div>
                 <div class="service__icon">
@@ -127,16 +129,10 @@
         const unsubscribed = this.services.filter(service => service.category === category && service.status === 'Unsubscribed')
         return [...subscribed, ...unsubscribed]
       },
-      getVariant(label) {
-        switch (label) {
-          case 'Subscribed':
-            return 'success'
-          case 'Unsubscribed':
-            return 'secondary'
-          case 'Expired':
-            return 'danger'
-          default:
-            return 'primary'
+      getbadgeStyles(status) {
+        return {
+          '--ep-badge-bg-color': 'transparent',
+          '--ep-badge-border-color': status === 'Subscribed' ? 'green' : status === 'Unsubscribed' ? 'var(--border-color)' : 'red',
         }
       },
       hasInactiveServices(category) {

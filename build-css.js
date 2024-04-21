@@ -2,7 +2,9 @@ const fs = require('fs')
 const yaml = require('js-yaml')
 
 function generateCSS(yamlData) {
-  let cssOutput = `:root {\n`
+  let cssOutput = `/* DO NOT EDIT DIRECTLY */\n`
+
+  cssOutput += `:root {\n`
 
   Object.entries(yamlData).forEach(([key, value]) => {
     cssOutput += `  --${key}: ${value.dark};\n`
@@ -16,12 +18,12 @@ function generateCSS(yamlData) {
   })
   cssOutput += `}\n`
 
-  return cssOutput
+  fs.writeFileSync('src/assets/themes.css', cssOutput)
 }
 
 function main() {
   try {
-    const yamlData = yaml.load(fs.readFileSync('colors.yaml', 'utf8'))
+    const yamlData = yaml.load(fs.readFileSync('src/assets/themes.yaml', 'utf8'))
     const cssOutput = generateCSS(yamlData)
     console.log(cssOutput)
   } catch (error) {
