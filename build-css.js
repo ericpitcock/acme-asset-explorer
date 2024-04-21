@@ -34,7 +34,7 @@ function writeCSS(yamlData) {
   })
   cssOutput += `}\n`
 
-  fs.writeFileSync('src/assets/themes.css', cssOutput)
+  fs.writeFileSync('src/assets/_variables.css', cssOutput)
 }
 
 function main() {

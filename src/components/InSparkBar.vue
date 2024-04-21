@@ -122,20 +122,20 @@
       }
 
       &:nth-child(1) {
-        background-color: var(--bg-color--alert-low);
+        background-color: var(--color-severity--low-bg);
         border-radius: 0.4rem 0 0 0.4rem;
       }
 
       &:nth-child(2) {
-        background-color: var(--bg-color--alert-medium);
+        background-color: var(--color-severity--medium-bg);
       }
 
       &:nth-child(3) {
-        background-color: var(--bg-color--alert-high);
+        background-color: var(--color-severity--high-bg);
       }
 
       &:nth-child(4) {
-        background-color: var(--bg-color--alert-critical);
+        background-color: var(--color-severity--critical-bg);
         border-radius: 0 0.4rem 0.4rem 0;
       }
     }

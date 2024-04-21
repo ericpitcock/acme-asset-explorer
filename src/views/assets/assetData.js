@@ -146,7 +146,7 @@ const assetDataArray = length => {
 
     const userStatusStylesMap = {
       Active: {
-        '--ep-status-indicator-dot-bg': 'hsl(90 80% 35% / 1)',
+        '--ep-status-indicator-dot-bg': 'var(--color-status--success-bg)',
         '--ep-status-indicator-dot-border': 'var(--ep-status-indicator-dot-bg)'
       },
       Inactive: {
@@ -154,8 +154,8 @@ const assetDataArray = length => {
         '--ep-status-indicator-dot-border': 'var(--border-color--lighter)'
       },
       Archived: {
-        '--ep-status-indicator-dot-bg': 'red',
-        '--ep-status-indicator-dot-border': 'red'
+        '--ep-status-indicator-dot-bg': 'var(--color-status--danger-bg)',
+        '--ep-status-indicator-dot-border': 'var(--color-status--danger-bg)'
       }
     }
 
