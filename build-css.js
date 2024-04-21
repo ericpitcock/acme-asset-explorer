@@ -2,7 +2,7 @@ const fs = require('fs')
 const yaml = require('js-yaml')
 const chokidar = require('chokidar')
 
-function generateCSS(yamlData) {
+function writeCSS(yamlData) {
   let cssOutput = `/* DO NOT EDIT DIRECTLY */\n`
 
   cssOutput += `:root {\n`
@@ -25,8 +25,7 @@ function generateCSS(yamlData) {
 function main() {
   try {
     const yamlData = yaml.load(fs.readFileSync('src/assets/themes.yaml', 'utf8'))
-    const cssOutput = generateCSS(yamlData)
-    console.log(cssOutput)
+    writeCSS(yamlData)
   } catch (error) {
     console.error('Error:', error)
   }
