@@ -256,9 +256,9 @@
 
 <style lang="scss" scoped>
   .in-version-chart {
-    // --chart-sequence-00: var(--severity-color--low);
-    // --chart-sequence-01: var(--severity-color--medium);
-    // --chart-sequence-02: var(--severity-color--high);
-    // --chart-sequence-03: var(--severity-color--critical);
+    // --chart-sequence-00: var(--color-severity--low-bg);
+    // --chart-sequence-01: var(--color-severity--medium-bg);
+    // --chart-sequence-02: var(--color-severity--high-bg);
+    // --chart-sequence-03: var(--color-severity--critical-bg);
   }
 </style>

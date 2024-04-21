@@ -148,10 +148,10 @@ for (let i = 0; i < 100; i++) {
   //     severity === 'High' ? 'warning' : 'danger'
 
   const severityBadgeBorderMap = {
-    Low: 'var(--severity-color--low--border)',
-    Medium: 'var(--severity-color--medium--border)',
-    High: 'var(--severity-color--high--border)',
-    Critical: 'var(--severity-color--critical--border)'
+    Low: 'var(--color-severity--low-border)',
+    Medium: 'var(--color-severity--medium-border)',
+    High: 'var(--color-severity--high-border)',
+    Critical: 'var(--color-severity--critical-bg)'
   }
 
   // generate base_score based on severity

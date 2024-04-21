@@ -1,5 +1,19 @@
 /* DO NOT EDIT DIRECTLY */
 :root {
+  --color-severity--low-bg: hsl(120, 6%, 67%);
+  --color-severity--low-border: hsl(120, 6%, 43%);
+  --color-severity--medium-bg: hsl(60, 62%, 65%);
+  --color-severity--medium-border: hsl(60, 40%, 45%);
+  --color-severity--high-bg: hsl(31, 70%, 50%);
+  --color-severity--high-border: hsl(31, 40%, 50%);
+  --color-severity--critical-bg: hsl(341, 70%, 50%);
+  --color-severity--critical-border: hsl(341, 40%, 50%);
+  --color-status--success-bg: hsl(120, 100%, 25%);
+  --color-status--success-border: hsl(120, 100%, 15%);
+  --color-status--warning-bg: hsl(45, 100%, 25%);
+  --color-status--warning-border: hsl(45, 100%, 15%);
+  --color-status--danger-bg: hsl(0, 100%, 25%);
+  --color-status--danger-border: hsl(0, 100%, 15%);
   --logo-color: hsl(0, 0%, 90%);
   --nav-link-hover-bg-color: var(--gray-420);
   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
@@ -10,17 +24,23 @@
   --page-header-background: radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface);
   --modal-overlay-background: rgba(22, 22, 22, 0.85);
   --text-selection: var(--tab-active-border-color);
-  --severity-color--low: hsl(120, 6%, 67%);
-  --severity-color--medium: hsl(60, 62%, 65%);
-  --severity-color--high: hsl(31, 70%, 50%);
-  --severity-color--critical: hsl(341, 70%, 50%);
-  --severity-color--low--border: hsl(120, 6%, 43%);
-  --severity-color--medium--border: hsl(60, 40%, 45%);
-  --severity-color--high--border: hsl(31, 40%, 50%);
-  --severity-color--critical--border: hsl(341, 40%, 50%);
   --active-color-bg: hsl(167 81% 28% / 1);
 }
 html[data-color-theme='light'] {
+  --color-severity--low-bg: hsl(0, 0%, 63%);
+  --color-severity--low-border: hsl(0, 0%, 63%);
+  --color-severity--medium-bg: hsl(41, 69%, 57%);
+  --color-severity--medium-border: hsl(41, 69%, 57%);
+  --color-severity--high-bg: hsl(27, 75%, 56%);
+  --color-severity--high-border: hsl(27, 75%, 56%);
+  --color-severity--critical-bg: hsl(338, 63%, 49%);
+  --color-severity--critical-border: hsl(338, 63%, 49%);
+  --color-status--success-bg: hsl(156, 56%, 66%);
+  --color-status--success-border: hsl(120, 100%, 15%);
+  --color-status--warning-bg: hsl(45, 100%, 25%);
+  --color-status--warning-border: hsl(45, 100%, 15%);
+  --color-status--danger-bg: hsl(0, 100%, 25%);
+  --color-status--danger-border: hsl(0, 100%, 15%);
   --logo-color: var(--text-color);
   --nav-link-hover-bg-color: var(--gray-20);
   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
@@ -31,13 +51,5 @@ html[data-color-theme='light'] {
   --page-header-background: radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface);
   --modal-overlay-background: rgba(224, 224, 224, 0.85);
   --text-selection: var(--tab-active-border-color);
-  --severity-color--low: hsl(0, 0%, 63%);
-  --severity-color--medium: hsl(41, 69%, 57%);
-  --severity-color--high: hsl(27, 75%, 56%);
-  --severity-color--critical: hsl(338, 63%, 49%);
-  --severity-color--low--border: hsl(0, 0%, 63%);
-  --severity-color--medium--border: hsl(41, 69%, 57%);
-  --severity-color--high--border: hsl(27, 75%, 56%);
-  --severity-color--critical--border: hsl(338, 63%, 49%);
   --active-color-bg: hsl(167 81% 28% / 1);
 }

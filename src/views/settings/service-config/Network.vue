@@ -81,8 +81,10 @@
               value: configStatus,
               props: {
                 label: configStatus,
-                variant,
-                outlined: true
+                styles: {
+                  '--ep-badge-bg-color': 'transparent',
+                  '--ep-badge-border-color': configStatus === 'Configured' ? 'var(--color-status--success-border)' : 'var(--color-status--warning-border)',
+                }
               }
             },
             name: `cyclops-${faker.number.int({ min: 1000, max: 9999 })}`,

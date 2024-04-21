@@ -28,30 +28,6 @@ modal-overlay-background:
 text-selection:
   dark: "var(--tab-active-border-color)"
   light: "var(--tab-active-border-color)"
-severity-color--low:
-  dark: "hsl(120, 6%, 67%)"
-  light: "hsl(0, 0%, 63%)"
-severity-color--medium:
-  dark: "hsl(60, 62%, 65%)"
-  light: "hsl(41, 69%, 57%)"
-severity-color--high:
-  dark: "hsl(31, 70%, 50%)"
-  light: "hsl(27, 75%, 56%)"
-severity-color--critical:
-  dark: "hsl(341, 70%, 50%)"
-  light: "hsl(338, 63%, 49%)"
-severity-color--low--border:
-  dark: "hsl(120, 6%, 43%)"
-  light: "hsl(0, 0%, 63%)"
-severity-color--medium--border:
-  dark: "hsl(60, 40%, 45%)"
-  light: "hsl(41, 69%, 57%)"
-severity-color--high--border:
-  dark: "hsl(31, 40%, 50%)"
-  light: "hsl(27, 75%, 56%)"
-severity-color--critical--border:
-  dark: "hsl(341, 40%, 50%)"
-  light: "hsl(338, 63%, 49%)"
 active-color-bg:
   dark: "hsl(167 81% 28% / 1)"
   light: "hsl(167 81% 28% / 1)"

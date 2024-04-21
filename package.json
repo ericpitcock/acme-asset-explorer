@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "build:css": "node build-css.js"
+    "build:css": "node build-css.js",
+    "start": "npm run serve && npm run build:css"
   },
   "dependencies": {
     "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",

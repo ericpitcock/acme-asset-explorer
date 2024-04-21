@@ -28,15 +28,15 @@
 //   --modal-overlay-background: rgba(22, 22, 22, 0.85);
 //   --text-selection: var(--tab-active-border-color);
 //   // severity fills
-//   --severity-color--low: hsl(120, 6%, 67%);
-//   --severity-color--medium: hsl(60, 62%, 65%);
-//   --severity-color--high: hsl(31, 70%, 50%);
-//   --severity-color--critical: hsl(341, 70%, 50%);
+//   --color-severity--low-bg: hsl(120, 6%, 67%);
+//   --color-severity--medium-bg: hsl(60, 62%, 65%);
+//   --color-severity--high-bg: hsl(31, 70%, 50%);
+//   --color-severity--critical-bg: hsl(341, 70%, 50%);
 //   // severity border
-//   --severity-color--low--border: hsl(120, 6%, 43%);
-//   --severity-color--medium--border: hsl(60, 40%, 45%);
-//   --severity-color--high--border: hsl(31, 40%, 50%);
-//   --severity-color--critical--border: hsl(341, 40%, 50%);
+//   --color-severity--low-border: hsl(120, 6%, 43%);
+//   --color-severity--medium-border: hsl(60, 40%, 45%);
+//   --color-severity--high-border: hsl(31, 40%, 50%);
+//   --color-severity--critical-bg: hsl(341, 40%, 50%);
 //   // active/inactive colors
 //   --active-color-bg: hsl(167 81% 28% / 1);
 // }
@@ -67,37 +67,37 @@
 //   --modal-overlay-background: rgba(224, 224, 224, 0.85);
 //   --text-selection: var(--tab-active-border-color);
 //   // severity fills
-//   --severity-color--low: hsl(0, 0%, 63%);
-//   --severity-color--medium: hsl(41, 69%, 57%);
-//   --severity-color--high: hsl(27, 75%, 56%);
-//   --severity-color--critical: hsl(338, 63%, 49%);
+//   --color-severity--low-bg: hsl(0, 0%, 63%);
+//   --color-severity--medium-bg: hsl(41, 69%, 57%);
+//   --color-severity--high-bg: hsl(27, 75%, 56%);
+//   --color-severity--critical-bg: hsl(338, 63%, 49%);
 //   // severity border
-//   --severity-color--low--border: hsl(0, 0%, 63%);
-//   --severity-color--medium--border: hsl(41, 69%, 57%);
-//   --severity-color--high--border: hsl(27, 75%, 56%);
-//   --severity-color--critical--border: hsl(338, 63%, 49%);
+//   --color-severity--low-border: hsl(0, 0%, 63%);
+//   --color-severity--medium-border: hsl(41, 69%, 57%);
+//   --color-severity--high-border: hsl(27, 75%, 56%);
+//   --color-severity--critical-bg: hsl(338, 63%, 49%);
 // }
 @import 'themes.css';
 
 // severity classes
 .severity--low {
-  background-color: var(--severity-color--low);
-  border-color: var(--severity-color--low--border);
+  background-color: var(--color-severity--low-bg);
+  border-color: var(--color-severity--low-border);
 }
 
 .severity--medium {
-  background-color: var(--severity-color--medium);
-  border-color: var(--severity-color--medium--border);
+  background-color: var(--color-severity--medium-bg);
+  border-color: var(--color-severity--medium-border);
 }
 
 .severity--high {
-  background-color: var(--severity-color--high);
-  border-color: var(--severity-color--high--border);
+  background-color: var(--color-severity--high-bg);
+  border-color: var(--color-severity--high-border);
 }
 
 .severity--critical {
-  background-color: var(--severity-color--critical);
-  border-color: var(--severity-color--critical--border);
+  background-color: var(--color-severity--critical-bg);
+  border-color: var(--color-severity--critical-bg);
 }
 
 // type

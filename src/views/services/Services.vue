@@ -132,7 +132,7 @@
       getbadgeStyles(status) {
         return {
           '--ep-badge-bg-color': 'transparent',
-          '--ep-badge-border-color': status === 'Subscribed' ? 'green' : status === 'Unsubscribed' ? 'var(--border-color)' : 'red',
+          '--ep-badge-border-color': status === 'Subscribed' ? 'var(--color-status--success-border)' : status === 'Unsubscribed' ? 'var(--border-color)' : 'var(--color-status--warning-border)',
         }
       },
       hasInactiveServices(category) {

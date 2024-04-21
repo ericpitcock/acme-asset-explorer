@@ -1,0 +1,18 @@
+color-status--success-bg:
+  dark: "hsl(120, 100%, 25%)"
+  light: "hsl(156, 56%, 66%)"
+color-status--success-border:
+  dark: "hsl(120, 100%, 15%)"
+  light: "hsl(120, 100%, 15%)"
+color-status--warning-bg:
+  dark: "hsl(45, 100%, 25%)"
+  light: "hsl(45, 100%, 25%)"
+color-status--warning-border:
+  dark: "hsl(45, 100%, 15%)"
+  light: "hsl(45, 100%, 15%)"
+color-status--danger-bg:
+  dark: "hsl(0, 100%, 25%)"
+  light: "hsl(0, 100%, 25%)"
+color-status--danger-border:
+  dark: "hsl(0, 100%, 15%)"
+  light: "hsl(0, 100%, 15%)"

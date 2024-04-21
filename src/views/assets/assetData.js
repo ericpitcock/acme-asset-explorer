@@ -122,11 +122,11 @@ const calculateRiskScoreBadgeBorderColor = (riskScore) => {
   if (riskScore === 'N/A') {
     return 'var(--border-color)'
   } else if (riskScore < 30) {
-    return 'var(--severity-color--medium--border)'
+    return 'var(--color-severity--medium-border)'
   } else if (riskScore < 60) {
-    return 'var(--severity-color--high--border)'
+    return 'var(--color-severity--high-border)'
   } else {
-    return 'var(--severity-color--critical--border)'
+    return 'var(--color-severity--critical-bg)'
   }
 }
 

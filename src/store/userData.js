@@ -19,8 +19,10 @@ const fakeUserData = length => {
         value: status,
         props: {
           label: status,
-          variant: variant,
-          outlined: true,
+          styles: {
+            '--ep-badge-bg-color': 'transparent',
+            '--ep-badge-border-color': `var(--color-status--${variant}-border)`,
+          }
         },
       },
       name: `${firstName} ${lastName}`,

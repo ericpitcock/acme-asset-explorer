@@ -6,8 +6,7 @@
           <h1>{{ config.name }}</h1>
           <ep-badge
             :label="config.config_status.value"
-            :variant="config.config_status.props.variant"
-            outlined
+            :styles="config.config_status.props.styles"
           />
         </template>
         <template #right>

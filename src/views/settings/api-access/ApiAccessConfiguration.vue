@@ -80,8 +80,10 @@
               label: 'Active',
               props: {
                 label: 'Active',
-                variant: 'success',
-                outlined: true,
+                styles: {
+                  '--ep-badge-bg-color': 'transparent',
+                  '--ep-badge-border-color': `var(--color-status--success-border)`,
+                }
               },
             },
             nickname: 'Tickets',
@@ -96,8 +98,10 @@
               label: 'Active',
               props: {
                 label: 'Active',
-                variant: 'success',
-                outlined: true,
+                styles: {
+                  '--ep-badge-bg-color': 'transparent',
+                  '--ep-badge-border-color': `var(--color-status--success-border)`,
+                }
               },
             },
             nickname: 'Threat Intel New',
@@ -112,8 +116,10 @@
               label: 'Expired',
               props: {
                 label: 'Expired',
-                variant: 'danger',
-                outlined: true,
+                styles: {
+                  '--ep-badge-bg-color': 'transparent',
+                  '--ep-badge-border-color': `var(--color-status--danger-border)`,
+                }
               },
             },
             nickname: 'Threat Intel',
