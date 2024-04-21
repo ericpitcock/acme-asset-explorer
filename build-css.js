@@ -1,5 +1,6 @@
 const fs = require('fs')
 const yaml = require('js-yaml')
+const chokidar = require('chokidar')
 
 function generateCSS(yamlData) {
   let cssOutput = `/* DO NOT EDIT DIRECTLY */\n`
@@ -31,4 +32,10 @@ function main() {
   }
 }
 
-main()
+// Watch for changes in themes.yaml
+const watcher = chokidar.watch('src/assets/themes.yaml')
+
+watcher.on('change', (path) => {
+  console.log('YAML file changed, regenerating CSS...')
+  main() // Re-run the script to generate updated CSS
+})
