@@ -2,10 +2,10 @@
   <div class="assets">
     <ep-container v-bind="headerContainerProps">
       <template #header>
-        <ep-header
-          height="9.1rem"
-          border-width="0"
-        >
+        <ep-header :styles="{
+          '--ep-header-container-height': '9.1rem',
+          '--ep-header-container-border-width': '0'
+        }">
           <template #left>
             <h1 class="page-head">
               Assets
@@ -230,25 +230,30 @@
   }
 
   const contentHeaderProps = computed(() => ({
-    ...commonPageHeaderProps,
-    leftFlex: '0 0 20rem',
-    leftPadding: '0 3rem',
-    centerFlex: '1',
-    centerPadding: '0 3rem 0 0',
-    itemGap: '0',
+    styles: {
+      ...commonPageHeaderProps.styles,
+      '--ep-header-left-flex': '0 0 20rem',
+      '--ep-header-left-padding': '0 3rem',
+      '--ep-header-center-flex': '1',
+      '--ep-header-center-padding': '0 3rem 0 0',
+      '--ep-header-content-gap': '0',
+    }
   }))
 
-  const headerContainerProps = computed(() => ({
-    backgroundColor: 'var(--page-header-background)',
-    borderWidth: '0',
-    containerPadding: '0 4rem',
-    // contentPadding: '2rem 1rem 0 1rem',
-  }))
+  const headerContainerProps = {
+    styles: {
+      '--ep-container-bg-color': 'var(--page-header-background)',
+      '--ep-container-border-width': '0',
+      '--ep-container-padding': '0 4rem',
+    }
+  }
 
   const chartContainerProps = {
-    background: 'transparent',
-    borderWidth: 'none',
-    contentPadding: '3rem 0',
+    styles: {
+      '--ep-container-bg-color': 'transparent',
+      '--ep-container-border-width': '0',
+      '--ep-container-content-padding': '3rem 0',
+    }
   }
 
   const handleRowClick = (row) => {
