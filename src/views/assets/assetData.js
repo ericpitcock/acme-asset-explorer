@@ -12,45 +12,45 @@ import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components
 
 const assetColumns = [
   {
-    header: 'ID',
+    label: 'ID',
     key: 'id',
   },
   {
-    header: 'Status',
+    label: 'Status',
     key: 'status',
   },
   {
-    header: 'Risk Score',
+    label: 'Risk Score',
     key: 'risk_score',
     cellType: 'component',
     component: markRaw(EpBadge),
   },
   {
-    header: 'User',
+    label: 'User',
     key: 'user',
     cellType: 'component',
     component: markRaw(InUserStatus),
   },
   {
-    header: 'Hostname',
+    label: 'Hostname',
     key: 'hostname',
     formatter: (value) => {
       return `<span class="text--overflow-hidden">${value}</span>`
     }
   },
   {
-    header: 'IP Address',
+    label: 'IP Address',
     key: 'ip_address',
     style: 'tabular-numbers',
   },
   {
-    header: 'Vulnerabilities',
+    label: 'Vulnerabilities',
     key: 'vulnerabilities',
     cellType: 'component',
     component: markRaw(InSparkBar),
   },
   {
-    header: 'Endpoint Version',
+    label: 'Endpoint Version',
     key: 'endpoint_version',
     formatter: (value) => {
       if (value != '1.0.2') {
@@ -60,29 +60,29 @@ const assetColumns = [
     }
   },
   {
-    header: 'Location',
+    label: 'Location',
     key: 'location',
   },
   {
-    header: 'Operating System',
+    label: 'Operating System',
     key: 'operating_system',
   },
   {
-    header: 'OS Version',
+    label: 'OS Version',
     key: 'os_version',
   },
   {
-    header: 'Last Seen',
+    label: 'Last Seen',
     key: 'last_seen',
     formatter: (value) => new Date(value).toLocaleString(),
   },
   {
-    header: 'IPv6 Address',
+    label: 'IPv6 Address',
     key: 'ipv6_address',
     style: 'tabular-numbers',
   },
   {
-    header: 'MAC Address',
+    label: 'MAC Address',
     key: 'mac_address',
     style: 'tabular-numbers',
   }

@@ -131,8 +131,9 @@
       },
       getbadgeStyles(status) {
         return {
-          '--ep-badge-bg-color': 'transparent',
-          '--ep-badge-border-color': status === 'Subscribed' ? 'var(--color-status--success-border)' : status === 'Unsubscribed' ? 'var(--border-color)' : 'var(--color-status--warning-border)',
+          '--ep-badge-bg-color': status === 'Subscribed' ? 'var(--color-status--success-bg)' : status === 'Unsubscribed' ? 'var(--interface-overlay)' : 'var(--color-status--danger-bg)',
+          '--ep-badge-border-color': status === 'Subscribed' ? 'var(--color-status--success-border)' : status === 'Unsubscribed' ? 'var(--border-color--lighter)' : 'var(--color-status--danger-border)',
+          '--ep-badge-text-color': 'var(--text-color--loud)'
         }
       },
       hasInactiveServices(category) {

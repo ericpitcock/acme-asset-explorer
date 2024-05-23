@@ -92,7 +92,8 @@
                       v-for="filter in columnFilters"
                       :key="filter.id"
                       v-bind="filter"
-                      @checkchange="handleFilter"
+                      v-model="filter.checked"
+                      @update:model-value="handleFilter"
                     />
                   </ep-flex-container>
                 </ep-container>
@@ -111,6 +112,7 @@
                 :key="checkbox.label"
                 v-bind="checkbox"
                 v-model="checkbox.checked"
+                @update:model-value="console.log('update')"
               />
             </template>
           </ep-flex-container>
@@ -145,178 +147,148 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import { ref, computed, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
-  import { assetColumns } from './assetData.js'
-  import useFilters from '@/composables/useFilters.js'
   import EpEmptyState from '@ericpitcock/epicenter-vue-components/src/components/empty-state/EpEmptyState.vue'
   import InSeverityChart from './InSeverityChart.vue'
   import InVulnTrendChart from './InVulnTrendChart.vue'
   import InOsVersionChart from './InOsVersionChart.vue'
+  import useFilters from '@/composables/useFilters.js'
+  import useExclude from '@epicenter/components/table/useExclude.js'
+  import { assetColumns } from './assetData.js'
 
-  export default {
-    name: 'InAssets',
-    components: {
-      InSidebarLayout,
-      EpEmptyState,
-      InSeverityChart,
-      InVulnTrendChart,
-      InOsVersionChart,
-    },
-    setup() {
-      const hiddenColumns = ref([
-        'ipv6_address',
-        'mac_address',
-        'last_seen',
-        'os_version',
-        'operating_system',
-        'endpoint_version',
-      ])
-      const search = ref([])
+  const hiddenColumns = ref([
+    'ipv6_address',
+    'mac_address',
+    'last_seen',
+    'os_version',
+    'operating_system',
+    'endpoint_version',
+  ])
+  const search = ref([])
 
-      const store = useStore()
-      const router = useRouter()
-      const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
-      const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
-      const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
-      const rightPanelOpen = computed(() => store.state.rightPanelOpen)
+  const store = useStore()
+  const router = useRouter()
+  const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
+  const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+  const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
+  const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-      const assetDataRef = computed(() => store.state.assets)
+  const assetDataRef = computed(() => store.state.assets)
 
-      const containerProps = {
-        backgroundColor: 'var(--interface-overlay)',
-        borderRadius: 'var(--border-radius)',
-        borderColor: 'var(--border-color--lighter)',
-        containerPadding: '2rem',
-      }
-
-      const multiSearchProps = {
-        height: '3.8rem',
-        backgroundColor: 'var(--interface-foreground)',
-        icon: { name: 'search' },
-        placeholder: 'Search assets',
-      }
-
-      const tableProps = {
-        columns: assetColumns,
-        bordered: true,
-        exclude: ['id', 'status'],
-        headerBackgroundColor: 'var(--interface-surface)',
-        searchable: true,
-        selectable: true,
-        stickyHeader: true,
-        stickyTop: '61',
-        striped: true,
-        sortDir: 'desc',
-        sortable: true,
-        width: '100%',
-      }
-
-      const columnFilters = computed(() => {
-        return assetColumns.map(column => ({
-          id: column.key,
-          name: 'columns',
-          value: column.key,
-          checked: !hiddenColumns.value.includes(column.key),
-          label: column.header,
-          disabled: false,
-        })).filter(filter => !tableProps.exclude.includes(filter.id))
-      })
-
-      const columnFiltersDropdownProps = {
-        buttonProps: {
-          label: 'Columns',
-          variant: 'secondary',
-          iconLeft: { name: 'f/columns' },
-        },
-      }
-
-      const contentHeaderProps = computed(() => ({
-        ...commonPageHeaderProps,
-        leftFlex: '0 0 20rem',
-        leftPadding: '0 3rem',
-        centerFlex: '1',
-        centerPadding: '0 3rem 0 0',
-        itemGap: '0',
-      }))
-
-      const headerContainerProps = computed(() => ({
-        backgroundColor: 'var(--page-header-background)',
-        borderWidth: '0',
-        containerPadding: '0 4rem',
-        // contentPadding: '2rem 1rem 0 1rem',
-      }))
-
-      const chartContainerProps = {
-        background: 'transparent',
-        borderWidth: 'none',
-        contentPadding: '3rem 0',
-      }
-
-      const handleRowClick = (row) => {
-        store.commit('addSelectedAsset', row)
-        router.push({ path: `/assets/${row.id}` })
-      }
-
-      const handleFilter = (event) => {
-        if (!event.target.checked) {
-          hiddenColumns.value.push(event.target.id)
-        } else {
-          hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
-        }
-      }
-
-      const updateSearch = (value) => {
-        search.value = value
-      }
-
-      const queryClose = (query) => {
-        search.value = search.value.filter(item => item !== query)
-      }
-
-      watch([
-        leftPanelCollapsed,
-        leftPanelCollapsedUser,
-        rightPanelOpen
-      ], () => {
-        window.dispatchEvent(new Event('resize'))
-      })
-
-      onMounted(() => {
-        const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
-        const disabledFilters = ['Archived']
-
-        generateFilters(columnsToFilter, disabledFilters)
-      })
-
-      const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
-
-      return {
-        assetColumns,
-        chartContainerProps,
-        columnFilters,
-        columnFiltersDropdownProps,
-        commonContainerProps,
-        commonPageHeaderProps,
-        containerProps,
-        contentHeaderProps,
-        multiSearchProps,
-        search,
-        tableProps,
-        filters,
-        filteredData,
-        handleRowClick,
-        handleFilter,
-        headerContainerProps,
-        hiddenColumns,
-        queryClose,
-        updateSearch,
-      }
+  const containerProps = {
+    styles: {
+      '--ep-container-bg-color': 'var(--interface-overlay)',
+      '--ep-container-border-radius': 'var(--border-radius)',
+      '--ep-container-border-color': 'var(--border-color--lighter)',
+      '--ep-container-padding': '2rem',
     }
   }
+
+  const multiSearchProps = {
+    height: '3.8rem',
+    backgroundColor: 'var(--interface-foreground)',
+    icon: { name: 'search' },
+    placeholder: 'Search assets',
+  }
+
+  const tableProps = {
+    columns: assetColumns,
+    bordered: true,
+    exclude: ['id', 'status'],
+    headerBackgroundColor: 'var(--interface-surface)',
+    searchable: true,
+    selectable: true,
+    stickyHeader: true,
+    stickyTop: '61',
+    striped: true,
+    sortDir: 'desc',
+    sortable: true,
+    width: '100%',
+  }
+
+  const columnFilters = computed(() => {
+    return assetColumns.map(column => ({
+      id: column.key,
+      name: 'columns',
+      value: column.key,
+      checked: !hiddenColumns.value.includes(column.key),
+      label: column.label,
+      disabled: false,
+    })).filter(filter => !tableProps.exclude.includes(filter.id))
+  })
+
+  const columnFiltersDropdownProps = {
+    buttonProps: {
+      label: 'Columns',
+      variant: 'secondary',
+      iconLeft: { name: 'f-columns' },
+    }
+  }
+
+  const contentHeaderProps = computed(() => ({
+    ...commonPageHeaderProps,
+    leftFlex: '0 0 20rem',
+    leftPadding: '0 3rem',
+    centerFlex: '1',
+    centerPadding: '0 3rem 0 0',
+    itemGap: '0',
+  }))
+
+  const headerContainerProps = computed(() => ({
+    backgroundColor: 'var(--page-header-background)',
+    borderWidth: '0',
+    containerPadding: '0 4rem',
+    // contentPadding: '2rem 1rem 0 1rem',
+  }))
+
+  const chartContainerProps = {
+    background: 'transparent',
+    borderWidth: 'none',
+    contentPadding: '3rem 0',
+  }
+
+  const handleRowClick = (row) => {
+    store.commit('addSelectedAsset', row)
+    router.push({ path: `/assets/${row.id}` })
+  }
+
+  const handleFilter = (event) => {
+    if (!event.target.checked) {
+      hiddenColumns.value.push(event.target.id)
+    } else {
+      hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
+    }
+  }
+
+  const updateSearch = (value) => {
+    search.value = value
+  }
+
+  const queryClose = (query) => {
+    search.value = search.value.filter(item => item !== query)
+  }
+
+  watch([
+    leftPanelCollapsed,
+    leftPanelCollapsedUser,
+    rightPanelOpen
+  ], () => {
+    window.dispatchEvent(new Event('resize'))
+  })
+
+  onMounted(() => {
+    const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
+    const disabledFilters = ['Archived']
+
+    generateFilters(columnsToFilter, disabledFilters)
+  })
+
+  const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
+
 </script>
 
 <style lang="scss" scoped>

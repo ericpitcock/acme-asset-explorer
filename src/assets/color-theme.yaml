@@ -1,33 +1,33 @@
 logo-color:
-  dark: "hsl(0, 0%, 90%)"
-  light: "var(--text-color)"
+  dark: hsl(0, 0%, 90%)
+  light: var(--text-color)
 nav-link-hover-bg-color:
-  dark: "var(--gray-420)"
-  light: "var(--gray-20)"
+  dark: var(--gray-420)
+  light: var(--gray-20)
 nav-link-active-bg-color:
-  dark: "linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)"
-  light: "linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)"
+  dark: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)
+  light: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)
 nav-link-icon-color:
-  dark: "var(--sky-300)"
-  light: "var(--color--primary)"
+  dark: var(--sky-300)
+  light: var(--color--primary)
 nav-link-active-icon-color:
-  dark: "var(--white)"
-  light: "var(--text-color--inverse)"
+  dark: var(--white)
+  light: var(--text-color--inverse)
 nav-link-active-text-color:
-  dark: "var(--white)"
-  light: "var(--text-color--inverse)"
+  dark: var(--white)
+  light: var(--text-color--inverse)
 app-header-background:
-  dark: "linear-gradient(150deg, hsl(0, 0%, 12%) 0%, hsl(242, 31%, 34%) 40%, hsl(277, 32%, 29%) 60%, hsl(0, 0%, 12%) 80%)"
-  light: "linear-gradient(150deg, hsl(0, 0%, 20%) 0%, hsl(242, 31%, 54%) 40%, hsl(277, 32%, 49%) 60%, hsl(0, 0%, 20%) 80%)"
+  dark: linear-gradient(150deg, hsl(0, 0%, 12%) 0%, hsl(242, 31%, 34%) 40%, hsl(277, 32%, 29%) 60%, hsl(0, 0%, 12%) 80%)
+  light: linear-gradient(150deg, hsl(0, 0%, 20%) 0%, hsl(242, 31%, 54%) 40%, hsl(277, 32%, 49%) 60%, hsl(0, 0%, 20%) 80%)
 page-header-background:
-  dark: "radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface)"
-  light: "radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface)"
+  dark: radial-gradient(ellipse at 40% 0%, hsla(324, 54%, 49%, 0.063) 0, transparent 75%), radial-gradient(ellipse at 60% 0%, hsla(212, 92%, 45%, 0.063) 0, transparent 75%), var(--interface-surface)
+  light: radial-gradient(ellipse at 40% 0%, hsla(324, 54%, 49%, 0.063) 0, transparent 75%), radial-gradient(ellipse at 60% 0%, hsla(212, 92%, 45%, 0.063) 0, transparent 75%), var(--interface-surface)
 modal-overlay-background:
-  dark: "rgba(22, 22, 22, 0.85)"
-  light: "rgba(224, 224, 224, 0.85)"
+  dark: hsla(0, 0%, 9%, 0.85)
+  light: hsla(0, 0%, 88%, 0.85)
 text-selection:
-  dark: "var(--tab-active-border-color)"
-  light: "var(--tab-active-border-color)"
+  dark: var(--tab-active-border-color)
+  light: var(--tab-active-border-color)
 active-color-bg:
-  dark: "hsl(167 81% 28% / 1)"
-  light: "hsl(167 81% 28% / 1)"
+  dark: hsl(167, 81%, 28%)
+  light: hsl(167, 81%, 28%)

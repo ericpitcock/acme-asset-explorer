@@ -1,83 +1,21 @@
-// dark mode
-// :root,
-// html[data-color-theme='dark'] {
-//   // nav
-//   --logo-color: hsl(0, 0%, 90%);
-//   --nav-link-hover-bg-color: var(--gray-420);
-//   --nav-link-active-bg-color: linear-gradient(45deg,
-//       hsl(228, 68%, 60%) 50%,
-//       hsl(199, 77%, 55%) 100%);
-//   --nav-link-icon-color: var(--sky-300);
-//   --nav-link-active-text-color: var(--white);
-//   --nav-link-active-icon-color: var(--white);
-//   --app-header-background:
-//     linear-gradient(150deg,
-//       hsl(0, 0%, 12%) 0%,
-//       hsl(242, 31%, 34%) 40%,
-//       hsl(277, 32%, 29%) 60%,
-//       hsl(0, 0%, 12%) 80%);
-//   --page-header-background:
-//     radial-gradient(ellipse at 40% 0%,
-//       #bf398910 0,
-//       transparent 75%),
-//     radial-gradient(ellipse at 60% 0%,
-//       #096bde10 0,
-//       transparent 75%),
-//     var(--interface-surface);
-//   // modal overlay background color
-//   --modal-overlay-background: rgba(22, 22, 22, 0.85);
-//   --text-selection: var(--tab-active-border-color);
-//   // severity fills
-//   --color-severity--low-bg: hsl(120, 6%, 67%);
-//   --color-severity--medium-bg: hsl(60, 62%, 65%);
-//   --color-severity--high-bg: hsl(31, 70%, 50%);
-//   --color-severity--critical-bg: hsl(341, 70%, 50%);
-//   // severity border
-//   --color-severity--low-border: hsl(120, 6%, 43%);
-//   --color-severity--medium-border: hsl(60, 40%, 45%);
-//   --color-severity--high-border: hsl(31, 40%, 50%);
-//   --color-severity--critical-bg: hsl(341, 40%, 50%);
-//   // active/inactive colors
-//   --active-color-bg: hsl(167 81% 28% / 1);
-// }
-// // light mode
-// html[data-color-theme='light'] {
-//   // nav
-//   --logo-color: var(--text-color);
-//   --nav-link-hover-bg-color: var(--gray-20);
-//   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
-//   --nav-link-icon-color: var(--color--primary);
-//   --nav-link-active-icon-color: var(--text-color--inverse);
-//   --nav-link-active-text-color: var(--text-color--inverse);
-//   --app-header-background:
-//     linear-gradient(150deg,
-//       hsl(0, 0%, 20%) 0%,
-//       hsl(242, 31%, 54%) 40%,
-//       hsl(277, 32%, 49%) 60%,
-//       hsl(0, 0%, 20%) 80%);
-//   --page-header-background:
-//     radial-gradient(ellipse at 40% 0%,
-//       #bf398910 0,
-//       transparent 75%),
-//     radial-gradient(ellipse at 60% 0%,
-//       #096bde10 0,
-//       transparent 75%),
-//     var(--interface-surface);
-//   // modal overlay background color
-//   --modal-overlay-background: rgba(224, 224, 224, 0.85);
-//   --text-selection: var(--tab-active-border-color);
-//   // severity fills
-//   --color-severity--low-bg: hsl(0, 0%, 63%);
-//   --color-severity--medium-bg: hsl(41, 69%, 57%);
-//   --color-severity--high-bg: hsl(27, 75%, 56%);
-//   --color-severity--critical-bg: hsl(338, 63%, 49%);
-//   // severity border
-//   --color-severity--low-border: hsl(0, 0%, 63%);
-//   --color-severity--medium-border: hsl(41, 69%, 57%);
-//   --color-severity--high-border: hsl(27, 75%, 56%);
-//   --color-severity--critical-bg: hsl(338, 63%, 49%);
-// }
-@import '_variables.css';
+// @import '_variables.css';
+.in-ghost-button {
+  --ep-button-bg-color: transparent;
+  --ep-button-text-color: var(--text-color--loud);
+  // --ep-button-border-width: 0;
+  // --ep-button-border-style: none;
+  --ep-button-border-color: transparent;
+  --ep-button-border-radius: 0.3rem;
+  --ep-button-hover-bg-color: var(--interface-foreground);
+  --ep-button-hover-text-color: var(--text-color--loud);
+  --ep-button-hover-border-color: transparent;
+  --ep-button-active-bg-color: var(--interface-foreground);
+  --ep-button-active-text-color: var(--text-color);
+  --ep-button-active-border-color: var(--border-color);
+  --ep-button-disabled-bg-color: var(--interface-foreground);
+  --ep-button-disabled-text-color: var(--text-color--disabled);
+  --ep-button-disabled-border-color: var(--border-color--disabled);
+}
 
 // severity classes
 .severity--low {

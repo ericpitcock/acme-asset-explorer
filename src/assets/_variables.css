@@ -8,12 +8,12 @@
   --color-severity--high-border: hsl(31, 40%, 50%);
   --color-severity--critical-bg: hsl(341, 70%, 50%);
   --color-severity--critical-border: hsl(341, 40%, 50%);
-  --color-status--success-bg: hsl(120, 100%, 25%);
-  --color-status--success-border: hsl(120, 100%, 15%);
+  --color-status--success-bg: hsl(170, 80%, 29%);
+  --color-status--success-border: hsl(170, 80%, 29%);
   --color-status--warning-bg: hsl(45, 100%, 25%);
   --color-status--warning-border: hsl(45, 100%, 15%);
-  --color-status--danger-bg: hsl(0, 100%, 25%);
-  --color-status--danger-border: hsl(0, 100%, 15%);
+  --color-status--danger-bg: hsl(350, 55%, 45%);
+  --color-status--danger-border: hsl(350, 55%, 45%);
   --logo-color: hsl(0, 0%, 90%);
   --nav-link-hover-bg-color: var(--gray-420);
   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
@@ -21,10 +21,10 @@
   --nav-link-active-icon-color: var(--white);
   --nav-link-active-text-color: var(--white);
   --app-header-background: linear-gradient(150deg, hsl(0, 0%, 12%) 0%, hsl(242, 31%, 34%) 40%, hsl(277, 32%, 29%) 60%, hsl(0, 0%, 12%) 80%);
-  --page-header-background: radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface);
-  --modal-overlay-background: rgba(22, 22, 22, 0.85);
+  --page-header-background: radial-gradient(ellipse at 40% 0%, hsla(324, 54%, 49%, 0.063) 0, transparent 75%), radial-gradient(ellipse at 60% 0%, hsla(212, 92%, 45%, 0.063) 0, transparent 75%), var(--interface-surface);
+  --modal-overlay-background: hsla(0, 0%, 9%, 0.85);
   --text-selection: var(--tab-active-border-color);
-  --active-color-bg: hsl(167 81% 28% / 1);
+  --active-color-bg: hsl(167, 81%, 28%);
 }
 html[data-color-theme='light'] {
   --color-severity--low-bg: hsl(0, 0%, 63%);
@@ -48,8 +48,8 @@ html[data-color-theme='light'] {
   --nav-link-active-icon-color: var(--text-color--inverse);
   --nav-link-active-text-color: var(--text-color--inverse);
   --app-header-background: linear-gradient(150deg, hsl(0, 0%, 20%) 0%, hsl(242, 31%, 54%) 40%, hsl(277, 32%, 49%) 60%, hsl(0, 0%, 20%) 80%);
-  --page-header-background: radial-gradient(ellipse at 40% 0%, #bf398910 0, transparent 75%), radial-gradient(ellipse at 60% 0%, #096bde10 0, transparent 75%), var(--interface-surface);
-  --modal-overlay-background: rgba(224, 224, 224, 0.85);
+  --page-header-background: radial-gradient(ellipse at 40% 0%, hsla(324, 54%, 49%, 0.063) 0, transparent 75%), radial-gradient(ellipse at 60% 0%, hsla(212, 92%, 45%, 0.063) 0, transparent 75%), var(--interface-surface);
+  --modal-overlay-background: hsla(0, 0%, 88%, 0.85);
   --text-selection: var(--tab-active-border-color);
-  --active-color-bg: hsl(167 81% 28% / 1);
+  --active-color-bg: hsl(167, 81%, 28%);
 }

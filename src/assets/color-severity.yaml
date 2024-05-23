@@ -1,24 +1,24 @@
 color-severity--low-bg:
-  dark: "hsl(120, 6%, 67%)"
-  light: "hsl(0, 0%, 63%)"
+  dark: hsl(120, 6%, 67%)
+  light: hsl(0, 0%, 63%)
 color-severity--low-border:
-  dark: "hsl(120, 6%, 43%)"
-  light: "hsl(0, 0%, 63%)"
+  dark: hsl(120, 6%, 43%)
+  light: hsl(0, 0%, 63%)
 color-severity--medium-bg:
-  dark: "hsl(60, 62%, 65%)"
-  light: "hsl(41, 69%, 57%)"
+  dark: hsl(60, 62%, 65%)
+  light: hsl(41, 69%, 57%)
 color-severity--medium-border:
-  dark: "hsl(60, 40%, 45%)"
-  light: "hsl(41, 69%, 57%)"
+  dark: hsl(60, 40%, 45%)
+  light: hsl(41, 69%, 57%)
 color-severity--high-bg:
-  dark: "hsl(31, 70%, 50%)"
-  light: "hsl(27, 75%, 56%)"
+  dark: hsl(31, 70%, 50%)
+  light: hsl(27, 75%, 56%)
 color-severity--high-border:
-  dark: "hsl(31, 40%, 50%)"
-  light: "hsl(27, 75%, 56%)"
+  dark: hsl(31, 40%, 50%)
+  light: hsl(27, 75%, 56%)
 color-severity--critical-bg:
-  dark: "hsl(341, 70%, 50%)"
-  light: "hsl(338, 63%, 49%)"
+  dark: hsl(341, 70%, 50%)
+  light: hsl(338, 63%, 49%)
 color-severity--critical-border:
-  dark: "hsl(341, 40%, 50%)"
-  light: "hsl(338, 63%, 49%)"
+  dark: hsl(341, 40%, 50%)
+  light: hsl(338, 63%, 49%)

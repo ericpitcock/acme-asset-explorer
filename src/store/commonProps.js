@@ -2,8 +2,10 @@ export default {
   namespaced: true,
   state: {
     commonContainerProps: {
-      backgroundColor: 'var(--interface-surface)',
-      containerPadding: '0 3rem',
+      styles: {
+        '--ep-container-bg-color': 'var(--interface-surface)',
+        '--ep-container-padding': '0 3rem',
+      }
     },
     commonHeaderProps: {
       backgroundColor: 'var(--interface-surface)'

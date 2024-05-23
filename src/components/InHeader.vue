@@ -2,7 +2,7 @@
   <div class="app-header">
     <div class="app-controls app-controls--left">
       <ep-button
-        variant="ghost"
+        :classes="['in-ghost-button']"
         :icon-left="{ name: 'menu' }"
         @click="toggleleftPanelCollapsedUser"
       />
@@ -15,13 +15,13 @@
     </div>
     <div class="app-controls app-controls--right">
       <ep-button
-        variant="ghost"
+        :classes="['in-ghost-button']"
         :icon-left="themeIcon"
         @click="toggleTheme"
       />
       <ep-dropdown v-bind="helpDropdownProps" />
       <ep-button
-        variant="ghost"
+        :classes="['in-ghost-button']"
         :label="''"
         :icon-right="null"
         :icon-left="{ name: 'notifications' }"
@@ -41,7 +41,7 @@
       return {
         userDropdownProps: {
           buttonProps: {
-            variant: 'ghost',
+            classes: ['in-ghost-button'],
             label: '',
             iconRight: null,
             iconLeft: { name: 'user' }
@@ -74,7 +74,7 @@
         helpDropdownProps: {
           alignRight: true,
           buttonProps: {
-            variant: 'ghost',
+            classes: ['in-ghost-button'],
             label: '',
             iconRight: null,
             iconLeft: { name: 'help' }
@@ -137,7 +137,7 @@
       top: 0.1rem;
       right: 0.25rem;
       content: '';
-      background: green;
+      background: var(--color-status--success-bg);
       width: 7px;
       height: 7px;
       border-radius: 5px;
