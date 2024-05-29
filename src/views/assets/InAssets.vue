@@ -128,8 +128,7 @@
         </ep-empty-state>
         <ep-container
           v-else
-          v-bind="commonContainerProps"
-          container-padding="1rem 3rem 3rem"
+          v-bind="tableContainerProps"
         >
           <ep-table
             :columns="visibleColumns"
@@ -189,6 +188,13 @@
     }
   }
 
+  const tableContainerProps = {
+    styles: {
+      ...commonContainerProps.styles,
+      '--ep-container-padding': '1rem 3rem 3rem'
+    }
+  }
+
   const multiSearchProps = {
     height: '3.8rem',
     backgroundColor: 'var(--interface-foreground)',
@@ -236,8 +242,6 @@
     visibleData,
     handleFilter
   } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
-
-  console.log('columnFilters', columnFilters.value)
 
   const tableProps = {
     // columns: includedColumns.value,

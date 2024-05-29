@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 // import Dashboard from '@/views/dashboard/Dashboard.vue'
-import Assets from '@/views/assets/Assets.vue'
+import InAssets from '@/views/assets/InAssets.vue'
 import InAssetDetails from '@/views/assets/InAssetDetails.vue'
-import Vulnerabilities from '@/views/vulnerabilities/Vulnerabilities.vue'
+import InVulnerabilities from '@/views/vulnerabilities/InVulnerabilities.vue'
 import VulnerabilityDetails from '@/views/vulnerabilities/VulnerabilityDetails.vue'
 import Services from '@/views/services/Services.vue'
 import ServiceDetails from '@/views/services/ServiceDetails.vue'
@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/',
     name: 'assets',
-    component: Assets,
+    component: InAssets,
     meta: {
       title: 'Assets',
     },
@@ -65,7 +65,7 @@ const routes = [
   {
     path: '/vulnerabilities',
     name: 'vulnerabilities',
-    component: Vulnerabilities,
+    component: InVulnerabilities,
     meta: {
       title: 'Vulnerabilities',
     },

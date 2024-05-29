@@ -5,13 +5,13 @@ import { generatePastDate, generateRecentDate } from '../utils/helpers.js'
 
 const vulnTableColumns = [
   {
-    header: 'Severity',
+    label: 'Severity',
     key: 'severity',
     cellType: 'component',
     component: markRaw(EpBadge),
   },
   {
-    header: 'Description',
+    label: 'Description',
     key: 'description',
     formatter: (value) => {
       const subString = value.substring(0, 140)
@@ -19,36 +19,36 @@ const vulnTableColumns = [
     }
   },
   {
-    header: 'Affected Assets',
+    label: 'Affected Assets',
     key: 'affected_assets',
   },
   {
-    header: 'Score',
+    label: 'Score',
     key: 'base_score'
   },
   {
-    header: 'ID',
+    label: 'ID',
     key: 'id',
     formatter: (value) => {
       return `<span class="text--overflow-hidden">${value}</span>`
     }
   },
   {
-    header: 'Published Date',
+    label: 'Published Date',
     key: 'published_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
   },
   {
-    header: 'Last Modified Date',
+    label: 'Last Modified Date',
     key: 'last_modified_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
     }
   },
   {
-    header: 'Date Seen',
+    label: 'Date Seen',
     key: 'date_seen',
     formatter: (value) => {
       return new Date(value).toLocaleString()
