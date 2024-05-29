@@ -14,40 +14,50 @@ const assetColumns = [
   {
     label: 'ID',
     key: 'id',
+    filterable: true,
   },
   {
     label: 'Status',
     key: 'status',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Risk Score',
     key: 'risk_score',
-    cellType: 'component',
     component: markRaw(EpBadge),
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'User',
     key: 'user',
-    cellType: 'component',
     component: markRaw(InUserStatus),
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Hostname',
     key: 'hostname',
     formatter: (value) => {
       return `<span class="text--overflow-hidden">${value}</span>`
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'IP Address',
     key: 'ip_address',
     style: 'tabular-numbers',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Vulnerabilities',
     key: 'vulnerabilities',
-    cellType: 'component',
     component: markRaw(InSparkBar),
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Endpoint Version',
@@ -57,34 +67,48 @@ const assetColumns = [
         return `<span style="color: var(--text-color--danger);">${value} △</span>`
       }
       return value
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Location',
     key: 'location',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Operating System',
     key: 'operating_system',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'OS Version',
     key: 'os_version',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Last Seen',
     key: 'last_seen',
     formatter: (value) => new Date(value).toLocaleString(),
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'IPv6 Address',
     key: 'ipv6_address',
     style: 'tabular-numbers',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'MAC Address',
     key: 'mac_address',
     style: 'tabular-numbers',
+    sortable: true,
+    filterable: true,
   }
 ]
 
@@ -165,12 +189,12 @@ const assetDataArray = length => {
       '--ep-badge-border-color': calculateRiskScoreBadgeBorderColor(riskScore)
     }
 
-    const sites = ['New York City', 'London', 'Tokyo']
+    const site = faker.helpers.arrayElement(['New York City', 'London', 'Tokyo'])
     const operatingSystem = faker.helpers.arrayElement(['Windows', 'macOS', 'Linux'])
     const userFirstName = faker.person.firstName()
     const userLastName = faker.person.lastName()
     const user = `${userFirstName}.${userLastName}@acme.io`
-    const hostname = `${faker.helpers.arrayElement(sites).slice(0, 3)}-${operatingSystem.slice(0, 3)}-${userFirstName.slice(0, 1) + userLastName}`
+    const hostname = `${site.slice(0, 3)}-${operatingSystem.slice(0, 3)}-${userFirstName.slice(0, 1) + userLastName}`
 
     arr.push({
       id: faker.string.uuid(),
@@ -201,7 +225,7 @@ const assetDataArray = length => {
       endpoint_version: status === 'Archived'
         ? '1.0.0'
         : faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
-      location: faker.helpers.arrayElement(sites),
+      location: site,
       operating_system: operatingSystem,
       os_version: generateOsVersion(operatingSystem),
       last_seen: status === 'Archived'

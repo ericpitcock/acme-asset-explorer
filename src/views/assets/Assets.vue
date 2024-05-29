@@ -61,7 +61,7 @@
     </ep-container>
     <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <h1>{{ filteredData.length }} assets</h1>
+        <h1>{{ assetDataRef.length }} assets</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -93,13 +93,12 @@
                       :key="filter.id"
                       v-bind="filter"
                       v-model="filter.checked"
-                      @update:model-value="handleFilter"
+                      @update:model-value="handleFilter($event, filter.id)"
                     />
                   </ep-flex-container>
                 </ep-container>
               </template>
             </ep-dropdown>
-
             <template
               v-for="(filterSet, category) in filters"
               :key="category"
@@ -112,7 +111,6 @@
                 :key="checkbox.label"
                 v-bind="checkbox"
                 v-model="checkbox.checked"
-                @update:model-value="console.log('update')"
               />
             </template>
           </ep-flex-container>
@@ -120,7 +118,7 @@
       </template>
       <template #content>
         <ep-empty-state
-          v-if="filteredData.length === 0"
+          v-if="assetDataRef.length === 0"
           style="height: 100%;"
         >
           <p>No assets found</p>
@@ -134,13 +132,20 @@
           container-padding="1rem 3rem 3rem"
         >
           <ep-table
-            :data="filteredData"
+            :columns="visibleColumns"
+            :data="visibleData"
             v-bind="tableProps"
-            :search="search"
-            :hidden-columns="hiddenColumns"
-            style="width: 100%; overflow: unset;"
             @row-click="handleRowClick"
-          />
+          >
+            <template #header="{ column }">
+              <ep-table-sortable-header
+                :column="column"
+                :sort-column="sortColumn"
+                :sort-order="sortOrder"
+                @sort="sortBy"
+              />
+            </template>
+          </ep-table>
         </ep-container>
       </template>
     </in-sidebar-layout>
@@ -156,18 +161,13 @@
   import InSeverityChart from './InSeverityChart.vue'
   import InVulnTrendChart from './InVulnTrendChart.vue'
   import InOsVersionChart from './InOsVersionChart.vue'
-  import useFilters from '@/composables/useFilters.js'
-  import useExclude from '@epicenter/components/table/useExclude.js'
   import { assetColumns } from './assetData.js'
+  import useExclude from '@epicenter/components/table/useExclude.js'
+  import useSorting from '@epicenter/components/table/useSorting.js'
+  import useDataFilters from '@epicenter/components/table/useDataFilters.js'
+  import useColumnFilters from '@epicenter/components/table/useColumnFilters.js'
+  import EpTableSortableHeader from '@epicenter/components/table/EpTableSortableHeader.vue'
 
-  const hiddenColumns = ref([
-    'ipv6_address',
-    'mac_address',
-    'last_seen',
-    'os_version',
-    'operating_system',
-    'endpoint_version',
-  ])
   const search = ref([])
 
   const store = useStore()
@@ -177,7 +177,8 @@
   const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
   const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-  const assetDataRef = computed(() => store.state.assets)
+  const assetDataRef = ref(store.state.assets)
+  const assetColumnsRef = ref(assetColumns)
 
   const containerProps = {
     styles: {
@@ -195,31 +196,77 @@
     placeholder: 'Search assets',
   }
 
+  const {
+    includedColumns,
+    includedData
+  } = useExclude(assetColumnsRef, assetDataRef, ['id'])
+
+  const {
+    sortedData,
+    sortBy,
+    sortColumn,
+    sortOrder
+  } = useSorting(includedData, 'user', 'desc')
+
+  onMounted(() => {
+    const columnsToFilter = ['location', 'operating_system', 'status', 'endpoint_version']
+    const disabledFilters = ['Archived']
+
+    generateFilters(columnsToFilter, disabledFilters)
+  })
+
+  const {
+    filters,
+    generateFilters,
+    filteredData
+  } = useDataFilters(includedColumns, sortedData)
+
+  const hiddenColumns = [
+    'ipv6_address',
+    'mac_address',
+    'last_seen',
+    'os_version',
+    'endpoint_version',
+    'status',
+  ]
+
+  const {
+    columnFilters,
+    visibleColumns,
+    visibleData,
+    handleFilter
+  } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
+
+  console.log('columnFilters', columnFilters.value)
+
   const tableProps = {
-    columns: assetColumns,
+    // columns: includedColumns.value,
+    // data: sortedData.value,
     bordered: true,
-    exclude: ['id', 'status'],
     headerBackgroundColor: 'var(--interface-surface)',
-    searchable: true,
     selectable: true,
     stickyHeader: true,
     stickyTop: '61',
+    // calculateHeight: true,
+    // calculateHeightOffset: 81,
     striped: true,
-    sortDir: 'desc',
-    sortable: true,
-    width: '100%',
+    styles: {
+      '--ep-table-width': '100%',
+      '--ep-table-sticky-top': '61px',
+      '--ep-table-container-overflow': 'unset'
+    }
   }
 
-  const columnFilters = computed(() => {
-    return assetColumns.map(column => ({
-      id: column.key,
-      name: 'columns',
-      value: column.key,
-      checked: !hiddenColumns.value.includes(column.key),
-      label: column.label,
-      disabled: false,
-    })).filter(filter => !tableProps.exclude.includes(filter.id))
-  })
+  // const columnFilters = computed(() => {
+  //   return assetColumns.map(column => ({
+  //     id: column.key,
+  //     name: 'columns',
+  //     value: column.key,
+  //     checked: !hiddenColumns.value.includes(column.key),
+  //     label: column.label,
+  //     disabled: false,
+  //   })).filter(filter => !tableProps.exclude.includes(filter.id))
+  // })
 
   const columnFiltersDropdownProps = {
     buttonProps: {
@@ -261,13 +308,13 @@
     router.push({ path: `/assets/${row.id}` })
   }
 
-  const handleFilter = (event) => {
-    if (!event.target.checked) {
-      hiddenColumns.value.push(event.target.id)
-    } else {
-      hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
-    }
-  }
+  // const handleFilter = (event) => {
+  //   if (!event.target.checked) {
+  //     hiddenColumns.value.push(event.target.id)
+  //   } else {
+  //     hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
+  //   }
+  // }
 
   const updateSearch = (value) => {
     search.value = value
@@ -285,14 +332,14 @@
     window.dispatchEvent(new Event('resize'))
   })
 
-  onMounted(() => {
-    const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
-    const disabledFilters = ['Archived']
+  // onMounted(() => {
+  //   const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
+  //   const disabledFilters = ['Archived']
 
-    generateFilters(columnsToFilter, disabledFilters)
-  })
+  //   generateFilters(columnsToFilter, disabledFilters)
+  // })
 
-  const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
+  // const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
 
 </script>
 
