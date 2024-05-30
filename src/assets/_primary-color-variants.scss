@@ -1,0 +1,11 @@
+@use '../../node_modules/@ericpitcock/epicenter-styles/scss/mixins/_generate-color-variants.scss' as *;
+// define your primary color's hue, saturation, and lightness here
+// and variants will be generated for you
+// 277, 32%, 49%
+$primary-color-hue: 277;
+$primary-color-saturation: 32%;
+$primary-color-lightness: 49%;
+
+:root {
+  @include generate-color-variants($primary-color-hue, $primary-color-saturation, $primary-color-lightness);
+}

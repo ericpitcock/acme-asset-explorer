@@ -200,7 +200,7 @@ const assetDataArray = length => {
       id: faker.string.uuid(),
       status: status,
       risk_score: {
-        value: riskScore === 'N/A' ? 0 : riskScore * 10,
+        value: riskScore === 'N/A' ? 0 : (riskScore * 10).toString(),
         props: {
           label: riskScore.toString(),
           styles: riskScoreBadgeStyles

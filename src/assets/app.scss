@@ -1,4 +1,134 @@
-// @import '_variables.css';
+:root {
+  .ep-table {
+    --ep-table-row-hover-bg-color: var(--primary-color-down-5-1000);
+  }
+
+  // global overrides - dark theme
+  // --ep-tabs-active-border-color: yellow;
+  // --ep-banner-color-strip-bg: orange;
+  // --ep-button-bg-color: green;
+  // --ep-radio-checked-color: orange;
+  --primary-gradient: linear-gradient(140deg, var(--primary-color-base) 30%, var(--primary-color-down-10-base) 70%);
+  --text-selection-bg-color: var(--primary-color-base);
+  --text-selection-text-color: hsl(var(--gray-0));
+
+  .ep-badge--success {
+    --ep-badge-bg-color: hsl(var(--emerald-1000));
+    --ep-badge-border-color: hsl(var(--emerald-600));
+    --ep-badge-text-color: var(--text-color--loud);
+  }
+
+  .ep-badge--warning {
+    --ep-badge-bg-color: hsl(var(--yellow-1000));
+    --ep-badge-border-color: hsl(var(--yellow-600));
+    --ep-badge-text-color: var(--text-color--loud);
+  }
+}
+
+html[data-color-theme='light'] {
+  .ep-table {
+    --ep-table-row-hover-bg-color: var(--primary-color-down-15-100);
+  }
+
+  // global overrides - light theme
+  .ep-badge--success {
+    --ep-badge-bg-color: hsl(81, 58%, 80%);
+    --ep-badge-border-color: hsl(var(--emerald-800));
+    --ep-badge-text-color: var(--text-color--loud);
+  }
+
+  .ep-badge--warning {
+    --ep-badge-bg-color: hsl(32, 68%, 83%);
+    --ep-badge-border-color: hsl(var(--orange-800));
+    --ep-badge-text-color: var(--text-color--loud);
+  }
+}
+
+.badge-variant-primary {
+  --ep-badge-bg-color: var(--primary-gradient);
+  --ep-badge-border-color: var(--primary-color-600);
+  --ep-badge-text-color: var(--text-color--loud);
+}
+
+.badge-variant-success {
+  --ep-badge-bg-color: hsl(var(--emerald-600));
+  --ep-badge-border-color: hsl(var(--emerald-600));
+  --ep-badge-text-color: var(--text-color--loud);
+}
+
+.badge-variant-warning {
+  --ep-badge-bg-color: hsl(29, 72%, 61%);
+  --ep-badge-border-color: hsl(29, 72%, 61%);
+  --ep-badge-text-color: hsl(0, 77%, 12%);
+}
+
+.badge-variant-danger {
+  --ep-badge-bg-color: hsl(var(--rose-600));
+  --ep-badge-border-color: hsl(var(--rose-600));
+  --ep-badge-text-color: var(--text-color--loud);
+}
+
+.ep-button-variant-subtle-ghost {
+  --ep-button-bg-color: transparent;
+  --ep-button-border-color: transparent;
+  --ep-button-text-color: hsl(var(--gray-350));
+  --ep-button-hover-bg-color: transparent;
+  --ep-button-hover-border-color: transparent;
+  --ep-button-hover-text-color: var(--text-color--loud);
+  --ep-button-active-bg-color: transparent;
+  --ep-button-active-border-color: transparent;
+  --ep-button-active-text-color: var(--text-color--loud);
+}
+
+// custom button variants
+.button-variant-primary {
+  --ep-button-bg-color: var(--primary-gradient);
+  --ep-button-border-color: var(--primary-color-base);
+  --ep-button-text-color: white;
+  --ep-button-hover-bg-color: var(--primary-color-600);
+  --ep-button-hover-border-color: var(--primary-color-600);
+  --ep-button-hover-text-color: white;
+  --ep-button-active-bg-color: var(--primary-color-700);
+  --ep-button-active-border-color: var(--primary-color-700);
+  --ep-button-active-text-color: white;
+}
+
+.button-variant-success {
+  --ep-button-bg-color: hsl(var(--emerald-600));
+  --ep-button-border-color: hsl(var(--emerald-600));
+  --ep-button-text-color: white;
+  --ep-button-hover-bg-color: hsl(var(--emerald-700));
+  --ep-button-hover-border-color: hsl(var(--emerald-700));
+  --ep-button-hover-text-color: white;
+  --ep-button-active-bg-color: hsl(var(--emerald-800));
+  --ep-button-active-border-color: hsl(var(--emerald-800));
+  --ep-button-active-text-color: white;
+}
+
+.button-variant-warning {
+  --ep-button-bg-color: hsl(29, 72%, 61%);
+  --ep-button-border-color: hsl(29, 72%, 61%);
+  --ep-button-text-color: hsl(0, 77%, 12%);
+  --ep-button-hover-bg-color: hsl(29, 72%, 51%);
+  --ep-button-hover-border-color: hsl(29, 72%, 51%);
+  --ep-button-hover-text-color: hsl(0, 77%, 12%);
+  --ep-button-active-bg-color: hsl(29, 72%, 41%);
+  --ep-button-active-border-color: hsl(29, 72%, 41%);
+  --ep-button-active-text-color: hsl(0, 77%, 12%);
+}
+
+.button-variant-danger {
+  --ep-button-bg-color: hsl(var(--rose-600));
+  --ep-button-border-color: hsl(var(--rose-600));
+  --ep-button-text-color: white;
+  --ep-button-hover-bg-color: hsl(var(--rose-700));
+  --ep-button-hover-border-color: hsl(var(--rose-700));
+  --ep-button-hover-text-color: white;
+  --ep-button-active-bg-color: hsl(var(--rose-800));
+  --ep-button-active-border-color: hsl(var(--rose-800));
+  --ep-button-active-text-color: white;
+}
+
 .in-ghost-button {
   --ep-button-bg-color: transparent;
   --ep-button-text-color: var(--text-color--loud);
@@ -6,7 +136,7 @@
   // --ep-button-border-style: none;
   --ep-button-border-color: transparent;
   --ep-button-border-radius: 0.3rem;
-  --ep-button-hover-bg-color: var(--interface-foreground);
+  --ep-button-hover-bg-color: transparent;
   --ep-button-hover-text-color: var(--text-color--loud);
   --ep-button-hover-border-color: transparent;
   --ep-button-active-bg-color: var(--interface-foreground);

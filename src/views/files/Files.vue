@@ -27,7 +27,7 @@
           <ep-button
             label="Upload File"
             variant="primary"
-            :icon-left="{ name: 'f/upload' }"
+            :icon-left="{ name: 'f-upload' }"
           />
         </ep-flex-container>
       </template>

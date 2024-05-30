@@ -76,20 +76,34 @@
         </ep-flex-container>
       </template>
       <template #content>
+        <ep-empty-state
+          v-if="visibleData.length === 0"
+          style="height: 100%;"
+        >
+          <p>No assets found</p>
+          <template #subtext>
+            <p>Try adjusting your filters</p>
+          </template>
+        </ep-empty-state>
         <ep-container
-          v-bind="commonContainerProps"
-          max-width="fit-content"
-          container-padding="1rem 3rem 3rem"
+          v-else
+          v-bind="tableContainerProps"
         >
           <ep-table
             :columns="visibleColumns"
             :data="visibleData"
             v-bind="tableProps"
-            :search="search"
-            :hidden-columns="hiddenColumns"
-            style="width: 100%; overflow: unset;"
             @row-click="handleRowClick"
-          />
+          >
+            <template #header="{ column }">
+              <ep-table-sortable-header
+                :column="column"
+                :sort-column="sortColumn"
+                :sort-order="sortOrder"
+                @sort="sortBy"
+              />
+            </template>
+          </ep-table>
         </ep-container>
       </template>
     </in-sidebar-layout>
@@ -97,7 +111,7 @@
 </template>
 
 <script setup>
-  import { ref, computed, watch, onMounted } from 'vue'
+  import { computed, ref, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
@@ -118,8 +132,7 @@
   // },
   // setup() {
   const store = useStore()
-  const commonPageHeaderProps = store.state.commonProps.commonPageHeaderProps
-  const commonContainerProps = computed(() => store.state.commonProps.commonContainerProps)
+  const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
   const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
   const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
   const rightPanelOpen = computed(() => store.state.rightPanelOpen)
@@ -191,7 +204,27 @@
     window.dispatchEvent(new Event('resize'))
   })
 
-  // new
+  const tableContainerProps = {
+    styles: {
+      ...commonContainerProps.styles,
+      '--ep-container-padding': '1rem 3rem 3rem'
+    }
+  }
+
+  const tableProps = {
+    bordered: true,
+    headerBackgroundColor: 'var(--interface-surface)',
+    selectable: true,
+    stickyHeader: true,
+    striped: true,
+    styles: {
+      '--ep-table-width': '100%',
+      '--ep-table-sticky-top': '61px',
+      '--ep-table-container-overflow': 'unset'
+    }
+  }
+
+  // table data
   const vulnTableColumnsRef = ref(vulnTableColumns)
   const vulnTableDataRef = ref(vulnTableData)
 
@@ -205,13 +238,14 @@
     sortBy,
     sortColumn,
     sortOrder
-  } = useSorting(includedData, 'user', 'desc')
+  } = useSorting(includedData, 'severity', 'desc')
 
   onMounted(() => {
     const columnsToFilter = ['severity']
     const disabledFilters = []
+    const customSortOrder = { status: ['Critical', 'High', 'Medium', 'Low'] }
 
-    generateFilters(columnsToFilter, disabledFilters)
+    generateFilters(columnsToFilter, disabledFilters, customSortOrder)
   })
 
   const {
@@ -232,59 +266,6 @@
     visibleData,
     handleFilter
   } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
-
-  const tableProps = {
-    // columns: includedColumns.value,
-    // data: sortedData.value,
-    bordered: true,
-    headerBackgroundColor: 'var(--interface-surface)',
-    selectable: true,
-    stickyHeader: true,
-    stickyTop: '61',
-    // calculateHeight: true,
-    // calculateHeightOffset: 81,
-    striped: true,
-    styles: {
-      '--ep-table-width': '100%',
-      '--ep-table-sticky-top': '61px',
-      '--ep-table-container-overflow': 'unset'
-    }
-  }
-
-  // onMounted(() => {
-  //   const columnsToFilter = ['severity']
-  //   const disabledFilters = []
-  //   const customSortOrder = {
-  //     'severity': ['Critical', 'High', 'Medium', 'Low']
-  //   }
-
-  //   generateFilters(columnsToFilter, disabledFilters, customSortOrder)
-
-  // })
-
-  // const { filters, generateFilters, filteredData } = useFilters(vulnTableColumns, vulnTableDataRef)
-
-  // return {
-  //   chartContainerProps,
-  //   commonContainerProps,
-  //   contentHeaderProps,
-  //   filteredData,
-  //   filters,
-  //   generateFilters,
-  //   handleRowClick,
-  //   headerContainerProps,
-  //   hiddenColumns,
-  //   multiSearchProps,
-  //   queryClose,
-  //   search,
-  //   tableProps,
-  //   updateSearch,
-  //   vulnChartOptions,
-  //   vulnTableColumns,
-  //   vulnTableData,
-  // }
-  // },
-  // }
 </script>
 
 <style lang="scss" scoped>
@@ -313,10 +294,6 @@
     :deep(.highcharts-yaxis-labels text) {
       font-size: var(--font-size--xsmall);
       fill: var(--text-color--subtle) !important;
-    }
-
-    :deep(.ep-table-container) {
-      overflow-x: auto;
     }
   }
 </style>

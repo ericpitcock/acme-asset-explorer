@@ -28,11 +28,11 @@
               <ep-button
                 label="Edit"
                 variant="secondary"
-                :icon-left="{ name: 'f/edit' }"
+                :icon-left="{ name: 'f-edit' }"
               />
               <ep-button
                 variant="secondary"
-                :icon-left="{ name: 'f/trash-2' }"
+                :icon-left="{ name: 'f-trash-2' }"
                 @click="handleRemoveSite(index)"
               />
             </ep-flex-container>

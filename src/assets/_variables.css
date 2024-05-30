@@ -15,9 +15,9 @@
   --color-status--danger-bg: hsl(350, 55%, 45%);
   --color-status--danger-border: hsl(350, 55%, 45%);
   --logo-color: hsl(0, 0%, 90%);
-  --nav-link-hover-bg-color: var(--gray-420);
+  --nav-link-hover-bg-color: hsl(var(--gray-420));
   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
-  --nav-link-icon-color: var(--sky-300);
+  --nav-link-icon-color: var(--primary-color-300);
   --nav-link-active-icon-color: var(--white);
   --nav-link-active-text-color: var(--white);
   --app-header-background: linear-gradient(150deg, hsl(0, 0%, 12%) 0%, hsl(242, 31%, 34%) 40%, hsl(277, 32%, 29%) 60%, hsl(0, 0%, 12%) 80%);
@@ -42,9 +42,9 @@ html[data-color-theme='light'] {
   --color-status--danger-bg: hsl(0, 100%, 25%);
   --color-status--danger-border: hsl(0, 100%, 15%);
   --logo-color: var(--text-color);
-  --nav-link-hover-bg-color: var(--gray-20);
+  --nav-link-hover-bg-color: hsl(var(--gray-20));
   --nav-link-active-bg-color: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%);
-  --nav-link-icon-color: var(--color--primary);
+  --nav-link-icon-color: var(--primary-color-500);
   --nav-link-active-icon-color: var(--text-color--inverse);
   --nav-link-active-text-color: var(--text-color--inverse);
   --app-header-background: linear-gradient(150deg, hsl(0, 0%, 20%) 0%, hsl(242, 31%, 54%) 40%, hsl(277, 32%, 49%) 60%, hsl(0, 0%, 20%) 80%);

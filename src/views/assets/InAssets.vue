@@ -118,7 +118,7 @@
       </template>
       <template #content>
         <ep-empty-state
-          v-if="assetDataRef.length === 0"
+          v-if="visibleData.length === 0"
           style="height: 100%;"
         >
           <p>No assets found</p>
@@ -152,7 +152,7 @@
 </template>
 
 <script setup>
-  import { ref, computed, onMounted, watch } from 'vue'
+  import { computed, ref, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
@@ -192,6 +192,19 @@
     styles: {
       ...commonContainerProps.styles,
       '--ep-container-padding': '1rem 3rem 3rem'
+    }
+  }
+
+  const tableProps = {
+    bordered: true,
+    headerBackgroundColor: 'var(--interface-surface)',
+    selectable: true,
+    stickyHeader: true,
+    striped: true,
+    styles: {
+      '--ep-table-width': '100%',
+      '--ep-table-sticky-top': '61px',
+      '--ep-table-container-overflow': 'unset'
     }
   }
 
@@ -242,24 +255,6 @@
     visibleData,
     handleFilter
   } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
-
-  const tableProps = {
-    // columns: includedColumns.value,
-    // data: sortedData.value,
-    bordered: true,
-    headerBackgroundColor: 'var(--interface-surface)',
-    selectable: true,
-    stickyHeader: true,
-    stickyTop: '61',
-    // calculateHeight: true,
-    // calculateHeightOffset: 81,
-    striped: true,
-    styles: {
-      '--ep-table-width': '100%',
-      '--ep-table-sticky-top': '61px',
-      '--ep-table-container-overflow': 'unset'
-    }
-  }
 
   // const columnFilters = computed(() => {
   //   return assetColumns.map(column => ({

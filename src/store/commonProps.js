@@ -8,16 +8,20 @@ export default {
       }
     },
     commonHeaderProps: {
-      backgroundColor: 'var(--interface-surface)'
+      styles: {
+        '--ep-header-container-bg-color': 'var(--interface-surface)'
+      }
     },
     commonPageHeaderProps: {
-      backgroundColor: 'var(--interface-surface)',
-      leftPadding: '0 0 0 3rem',
-      rightPadding: '0 3rem 0 0',
-      rightGap: '1rem',
-      sticky: true,
-      stickyTop: '0',
-      zIndex: 'var(--z-index--sticky)'
+      styles: {
+        '--ep-header-container-position': 'sticky',
+        '--ep-header-container-top': '0',
+        '--ep-header-container-bg-color': 'var(--interface-surface)',
+        '--ep-header-left-padding': '0 0 0 3rem',
+        '--ep-header-right-padding': '0 3rem 0 0',
+        '--ep-header-right-gap': '1rem',
+        '--ep-header-z-index': 'var(--z-index--sticky)'
+      }
     },
   },
 }

@@ -22,7 +22,7 @@
         <ep-button
           label="Add New"
           variant="secondary"
-          :icon-left="{ name: 'f/plus' }"
+          :icon-left="{ name: 'f-plus' }"
           @click="addEscalationProcedure"
         />
       </ep-flex-container>

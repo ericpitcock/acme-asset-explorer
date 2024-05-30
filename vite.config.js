@@ -9,8 +9,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@/assets/_variables.css";`
-      }
+        additionalData: `@import "@/assets/base.scss";`
+      },
     }
   },
   plugins: [

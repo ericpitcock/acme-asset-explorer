@@ -14,7 +14,10 @@
           :to="navItem.path"
           class="main-nav__item"
         >
-          <ep-icon :name="navItem.icon" />
+          <ep-icon
+            :name="navItem.icon"
+            :styles="{ '--ep-icon-width': '2rem' }"
+          />
           <div class="main-nav__item__name">
             {{ navItem.name }}
           </div>
@@ -143,6 +146,7 @@
       border-radius: 3px;
       text-decoration: none;
       user-select: none;
+      color: var(--text-color--loud);
 
       & + & {
         margin-top: 2px;
@@ -175,7 +179,7 @@
           background: var(--interface-overlay);
           border: 1px solid var(--border-color--lighter);
           font-size: var(--font-size--small);
-          color: var(--text-color) !important;
+          color: var(--text-color--loud) !important;
           white-space: nowrap;
         }
       }
@@ -194,7 +198,7 @@
         }
 
         .ep-icon {
-          color: var(--nav-link-active-icon-color) !important;
+          --ep-icon-color: var(--nav-link-active-icon-color) !important;
         }
       }
 
@@ -210,13 +214,13 @@
       }
 
       .ep-icon {
-        color: var(--nav-link-icon-color);
+        --ep-icon-color: var(--nav-link-icon-color);
       }
 
       &__name {
         margin-left: 13px;
         font-weight: 600;
-        color: var(--text-color);
+        color: var(--text-color--loud);
 
         .nav-container--collapsed & {
           display: none;

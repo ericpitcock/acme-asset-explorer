@@ -7,8 +7,9 @@ const vulnTableColumns = [
   {
     label: 'Severity',
     key: 'severity',
-    cellType: 'component',
     component: markRaw(EpBadge),
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Description',
@@ -16,43 +17,57 @@ const vulnTableColumns = [
     formatter: (value) => {
       const subString = value.substring(0, 140)
       return `<span style="line-height: 1.5;">${subString}…</span>`
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Affected Assets',
     key: 'affected_assets',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Score',
-    key: 'base_score'
+    key: 'base_score',
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'ID',
     key: 'id',
     formatter: (value) => {
       return `<span class="text--overflow-hidden">${value}</span>`
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Published Date',
     key: 'published_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Last Modified Date',
     key: 'last_modified_date',
     formatter: (value) => {
       return new Date(value).toLocaleString()
-    }
+    },
+    sortable: true,
+    filterable: true,
   },
   {
     label: 'Date Seen',
     key: 'date_seen',
     formatter: (value) => {
       return new Date(value).toLocaleString()
-    }
+    },
+    sortable: true,
+    filterable: true,
   }
 ]
 
@@ -164,9 +179,15 @@ for (let i = 0; i < 100; i++) {
       severity === 'High' ? faker.number.float({ min: 7, max: 8.9, multipleOf: 0.1 }) :
         faker.number.float({ min: 9, max: 10, multipleOf: 0.1 })
 
+  const severityValueMap = {
+    Critical: '4',
+    High: '3',
+    Medium: '2',
+    Low: '1',
+  }
+
   vulnTableData.push({
     severity: {
-      value: severity,
       props: {
         label: severity,
         styles: {
@@ -174,9 +195,11 @@ for (let i = 0; i < 100; i++) {
           '--ep-badge-border-color': severityBadgeBorderMap[severity],
         }
       },
+      value: severity,
+      raw: severityValueMap[severity],
     },
     description: generateCveDesc(),
-    affected_assets: faker.number.int({ min: 1, max: 100 }),
+    affected_assets: faker.number.int({ min: 1, max: 100 }).toString(),
     base_score: baseScore,
     id: `CVE-${faker.date.recent().getFullYear()}-${faker.number.int({ min: 1000, max: 9999 })}`,
     published_date: generatePastDate(),

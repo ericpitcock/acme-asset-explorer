@@ -8,7 +8,7 @@ export default function useFilters(columns, data) {
     const uniqueValues = {}
 
     // Extract unique values for specified columns
-    columns.forEach(column => {
+    columns.value.forEach(column => {
       if (columnsToFilter.includes(column.key)) {
         uniqueValues[column.key] = Array.from(
           new Set(data.value.map(user => getColumnValue(user, column.key))))
@@ -46,7 +46,7 @@ export default function useFilters(columns, data) {
   }
 
   const getColumnValue = (user, key) => {
-    const column = columns.find(column => column.key === key)
+    const column = columns.value.find(column => column.key === key)
     if (column.cellType === 'component') {
       return user[key].value
     } else {

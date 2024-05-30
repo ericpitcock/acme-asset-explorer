@@ -2,14 +2,14 @@ logo-color:
   dark: hsl(0, 0%, 90%)
   light: var(--text-color)
 nav-link-hover-bg-color:
-  dark: var(--gray-420)
-  light: var(--gray-20)
+  dark: hsl(var(--gray-420))
+  light: hsl(var(--gray-20))
 nav-link-active-bg-color:
   dark: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)
   light: linear-gradient(45deg, hsl(228, 68%, 60%) 50%, hsl(199, 77%, 55%) 100%)
 nav-link-icon-color:
-  dark: var(--sky-300)
-  light: var(--color--primary)
+  dark: var(--primary-color-300)
+  light: var(--primary-color-500)
 nav-link-active-icon-color:
   dark: var(--white)
   light: var(--text-color--inverse)

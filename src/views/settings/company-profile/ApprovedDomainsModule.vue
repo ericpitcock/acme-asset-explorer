@@ -28,7 +28,7 @@
           />
           <ep-button
             variant="ghost"
-            :icon-left="{ name: 'f/trash-2' }"
+            :icon-left="{ name: 'f-trash-2' }"
             text-hover-color="red"
             @click="handleRemoveDomain(index)"
           />
@@ -36,7 +36,7 @@
         <ep-button
           label="Add New"
           variant="secondary"
-          :icon-left="{ name: 'f/plus' }"
+          :icon-left="{ name: 'f-plus' }"
           @click="handleAddDomain"
         />
       </ep-flex-container>

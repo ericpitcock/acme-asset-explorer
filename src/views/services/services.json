@@ -4,7 +4,7 @@
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Subscribed",
-    "iconProps": { "name": "f/server", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-server", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Endpoint",
@@ -18,35 +18,35 @@
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Subscribed",
-    "iconProps": { "name": "f/cloud", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-cloud", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Log",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Unsubscribed",
-    "iconProps": { "name": "f/database", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-database", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Insider",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Expired",
-    "iconProps": { "name": "f/briefcase", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-briefcase", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Dark Web Monitoring",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f/alert-circle", "size": 24, "weight": "light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-alert-circle", "size": 24, "weight": "light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Threat Intelligence",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f/eye", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-eye", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Managed Vulnerability Service",
@@ -81,20 +81,20 @@
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f/book", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-book", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "Security Incident Response Planning Services",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Expired",
-    "iconProps": { "name": "f/list", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-list", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   },
   {
     "name": "On-Demand 24/7 Incident Response Retainer",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f/life-buoy", "size": 35, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": { "name": "f-life-buoy", "size": 35, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
   }
 ]
