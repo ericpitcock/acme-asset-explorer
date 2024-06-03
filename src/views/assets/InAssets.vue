@@ -131,6 +131,7 @@
           v-bind="tableContainerProps"
         >
           <ep-table
+            ref="tableComponent"
             :columns="visibleColumns"
             :data="visibleData"
             v-bind="tableProps"
@@ -152,7 +153,7 @@
 </template>
 
 <script setup>
-  import { computed, ref, onMounted, watch } from 'vue'
+  import { computed, inject, ref, onMounted, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
@@ -176,9 +177,6 @@
   const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
   const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-  const assetDataRef = ref(store.state.assets)
-  const assetColumnsRef = ref(assetColumns)
-
   const containerProps = {
     styles: {
       '--ep-container-bg-color': 'var(--interface-overlay)',
@@ -191,22 +189,76 @@
   const tableContainerProps = {
     styles: {
       ...commonContainerProps.styles,
-      '--ep-container-padding': '1rem 3rem 3rem'
+      '--ep-container-padding': '1rem 3rem 3rem',
+      '--ep-container-width': 'fit-content',
+      // '--ep-container-overflow': 'auto',
     }
   }
 
-  const tableProps = {
-    bordered: true,
-    headerBackgroundColor: 'var(--interface-surface)',
-    selectable: true,
-    stickyHeader: true,
-    striped: true,
-    styles: {
-      '--ep-table-width': '100%',
-      '--ep-table-sticky-top': '61px',
-      '--ep-table-container-overflow': 'unset'
+  const fixedHeader = ref(false)
+
+  const tableProps = computed(() => {
+    return {
+      bordered: true,
+      headerBackgroundColor: 'var(--interface-surface)',
+      selectable: true,
+      // stickyHeader: true,
+      fixedHeader: fixedHeader.value,
+      striped: true,
+      styles: {
+        // '--ep-table-width': 'max-content',
+        // '--ep-table-sticky-top': '61px',
+        // '--ep-table-container-overflow': 'unset'
+        '--ep-table-width': 'max-content',
+        '--ep-table-head-width': 'max-content',
+        '--ep-table-body-width': 'max-content',
+        '--ep-table-container-overflow': 'auto',
+        '--ep-table-fixed-top': '101px',
+      },
+    }
+  })
+
+  const debounce = (func, delay) => {
+    let timer
+    return function(...args) {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        func.apply(this, args)
+      }, delay)
     }
   }
+
+  const tableComponent = ref(null)
+
+  const handleScroll = (scrollTop) => {
+    requestAnimationFrame(() => {
+      const table = tableComponent.value.$refs.tableContainer
+      // const tableY = table.getBoundingClientRect().top
+      // console.log('tableY', tableY)
+
+      if (!fixedHeader.value && scrollTop > 542) {
+        fixedHeader.value = true
+        // table.style.paddingTop = '44.5px'
+        // window.scrollBy(0, 44.5)
+      }
+      if (fixedHeader.value && scrollTop < 542) {
+        fixedHeader.value = false
+        // table.style.paddingTop = '0'
+      }
+    })
+  }
+
+  const debouncedHandleScroll = debounce(handleScroll, 0) // Adjust the debounce delay as needed
+
+  // const sidebarLayout = ref(null)
+
+  // inject scroll from InGrid.vue
+  const contentScrollTop = inject('contentScrollTop')
+
+  watch(() => contentScrollTop.value, () => {
+    console.log('scrollTop', contentScrollTop.value)
+    debouncedHandleScroll(contentScrollTop.value)
+  })
 
   const multiSearchProps = {
     height: '3.8rem',
@@ -214,6 +266,9 @@
     icon: { name: 'search' },
     placeholder: 'Search assets',
   }
+
+  const assetColumnsRef = ref(assetColumns)
+  const assetDataRef = ref(store.state.assets)
 
   const {
     includedColumns,
@@ -225,11 +280,11 @@
     sortBy,
     sortColumn,
     sortOrder
-  } = useSorting(includedData, 'user', 'desc')
+  } = useSorting(includedData, 'risk_score', 'desc')
 
   onMounted(() => {
     const columnsToFilter = ['location', 'operating_system', 'status', 'endpoint_version']
-    const disabledFilters = ['Archived']
+    const disabledFilters = ['Archived', 'Inactive']
 
     generateFilters(columnsToFilter, disabledFilters)
   })
@@ -240,21 +295,21 @@
     filteredData
   } = useDataFilters(includedColumns, sortedData)
 
-  const hiddenColumns = [
-    'ipv6_address',
-    'mac_address',
-    'last_seen',
-    'os_version',
-    'endpoint_version',
-    'status',
-  ]
+  // const hiddenColumns = [
+  //   'ipv6_address',
+  //   'mac_address',
+  //   'last_seen',
+  //   'os_version',
+  //   'endpoint_version',
+  //   'status',
+  // ]
 
   const {
     columnFilters,
     visibleColumns,
     visibleData,
     handleFilter
-  } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
+  } = useColumnFilters(includedColumns, [], filteredData)
 
   // const columnFilters = computed(() => {
   //   return assetColumns.map(column => ({
@@ -354,6 +409,10 @@
     :deep(.highcharts-point-hover) {
       opacity: 1 !important;
       fill-opacity: 1 !important;
+    }
+
+    :deep(.in-sidebar-layout .sidebar-layout__content) {
+      overflow-x: auto;
     }
   }
 </style>

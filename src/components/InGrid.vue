@@ -11,6 +11,7 @@
         <div
           ref="content"
           class="content"
+          @scroll="onScroll"
         >
           <slot name="content" />
         </div>
@@ -25,23 +26,38 @@
   </div>
 </template>
 
-<script>
-  import { mapState } from 'vuex'
+<script setup>
+  import { computed, nextTick, provide, ref, watch } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRoute } from 'vue-router'
 
-  export default {
+  defineOptions({
     name: 'AcmeGrid',
-    computed: {
-      ...mapState(['rightPanelOpen']),
-    },
-    watch: {
-      // when the route changes, scroll .content to the top
-      $route(to, from) {
-        this.$nextTick(() => {
-          this.$refs.content.scrollTop = 0
-        })
-      }
-    },
+  })
+
+  const store = useStore()
+
+  const rightPanelOpen = computed(() => {
+    return store.state.rightPanelOpen
+  })
+
+  const route = useRoute()
+  const content = ref(null)
+
+  watch(() => route, (to, from) => {
+    nextTick(() => {
+      content.value.scrollTop = 0
+    })
+  })
+
+  const contentScrollTop = ref(0)
+
+  const onScroll = () => {
+    // console.log('scrolling grid', content.value.scrollTop)
+    contentScrollTop.value = content.value.scrollTop
   }
+
+  provide('contentScrollTop', contentScrollTop)
 </script>
 
 <style lang="scss" scoped>
