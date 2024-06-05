@@ -13,7 +13,7 @@
     "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
     "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
     "@faker-js/faker": "^8.4.1",
-    "highcharts": "^11.4.1",
+    "highcharts": "^8.1.2",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
     "vuex": "^4.1.0"

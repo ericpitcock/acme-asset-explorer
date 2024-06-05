@@ -2,10 +2,10 @@
   <div class="vulnerabilities">
     <ep-container v-bind="headerContainerProps">
       <template #header>
-        <ep-header
-          height="9.1rem"
-          border-width="0"
-        >
+        <ep-header :styles="{
+          '--ep-header-container-height': '9.1rem',
+          '--ep-header-container-border-width': '0'
+        }">
           <template #left>
             <h1 class="page-head">
               Vulnerabilities
@@ -117,20 +117,19 @@
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import vulnChartOptions from './vulnChartOptions.js'
   import { vulnTableColumns, vulnTableData } from '../../store/vulnData.js'
-  import useExclude from '@epicenter/components/table/useExclude.js'
-  import useSorting from '@epicenter/components/table/useSorting.js'
-  import useDataFilters from '@epicenter/components/table/useDataFilters.js'
-  import useColumnFilters from '@epicenter/components/table/useColumnFilters.js'
-  import EpTableSortableHeader from '@epicenter/components/table/EpTableSortableHeader.vue'
+  import {
+    useExclude,
+    useColumnFilters,
+    useDataFilters,
+    useSorting,
+    // usePagination,
+    // useSearch
+  } from '@epicenter/composables/index.js'
 
-  // export default {
   defineOptions({
     name: 'InVulnerabilities',
   })
-  // components: {
-  //   InSidebarLayout,
-  // },
-  // setup() {
+
   const store = useStore()
   const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
   const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
@@ -146,7 +145,12 @@
   const multiSearchProps = {
     height: '3.8rem',
     backgroundColor: 'var(--interface-foreground)',
-    icon: { name: 'search' },
+    icon: {
+      name: 'search',
+      styles: {
+        '--ep-icon-width': '2.4rem',
+      },
+    },
     placeholder: 'Search vulnerabilities',
   }
 
@@ -163,24 +167,30 @@
   // }
 
   const contentHeaderProps = computed(() => ({
-    ...commonPageHeaderProps,
-    leftFlex: '0 0 20rem',
-    leftPadding: '0 3rem',
-    centerFlex: '1',
-    centerPadding: '0 3rem 0 0',
-    itemGap: '0',
+    styles: {
+      ...commonPageHeaderProps.styles,
+      '--ep-header-left-flex': '0 0 20rem',
+      '--ep-header-left-padding': '0 3rem',
+      '--ep-header-center-flex': '1',
+      '--ep-header-center-padding': '0 3rem 0 0',
+      '--ep-header-content-gap': '0',
+    }
   }))
 
-  const headerContainerProps = computed(() => ({
-    backgroundColor: 'var(--page-header-background)',
-    borderWidth: '0',
-    containerPadding: '0 4rem',
-    // contentPadding: '2rem 0 0 0',
-  }))
+  const headerContainerProps = {
+    styles: {
+      '--ep-container-bg-color': 'var(--page-header-background)',
+      '--ep-container-border-width': '0',
+      '--ep-container-padding': '0 4rem',
+    }
+  }
 
   const chartContainerProps = {
-    borderWidth: 'none',
-    contentPadding: '3rem 0',
+    styles: {
+      '--ep-container-bg-color': 'transparent',
+      '--ep-container-border-width': '0',
+      '--ep-container-content-padding': '3rem 0',
+    }
   }
 
   const handleRowClick = (row) => {
@@ -207,7 +217,10 @@
   const tableContainerProps = {
     styles: {
       ...commonContainerProps.styles,
-      '--ep-container-padding': '1rem 3rem 3rem'
+      '--ep-container-padding': '2rem 3rem 30rem 3rem',
+      '--ep-container-width': 'fit-content',
+      '--ep-container-border-width': '0',
+      '--ep-container-border-radius': '0',
     }
   }
 
@@ -243,7 +256,7 @@
   onMounted(() => {
     const columnsToFilter = ['severity']
     const disabledFilters = []
-    const customSortOrder = { status: ['Critical', 'High', 'Medium', 'Low'] }
+    const customSortOrder = { severity: ['Critical', 'High', 'Medium', 'Low'] }
 
     generateFilters(columnsToFilter, disabledFilters, customSortOrder)
   })

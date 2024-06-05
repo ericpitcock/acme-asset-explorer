@@ -1,9 +1,9 @@
 <template>
-  <ep-container
-    container-padding="3rem"
-    background-color="var(--interface-surface)"
-  >
-    <ep-flex-container gap="2rem">
+  <ep-container :styles="{
+    '--ep-container-padding': '3rem',
+    '--ep-container-bg-color': 'var(--interface-surface)',
+  }">
+    <ep-flex flex-props=",,,,,,,2rem,">
       <div class="section-sidebar">
         <slot name="sidebar" />
       </div>
@@ -24,7 +24,7 @@
           name="content"
         />
       </div>
-    </ep-flex-container>
+    </ep-flex>
   </ep-container>
 </template>
 
@@ -56,7 +56,6 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem 3rem 0 0;
-    // border-right: 1px solid var(--border-color);
   }
 
   .section-content {

@@ -2,15 +2,20 @@
   <div class="network">
     <ep-container
       v-bind="commonContainerProps"
-      container-padding="1rem 3rem 3rem"
-      max-width="120rem"
+      :styles="{
+        '--ep-container-padding': '1rem 3rem 3rem',
+        '--ep-container-max-width': '120rem',
+      }"
     >
       <ep-table
         :columns="columns"
         :data="data"
+        striped
         bordered
         selectable
-        width="100%"
+        :styles="{
+          '--ep-table-width': '100%',
+        }"
         @row-click="handleRowClick"
       />
     </ep-container>
@@ -44,16 +49,16 @@
       return {
         columns: [
           {
-            header: 'Config Status',
+            label: 'Config Status',
             key: 'config_status',
             cellType: 'component',
             component: 'ep-badge',
           },
-          { header: 'Name', key: 'name' },
-          { header: 'Site', key: 'site' },
+          { label: 'Name', key: 'name' },
+          { label: 'Site', key: 'site' },
           { header: 'Type', key: 'type' },
           {
-            header: 'Modified',
+            label: 'Modified',
             key: 'modified',
           }
         ],

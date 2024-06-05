@@ -2,24 +2,30 @@
   <div class="users">
     <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
-        <ep-flex-container
-          flex-flow="column nowrap"
+        <ep-flex flex-props=",,column,,,flex-start,,3rem,1rem 0">
+          <!-- flex-flow="column nowrap"
           align-items="flex-start"
           gap="3rem"
-          padding="1rem 0"
-        >
+          padding="1rem 0" -->
           <ep-button
             variant="primary"
             label="New User"
             @click="addUser"
           />
-
-          <ep-flex-container
-            flex-flow="column nowrap"
+          <!-- width,
+          height,
+          flexDirection,
+          flexWrap,
+          justifyContent,
+          alignItems,
+          alignContent,
+          gap,
+          padding -->
+          <ep-flex flex-props=",column,,,,,,1.5rem,1rem 0">
+            <!-- flex-flow="column nowrap"
             gap="1.5rem"
-            padding="1rem 0"
-          >
-            <template
+            padding="1rem 0" -->
+            <!-- <template
               v-for="(checkboxes, categoryName) in filters"
               :key="categoryName"
             >
@@ -32,14 +38,14 @@
                 v-bind="checkbox"
                 v-model="checkbox.checked"
               />
-            </template>
-          </ep-flex-container>
-        </ep-flex-container>
+            </template> -->
+          </ep-flex>
+        </ep-flex>
       </template>
       <template #content>
         <ep-container v-bind="containerProps">
           <ep-empty-state
-            v-if="filteredData.length === 0"
+            v-if="fakeUserData.length === 0"
             style="padding-top: 2rem;"
           >
             <p>No users found</p>
@@ -59,16 +65,17 @@
             v-else
             v-show="!loading"
             :columns="columns"
-            :data="filteredData"
+            :data="fakeUserData"
             :exclude="['id', 'office_phone']"
+            :styles="{
+              '--ep-table-width': '100%',
+              '--ep-table-container-overflow': 'unset',
+              '--ep-table-sticky-top': '61px',
+            }"
             sticky-header
-            sticky-top="61"
             striped
             selectable
             bordered
-            sortable
-            width="100%"
-            style="width: 100%; overflow: unset;"
             @row-click="editUser"
           />
         </ep-container>
@@ -92,7 +99,7 @@
   import AddUser from './AddUser.vue'
   import InModal from '@/components/InModal.vue'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
-  import useFilters from '@/composables/useFilters.js'
+  // import useFilters from '@/composables/useFilters.js'
 
   export default {
     name: 'InUsers',
@@ -112,22 +119,22 @@
       const showModal = ref(false)
       const columns = [
         {
-          header: 'ID',
+          label: 'ID',
           key: 'id'
         },
         {
-          header: 'Status',
+          label: 'Status',
           key: 'status',
           cellType: 'component',
           component: 'ep-badge',
         },
-        { header: 'Name', key: 'name' },
-        { header: 'Email', key: 'email' },
-        { header: 'Mobile Phone', key: 'user_mobile_phone' },
-        { header: 'Office Phone', key: 'office_phone' },
-        { header: 'Role', key: 'role' },
+        { label: 'Name', key: 'name' },
+        { label: 'Email', key: 'email' },
+        { label: 'Mobile Phone', key: 'user_mobile_phone' },
+        { label: 'Office Phone', key: 'office_phone' },
+        { label: 'Role', key: 'role' },
         {
-          header: 'Last Active',
+          label: 'Last Active',
           key: 'last_active',
         },
       ]
@@ -140,7 +147,7 @@
         }
       })
 
-      const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
+      // const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
 
       const instance = getCurrentInstance()
       const $epDialog = instance.appContext.config.globalProperties.$epDialog
@@ -184,10 +191,10 @@
       }
 
       onMounted(() => {
-        const columnsToFilter = ['status', 'role']
-        const disabledFilters = ['Deactivated']
+        // const columnsToFilter = ['status', 'role']
+        // const disabledFilters = ['Deactivated']
 
-        generateFilters(columnsToFilter, disabledFilters)
+        // generateFilters(columnsToFilter, disabledFilters)
 
         setTimeout(() => {
           loading.value = false
@@ -202,8 +209,8 @@
         containerProps,
         editUser,
         fakeUserData,
-        filteredData,
-        filters,
+        // filteredData,
+        // filters,
         handleClose,
         loading,
         resetFilters,

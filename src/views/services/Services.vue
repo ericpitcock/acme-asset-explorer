@@ -44,9 +44,8 @@
                 <div class="service__actions">
                   <ep-button
                     v-if="isConfigurable(service)"
+                    classes="ep-button-variant-subtle-ghost"
                     :icon-left="{ name: 'settings' }"
-                    variant="ghost"
-                    :disabled="service.status === 'Unsubscribed'"
                     :to="{ path: `/settings/service-config/${serviceSlug(service.name)}` }"
                   />
                 </div>
@@ -140,7 +139,7 @@
         return this.services.some(service => service.category === category && service.status === 'Inactive')
       },
       isConfigurable(service) {
-        return service.configurable
+        return service.configurable && service.status !== 'Unsubscribed'
       },
       serviceSlug(serviceName) {
         // return serviceName as lowercase with spaces and special characters replaced with hyphens

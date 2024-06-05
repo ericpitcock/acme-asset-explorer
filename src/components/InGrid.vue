@@ -32,7 +32,7 @@
   import { useRoute } from 'vue-router'
 
   defineOptions({
-    name: 'AcmeGrid',
+    name: 'InGrid',
   })
 
   const store = useStore()
@@ -44,16 +44,16 @@
   const route = useRoute()
   const content = ref(null)
 
-  watch(() => route, (to, from) => {
+  watch(route, (to, from) => {
     nextTick(() => {
       content.value.scrollTop = 0
     })
   })
 
+  // provide scroll position of .content to children
   const contentScrollTop = ref(0)
 
   const onScroll = () => {
-    // console.log('scrolling grid', content.value.scrollTop)
     contentScrollTop.value = content.value.scrollTop
   }
 

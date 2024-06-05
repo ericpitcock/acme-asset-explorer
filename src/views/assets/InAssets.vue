@@ -73,7 +73,10 @@
         />
       </template>
     </ep-header>
-    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout
+      sidebar-padding="2rem 0 0 3rem"
+      @scroll="onSideBarLayoutScroll"
+    >
       <template #sidebar>
         <div class="sidebar">
           <ep-flex-container
@@ -137,11 +140,13 @@
             v-bind="tableProps"
             @row-click="handleRowClick"
           >
-            <template #header="{ column }">
+            <template #header="{ column, headerStyles, columnIndex }">
               <ep-table-sortable-header
                 :column="column"
                 :sort-column="sortColumn"
                 :sort-order="sortOrder"
+                :header-styles="headerStyles"
+                :column-index="columnIndex"
                 @sort="sortBy"
               />
             </template>
@@ -162,11 +167,15 @@
   import InVulnTrendChart from './InVulnTrendChart.vue'
   import InOsVersionChart from './InOsVersionChart.vue'
   import { assetColumns } from './assetData.js'
-  import useExclude from '@epicenter/components/table/useExclude.js'
-  import useSorting from '@epicenter/components/table/useSorting.js'
-  import useDataFilters from '@epicenter/components/table/useDataFilters.js'
-  import useColumnFilters from '@epicenter/components/table/useColumnFilters.js'
-  import EpTableSortableHeader from '@epicenter/components/table/EpTableSortableHeader.vue'
+  import {
+    useExclude,
+    useColumnFilters,
+    useDataFilters,
+    useSorting,
+    // usePagination,
+    // useSearch
+  } from '@epicenter/composables/index.js'
+
 
   const search = ref([])
 
@@ -189,13 +198,15 @@
   const tableContainerProps = {
     styles: {
       ...commonContainerProps.styles,
-      '--ep-container-padding': '1rem 3rem 3rem',
+      '--ep-container-padding': '2rem 3rem 30rem 3rem',
       '--ep-container-width': 'fit-content',
-      // '--ep-container-overflow': 'auto',
+      '--ep-container-border-width': '0',
+      '--ep-container-border-radius': '0',
     }
   }
 
   const fixedHeader = ref(false)
+  // const tHeadLeft = ref('0')
 
   const tableProps = computed(() => {
     return {
@@ -204,6 +215,7 @@
       selectable: true,
       // stickyHeader: true,
       fixedHeader: fixedHeader.value,
+      // tHeadLeft: tHeadLeft.value,
       striped: true,
       styles: {
         // '--ep-table-width': 'max-content',
@@ -217,6 +229,11 @@
       },
     }
   })
+
+  const onSideBarLayoutScroll = (scroll) => {
+    console.log('scrollLeft', scroll.left)
+    // tHeadLeft.value = scroll.left
+  }
 
   const debounce = (func, delay) => {
     let timer
@@ -233,26 +250,29 @@
   const handleScroll = (scrollTop) => {
     requestAnimationFrame(() => {
       const table = tableComponent.value.$refs.tableContainer
+      const sidebarLayoutContent = document.querySelector('.sidebar-layout__content')
       // const tableY = table.getBoundingClientRect().top
       // console.log('tableY', tableY)
 
-      if (!fixedHeader.value && scrollTop > 542) {
+      if (!fixedHeader.value && scrollTop > 522) {
         fixedHeader.value = true
-        // table.style.paddingTop = '44.5px'
+        table.style.paddingTop = '44.5px'
+        // table.style.paddingTop = '54.5px'
         // window.scrollBy(0, 44.5)
+        // scroll .sidebar-layout__content to 44.5px
+        sidebarLayoutContent.scrollTop = 44.5
       }
-      if (fixedHeader.value && scrollTop < 542) {
+      if (fixedHeader.value && scrollTop < 522) {
         fixedHeader.value = false
-        // table.style.paddingTop = '0'
+        table.style.paddingTop = '0'
+        // sidebarLayoutContent.scrollTop = 0
       }
     })
   }
 
-  const debouncedHandleScroll = debounce(handleScroll, 0) // Adjust the debounce delay as needed
+  const debouncedHandleScroll = debounce(handleScroll, 10)
 
-  // const sidebarLayout = ref(null)
-
-  // inject scroll from InGrid.vue
+  // inject scroll position of .content from InGrid.vue
   const contentScrollTop = inject('contentScrollTop')
 
   watch(() => contentScrollTop.value, () => {
@@ -263,7 +283,12 @@
   const multiSearchProps = {
     height: '3.8rem',
     backgroundColor: 'var(--interface-foreground)',
-    icon: { name: 'search' },
+    icon: {
+      name: 'search',
+      styles: {
+        '--ep-icon-width': '2.4rem',
+      },
+    },
     placeholder: 'Search assets',
   }
 
@@ -295,21 +320,21 @@
     filteredData
   } = useDataFilters(includedColumns, sortedData)
 
-  // const hiddenColumns = [
-  //   'ipv6_address',
-  //   'mac_address',
-  //   'last_seen',
-  //   'os_version',
-  //   'endpoint_version',
-  //   'status',
-  // ]
+  const hiddenColumns = [
+    'ipv6_address',
+    'mac_address',
+    'last_seen',
+    'os_version',
+    // 'endpoint_version',
+    'status',
+  ]
 
   const {
     columnFilters,
     visibleColumns,
     visibleData,
     handleFilter
-  } = useColumnFilters(includedColumns, [], filteredData)
+  } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
 
   // const columnFilters = computed(() => {
   //   return assetColumns.map(column => ({

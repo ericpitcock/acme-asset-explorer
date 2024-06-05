@@ -157,7 +157,7 @@ function generateCveDesc() {
 const vulnTableData = []
 
 for (let i = 0; i < 100; i++) {
-  const severity = faker.helpers.arrayElement(['Low', 'Medium', 'High', 'Critical'])
+  const severity = faker.helpers.arrayElement(['Critical', 'Medium', 'High', 'Low'])
   // const variant = severity === 'Low' ? 'success' :
   //   severity === 'Medium' ? 'warning' :
   //     severity === 'High' ? 'warning' : 'danger'
@@ -179,7 +179,9 @@ for (let i = 0; i < 100; i++) {
       severity === 'High' ? faker.number.float({ min: 7, max: 8.9, multipleOf: 0.1 }) :
         faker.number.float({ min: 9, max: 10, multipleOf: 0.1 })
 
-  const severityValueMap = {
+  // baseScore.toString()
+
+  const sortMap = {
     Critical: '4',
     High: '3',
     Medium: '2',
@@ -196,7 +198,7 @@ for (let i = 0; i < 100; i++) {
         }
       },
       value: severity,
-      raw: severityValueMap[severity],
+      raw: sortMap[severity],
     },
     description: generateCveDesc(),
     affected_assets: faker.number.int({ min: 1, max: 100 }).toString(),

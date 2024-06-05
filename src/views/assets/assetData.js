@@ -30,6 +30,13 @@ const assetColumns = [
     filterable: true,
   },
   {
+    label: 'Vulnerabilities',
+    key: 'vulnerabilities',
+    component: markRaw(InSparkBar),
+    sortable: true,
+    filterable: true,
+  },
+  {
     label: 'User',
     key: 'user',
     component: markRaw(InUserStatus),
@@ -49,13 +56,6 @@ const assetColumns = [
     label: 'IP Address',
     key: 'ip_address',
     style: 'tabular-numbers',
-    sortable: true,
-    filterable: true,
-  },
-  {
-    label: 'Vulnerabilities',
-    key: 'vulnerabilities',
-    component: markRaw(InSparkBar),
     sortable: true,
     filterable: true,
   },
@@ -206,6 +206,12 @@ const assetDataArray = length => {
           styles: riskScoreBadgeStyles
         },
       },
+      vulnerabilities: {
+        value: vulnCounts[4],
+        props: {
+          bar: vulnCounts,
+        },
+      },
       user: {
         value: user,
         props: {
@@ -216,12 +222,6 @@ const assetDataArray = length => {
       },
       hostname: hostname.toLowerCase(),
       ip_address: generateIpAddress(10),
-      vulnerabilities: {
-        value: vulnCounts[4],
-        props: {
-          bar: vulnCounts,
-        },
-      },
       endpoint_version: status === 'Archived'
         ? '1.0.0'
         : faker.helpers.arrayElement(['1.0.0', '1.0.1', '1.0.2']),
