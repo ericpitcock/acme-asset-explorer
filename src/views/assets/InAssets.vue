@@ -73,10 +73,7 @@
         />
       </template>
     </ep-header>
-    <in-sidebar-layout
-      sidebar-padding="2rem 0 0 3rem"
-      @scroll="onSideBarLayoutScroll"
-    >
+    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
       <template #sidebar>
         <div class="sidebar">
           <ep-flex-container
@@ -129,29 +126,30 @@
             <p>Try adjusting your filters</p>
           </template>
         </ep-empty-state>
-        <ep-container
+        <!-- <ep-container
           v-else
           v-bind="tableContainerProps"
+        > -->
+        <ep-table
+          v-else
+          ref="tableComponent"
+          :columns="visibleColumns"
+          :data="visibleData"
+          v-bind="tableProps"
+          @row-click="handleRowClick"
         >
-          <ep-table
-            ref="tableComponent"
-            :columns="visibleColumns"
-            :data="visibleData"
-            v-bind="tableProps"
-            @row-click="handleRowClick"
-          >
-            <template #header="{ column, headerStyles, columnIndex }">
-              <ep-table-sortable-header
-                :column="column"
-                :sort-column="sortColumn"
-                :sort-order="sortOrder"
-                :header-styles="headerStyles"
-                :column-index="columnIndex"
-                @sort="sortBy"
-              />
-            </template>
-          </ep-table>
-        </ep-container>
+          <template #header="{ column, headerStyles, columnIndex }">
+            <ep-table-sortable-header
+              :column="column"
+              :sort-column="sortColumn"
+              :sort-order="sortOrder"
+              :header-styles="headerStyles"
+              :column-index="columnIndex"
+              @sort="sortBy"
+            />
+          </template>
+        </ep-table>
+        <!-- </ep-container> -->
       </template>
     </in-sidebar-layout>
   </div>
@@ -181,7 +179,7 @@
 
   const store = useStore()
   const router = useRouter()
-  const { commonContainerProps, commonPageHeaderProps } = store.state.commonProps
+  const { commonPageHeaderProps } = store.state.commonProps
   const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
   const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
   const rightPanelOpen = computed(() => store.state.rightPanelOpen)
@@ -195,18 +193,18 @@
     }
   }
 
-  const tableContainerProps = {
-    styles: {
-      ...commonContainerProps.styles,
-      '--ep-container-padding': '2rem 3rem 30rem 3rem',
-      '--ep-container-width': 'fit-content',
-      '--ep-container-border-width': '0',
-      '--ep-container-border-radius': '0',
-    }
-  }
+  // const tableContainerProps = {
+  //   styles: {
+  //     ...commonContainerProps.styles,
+  //     '--ep-container-padding': '2rem 3rem 30rem 3rem',
+  //     '--ep-container-width': 'fit-content',
+  //     '--ep-container-border-width': '0',
+  //     '--ep-container-border-radius': '0',
+  //   }
+  // }
 
   const fixedHeader = ref(false)
-  // const tHeadLeft = ref('0')
+  // const tHeadLeft = ref(0)
 
   const tableProps = computed(() => {
     return {
@@ -225,15 +223,16 @@
         '--ep-table-head-width': 'max-content',
         '--ep-table-body-width': 'max-content',
         '--ep-table-container-overflow': 'auto',
-        '--ep-table-fixed-top': '101px',
+        '--ep-table-container-padding': '1rem 3rem 30rem 3rem',
+        '--ep-table-fixed-top': '102px',
       },
     }
   })
 
-  const onSideBarLayoutScroll = (scroll) => {
-    console.log('scrollLeft', scroll.left)
-    // tHeadLeft.value = scroll.left
-  }
+  // const onSideBarLayoutScroll = (scroll) => {
+  //   console.log('scrollLeft', scroll.left)
+  //   // tHeadLeft.value = scroll.left
+  // }
 
   const debounce = (func, delay) => {
     let timer
@@ -248,26 +247,21 @@
   const tableComponent = ref(null)
 
   const handleScroll = (scrollTop) => {
-    requestAnimationFrame(() => {
-      const table = tableComponent.value.$refs.tableContainer
-      const sidebarLayoutContent = document.querySelector('.sidebar-layout__content')
-      // const tableY = table.getBoundingClientRect().top
-      // console.log('tableY', tableY)
+    // requestAnimationFrame(() => {
+    const table = tableComponent.value.$refs.tableContainer
+    const sidebarLayoutContent = document.querySelector('.content')
 
-      if (!fixedHeader.value && scrollTop > 522) {
-        fixedHeader.value = true
-        table.style.paddingTop = '44.5px'
-        // table.style.paddingTop = '54.5px'
-        // window.scrollBy(0, 44.5)
-        // scroll .sidebar-layout__content to 44.5px
-        sidebarLayoutContent.scrollTop = 44.5
-      }
-      if (fixedHeader.value && scrollTop < 522) {
-        fixedHeader.value = false
-        table.style.paddingTop = '0'
-        // sidebarLayoutContent.scrollTop = 0
-      }
-    })
+    if (!fixedHeader.value && scrollTop > 522) {
+      fixedHeader.value = true
+      table.style.paddingTop = '54.5px'
+      sidebarLayoutContent.scrollTop += 44.5
+    }
+    if (fixedHeader.value && scrollTop < 522) {
+      fixedHeader.value = false
+      table.style.paddingTop = '10px'
+      sidebarLayoutContent.scrollTop -= 10
+    }
+    // })
   }
 
   const debouncedHandleScroll = debounce(handleScroll, 10)
@@ -277,7 +271,8 @@
 
   watch(() => contentScrollTop.value, () => {
     console.log('scrollTop', contentScrollTop.value)
-    debouncedHandleScroll(contentScrollTop.value)
+    handleScroll(contentScrollTop.value)
+    // debouncedHandleScroll(contentScrollTop.value)
   })
 
   const multiSearchProps = {
@@ -325,7 +320,7 @@
     'mac_address',
     'last_seen',
     'os_version',
-    // 'endpoint_version',
+    'endpoint_version',
     'status',
   ]
 
@@ -335,17 +330,6 @@
     visibleData,
     handleFilter
   } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
-
-  // const columnFilters = computed(() => {
-  //   return assetColumns.map(column => ({
-  //     id: column.key,
-  //     name: 'columns',
-  //     value: column.key,
-  //     checked: !hiddenColumns.value.includes(column.key),
-  //     label: column.label,
-  //     disabled: false,
-  //   })).filter(filter => !tableProps.exclude.includes(filter.id))
-  // })
 
   const columnFiltersDropdownProps = {
     buttonProps: {
@@ -387,14 +371,6 @@
     router.push({ path: `/assets/${row.id}` })
   }
 
-  // const handleFilter = (event) => {
-  //   if (!event.target.checked) {
-  //     hiddenColumns.value.push(event.target.id)
-  //   } else {
-  //     hiddenColumns.value = hiddenColumns.value.filter(column => column !== event.target.id)
-  //   }
-  // }
-
   const updateSearch = (value) => {
     search.value = value
   }
@@ -410,16 +386,6 @@
   ], () => {
     window.dispatchEvent(new Event('resize'))
   })
-
-  // onMounted(() => {
-  //   const columnsToFilter = ['status', 'endpoint_version', 'location', 'operating_system']
-  //   const disabledFilters = ['Archived']
-
-  //   generateFilters(columnsToFilter, disabledFilters)
-  // })
-
-  // const { filters, generateFilters, filteredData } = useFilters(assetColumns, assetDataRef)
-
 </script>
 
 <style lang="scss" scoped>
