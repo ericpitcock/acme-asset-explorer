@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import { faker } from '@faker-js/faker'
-import { assetData } from '../views/assets/assetData.js'
+import { assetData } from './assetData.js'
 import { fakeUserData } from './userData.js'
 import { vulnTableData } from './vulnData.js'
 import commonProps from './commonProps.js'
@@ -141,6 +141,12 @@ export default createStore({
     // },
     // when the user clicks the menu button
     toggleleftPanelCollapsedUser: state => {
+      if (state.leftPanelCollapsed) {
+        // was set by window resize
+        state.leftPanelCollapsed = false
+        state.leftPanelCollapsedUser = false
+        return
+      }
       console.log('toggleleftPanelCollapsedUser')
       state.leftPanelCollapsedUser = !state.leftPanelCollapsedUser
     },

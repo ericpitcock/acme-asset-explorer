@@ -118,7 +118,7 @@
     gap: 2rem;
     height: 100%;
     padding: 30px 20px;
-    background: var(--interface-surface);
+    background: var(--interface-bg);
 
     &--collapsed {
       padding-left: 0;

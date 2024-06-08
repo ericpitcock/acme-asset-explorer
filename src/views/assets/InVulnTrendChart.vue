@@ -1,6 +1,7 @@
 <template>
   <div class="in-vuln-trend-chart">
     <ep-chart
+      ref="vulnTrendChart"
       :options="chartOptions"
       :height="300"
     />
@@ -8,7 +9,14 @@
 </template>
 
 <script setup>
+  import { computed, ref, watch } from 'vue'
+  import { useStore } from 'vuex'
   import Highcharts from 'highcharts'
+
+  const store = useStore()
+  const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+  const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
+  const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
   const fakeArrayOfDates = (length) => {
     let arr = []
@@ -98,6 +106,18 @@
       }
     }))
   }
+
+  const vulnTrendChart = ref(null)
+
+  watch([
+    leftPanelCollapsed,
+    leftPanelCollapsedUser,
+    rightPanelOpen
+  ], () => {
+    if (vulnTrendChart.value) {
+      vulnTrendChart.value.reflowChart()
+    }
+  })
 </script>
 
 <style lang="scss" scoped>

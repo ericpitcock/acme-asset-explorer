@@ -1,6 +1,7 @@
 <template>
   <div class="in-severity-chart">
     <ep-chart
+      ref="severityChart"
       :options="chartOptions"
       :height="300"
     />
@@ -8,12 +9,15 @@
 </template>
 
 <script setup>
-  import { computed } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import { useStore } from 'vuex'
   import Highcharts from 'highcharts'
 
   const store = useStore()
   const vulnerabilities = computed(() => store.state.vulnerabilities)
+  const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+  const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
+  const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
   // map vulnerabilities.severity to an array of numbers
   const severity = vulnerabilities.value.map((vuln) => vuln.severity.props.label)
@@ -89,6 +93,18 @@
       },
     ],
   }
+
+  const severityChart = ref(null)
+
+  watch([
+    leftPanelCollapsed,
+    leftPanelCollapsedUser,
+    rightPanelOpen
+  ], () => {
+    if (severityChart.value) {
+      severityChart.value.reflowChart()
+    }
+  })
 </script>
 
 <style lang="scss" scoped>

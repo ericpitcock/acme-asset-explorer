@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: 'Modal',
+    name: 'InModal',
     props: {
       padding: {
         type: String,

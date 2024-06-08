@@ -32,6 +32,7 @@
           </ep-header>
         </template>
         <ep-chart
+          ref="vulnChart"
           :options="vulnChartOptions"
           :height="300"
         />
@@ -206,12 +207,18 @@
     search.value = search.value.filter(item => item !== query)
   }
 
+  const vulnChart = ref(null)
+
   watch([
     leftPanelCollapsed,
     leftPanelCollapsedUser,
     rightPanelOpen
   ], () => {
-    window.dispatchEvent(new Event('resize'))
+    // window.dispatchEvent(new Event('resize'))
+    // in ref vulnChart run the method redraw()
+    if (vulnChart.value) {
+      vulnChart.value.reflowChart()
+    }
   })
 
   const tableContainerProps = {

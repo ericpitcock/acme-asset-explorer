@@ -1,6 +1,7 @@
 <template>
   <div class="in-version-chart">
     <ep-chart
+      ref="versionChart"
       :options="chartOptions"
       :height="300"
     />
@@ -8,8 +9,15 @@
 </template>
 
 <script setup>
+  import { computed, ref, watch } from 'vue'
+  import { useStore } from 'vuex'
   import Highcharts from 'highcharts'
   import { windowsVersions, macOSVersions, linuxDistributions } from '@/utils/helpers.js'
+
+  const store = useStore()
+  const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+  const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
+  const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
   const colors = Highcharts.getOptions().colors
 
@@ -169,6 +177,20 @@
       }]
     }
   }
+
+  const versionChart = ref(null)
+
+  watch([
+    leftPanelCollapsed,
+    leftPanelCollapsedUser,
+    rightPanelOpen
+  ], () => {
+    // window.dispatchEvent(new Event('resize'))
+    // in ref vulnChart run the method redraw()
+    if (versionChart.value) {
+      versionChart.value.reflowChart()
+    }
+  })
 </script>
 
 

@@ -61,7 +61,7 @@
     </ep-container>
     <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <h1>{{ assetDataRef.length }} assets</h1>
+        <h1>{{ paginatedData.length }} assets</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -126,30 +126,30 @@
             <p>Try adjusting your filters</p>
           </template>
         </ep-empty-state>
-        <!-- <ep-container
-          v-else
-          v-bind="tableContainerProps"
-        > -->
         <ep-table
           v-else
           ref="tableComponent"
           :columns="visibleColumns"
-          :data="visibleData"
+          :data="paginatedData"
           v-bind="tableProps"
           @row-click="handleRowClick"
         >
-          <template #header="{ column, headerStyles, columnIndex }">
+          <template #header="{ column, cellWidths, columnIndex }">
             <ep-table-sortable-header
               :column="column"
               :sort-column="sortColumn"
               :sort-order="sortOrder"
-              :header-styles="headerStyles"
+              :cell-widths="cellWidths"
               :column-index="columnIndex"
               @sort="sortBy"
             />
           </template>
         </ep-table>
-        <!-- </ep-container> -->
+        <ep-table-pagination
+          :current-page="currentPage"
+          :total-pages="totalPages"
+          @page-change="onPageChange"
+        />
       </template>
     </in-sidebar-layout>
   </div>
@@ -164,16 +164,15 @@
   import InSeverityChart from './InSeverityChart.vue'
   import InVulnTrendChart from './InVulnTrendChart.vue'
   import InOsVersionChart from './InOsVersionChart.vue'
-  import { assetColumns } from './assetData.js'
+  import { assetColumns } from '../../store/assetData.js'
   import {
     useExclude,
     useColumnFilters,
     useDataFilters,
     useSorting,
-    // usePagination,
-    // useSearch
+    usePagination,
+    useSearch
   } from '@epicenter/composables/index.js'
-
 
   const search = ref([])
 
@@ -193,46 +192,26 @@
     }
   }
 
-  // const tableContainerProps = {
-  //   styles: {
-  //     ...commonContainerProps.styles,
-  //     '--ep-container-padding': '2rem 3rem 30rem 3rem',
-  //     '--ep-container-width': 'fit-content',
-  //     '--ep-container-border-width': '0',
-  //     '--ep-container-border-radius': '0',
-  //   }
-  // }
-
   const fixedHeader = ref(false)
-  // const tHeadLeft = ref(0)
 
   const tableProps = computed(() => {
     return {
       bordered: true,
       headerBackgroundColor: 'var(--interface-surface)',
       selectable: true,
-      // stickyHeader: true,
       fixedHeader: fixedHeader.value,
-      // tHeadLeft: tHeadLeft.value,
       striped: true,
       styles: {
-        // '--ep-table-width': 'max-content',
-        // '--ep-table-sticky-top': '61px',
-        // '--ep-table-container-overflow': 'unset'
         '--ep-table-width': 'max-content',
         '--ep-table-head-width': 'max-content',
         '--ep-table-body-width': 'max-content',
         '--ep-table-container-overflow': 'auto',
         '--ep-table-container-padding': '1rem 3rem 30rem 3rem',
         '--ep-table-fixed-top': '102px',
+        '--ep-table-cell-white-space': 'nowrap',
       },
     }
   })
-
-  // const onSideBarLayoutScroll = (scroll) => {
-  //   console.log('scrollLeft', scroll.left)
-  //   // tHeadLeft.value = scroll.left
-  // }
 
   const debounce = (func, delay) => {
     let timer
@@ -247,32 +226,23 @@
   const tableComponent = ref(null)
 
   const handleScroll = (scrollTop) => {
-    // requestAnimationFrame(() => {
     const table = tableComponent.value.$refs.tableContainer
-    const sidebarLayoutContent = document.querySelector('.content')
 
     if (!fixedHeader.value && scrollTop > 522) {
       fixedHeader.value = true
       table.style.paddingTop = '54.5px'
-      sidebarLayoutContent.scrollTop += 44.5
     }
     if (fixedHeader.value && scrollTop < 522) {
       fixedHeader.value = false
       table.style.paddingTop = '10px'
-      sidebarLayoutContent.scrollTop -= 10
     }
-    // })
   }
-
-  const debouncedHandleScroll = debounce(handleScroll, 10)
 
   // inject scroll position of .content from InGrid.vue
   const contentScrollTop = inject('contentScrollTop')
 
   watch(() => contentScrollTop.value, () => {
-    console.log('scrollTop', contentScrollTop.value)
     handleScroll(contentScrollTop.value)
-    // debouncedHandleScroll(contentScrollTop.value)
   })
 
   const multiSearchProps = {
@@ -339,6 +309,21 @@
     }
   }
 
+  // use search
+  const {
+    searchedData,
+    searchText,
+    updateSearchText
+  } = useSearch(visibleData)
+
+  // use pagination
+  const {
+    paginatedData,
+    currentPage,
+    totalPages,
+    onPageChange
+  } = usePagination(searchedData, 1, 30)
+
   const contentHeaderProps = computed(() => ({
     styles: {
       ...commonPageHeaderProps.styles,
@@ -379,13 +364,13 @@
     search.value = search.value.filter(item => item !== query)
   }
 
-  watch([
-    leftPanelCollapsed,
-    leftPanelCollapsedUser,
-    rightPanelOpen
-  ], () => {
-    window.dispatchEvent(new Event('resize'))
-  })
+  // watch([
+  //   leftPanelCollapsed,
+  //   leftPanelCollapsedUser,
+  //   rightPanelOpen
+  // ], () => {
+  //   window.dispatchEvent(new Event('resize'))
+  // })
 </script>
 
 <style lang="scss" scoped>

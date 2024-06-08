@@ -5,10 +5,10 @@ import {
   generateOsVersion,
   generatePastDate,
   generateRecentDate
-} from '../../utils/helpers'
-import InUserStatus from '../../components/InUserStatus.vue'
-import InSparkBar from '../../components/InSparkBar.vue'
-import EpBadge from '../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
+} from '../utils/helpers'
+import InUserStatus from '../components/InUserStatus.vue'
+import InSparkBar from '../components/InSparkBar.vue'
+import EpBadge from '../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 
 const assetColumns = [
   {
@@ -239,8 +239,7 @@ const assetDataArray = length => {
 }
 
 // create asset and vulnerability arrays
-const assetData = assetDataArray(100)
-// const vulnData = generateVulnData(100)
+const assetData = assetDataArray(522)
 
 // find the index of the array with the highest sum of vulnerabilities in the assetData
 const maxVulnIndex = assetData.reduce((maxIndex, data, currentIndex, dataArray) => {
