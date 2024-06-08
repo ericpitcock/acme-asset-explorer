@@ -13,6 +13,11 @@
         </router-link>
       </p>
     </div>
+    <ep-button-group
+      :active="3"
+      size="default"
+      :items="timeframeButtons"
+    />
     <div class="app-controls app-controls--right">
       <ep-button
         :classes="['in-ghost-button']"
@@ -39,6 +44,15 @@
     name: 'AcmeHeader',
     data() {
       return {
+        timeframeButtons: [
+          { label: 'Today' },
+          { label: 'This Week' },
+          { label: '7D' },
+          { label: '30D' },
+          { label: '60D' },
+          { label: '90D' },
+          { label: 'Custom' }
+        ],
         userDropdownProps: {
           buttonProps: {
             classes: ['in-ghost-button'],
