@@ -196,6 +196,7 @@
   }
 
   const tableProps = {
+    hiddenColumns: ['id'],
     bordered: true,
     headerBackgroundColor: 'var(--interface-surface)',
     selectable: true,
@@ -215,7 +216,7 @@
   const {
     includedColumns,
     includedData
-  } = useExclude(vulnTableColumnsRef, vulnTableDataRef, ['id'])
+  } = useExclude(vulnTableColumnsRef, vulnTableDataRef, [])
 
   const {
     sortedData,

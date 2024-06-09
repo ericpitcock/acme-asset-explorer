@@ -111,7 +111,7 @@
     setup() {
       const store = useStore()
       const approvedDomains = computed(() => store.state.approvedDomains)
-      const commonContainerProps = computed(() => store.state.commonProps.commonContainerProps)
+      const { commonContainerProps } = store.state.commonProps
       const fakeUserData = computed(() => store.state.fakeUserData)
 
       const loading = ref(true)
@@ -139,13 +139,15 @@
         },
       ]
 
-      const containerProps = computed(() => {
-        return {
-          ...commonContainerProps.value,
-          maxWidth: '120rem',
-          containerPadding: '1rem 3rem 3rem',
+      const containerProps = {
+        styles: {
+          ...commonContainerProps.styles,
+          '--ep-container-max-width': '120rem',
+          '--ep-container-padding': '1rem 3rem 3rem',
+          '--ep-container-border-width': '0',
+          '--ep-container-border-radius': '0',
         }
-      })
+      }
 
       // const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
 

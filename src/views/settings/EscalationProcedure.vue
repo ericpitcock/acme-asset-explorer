@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import InModal from '@/components/InModal.vue'
+  // import InModal from '@/components/InModal.vue'
   import SettingsModuleLayout from './SettingsModuleLayout.vue'
   import services from '../services/services.json'
   import { mapState } from 'vuex'
@@ -40,15 +40,15 @@
     name: 'EscalationProcedure',
     components: {
       SettingsModuleLayout,
-      InModal,
+      // InModal,
     },
     data() {
       return {
         columns: [
-          { key: 'name', header: 'Name' },
-          { key: 'services', header: 'Services' },
-          { key: 'contacts', header: 'Contacts' },
-          { key: 'instructions', header: 'Additional Instructions' }
+          { key: 'name', label: 'Name' },
+          { key: 'services', label: 'Services' },
+          { key: 'contacts', label: 'Contacts' },
+          { key: 'instructions', label: 'Additional Instructions' }
         ],
         services,
         showModal: false

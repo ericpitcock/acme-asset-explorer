@@ -1,10 +1,5 @@
 <template>
-  <ep-container
-    width="90rem"
-    container-padding="0 3rem 1rem 3rem"
-    content-padding="3rem 0"
-    background-color="var(--interface-surface)"
-  >
+  <ep-container v-bind="containerProps">
     <template #header>
       <ep-header>
         <template #left>
@@ -111,6 +106,14 @@
     emits: ['close'],
     data() {
       return {
+        containerProps: {
+          styles: {
+            '--ep-container-width': '90rem',
+            '--ep-container-padding': '0 3rem 1rem 3rem',
+            '--ep-container-content-padding': '3rem 0',
+            '--ep-container-bg-color': 'var(--interface-surface)',
+          }
+        },
         roleOptions: [
           { label: 'User', value: 'User' },
           { label: 'Partner', value: 'Partner' },
