@@ -14,7 +14,8 @@ const assetColumns = [
   {
     label: 'ID',
     key: 'id',
-    filterable: true,
+    sortable: false,
+    filterable: false,
   },
   {
     label: 'Status',

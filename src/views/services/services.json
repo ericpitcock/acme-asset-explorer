@@ -4,97 +4,195 @@
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Subscribed",
-    "iconProps": { "name": "f-server", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-server",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Endpoint",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Subscribed",
-    "iconProps": { "name": "display", "size": 24, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "display",
+      "styles": {
+        "--ep-icon-width": "24px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Cloud",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Subscribed",
-    "iconProps": { "name": "f-cloud", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-cloud",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Log",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Unsubscribed",
-    "iconProps": { "name": "f-database", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-database",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Insider",
     "category": "Managed Detection and Response",
     "configurable": true,
     "status": "Expired",
-    "iconProps": { "name": "f-briefcase", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-briefcase",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Dark Web Monitoring",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f-alert-circle", "size": 24, "weight": "light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-alert-circle",
+      "styles": {
+        "--ep-icon-width": "24px",
+        "--ep-icon-stroke-width": 1,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Threat Intelligence",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f-eye", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-eye",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Managed Vulnerability Service",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Unsubscribed",
-    "iconProps": { "name": "circle", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "circle",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Virtual CISO Services",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Unsubscribed",
-    "iconProps": { "name": "circle", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "circle",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "CISO & Advisory Services",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Unsubscribed",
-    "iconProps": { "name": "circle", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "circle",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Vulnerability Assessments",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Unsubscribed",
-    "iconProps": { "name": "circle", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "circle",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Phishing and Security Awareness Training",
     "category": "Exposure Management",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f-book", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-book",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "Security Incident Response Planning Services",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Expired",
-    "iconProps": { "name": "f-list", "size": 30, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-list",
+      "styles": {
+        "--ep-icon-width": "30px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   },
   {
     "name": "On-Demand 24/7 Incident Response Retainer",
     "category": "Digital Forensics and Incident Response",
     "configurable": false,
     "status": "Subscribed",
-    "iconProps": { "name": "f-life-buoy", "size": 35, "weight": "extra-light", "color": "var(--nav-link-icon-color)" }
+    "iconProps": {
+      "name": "f-life-buoy",
+      "styles": {
+        "--ep-icon-width": "35px",
+        "--ep-icon-stroke-width": 0.5,
+        "--ep-icon-color": "var(--nav-link-icon-color)"
+      }
+    }
   }
 ]

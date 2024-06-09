@@ -27,8 +27,10 @@
     data() {
       return {
         containerProps: {
-          backgroundColor: 'var(--interface-bg)',
-          borderWidth: '0',
+          styles: {
+            '--ep-container-bg-color': 'var(--interface-bg)',
+            '--ep-container-border-width': '0',
+          },
         },
         services
       }
@@ -60,24 +62,20 @@
   .service-config {
     display: flex;
 
-    :deep(.ep-menu .ep-button--menu-item) {
-      padding: 1rem 3rem !important;
-    }
-
-    :deep(.ep-menu .ep-button--menu-item.router-link-active) {
-      color: var(--text--white);
-      border-left: 3px solid var(--tab-active-border-color);
-      text-indent: -3px;
-    }
-
-    :deep(.ep-menu .ep-menu__section) {
-      padding-left: 3rem !important;
-    }
-
-    :deep(.ep-menu .ep-menu__section:not(:first-child)) {
-      margin-top: 1rem !important;
-    }
-
+    // :deep(.ep-menu .ep-button--menu-item) {
+    //   padding: 1rem 3rem !important;
+    // }
+    // :deep(.ep-menu .ep-button--menu-item.router-link-active) {
+    //   color: var(--text--white);
+    //   border-left: 3px solid var(--tab-active-border-color);
+    //   text-indent: -3px;
+    // }
+    // :deep(.ep-menu .ep-menu__section) {
+    //   padding-left: 3rem !important;
+    // }
+    // :deep(.ep-menu .ep-menu__section:not(:first-child)) {
+    //   margin-top: 1rem !important;
+    // }
     &__nav {
       flex: 0 0 20rem;
       padding-top: 2rem;

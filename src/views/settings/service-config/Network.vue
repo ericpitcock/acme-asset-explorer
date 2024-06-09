@@ -5,6 +5,7 @@
       :styles="{
         '--ep-container-padding': '1rem 3rem 3rem',
         '--ep-container-max-width': '120rem',
+        '--ep-container-border-width': '0',
       }"
     >
       <ep-table
@@ -51,16 +52,12 @@
           {
             label: 'Config Status',
             key: 'config_status',
-            cellType: 'component',
             component: 'ep-badge',
           },
           { label: 'Name', key: 'name' },
           { label: 'Site', key: 'site' },
-          { header: 'Type', key: 'type' },
-          {
-            label: 'Modified',
-            key: 'modified',
-          }
+          { label: 'Type', key: 'type' },
+          { label: 'Modified', key: 'modified' }
         ],
         selectedConfig: null,
         showModal: false

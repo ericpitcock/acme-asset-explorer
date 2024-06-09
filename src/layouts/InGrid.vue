@@ -97,6 +97,7 @@
     .right-panel {
       flex: 0 0 361px;
       overflow: auto;
+      z-index: var(--z-index--overlap);
     }
   }
 </style>

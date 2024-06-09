@@ -20,7 +20,8 @@ export default {
         '--ep-header-left-padding': '0 0 0 3rem',
         '--ep-header-right-padding': '0 3rem 0 0',
         '--ep-header-right-gap': '1rem',
-        '--ep-header-z-index': 'var(--z-index--sticky)'
+        '--ep-header-z-index': 'var(--z-index--sticky)',
+        '--ep-header-container-overflow': 'visible'
       }
     },
   },

@@ -1,28 +1,6 @@
 <template>
   <div class="assets">
     <ep-container v-bind="headerContainerProps">
-      <template #header>
-        <ep-header :styles="{
-          '--ep-header-container-height': '9.1rem',
-          '--ep-header-container-border-width': '0'
-        }">
-          <template #left>
-            <h1 class="page-head">
-              Assets
-            </h1>
-          </template>
-          <template #right>
-            <ep-date-picker
-              mode="range"
-              position-x="right"
-              :input-props="{
-                size: 'large',
-                backgroundColor: 'var(--interface-foreground)'
-              }"
-            />
-          </template>
-        </ep-header>
-      </template>
       <ep-flex-container
         flex-flow="row nowrap"
         gap="6rem"
@@ -118,7 +96,7 @@
       </template>
       <template #content>
         <ep-empty-state
-          v-if="visibleData.length === 0"
+          v-if="paginatedData.length === 0"
           style="height: 100%;"
         >
           <p>No assets found</p>
@@ -179,9 +157,9 @@
   const store = useStore()
   const router = useRouter()
   const { commonPageHeaderProps } = store.state.commonProps
-  const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
-  const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
-  const rightPanelOpen = computed(() => store.state.rightPanelOpen)
+  // const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
+  // const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
+  // const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
   const containerProps = {
     styles: {
@@ -194,8 +172,13 @@
 
   const fixedHeader = ref(false)
 
+  const hiddenColumns = [
+    'id'
+  ]
+
   const tableProps = computed(() => {
     return {
+      hiddenColumns,
       bordered: true,
       headerBackgroundColor: 'var(--interface-surface)',
       selectable: true,
@@ -213,26 +196,16 @@
     }
   })
 
-  const debounce = (func, delay) => {
-    let timer
-    return function(...args) {
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        func.apply(this, args)
-      }, delay)
-    }
-  }
-
   const tableComponent = ref(null)
 
-  const handleScroll = (scrollTop) => {
+  const onScroll = (scrollTop) => {
     const table = tableComponent.value.$refs.tableContainer
 
-    if (!fixedHeader.value && scrollTop > 522) {
+    if (!fixedHeader.value && scrollTop > 452) {
       fixedHeader.value = true
       table.style.paddingTop = '54.5px'
     }
-    if (fixedHeader.value && scrollTop < 522) {
+    if (fixedHeader.value && scrollTop < 452) {
       fixedHeader.value = false
       table.style.paddingTop = '10px'
     }
@@ -242,7 +215,7 @@
   const contentScrollTop = inject('contentScrollTop')
 
   watch(() => contentScrollTop.value, () => {
-    handleScroll(contentScrollTop.value)
+    onScroll(contentScrollTop.value)
   })
 
   const multiSearchProps = {
@@ -263,7 +236,7 @@
   const {
     includedColumns,
     includedData
-  } = useExclude(assetColumnsRef, assetDataRef, ['id'])
+  } = useExclude(assetColumnsRef, assetDataRef, [])
 
   const {
     sortedData,
@@ -285,7 +258,7 @@
     filteredData
   } = useDataFilters(includedColumns, sortedData)
 
-  const hiddenColumns = [
+  const disabledColumns = [
     'ipv6_address',
     'mac_address',
     'last_seen',
@@ -299,7 +272,7 @@
     visibleColumns,
     visibleData,
     handleFilter
-  } = useColumnFilters(includedColumns, hiddenColumns, filteredData)
+  } = useColumnFilters(includedColumns, disabledColumns, filteredData)
 
   const columnFiltersDropdownProps = {
     buttonProps: {
@@ -339,7 +312,7 @@
     styles: {
       '--ep-container-bg-color': 'var(--page-header-background)',
       '--ep-container-border-width': '0',
-      '--ep-container-padding': '0 4rem',
+      '--ep-container-padding': '2rem 4rem 0 4rem',
     }
   }
 
@@ -363,14 +336,6 @@
   const queryClose = (query) => {
     search.value = search.value.filter(item => item !== query)
   }
-
-  // watch([
-  //   leftPanelCollapsed,
-  //   leftPanelCollapsedUser,
-  //   rightPanelOpen
-  // ], () => {
-  //   window.dispatchEvent(new Event('resize'))
-  // })
 </script>
 
 <style lang="scss" scoped>

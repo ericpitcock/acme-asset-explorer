@@ -48,23 +48,15 @@ export const generateOsVersion = (os) => {
   }
 }
 
-// dates
-const formatDate = (date) => {
-  return new Date(date).toLocaleString()
-}
-
 export const generatePastDate = (years = {}) => {
-  const date = faker.date.past(years).toISOString()
-  return formatDate(date)
+  return faker.date.past(years).toISOString()
 }
 
 export const generateRecentDate = (days = {}) => {
-  const date = faker.date.recent(days).toISOString()
-  return formatDate(date)
+  return faker.date.recent(days).toISOString()
 }
 
 // future date
 export const generateFutureDate = (years = {}) => {
-  const date = faker.date.future(years).toISOString()
-  return formatDate(date)
+  return faker.date.future(years).toISOString()
 }

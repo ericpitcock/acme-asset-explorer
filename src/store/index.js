@@ -128,9 +128,9 @@ export default createStore({
     removeApprovedDomain(state, index) {
       state.approvedDomains.splice(index, 1)
     },
-    removeNotification: (state, notification) => {
+    removeNotification: (state, id) => {
       state.notifications = state.notifications.filter(
-        n => n.id !== notification.id
+        notification => notification.id !== id
       )
     },
     removeSite: (state, index) => {
@@ -186,8 +186,8 @@ export default createStore({
     toggleNotificationCenter: ({ state, commit }) => {
       commit('toggleNotificationCenter')
     },
-    removeNotification: ({ state, commit }, notification) => {
-      commit('removeNotification', notification)
+    removeNotification: ({ state, commit }, id) => {
+      commit('removeNotification', id)
     },
     toggleTheme: ({ state, commit }) => {
       let newTheme = state.theme == 'dark' ? 'light' : 'dark'

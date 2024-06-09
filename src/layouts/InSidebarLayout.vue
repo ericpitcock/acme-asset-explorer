@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-  import { computed, provide, ref } from 'vue'
+  import { computed, ref } from 'vue'
 
   defineOptions({
     name: 'InSidebarLayout',
@@ -36,27 +36,25 @@
     }
   })
 
-  const sidebarLayoutContent = ref(null)
+  // const sidebarLayoutContent = ref(null)
 
-  const sidebarScrollRef = ref({
-    top: 0,
-    left: 0,
-  })
+  // const sidebarScrollRef = ref({
+  //   top: 0,
+  //   left: 0,
+  // })
 
-  const emit = defineEmits(['scroll'])
+  // const emit = defineEmits(['scroll'])
 
-  const onScroll = () => {
-    const { scrollTop, scrollLeft } = sidebarLayoutContent.value
+  // const onScroll = () => {
+  //   const { scrollTop, scrollLeft } = sidebarLayoutContent.value
 
-    sidebarScrollRef.value = {
-      top: scrollTop,
-      left: scrollLeft,
-    }
+  //   sidebarScrollRef.value = {
+  //     top: scrollTop,
+  //     left: scrollLeft,
+  //   }
 
-    emit('scroll', sidebarScrollRef.value)
-  }
-
-  // provide('sidebarScroll', sidebarScrollRef)
+  //   emit('scroll', sidebarScrollRef.value)
+  // }
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +68,7 @@
       top: 6.1rem;
       height: calc(100vh - 10.2rem);
       align-self: flex-start;
-      background: var(--interface-bg);
+      background: var(--interface-surface);
       border-right: 1px solid var(--border-color);
       z-index: var(--z-index--sticky);
     }
@@ -81,9 +79,6 @@
       flex-direction: column;
       gap: 2rem;
       background: var(--interface-surface);
-      // padding: 2rem 3rem 20rem 0;
-      // need this
-      // overflow-x: clip;
     }
   }
 </style>

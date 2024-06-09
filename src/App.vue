@@ -15,32 +15,41 @@
     </template>
     <template #right-panel>
       <div class="right-panel__container">
-        <ep-notifications :container-props="containerProps" />
+        <ep-notifications
+          :notifications
+          :container-props="containerProps"
+          @remove-notification="removeNotification"
+          @clear-notifications="clearNotifications"
+        />
       </div>
     </template>
   </in-grid>
 </template>
 
-<script>
-  import InGrid from '@/components/InGrid.vue'
+<script setup>
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
+  import InGrid from '@/layouts/InGrid.vue'
   import InHeader from '@/components/InHeader.vue'
   import InMainNav from '@/components/InMainNav.vue'
 
-  export default {
-    name: 'AcmeAssetExplorer',
-    components: {
-      InGrid,
-      InHeader,
-      InMainNav
-    },
-    computed: {
-      containerProps() {
-        return {
-          borderWidth: '0',
-          borderRadius: '0',
-        }
-      },
-    },
+  const containerProps = {
+    styles: {
+      '--ep-container-height': '100%',
+      '--ep-container-padding': '0 3rem',
+      '--ep-container-border-width': '0',
+      '--ep-container-border-radius': '0',
+      '--ep-container-bg-color': 'var(--interface-bg)',
+    }
+  }
+
+  const store = useStore()
+  const notifications = computed(() => store.state.notifications)
+  const clearNotifications = () => store.dispatch('clearNotifications')
+
+  const removeNotification = id => {
+    console.log('removeNotification', id)
+    store.dispatch('removeNotification', id)
   }
 </script>
 

@@ -7,13 +7,13 @@
         </h1>
       </template>
       <template #center>
-        <ep-search
+        <!-- <ep-search
           v-bind="searchInputProps"
           :search-results="searchResults"
           results-label="name"
           results-value="name"
           @search="searchFiles"
-        />
+        /> -->
       </template>
     </ep-header>
     <in-sidebar-layout sidebar-padding="3rem 0 0 3rem">
@@ -27,28 +27,33 @@
           <ep-button
             label="Upload File"
             variant="primary"
-            :icon-left="{ name: 'f-upload' }"
+            :icon-left="{
+              name: 'f-upload',
+              styles: {
+                '--ep-icon-width': '2.4rem',
+              }
+            }"
           />
         </ep-flex-container>
       </template>
       <template #content>
-        <ep-container
-          background-color="var(--interface-surface)"
-          content-padding="1rem 3rem 3rem"
-          style="overflow: unset;"
-        >
+        <ep-container :styles="{
+          '--ep-container-bg-color': 'var(--interface-surface)',
+          '--ep-container-content-padding': '1rem 3rem 3rem',
+          '--ep-container-border-width': '0',
+        }">
           <ep-table
             :columns="columns"
             :data="fakeData"
             sticky-header
-            sticky-top="61"
-            sortable
-            sort-key="date_uploaded"
             striped
             bordered
-            header-background-color="var(--interface-surface)"
-            width="100%"
-            style="overflow: unset;"
+            :styles="{
+              '--ep-table-width': '100%',
+              '--ep-table-header-bg-color': 'var(--interface-surface)',
+              '--ep-table-sticky-top': '61px',
+              '--ep-table-container-overflow': 'unset',
+            }"
           />
         </ep-container>
       </template>
@@ -72,13 +77,13 @@
       return {
         columns: [
           {
-            header: 'Name',
+            label: 'Name',
             key: 'name',
             // formatter that wraps the line no matter how long the text is
             formatter: (value) => `<div class="text--overflow-hidden">${value}</div>`,
           },
           {
-            header: 'Size',
+            label: 'Size',
             key: 'size',
             style: 'tabular-numbers',
             formatter: (value) => {
@@ -90,15 +95,15 @@
             }
           },
           {
-            header: 'Type',
+            label: 'Type',
             key: 'type'
           },
           {
-            header: 'Date Uploaded',
+            label: 'Date Uploaded',
             key: 'date_uploaded',
           },
           {
-            header: 'Uploaded By',
+            label: 'Uploaded By',
             key: 'uploaded_by',
           }
         ],

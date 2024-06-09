@@ -38,16 +38,22 @@
         gap="1rem"
         padding="0 0 10rem 0"
       >
-        <template v-for="(inputs, section) in inputs">
+        <template
+          v-for="(inputGroup, section) in inputs"
+          :key="section"
+        >
           <ep-header v-bind="sectionHeaderProps">
             <template #left>
               <h2>{{ section }}</h2>
             </template>
           </ep-header>
-          <template v-for="input in inputs">
+          <template
+            v-for="(input, index) in inputGroup"
+            :key="index"
+          >
             <ep-input
               v-bind="input"
-              v-model="input.value"
+              v-model="input.modelValue"
               size="large"
             />
           </template>
@@ -73,54 +79,54 @@
     data() {
       return {
         containerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          width: '70rem',
-          height: '100%',
-          // borderRadius: '0',
-          // calculatedHeight: true,
-          // calculateHeightOffset: 8.1,
-          containerPadding: '0 3rem',
-          // contentPadding: '0 3rem 0 0',
-          overflow: 'auto',
+          styles: {
+            '--ep-container-bg-color': 'var(--interface-surface)',
+            '--ep-container-padding': '0 3rem',
+            '--ep-container-overflow': 'auto',
+            '--ep-container-width': '70rem',
+            '--ep-container-height': '100%',
+            '--ep-table-container-overflow': 'auto',
+          },
           stickyHeader: true,
         },
         headerProps: {
-          backgroundColor: 'var(--interface-surface)',
-          height: '8.1rem',
-          leftGap: '2rem',
-          rightGap: '1rem',
-          // padding: '0 3rem',
+          styles: {
+            '--ep-header-container-bg-color': 'var(--interface-surface)',
+            '--ep-header-height': '8.1rem',
+            '--ep-header-left-gap': '2rem',
+            '--ep-header-right-gap': '1rem',
+          }
         },
         inputs: {
           'Network Information': [
             {
               type: 'text',
               label: 'Site Name',
-              value: this.config.name,
+              modelValue: this.config.name,
               required: true,
             },
             {
               type: 'text',
               label: 'Internal IP Address',
-              value: this.config.internal_ip_address,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'Subnet Mask',
-              value: this.config.subnet_mask,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'Gateway',
-              value: this.config.gateway,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'DNS Server',
-              value: this.config.dns_server,
+              modelValue: '',
               required: true,
             },
           ],
@@ -128,19 +134,19 @@
             {
               type: 'text',
               label: 'IPMI IP Address',
-              value: this.config.ipmi_ip_address,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'IPMI Subnet Mask',
-              value: this.config.ipmi_subnet_mask,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'IPMI Gateway',
-              value: this.config.ipmi_gateway,
+              modelValue: '',
               required: true,
             },
           ],
@@ -148,25 +154,25 @@
             {
               type: 'text',
               label: 'Address',
-              value: this.config.shipping_address,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'City',
-              value: this.config.shipping_city,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'State',
-              value: this.config.shipping_state,
+              modelValue: '',
               required: true,
             },
             {
               type: 'text',
               label: 'Zip Code',
-              value: this.config.shipping_zip,
+              modelValue: '',
               required: true,
             },
           ],
@@ -174,7 +180,7 @@
             {
               type: 'text',
               label: 'Sensor Location',
-              value: this.config.sensor_location,
+              modelValue: '',
               required: true,
             },
           ],
@@ -197,13 +203,17 @@
           },
         ],
         sectionHeaderProps: {
-          backgroundColor: 'var(--interface-surface)',
-          sticky: true,
-          stickyTop: '8.1rem',
+          styles: {
+            '--ep-header-container-bg-color': 'var(--interface-surface)',
+            '--ep-header-container-position': 'sticky',
+            '--ep-header-container-top': '6.1rem',
+          }
         },
         menuProps: {
           containerProps: {
-            borderWidth: '0',
+            styles: {
+              '--ep-container-border-width': '0',
+            }
           }
         }
       }

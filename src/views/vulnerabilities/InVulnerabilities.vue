@@ -1,28 +1,6 @@
 <template>
   <div class="vulnerabilities">
     <ep-container v-bind="headerContainerProps">
-      <template #header>
-        <ep-header :styles="{
-          '--ep-header-container-height': '9.1rem',
-          '--ep-header-container-border-width': '0'
-        }">
-          <template #left>
-            <h1 class="page-head">
-              Vulnerabilities
-            </h1>
-          </template>
-          <template #right>
-            <ep-date-picker
-              mode="range"
-              position-x="right"
-              :input-props="{
-                size: 'large',
-                backgroundColor: 'var(--interface-foreground)'
-              }"
-            />
-          </template>
-        </ep-header>
-      </template>
       <ep-container v-bind="chartContainerProps">
         <template #header>
           <ep-header>
@@ -155,18 +133,6 @@
     placeholder: 'Search vulnerabilities',
   }
 
-  // const tableProps = {
-  //   bordered: true,
-  //   searchable: true,
-  //   selectable: true,
-  //   sortable: true,
-  //   stickyHeader: true,
-  //   stickyTop: '61',
-  //   striped: true,
-  //   width: '100%',
-  //   exclude: [],
-  // }
-
   const contentHeaderProps = computed(() => ({
     styles: {
       ...commonPageHeaderProps.styles,
@@ -182,7 +148,7 @@
     styles: {
       '--ep-container-bg-color': 'var(--page-header-background)',
       '--ep-container-border-width': '0',
-      '--ep-container-padding': '0 4rem',
+      '--ep-container-padding': '2rem 4rem 0 4rem',
     }
   }
 
@@ -214,8 +180,6 @@
     leftPanelCollapsedUser,
     rightPanelOpen
   ], () => {
-    // window.dispatchEvent(new Event('resize'))
-    // in ref vulnChart run the method redraw()
     if (vulnChart.value) {
       vulnChart.value.reflowChart()
     }
@@ -224,7 +188,7 @@
   const tableContainerProps = {
     styles: {
       ...commonContainerProps.styles,
-      '--ep-container-padding': '2rem 3rem 30rem 3rem',
+      '--ep-container-padding': '1rem 3rem 30rem 3rem',
       '--ep-container-width': 'fit-content',
       '--ep-container-border-width': '0',
       '--ep-container-border-radius': '0',

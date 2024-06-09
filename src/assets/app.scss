@@ -1,6 +1,6 @@
 :root {
   .ep-table {
-    --ep-table-row-hover-bg-color: var(--primary-color-down-5-1000);
+    --ep-table-row-hover-bg-color: hsl(var(--gray-450));
   }
 
   // global overrides - dark theme
@@ -27,7 +27,7 @@
 
 html[data-color-theme='light'] {
   .ep-table {
-    --ep-table-row-hover-bg-color: var(--primary-color-down-15-100);
+    --ep-table-row-hover-bg-color: hsl(var(--gray-60));
   }
 
   // global overrides - light theme
@@ -145,6 +145,19 @@ html[data-color-theme='light'] {
   --ep-button-disabled-bg-color: var(--interface-foreground);
   --ep-button-disabled-text-color: var(--text-color--disabled);
   --ep-button-disabled-border-color: var(--border-color--disabled);
+}
+
+.in-header-button {
+  --ep-button-bg-color: transparent;
+  --ep-button-text-color: hsl(var(--gray-0));
+  --ep-button-border-color: transparent;
+  --ep-button-border-radius: 0.3rem;
+  --ep-button-hover-bg-color: transparent;
+  --ep-button-hover-text-color: hsl(var(--gray-0));
+  --ep-button-hover-border-color: transparent;
+  --ep-button-active-bg-color: transparent;
+  --ep-button-active-text-color: hsl(var(--gray-0));
+  --ep-button-active-border-color: transparent;
 }
 
 // severity classes

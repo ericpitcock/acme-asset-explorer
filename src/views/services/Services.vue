@@ -42,12 +42,19 @@
                   <h3>{{ service.name }}</h3>
                 </div>
                 <div class="service__actions">
-                  <ep-button
-                    v-if="isConfigurable(service)"
-                    classes="ep-button-variant-subtle-ghost"
-                    :icon-left="{ name: 'settings' }"
-                    :to="{ path: `/settings/service-config/${serviceSlug(service.name)}` }"
-                  />
+                  <ep-tooltip>
+                    <template #tooltip>
+                      <div>
+                        <p>Configure {{ service.name }}</p>
+                      </div>
+                    </template>
+                    <ep-button
+                      v-if="isConfigurable(service)"
+                      classes="ep-button-variant-subtle-ghost"
+                      :icon-left="{ name: 'settings' }"
+                      :to="{ path: `/settings/service-config/${serviceSlug(service.name)}` }"
+                    />
+                  </ep-tooltip>
                 </div>
               </div>
             </template>
@@ -139,7 +146,9 @@
         return this.services.some(service => service.category === category && service.status === 'Inactive')
       },
       isConfigurable(service) {
-        return service.configurable && service.status !== 'Unsubscribed'
+        return service.configurable
+          && service.status !== 'Unsubscribed'
+          && service.status !== 'Expired'
       },
       serviceSlug(serviceName) {
         // return serviceName as lowercase with spaces and special characters replaced with hyphens
