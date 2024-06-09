@@ -38,21 +38,22 @@
   const data = [
     {
       name: 'Buffer Overflow',
-      data: [35, 25, 20, 15] // Example data for Buffer Overflow vulnerabilities over time
+      data: [38, 29, 27, 12]
     },
     {
       name: 'SQL Injection',
-      data: [20, 30, 25, 25] // Example data for SQL Injection vulnerabilities over time
+      data: [25, 40, 20, 20]
     },
     {
       name: 'Cross-site Scripting (XSS)',
-      data: [15, 20, 30, 35] // Example data for XSS vulnerabilities over time
+      data: [18, 22, 27, 32]
     },
     {
       name: 'Other',
-      data: [30, 25, 25, 25] // Example data for Other vulnerabilities over time
+      data: [30, 20, 25, 25]
     }
   ]
+
 
   const chartOptions = {
     chart: {
@@ -126,5 +127,9 @@
     --chart-sequence-01: var(--color-severity--medium-bg);
     --chart-sequence-02: var(--color-severity--high-bg);
     --chart-sequence-03: var(--color-severity--critical-bg);
+
+    :deep(.highcharts-area) {
+      fill-opacity: 1;
+    }
   }
 </style>

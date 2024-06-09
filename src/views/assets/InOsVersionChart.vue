@@ -19,70 +19,70 @@
   const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
   const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
-  const colors = Highcharts.getOptions().colors
-
   const categories = [
     'Windows',
     'macOS',
     'Linux',
-    // 'Firefox',
-    // 'Other'
-  ],
-    data = [
-      {
-        y: 60,
-        color: colors[2],
-        drilldown: {
-          name: 'Windows',
-          categories: windowsVersions,
-          data: [
-            25,
-            20,
-            15,
-            // 5,
-            // 5,
-          ]
-        }
-      },
-      {
-        y: 30,
-        color: colors[3],
-        drilldown: {
-          name: 'macOS',
-          categories: macOSVersions,
-          data: [
-            16,
-            5,
-            4,
-            3,
-            2,
-          ]
-        }
-      },
-      {
-        y: 10,
-        color: colors[5],
-        drilldown: {
-          name: 'Linux',
-          categories: linuxDistributions,
-          data: [
-            8,
-            2,
-            // 1,
-            // 1,
-            // 1,
-          ]
-        }
-      },
-    ],
-    browserData = [],
-    versionsData = [],
-    dataLen = data.length
+  ]
+  const data = [
+    {
+      y: 60,
+      className: 'windows',
+      // color: colors[2],
+      drilldown: {
+        name: 'Windows',
+        categories: windowsVersions,
+        data: [
+          25,
+          20,
+          15,
+          // 5,
+          // 5,
+        ]
+      }
+    },
+    {
+      y: 30,
+      className: 'macos',
+      // color: colors[3],
+      drilldown: {
+        name: 'macOS',
+        categories: macOSVersions,
+        data: [
+          16,
+          5,
+          4,
+          3,
+          2,
+        ]
+      }
+    },
+    {
+      y: 10,
+      className: 'linux',
+      // color: colors[5],
+      drilldown: {
+        name: 'Linux',
+        categories: linuxDistributions,
+        data: [
+          8,
+          2,
+          // 1,
+          // 1,
+          // 1,
+        ]
+      }
+    },
+  ]
 
-  let i,
-    j,
-    drillDataLen,
-    brightness
+  const browserData = []
+  const versionsData = []
+  const dataLen = data.length
+
+  let i
+  let j
+  let drillDataLen
+  let brightness
 
   // Build the data arrays
   for (i = 0; i < dataLen; i += 1) {
@@ -91,7 +91,7 @@
     browserData.push({
       name: categories[i],
       y: data[i].y,
-      color: data[i].color
+      className: data[i].className
     })
 
     // add version data
@@ -102,7 +102,7 @@
       versionsData.push({
         name,
         y: data[i].drilldown.data[j],
-        color: Highcharts.color(data[i].color).brighten(brightness).get(),
+        className: `${data[i].className}-version-${j}`,
         custom: {
           version: name.split(' ')[1] || name.split(' ')[0]
         }
@@ -185,8 +185,6 @@
     leftPanelCollapsedUser,
     rightPanelOpen
   ], () => {
-    // window.dispatchEvent(new Event('resize'))
-    // in ref vulnChart run the method redraw()
     if (versionChart.value) {
       versionChart.value.reflowChart()
     }
@@ -205,9 +203,60 @@
       fill: var(--text-color--loud) !important;
     }
 
-    // --chart-sequence-00: var(--color-severity--low-bg);
-    // --chart-sequence-01: var(--color-severity--medium-bg);
-    // --chart-sequence-02: var(--color-severity--high-bg);
-    // --chart-sequence-03: var(--color-severity--critical-bg);
+    $windows: hsl(191, 86%, 41%);
+    $macos: hsl(8, 49%, 49%);
+    $linux: hsl(292, 36%, 43%);
+
+    :deep(.windows) {
+      fill: $windows;
+    }
+
+    :deep(.windows-version-0) {
+      fill: lighten($windows, 10%);
+    }
+
+    :deep(.windows-version-1) {
+      fill: lighten($windows, 20%);
+    }
+
+    :deep(.windows-version-2) {
+      fill: lighten($windows, 30%);
+    }
+
+    :deep(.macos) {
+      fill: $macos;
+    }
+
+    :deep(.macos-version-0) {
+      fill: lighten($macos, 10%);
+    }
+
+    :deep(.macos-version-1) {
+      fill: lighten($macos, 15%);
+    }
+
+    :deep(.macos-version-2) {
+      fill: lighten($macos, 20%);
+    }
+
+    :deep(.macos-version-3) {
+      fill: lighten($macos, 25%);
+    }
+
+    :deep(.macos-version-4) {
+      fill: lighten($macos, 30%);
+    }
+
+    :deep(.linux) {
+      fill: $linux;
+    }
+
+    :deep(.linux-version-0) {
+      fill: lighten($linux, 10%);
+    }
+
+    :deep(.linux-version-1) {
+      fill: lighten($linux, 20%);
+    }
   }
 </style>
