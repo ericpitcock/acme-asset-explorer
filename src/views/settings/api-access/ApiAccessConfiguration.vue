@@ -44,34 +44,35 @@
         },
         columns: [
           {
-            header: 'Status',
+            label: 'Status',
             key: 'status',
-            cellType: 'component',
             component: 'ep-badge',
           },
           {
-            header: 'Nickname',
+            label: 'Nickname',
             key: 'nickname',
           },
           {
-            header: 'Endpoint',
+            label: 'Endpoint',
             key: 'endpoint',
           },
           {
-            header: 'Auth Type',
+            label: 'Auth Type',
             key: 'auth_type',
           },
           {
-            header: 'API Key',
+            label: 'API Key',
             key: 'api_key',
           },
           {
-            header: 'Created',
+            label: 'Created',
             key: 'created',
+            formatter: (value) => new Date(value).toLocaleDateString(),
           },
           {
-            header: 'Expires',
+            label: 'Expires',
             key: 'expires',
+            formatter: (value) => new Date(value).toLocaleDateString(),
           },
         ],
         data: [

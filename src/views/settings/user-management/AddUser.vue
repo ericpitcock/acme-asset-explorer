@@ -5,11 +5,6 @@
         <template #left>
           <h1>{{ modalTitle }}</h1>
         </template>
-        <template #right>
-          <p class="text--subtle">
-            All fields required unless noted
-          </p>
-        </template>
       </ep-header>
     </template>
     <ep-flex-container
@@ -87,169 +82,188 @@
   </ep-container>
 </template>
 
-<script>
+<script setup>
+  import { computed, onMounted, ref, watch } from 'vue'
+  import { useStore } from 'vuex'
   import RolesTable from './RolesTable.vue'
-  import { mapMutations, mapState } from 'vuex'
   import { faker } from '@faker-js/faker'
 
-  export default {
+  const store = useStore()
+  const { approvedDomains } = store.state
+
+  defineOptions({
     name: 'AddUser',
-    components: {
-      RolesTable,
+  })
+
+  const props = defineProps({
+    user: {
+      type: Object,
+      default: () => ({}),
     },
-    props: {
-      user: {
-        type: Object,
-        default: () => ({}),
-      },
-    },
-    emits: ['close'],
-    data() {
-      return {
-        containerProps: {
-          styles: {
-            '--ep-container-width': '90rem',
-            '--ep-container-padding': '0 3rem 1rem 3rem',
-            '--ep-container-content-padding': '3rem 0',
-            '--ep-container-bg-color': 'var(--interface-surface)',
-          }
-        },
-        roleOptions: [
-          { label: 'User', value: 'User' },
-          { label: 'Partner', value: 'Partner' },
-          { label: 'Admin', value: 'Admin' },
-        ],
-        userId: '',
-        userRole: '',
-        userName: '',
-        userEmail: '',
-        secondaryEmail: '',
-        userMobilePhone: '',
-        userOfficePhone: '',
-        userRoleBorderColor: null,
-        userNameBorderColor: null,
-        userEmailBorderColor: null,
-        secondaryEmailBorderColor: null,
-        userMobilePhoneBorderColor: null,
-      }
-    },
-    computed: {
-      ...mapState(['approvedDomains']),
-      approvedDomainsMessage() {
-        return this.approvedDomains.length
-          ? `Approved domains: ${this.approvedDomains.join(', ')}`
-          : 'You don’t have any approved domains. Add a domain to company profile to add a new user.'
-      },
-      buttonLabel() {
-        return this.user ? 'Save Changes' : 'Add User'
-      },
-      modalTitle() {
-        return this.user ? `Edit User: ${this.userId}` : 'Add User'
-      },
-    },
-    methods: {
-      ...mapMutations(['addUserData']),
-      addUser() {
-        if (!this.hasRequiredFields()) {
-          return
-        }
+  })
 
-        let userEmailIsValid = this.isValidEmail(this.userEmail)
-        let secondaryEmailIsValid = !this.secondaryEmail || this.isValidEmail(this.secondaryEmail)
+  const emit = defineEmits(['close'])
 
-        if (!userEmailIsValid) {
-          this.userEmailBorderColor = 'red'
-        } else {
-          this.userEmailBorderColor = '' // Reset border color if email is valid
-        }
-
-        if (!secondaryEmailIsValid) {
-          if (this.secondaryEmail) {
-            this.secondaryEmailBorderColor = 'red'
-          }
-        } else {
-          this.secondaryEmailBorderColor = '' // Reset border color if email is valid
-        }
-
-        if (!userEmailIsValid || !secondaryEmailIsValid) {
-          return
-        }
-
-        this.addUserData({
-          id: this.userId || faker.string.uuid(),
-          status: {
-            value: 'Active',
-            props: {
-              label: 'Active',
-              variant: 'success',
-              outlined: true,
-            }
-          },
-          name: this.userName,
-          email: this.userEmail,
-          user_mobile_phone: this.userMobilePhone,
-          office_phone: this.userOfficePhone,
-          role: this.userRole,
-          last_active: new Date().toISOString(),
-        })
-
-        this.$emit('close')
-      },
-      hasRequiredFields() {
-        const requiredFields = ['userRole', 'userName', 'userEmail', 'userMobilePhone']
-        let hasMissingField = false
-
-        for (const field of requiredFields) {
-          if (!this[field]) {
-            this[`${field}BorderColor`] = 'red'
-            hasMissingField = true
-          }
-        }
-
-        return !hasMissingField
-      },
-      isValidEmail(email) {
-        const userEmailDomain = email.split('@')[1]
-        return this.approvedDomains.includes(userEmailDomain)
-      },
-      dismissModal() {
-        this.$emit('close')
-        this.userRole = ''
-        this.userName = ''
-        this.userEmail = ''
-        this.userSecondaryEmail = ''
-        this.userMobilePhone = ''
-        this.userOfficePhone = ''
-      },
-      populateFields() {
-        this.userId = this.user.id
-        this.userRole = this.user.role
-        this.userName = this.user.name
-        this.userEmail = this.user.email
-        this.userMobilePhone = this.user.user_mobile_phone
-        this.userOfficePhone = this.user.office_phone
-      },
-    },
-    watch: {
-      userRole() {
-        this.userRoleBorderColor = null
-      },
-      userName() {
-        this.userNameBorderColor = null
-      },
-      userEmail() {
-        this.userEmailBorderColor = null
-      },
-      userMobilePhone() {
-        this.userMobilePhoneBorderColor = null
-      },
-    },
-    mounted() {
-      if (this.user) {
-        this.populateFields()
-      }
-    },
+  const containerProps = {
+    styles: {
+      '--ep-container-width': '90rem',
+      '--ep-container-padding': '0 3rem 1rem 3rem',
+      '--ep-container-content-padding': '3rem 0',
+      '--ep-container-bg-color': 'var(--interface-surface)',
+    }
   }
+
+  const roleOptions = [
+    { label: 'User', value: 'User' },
+    { label: 'Partner', value: 'Partner' },
+    { label: 'Admin', value: 'Admin' },
+  ]
+
+  const userId = ref('')
+  const userRole = ref('')
+  const userName = ref('')
+  const userEmail = ref('')
+  const secondaryEmail = ref('')
+  const userMobilePhone = ref('')
+  const userOfficePhone = ref('')
+
+  watch(() => userName.value, () => {
+    console.log('userName', userName.value)
+  })
+
+
+  const userRoleBorderColor = ref(null)
+  const userNameBorderColor = ref(null)
+  const userEmailBorderColor = ref(null)
+  const secondaryEmailBorderColor = ref(null)
+  const userMobilePhoneBorderColor = ref(null)
+
+  const approvedDomainsMessage = computed(() => {
+    return approvedDomains.length
+      ? `Approved domains: ${approvedDomains.join(', ')}`
+      : 'You don’t have any approved domains. Add a domain to company profile to add a new user.'
+  })
+
+  const buttonLabel = computed(() => {
+    return props.user ? 'Save Changes' : 'Add User'
+  })
+
+  const modalTitle = computed(() => {
+    return props.user ? `Edit User: ${userId.value}` : 'Add User'
+  })
+
+
+  // ...mapMutations(['addUserData']),
+  const addUser = () => {
+    // if (!hasRequiredFields()) {
+    //   // console.log('Missing required fields')
+    //   return
+    // }
+
+    // let userEmailIsValid = isValidEmail(userEmail.value)
+    // let secondaryEmailIsValid = !secondaryEmail.value || isValidEmail(secondaryEmail.value)
+
+    // if (!userEmailIsValid) {
+    //   userEmailBorderColor.value = 'red'
+    // } else {
+    //   userEmailBorderColor.value = '' // Reset border color if email is valid
+    // }
+
+    // if (!secondaryEmailIsValid) {
+    //   if (secondaryEmail.value) {
+    //     secondaryEmailBorderColor.value = 'red'
+    //   }
+    // } else {
+    //   secondaryEmailBorderColor.value = '' // Reset border color if email is valid
+    // }
+
+    // if (!userEmailIsValid || !secondaryEmailIsValid) {
+    //   return
+    // }
+
+    store.commit('addUserData', {
+      id: userId.value || faker.string.uuid(),
+      status: {
+        value: 'Active',
+        props: {
+          label: 'Active',
+          variant: 'success',
+          outlined: true,
+        }
+      },
+      name: userName.value,
+      email: userEmail.value,
+      user_mobile_phone: userMobilePhone.value,
+      office_phone: userOfficePhone.value,
+      role: userRole.value,
+      last_active: new Date().toISOString(),
+    })
+
+    emit('close')
+  }
+
+  const hasRequiredFields = () => {
+    const requiredFields = ['userRole', 'userName', 'userEmail', 'userMobilePhone']
+    let hasMissingField = false
+
+    for (const field of requiredFields) {
+      if (![field].value) {
+        [`${field}BorderColor`].value = 'red'
+        hasMissingField = true
+        console.log(`${field} is missing`)
+        console.log(`${field}BorderColor`, [`${field}BorderColor`].value)
+      }
+    }
+
+    return !hasMissingField
+  }
+
+  const isValidEmail = (email) => {
+    const userEmailDomain = email.split('@')[1]
+    return approvedDomains.includes(userEmailDomain)
+  }
+
+  const dismissModal = () => {
+    emit('close')
+    userRole.value = ''
+    userName.value = ''
+    userEmail.value = ''
+    secondaryEmail.value = ''
+    userMobilePhone.value = ''
+    userOfficePhone.value = ''
+  }
+
+  const populateFields = () => {
+    userId.value = props.user.id
+    userRole.value = props.user.role.value
+    userName.value = props.user.name.value
+    userEmail.value = props.user.email
+    userMobilePhone.value = props.user.user_mobile_phone
+    userOfficePhone.value = props.user.office_phone
+  }
+
+
+  // watch(() => userRole.value, () => {
+  //   userRoleBorderColor.value = null
+  // })
+
+  // watch(() => userName.value, () => {
+  //   userNameBorderColor.value = null
+  // })
+
+  // watch(() => userEmail.value, () => {
+  //   userEmailBorderColor.value = null
+  // })
+
+  // watch(() => userMobilePhone.value, () => {
+  //   userMobilePhoneBorderColor.value = null
+  // })
+
+  onMounted(() => {
+    if (props.user) {
+      populateFields()
+    }
+  })
 </script>
 
 <style lang="scss" scoped></style>

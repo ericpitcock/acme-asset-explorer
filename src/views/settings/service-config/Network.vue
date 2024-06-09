@@ -57,7 +57,11 @@
           { label: 'Name', key: 'name' },
           { label: 'Site', key: 'site' },
           { label: 'Type', key: 'type' },
-          { label: 'Modified', key: 'modified' }
+          {
+            label: 'Modified',
+            key: 'modified',
+            formatter: (value) => new Date(value).toLocaleString(),
+          }
         ],
         selectedConfig: null,
         showModal: false

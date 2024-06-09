@@ -63,14 +63,18 @@
           </ep-empty-state>
           <ep-table
             v-else
-            v-show="!loading"
             :columns="columns"
             :data="fakeUserData"
-            :exclude="['id', 'office_phone']"
+            :hidden-columns="[
+              'id',
+              'status',
+              'office_phone',
+              'user_mobile_phone'
+            ]"
             :styles="{
               '--ep-table-width': '100%',
               '--ep-table-container-overflow': 'unset',
-              '--ep-table-sticky-top': '61px',
+              '--ep-table-sticky-top': '0',
             }"
             sticky-header
             striped
@@ -94,12 +98,13 @@
 </template>
 
 <script>
-  import { ref, computed, onMounted, getCurrentInstance } from 'vue'
+  import { ref, computed, markRaw, onMounted } from 'vue'
   import { useStore } from 'vuex'
   import AddUser from './AddUser.vue'
   import InModal from '@/components/InModal.vue'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
-  // import useFilters from '@/composables/useFilters.js'
+  import InUserStatus from '../../../components/InUserStatus.vue'
+  import EpBadge from '../../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 
   export default {
     name: 'InUsers',
@@ -114,28 +119,59 @@
       const { commonContainerProps } = store.state.commonProps
       const fakeUserData = computed(() => store.state.fakeUserData)
 
-      const loading = ref(true)
       const selectedUser = ref(null)
       const showModal = ref(false)
       const columns = [
         {
           label: 'ID',
-          key: 'id'
+          key: 'id',
+          sortable: false,
+          filterable: false,
+        },
+        {
+          label: 'Role',
+          key: 'role',
+          component: markRaw(EpBadge),
+          sortable: true,
+          filterable: true,
         },
         {
           label: 'Status',
           key: 'status',
-          cellType: 'component',
-          component: 'ep-badge',
+          sortable: true,
+          filterable: true,
         },
-        { label: 'Name', key: 'name' },
-        { label: 'Email', key: 'email' },
-        { label: 'Mobile Phone', key: 'user_mobile_phone' },
-        { label: 'Office Phone', key: 'office_phone' },
-        { label: 'Role', key: 'role' },
+        {
+          label: 'Name',
+          key: 'name',
+          component: markRaw(InUserStatus),
+          sortable: true,
+          filterable: true,
+        },
+        {
+          label: 'Email',
+          key: 'email',
+          sortable: true,
+          filterable: true,
+        },
+        {
+          label: 'Mobile Phone',
+          key: 'user_mobile_phone',
+          sortable: false,
+          filterable: false,
+        },
+        {
+          label: 'Office Phone',
+          key: 'office_phone',
+          sortable: false,
+          filterable: false,
+        },
         {
           label: 'Last Active',
           key: 'last_active',
+          formatter: (value) => new Date(value).toLocaleString(),
+          sortable: true,
+          filterable: true,
         },
       ]
 
@@ -146,31 +182,12 @@
           '--ep-container-padding': '1rem 3rem 3rem',
           '--ep-container-border-width': '0',
           '--ep-container-border-radius': '0',
+          '--ep-container-overflow': 'unset',
         }
       }
 
-      // const { filters, generateFilters, filteredData } = useFilters(columns, fakeUserData)
-
-      const instance = getCurrentInstance()
-      const $epDialog = instance.appContext.config.globalProperties.$epDialog
-
       const addUser = () => {
-        if (approvedDomains.value.length) {
-          showModal.value = true
-        } else {
-          $epDialog.open({
-            title: 'No Approved Domains',
-            message: 'You need to add an approved domain to your company profile before you can add a new user.',
-            buttons: [
-              { variant: 'secondary', text: 'Cancel' },
-              {
-                variant: 'primary',
-                text: 'Add Domain',
-                action: () => $router.push('/settings/company-profile')
-              },
-            ]
-          })
-        }
+        showModal.value = true
       }
 
       const editUser = (user) => {
@@ -193,14 +210,6 @@
       }
 
       onMounted(() => {
-        // const columnsToFilter = ['status', 'role']
-        // const disabledFilters = ['Deactivated']
-
-        // generateFilters(columnsToFilter, disabledFilters)
-
-        setTimeout(() => {
-          loading.value = false
-        }, 100)
       })
 
       return {
@@ -214,7 +223,6 @@
         // filteredData,
         // filters,
         handleClose,
-        loading,
         resetFilters,
         selectedUser,
         showModal,
