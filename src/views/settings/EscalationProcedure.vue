@@ -63,7 +63,7 @@
           escalationProcedures.push({
             name: i === 0 ? 'Primary' : `Secondary`,
             services: `${this.services[i].name}, ${this.services[i + 1].name}`,
-            contacts: `${this.fakeUserData[i].name}, ${this.fakeUserData[i + 1].name}, ${this.fakeUserData[i + 2].name}`,
+            contacts: `${this.fakeUserData[i].name.value}, ${this.fakeUserData[i + 1].name.value}, ${this.fakeUserData[i + 2].name.value}`,
             instructions: ''
           })
         }

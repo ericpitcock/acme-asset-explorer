@@ -69,7 +69,7 @@
             bordered
             @row-click="editUser"
           >
-            <template #header="{ column, cellWidths }">
+            <template #header="{ column }">
               <ep-table-sortable-header
                 :column="column"
                 :sort-column="sortColumn"
@@ -102,12 +102,8 @@
   import InUserStatus from '../../../components/InUserStatus.vue'
   import EpBadge from '@epicenter/components/badge/EpBadge.vue'
   import {
-    useExclude,
-    useColumnFilters,
     useDataFilters,
     useSorting,
-    usePagination,
-    useSearch
   } from '@epicenter/composables/index.js'
 
   const store = useStore()
@@ -170,24 +166,17 @@
 
   const fakeUserData = computed(() => store.state.fakeUserData)
 
-  // use exclude
-  // const {
-  //   includedColumns,
-  //   includedData
-  // } = useExclude(columnsRef, tableData, [])
-
   // use sorting
   const {
     sortedData,
     sortBy,
     sortColumn,
     sortOrder
-  } = useSorting(fakeUserData, 'role', 'desc')
+  } = useSorting(fakeUserData, 'role', 'asc')
 
   onMounted(() => {
     const columnsToFilter = ['role', 'status']
     const disabledFilters = ['Deactivated']
-    // const customSortOrder = { severity: ['Critical', 'High', 'Medium', 'Low'] }
 
     generateFilters(columnsToFilter, disabledFilters)
   })
@@ -198,29 +187,6 @@
     filteredData,
     onFilterChange
   } = useDataFilters(columns, sortedData)
-
-  // // use column filters
-  // const {
-  //   columnFilters,
-  //   visibleColumns,
-  //   visibleData,
-  //   handleFilter
-  // } = useColumnFilters(includedColumns, [], filteredData)
-
-  // // use search
-  // const {
-  //   searchedData,
-  //   searchText,
-  //   updateSearchText
-  // } = useSearch(visibleData)
-
-  // // use pagination
-  // const {
-  //   paginatedData,
-  //   currentPage,
-  //   totalPages,
-  //   onPageChange
-  // } = usePagination(searchedData, 1, 30)
 
   const selectedUser = ref(null)
   const showModal = ref(false)
