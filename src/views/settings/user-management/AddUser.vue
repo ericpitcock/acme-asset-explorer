@@ -183,19 +183,31 @@
 
     store.commit('addUserData', {
       id: userId.value || faker.string.uuid(),
-      status: {
-        value: 'Active',
+      role: {
+        value: userRole.value,
         props: {
-          label: 'Active',
-          variant: 'success',
-          outlined: true,
+          label: userRole.value,
+          styles: {
+            '--ep-badge-bg-color': 'transparent',
+            '--ep-badge-border-color': 'var(--color-status--success-bg)',
+          }
         }
       },
-      name: userName.value,
+      status: 'Active',
+      name: {
+        value: userName.value,
+        props: {
+          value: userName.value,
+          tooltip: 'Active',
+          styles: {
+            '--ep-status-indicator-dot-bg': 'var(--color-status--success-bg)',
+            '--ep-status-indicator-dot-border': 'var(--ep-status-indicator-dot-bg)'
+          }
+        }
+      },
       email: userEmail.value,
       user_mobile_phone: userMobilePhone.value,
       office_phone: userOfficePhone.value,
-      role: userRole.value,
       last_active: new Date().toISOString(),
     })
 

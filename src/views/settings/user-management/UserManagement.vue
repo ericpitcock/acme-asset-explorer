@@ -89,7 +89,7 @@
       v-if="showModal"
       padding="6rem 0 0 0"
     >
-      <add-user
+      <AddUser
         :user="selectedUser"
         @close="handleClose"
       />
@@ -97,7 +97,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
   import { ref, computed, markRaw, onMounted } from 'vue'
   import { useStore } from 'vuex'
   import AddUser from './AddUser.vue'
@@ -106,129 +106,105 @@
   import InUserStatus from '../../../components/InUserStatus.vue'
   import EpBadge from '../../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
 
-  export default {
-    name: 'InUsers',
-    components: {
-      AddUser,
-      InModal,
-      InSidebarLayout,
+  const store = useStore()
+  // const approvedDomains = computed(() => store.state.approvedDomains)
+  const { commonContainerProps } = store.state.commonProps
+  const fakeUserData = computed(() => store.state.fakeUserData)
+
+  const selectedUser = ref(null)
+  const showModal = ref(false)
+  const columns = [
+    {
+      label: 'ID',
+      key: 'id',
+      sortable: false,
+      filterable: false,
     },
-    setup() {
-      const store = useStore()
-      const approvedDomains = computed(() => store.state.approvedDomains)
-      const { commonContainerProps } = store.state.commonProps
-      const fakeUserData = computed(() => store.state.fakeUserData)
+    {
+      label: 'Role',
+      key: 'role',
+      component: markRaw(EpBadge),
+      sortable: true,
+      filterable: true,
+    },
+    {
+      label: 'Status',
+      key: 'status',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      label: 'Name',
+      key: 'name',
+      component: markRaw(InUserStatus),
+      sortable: true,
+      filterable: true,
+    },
+    {
+      label: 'Email',
+      key: 'email',
+      sortable: true,
+      filterable: true,
+    },
+    {
+      label: 'Mobile Phone',
+      key: 'user_mobile_phone',
+      sortable: false,
+      filterable: false,
+    },
+    {
+      label: 'Office Phone',
+      key: 'office_phone',
+      sortable: false,
+      filterable: false,
+    },
+    {
+      label: 'Last Active',
+      key: 'last_active',
+      formatter: (value) => new Date(value).toLocaleString(),
+      sortable: true,
+      filterable: true,
+    },
+  ]
 
-      const selectedUser = ref(null)
-      const showModal = ref(false)
-      const columns = [
-        {
-          label: 'ID',
-          key: 'id',
-          sortable: false,
-          filterable: false,
-        },
-        {
-          label: 'Role',
-          key: 'role',
-          component: markRaw(EpBadge),
-          sortable: true,
-          filterable: true,
-        },
-        {
-          label: 'Status',
-          key: 'status',
-          sortable: true,
-          filterable: true,
-        },
-        {
-          label: 'Name',
-          key: 'name',
-          component: markRaw(InUserStatus),
-          sortable: true,
-          filterable: true,
-        },
-        {
-          label: 'Email',
-          key: 'email',
-          sortable: true,
-          filterable: true,
-        },
-        {
-          label: 'Mobile Phone',
-          key: 'user_mobile_phone',
-          sortable: false,
-          filterable: false,
-        },
-        {
-          label: 'Office Phone',
-          key: 'office_phone',
-          sortable: false,
-          filterable: false,
-        },
-        {
-          label: 'Last Active',
-          key: 'last_active',
-          formatter: (value) => new Date(value).toLocaleString(),
-          sortable: true,
-          filterable: true,
-        },
-      ]
-
-      const containerProps = {
-        styles: {
-          ...commonContainerProps.styles,
-          '--ep-container-max-width': '120rem',
-          '--ep-container-padding': '1rem 3rem 3rem',
-          '--ep-container-border-width': '0',
-          '--ep-container-border-radius': '0',
-          '--ep-container-overflow': 'unset',
-        }
-      }
-
-      const addUser = () => {
-        showModal.value = true
-      }
-
-      const editUser = (user) => {
-        selectedUser.value = user
-        showModal.value = true
-      }
-
-      const handleClose = () => {
-        selectedUser.value = null
-        showModal.value = false
-      }
-
-      const resetFilters = () => {
-        // within every key in filters, set checked to true
-        Object.keys(filters.value).forEach((key) => {
-          filters.value[key].forEach((filter) => {
-            filter.checked = true
-          })
-        })
-      }
-
-      onMounted(() => {
-      })
-
-      return {
-        addUser,
-        approvedDomains,
-        columns,
-        commonContainerProps,
-        containerProps,
-        editUser,
-        fakeUserData,
-        // filteredData,
-        // filters,
-        handleClose,
-        resetFilters,
-        selectedUser,
-        showModal,
-      }
+  const containerProps = {
+    styles: {
+      ...commonContainerProps.styles,
+      '--ep-container-max-width': '120rem',
+      '--ep-container-padding': '1rem 3rem 3rem',
+      '--ep-container-border-width': '0',
+      '--ep-container-border-radius': '0',
+      '--ep-container-overflow': 'unset',
     }
   }
+
+  const addUser = () => {
+    showModal.value = true
+  }
+
+  const editUser = (user) => {
+    selectedUser.value = user
+    showModal.value = true
+  }
+
+  const handleClose = () => {
+    selectedUser.value = null
+    showModal.value = false
+  }
+
+  const resetFilters = () => {
+    // within every key in filters, set checked to true
+    Object.keys(filters.value).forEach((key) => {
+      filters.value[key].forEach((filter) => {
+        filter.checked = true
+      })
+    })
+  }
+
+  onMounted(() => {
+  })
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -8,20 +8,21 @@
   </teleport>
 </template>
 
-<script>
-  export default {
+<script setup>
+  defineOptions({
     name: 'InModal',
-    props: {
-      padding: {
-        type: String,
-        default: '0',
-      },
-      modalHeight: {
-        type: String,
-        default: 'auto',
-      },
+  })
+
+  const props = defineProps({
+    padding: {
+      type: String,
+      default: '0',
     },
-  }
+    modalHeight: {
+      type: String,
+      default: 'auto',
+    },
+  })
 </script>
 
 <style lang="scss" scoped>
