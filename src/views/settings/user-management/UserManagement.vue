@@ -22,23 +22,10 @@
           gap,
           padding -->
           <ep-flex flex-props=",column,,,,,,1.5rem,1rem 0">
-            <!-- flex-flow="column nowrap"
-            gap="1.5rem"
-            padding="1rem 0" -->
-            <!-- <template
-              v-for="(checkboxes, categoryName) in filters"
-              :key="categoryName"
-            >
-              <h3 class="text-style--section">
-                {{ categoryName }}
-              </h3>
-              <ep-checkbox
-                v-for="checkbox in checkboxes"
-                :key="checkbox.label"
-                v-bind="checkbox"
-                v-model="checkbox.checked"
-              />
-            </template> -->
+            <ep-table-checkbox-filters
+              :filters="filters"
+              @update:filters="onFilterChange"
+            />
           </ep-flex>
         </ep-flex>
       </template>
@@ -64,7 +51,7 @@
           <ep-table
             v-else
             :columns="columns"
-            :data="fakeUserData"
+            :data="filteredData"
             :hidden-columns="[
               'id',
               'status',
@@ -81,7 +68,16 @@
             selectable
             bordered
             @row-click="editUser"
-          />
+          >
+            <template #header="{ column, cellWidths }">
+              <ep-table-sortable-header
+                :column="column"
+                :sort-column="sortColumn"
+                :sort-order="sortOrder"
+                @sort="sortBy"
+              />
+            </template>
+          </ep-table>
         </ep-container>
       </template>
     </in-sidebar-layout>
@@ -104,16 +100,21 @@
   import InModal from '@/components/InModal.vue'
   import InSidebarLayout from '@/layouts/InSidebarLayout.vue'
   import InUserStatus from '../../../components/InUserStatus.vue'
-  import EpBadge from '../../../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
+  import EpBadge from '@epicenter/components/badge/EpBadge.vue'
+  import {
+    useExclude,
+    useColumnFilters,
+    useDataFilters,
+    useSorting,
+    usePagination,
+    useSearch
+  } from '@epicenter/composables/index.js'
 
   const store = useStore()
   // const approvedDomains = computed(() => store.state.approvedDomains)
   const { commonContainerProps } = store.state.commonProps
-  const fakeUserData = computed(() => store.state.fakeUserData)
 
-  const selectedUser = ref(null)
-  const showModal = ref(false)
-  const columns = [
+  const columns = ref([
     {
       label: 'ID',
       key: 'id',
@@ -165,7 +166,64 @@
       sortable: true,
       filterable: true,
     },
-  ]
+  ])
+
+  const fakeUserData = computed(() => store.state.fakeUserData)
+
+  // use exclude
+  // const {
+  //   includedColumns,
+  //   includedData
+  // } = useExclude(columnsRef, tableData, [])
+
+  // use sorting
+  const {
+    sortedData,
+    sortBy,
+    sortColumn,
+    sortOrder
+  } = useSorting(fakeUserData, 'role', 'desc')
+
+  onMounted(() => {
+    const columnsToFilter = ['role', 'status']
+    const disabledFilters = ['Deactivated']
+    // const customSortOrder = { severity: ['Critical', 'High', 'Medium', 'Low'] }
+
+    generateFilters(columnsToFilter, disabledFilters)
+  })
+
+  const {
+    filters,
+    generateFilters,
+    filteredData,
+    onFilterChange
+  } = useDataFilters(columns, sortedData)
+
+  // // use column filters
+  // const {
+  //   columnFilters,
+  //   visibleColumns,
+  //   visibleData,
+  //   handleFilter
+  // } = useColumnFilters(includedColumns, [], filteredData)
+
+  // // use search
+  // const {
+  //   searchedData,
+  //   searchText,
+  //   updateSearchText
+  // } = useSearch(visibleData)
+
+  // // use pagination
+  // const {
+  //   paginatedData,
+  //   currentPage,
+  //   totalPages,
+  //   onPageChange
+  // } = usePagination(searchedData, 1, 30)
+
+  const selectedUser = ref(null)
+  const showModal = ref(false)
 
   const containerProps = {
     styles: {

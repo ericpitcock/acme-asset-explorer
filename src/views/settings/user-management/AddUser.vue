@@ -145,6 +145,21 @@
     return props.user ? `Edit User: ${userId.value}` : 'Add User'
   })
 
+  const hasMissingRequiredFields = computed(() => {
+    const requiredFields = [
+      { field: userRole, name: 'userRole' },
+      { field: userName, name: 'userName' },
+      { field: userEmail, name: 'userEmail' },
+      { field: userMobilePhone, name: 'userMobilePhone' }
+    ]
+
+    // Filter out the missing fields
+    const missingFields = requiredFields.filter(({ field }) => !field.value)
+
+    // Return an array of missing field names if there are any, otherwise return false
+    return missingFields.length > 0 ? missingFields.map(({ name }) => name) : false
+  })
+
   const addUser = () => {
     if (hasMissingRequiredFields.value) {
       console.log('Missing required fields')
@@ -229,21 +244,6 @@
     emit('close')
   }
 
-  const hasMissingRequiredFields = computed(() => {
-    const requiredFields = [
-      { field: userRole, name: 'userRole' },
-      { field: userName, name: 'userName' },
-      { field: userEmail, name: 'userEmail' },
-      { field: userMobilePhone, name: 'userMobilePhone' }
-    ]
-
-    // Filter out the missing fields
-    const missingFields = requiredFields.filter(({ field }) => !field.value)
-
-    // Return an array of missing field names if there are any, otherwise return false
-    return missingFields.length > 0 ? missingFields.map(({ name }) => name) : false
-  })
-
   const isValidEmail = (email) => {
     const userEmailDomain = email.split('@')[1]
     return approvedDomains.includes(userEmailDomain)
@@ -257,15 +257,6 @@
     secondaryEmail.value = ''
     userMobilePhone.value = ''
     userOfficePhone.value = ''
-  }
-
-  const populateFields = () => {
-    userId.value = props.user.id
-    userRole.value = props.user.role.value
-    userName.value = props.user.name.value
-    userEmail.value = props.user.email
-    userMobilePhone.value = props.user.user_mobile_phone
-    userOfficePhone.value = props.user.office_phone
   }
 
   watch(() => userRole.value, () => {
@@ -286,7 +277,12 @@
 
   onMounted(() => {
     if (props.user) {
-      populateFields()
+      userId.value = props.user.id
+      userRole.value = props.user.role.value
+      userName.value = props.user.name.value
+      userEmail.value = props.user.email
+      userMobilePhone.value = props.user.user_mobile_phone
+      userOfficePhone.value = props.user.office_phone
     }
   })
 </script>
