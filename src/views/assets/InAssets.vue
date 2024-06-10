@@ -39,7 +39,7 @@
     </ep-container>
     <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <h1>{{ paginatedData.length }} assets</h1>
+        <h1>{{ currentPageDisplay }} of {{ visibleData.length }} assets</h1>
       </template>
       <template #center>
         <ep-multi-search
@@ -77,20 +77,10 @@
                 </ep-container>
               </template>
             </ep-dropdown>
-            <template
-              v-for="(filterSet, category) in filters"
-              :key="category"
-            >
-              <h3 class="text-style--section">
-                {{ category.replace(/_/g, ' ') }}
-              </h3>
-              <ep-checkbox
-                v-for="checkbox in filterSet"
-                :key="checkbox.label"
-                v-bind="checkbox"
-                v-model="checkbox.checked"
-              />
-            </template>
+            <ep-table-checkbox-filters
+              :filters="filters"
+              @update:filters="onFilterChange"
+            />
           </ep-flex-container>
         </div>
       </template>
@@ -255,7 +245,8 @@
   const {
     filters,
     generateFilters,
-    filteredData
+    filteredData,
+    onFilterChange
   } = useDataFilters(includedColumns, sortedData)
 
   const disabledColumns = [
@@ -296,6 +287,14 @@
     totalPages,
     onPageChange
   } = usePagination(searchedData, 1, 30)
+
+  // showing the number of assets in the header, for example "Showing 1-30 of 100 assets"
+  const totalAssets = computed(() => paginatedData.length)
+  const currentPageDisplay = computed(() => {
+    const start = (currentPage.value - 1) * 30 + 1
+    const end = currentPage.value * 30
+    return `${start}–${end}`
+  })
 
   const contentHeaderProps = computed(() => ({
     styles: {
