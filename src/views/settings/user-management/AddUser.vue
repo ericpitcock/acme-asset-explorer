@@ -27,7 +27,7 @@
           v-model="userName"
           label="Name"
           size="large"
-          :border-color="userNameBorderColor"
+          :styles="{ '--ep-input-border-color': userNameBorderColor }"
         />
         <p class="font-size--small text--subtle">
           {{ approvedDomainsMessage }}
@@ -36,14 +36,14 @@
           v-model="userEmail"
           label="Email"
           size="large"
-          :border-color="userEmailBorderColor"
+          :styles="{ '--ep-input-border-color': userEmailBorderColor }"
           :disabled="approvedDomains.length === 0"
         />
         <ep-input
           v-model="secondaryEmail"
           label="Secondary Email (Optional)"
           size="large"
-          :border-color="secondaryEmailBorderColor"
+          :styles="{ '--ep-input-border-color': secondaryEmailBorderColor }"
           :disabled="approvedDomains.length === 0"
         />
         <p class="font-size--small text--subtle">
@@ -53,7 +53,7 @@
           v-model="userMobilePhone"
           label="Mobile Phone"
           size="large"
-          :border-color="userMobilePhoneBorderColor"
+          :styles="{ '--ep-input-border-color': userMobilePhoneBorderColor }"
         />
         <ep-input
           v-model="userOfficePhone"
@@ -67,12 +67,10 @@
       <ep-footer right-gap="1rem">
         <template #right>
           <ep-button
-            variant="secondary"
             label="Cancel"
             @click="dismissModal"
           />
-          <ep-button
-            variant="primary"
+          <EpButton
             :label="buttonLabel"
             @click="addUser"
           />
@@ -127,11 +125,6 @@
   const userMobilePhone = ref('')
   const userOfficePhone = ref('')
 
-  watch(() => userName.value, () => {
-    console.log('userName', userName.value)
-  })
-
-
   const userRoleBorderColor = ref(null)
   const userNameBorderColor = ref(null)
   const userEmailBorderColor = ref(null)
@@ -152,12 +145,34 @@
     return props.user ? `Edit User: ${userId.value}` : 'Add User'
   })
 
-
-  // ...mapMutations(['addUserData']),
   const addUser = () => {
-    // if (!hasRequiredFields()) {
-    //   // console.log('Missing required fields')
-    //   return
+    if (hasMissingRequiredFields.value) {
+      console.log('Missing required fields')
+      console.log(hasMissingRequiredFields.value)
+
+      // Set border color to red for missing fields
+      hasMissingRequiredFields.value.forEach((field) => {
+        switch (field) {
+          case 'userRole':
+            userRoleBorderColor.value = 'red'
+            break
+          case 'userName':
+            userNameBorderColor.value = 'red'
+            break
+          case 'userEmail':
+            userEmailBorderColor.value = 'red'
+            break
+          case 'userMobilePhone':
+            userMobilePhoneBorderColor.value = 'red'
+            break
+        }
+      })
+      return
+    }
+
+    // if name is empty or invalid, set border color to red
+    // if (!userName.value) {
+    //   userNameBorderColor.value = 'red'
     // }
 
     // let userEmailIsValid = isValidEmail(userEmail.value)
@@ -214,21 +229,20 @@
     emit('close')
   }
 
-  const hasRequiredFields = () => {
-    const requiredFields = ['userRole', 'userName', 'userEmail', 'userMobilePhone']
-    let hasMissingField = false
+  const hasMissingRequiredFields = computed(() => {
+    const requiredFields = [
+      { field: userRole, name: 'userRole' },
+      { field: userName, name: 'userName' },
+      { field: userEmail, name: 'userEmail' },
+      { field: userMobilePhone, name: 'userMobilePhone' }
+    ]
 
-    for (const field of requiredFields) {
-      if (![field].value) {
-        [`${field}BorderColor`].value = 'red'
-        hasMissingField = true
-        console.log(`${field} is missing`)
-        console.log(`${field}BorderColor`, [`${field}BorderColor`].value)
-      }
-    }
+    // Filter out the missing fields
+    const missingFields = requiredFields.filter(({ field }) => !field.value)
 
-    return !hasMissingField
-  }
+    // Return an array of missing field names if there are any, otherwise return false
+    return missingFields.length > 0 ? missingFields.map(({ name }) => name) : false
+  })
 
   const isValidEmail = (email) => {
     const userEmailDomain = email.split('@')[1]
@@ -254,22 +268,21 @@
     userOfficePhone.value = props.user.office_phone
   }
 
+  watch(() => userRole.value, () => {
+    userRoleBorderColor.value = null
+  })
 
-  // watch(() => userRole.value, () => {
-  //   userRoleBorderColor.value = null
-  // })
+  watch(() => userName.value, () => {
+    userNameBorderColor.value = null
+  })
 
-  // watch(() => userName.value, () => {
-  //   userNameBorderColor.value = null
-  // })
+  watch(() => userEmail.value, () => {
+    userEmailBorderColor.value = null
+  })
 
-  // watch(() => userEmail.value, () => {
-  //   userEmailBorderColor.value = null
-  // })
-
-  // watch(() => userMobilePhone.value, () => {
-  //   userMobilePhoneBorderColor.value = null
-  // })
+  watch(() => userMobilePhone.value, () => {
+    userMobilePhoneBorderColor.value = null
+  })
 
   onMounted(() => {
     if (props.user) {
