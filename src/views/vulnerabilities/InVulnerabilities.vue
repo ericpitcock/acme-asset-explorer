@@ -38,20 +38,10 @@
           gap="1.5rem"
           padding="1rem 0"
         >
-          <template
-            v-for="(filterSet, category) in filters"
-            :key="category"
-          >
-            <h3 class="text-style--section">
-              {{ category.replace(/_/g, ' ') }}
-            </h3>
-            <ep-checkbox
-              v-for="checkbox in filterSet"
-              :key="checkbox.label"
-              v-bind="checkbox"
-              v-model="checkbox.checked"
-            />
-          </template>
+          <ep-table-checkbox-filters
+            :filters="filters"
+            @update:filters="onFilterChange"
+          />
         </ep-flex-container>
       </template>
       <template #content>
@@ -236,7 +226,8 @@
   const {
     filters,
     generateFilters,
-    filteredData
+    filteredData,
+    onFilterChange
   } = useDataFilters(includedColumns, sortedData)
 
   const hiddenColumns = [
