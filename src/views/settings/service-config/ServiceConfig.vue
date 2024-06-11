@@ -5,7 +5,6 @@
         <ep-menu
           :menu-items="menuItems"
           menu-type="nav"
-          :container-props="containerProps"
         />
       </template>
       <template #content>
@@ -26,12 +25,6 @@
     },
     data() {
       return {
-        containerProps: {
-          styles: {
-            '--ep-container-bg-color': 'var(--interface-bg)',
-            '--ep-container-border-width': '0',
-          },
-        },
         services
       }
     },

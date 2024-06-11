@@ -40,7 +40,6 @@
         <ep-container :styles="{
           '--ep-container-bg-color': 'var(--interface-surface)',
           '--ep-container-content-padding': '1rem 3rem 3rem',
-          '--ep-container-border-width': '0',
         }">
           <ep-table
             :columns="columns"

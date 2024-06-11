@@ -147,9 +147,6 @@
   const store = useStore()
   const router = useRouter()
   const { commonPageHeaderProps } = store.state.commonProps
-  // const leftPanelCollapsed = computed(() => store.state.leftPanelCollapsed)
-  // const leftPanelCollapsedUser = computed(() => store.state.leftPanelCollapsedUser)
-  // const rightPanelOpen = computed(() => store.state.rightPanelOpen)
 
   const containerProps = {
     styles: {
@@ -310,15 +307,12 @@
   const headerContainerProps = {
     styles: {
       '--ep-container-bg-color': 'var(--page-header-background)',
-      '--ep-container-border-width': '0',
       '--ep-container-padding': '2rem 4rem 0 4rem',
     }
   }
 
   const chartContainerProps = {
     styles: {
-      '--ep-container-bg-color': 'transparent',
-      '--ep-container-border-width': '0',
       '--ep-container-content-padding': '3rem 0',
     }
   }

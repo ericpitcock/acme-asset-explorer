@@ -82,6 +82,7 @@
           styles: {
             '--ep-container-bg-color': 'var(--interface-surface)',
             '--ep-container-padding': '0 3rem',
+            '--ep-container-border-width': '0.1rem',
             '--ep-container-overflow': 'auto',
             '--ep-container-width': '70rem',
             '--ep-container-height': '100%',
@@ -209,13 +210,6 @@
             '--ep-header-container-top': '6.1rem',
           }
         },
-        menuProps: {
-          containerProps: {
-            styles: {
-              '--ep-container-border-width': '0',
-            }
-          }
-        }
       }
     },
     methods: {

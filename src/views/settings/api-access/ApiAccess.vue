@@ -25,10 +25,6 @@
     },
     data() {
       return {
-        containerProps: {
-          backgroundColor: 'var(--interface-bg)',
-          borderWidth: '0',
-        },
         menuItems: [
           {
             label: 'API Access',
@@ -114,7 +110,7 @@
         font-variation-settings: 'wght' 350;
         padding-bottom: 1rem;
         border-bottom: 1px solid var(--border-color);
-        color: var(--text-color--primary);
+        color: var(--primary-color-base);
       }
     }
 

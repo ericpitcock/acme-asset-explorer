@@ -37,7 +37,6 @@
     styles: {
       '--ep-container-height': '100%',
       '--ep-container-padding': '0 3rem',
-      '--ep-container-border-width': '0',
       '--ep-container-border-radius': '0',
       '--ep-container-bg-color': 'var(--interface-bg)',
     }
