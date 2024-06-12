@@ -7,12 +7,18 @@
       </p>
     </template>
     <template #content>
-      <ep-flex-container gap="1rem">
+      <ep-flex flex-props=",,,,,,,2rem,">
         <template
-          v-for="({ name, address, phoneNumber }, index) in sites"
-          :key="index"
+          v-for="({ id, name, address, phoneNumber }) in sites"
+          :key="id"
         >
           <div class="site">
+            <div class="site__action-menu">
+              <ep-dropdown
+                :context="{ id, name }"
+                v-bind="siteActionMenuProps"
+              />
+            </div>
             <h2>{{ name }}</h2>
             <div class="address">
               <p
@@ -23,31 +29,15 @@
               </p>
             </div>
             <p>{{ phoneNumber }}</p>
-            <ep-flex-container
-              padding="1rem 0 0"
-              gap="1rem"
-              class="site__buttons"
-            >
-              <ep-button
-                label="Edit"
-                variant="secondary"
-                :icon-left="{ name: 'f-edit' }"
-              />
-              <ep-button
-                variant="secondary"
-                :icon-left="{ name: 'f-trash-2' }"
-                @click="handleRemoveSite(index)"
-              />
-            </ep-flex-container>
           </div>
         </template>
-      </ep-flex-container>
+      </ep-flex>
     </template>
   </settings-module-layout>
 </template>
 
 <script setup>
-  import { computed, inject } from 'vue'
+  import { computed, inject, provide } from 'vue'
   import SettingsModuleLayout from '../SettingsModuleLayout.vue'
   import { useStore } from 'vuex'
 
@@ -57,27 +47,68 @@
 
   const store = useStore()
 
-  // ...mapState(['sites']),
-
   const sites = computed(() => store.state.sites)
 
+  provide('contextData', sites.value)
 
+  const siteActionMenuProps = {
+    size: 'small',
+    menuItems: [
+      {
+        label: 'Edit',
+        onClick: (item) => {
+          console.log('Edit clicked', item)
+        }
+      },
+      {
+        label: 'Delete',
+        onClick: (item) => {
+          // everything logged here is always right
+          console.log('onClick', item.contextData.id, item.contextData.name)
+          // but it's not always passed right here
+          handleRemoveSite(item.contextData.id, item.contextData.name)
+        }
+      }
+    ],
+    containerProps: {
+      '--ep-container-border-radius': 'var(--border-radius)',
+      '--ep-container-border-color': 'var(--interface-overlay)'
+    },
+    buttonProps: {
+      label: '',
+      iconLeft: {
+        name: 'dots-vertical',
+        styles: { '--ep-icon-stroke-width': 3 }
+      },
+      iconRight: null,
+      classes: ['ep-button-variant-subtle-ghost'],
+      size: 'small',
+    },
+    // alignRight: true,
+  }
 
-  // ...mapMutations(['removeSite']),
-
-  const removeSite = (index) => {
-    store.commit('removeSite', index)
+  const removeSite = (id) => {
+    store.commit('removeSite', id)
   }
 
   const $epDialog = inject('$epDialog')
 
-  const handleRemoveSite = (index) => {
+  const handleRemoveSite = (id, name) => {
+    console.log('handleRemoveSite', id, name)
     $epDialog.open({
-      title: 'Warning',
-      message: `Are you sure you want to remove the site "${sites.value[index].name}"? All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
+      title: `Delete site "${name}"?`,
+      message: `All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
       buttons: [
-        { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
-        { variant: 'danger', text: 'Remove Site', action: () => removeSite(index) }
+        {
+          // variant: 'secondary',
+          text: 'Cancel',
+          action: () => console.log('Cancel clicked')
+        },
+        {
+          // variant: 'danger',
+          text: 'Delete Site',
+          action: () => removeSite(id)
+        }
       ]
     })
   }
@@ -85,6 +116,7 @@
 
 <style lang="scss" scoped>
   .site {
+    position: relative;
     flex: 0 1 20rem;
     display: flex;
     flex-direction: column;
@@ -96,9 +128,15 @@
     border-radius: var(--border-radius);
     line-height: 1.5;
 
-    &__buttons {
-      border-top: 1px solid var(--border-color);
-      margin-top: 1rem;
+    &__action-menu {
+      position: absolute;
+      top: 1rem;
+      right: 0.2rem;
     }
+
+    // &__buttons {
+    //   border-top: 1px solid var(--border-color);
+    //   margin-top: 1rem;
+    // }
   }
 </style>

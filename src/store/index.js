@@ -22,16 +22,19 @@ export default createStore({
     fakeUserData: fakeUserData(16),
     sites: [
       {
+        id: faker.string.uuid(),
         name: 'New York City',
         address: ['123 Maple Street', 'Suite 405', 'New York, NY 10001'],
         phoneNumber: '+1 (212) 555-1234'
       },
       {
+        id: faker.string.uuid(),
         name: 'London',
         address: ['45 Primrose Lane', 'Apartment 3B', 'London W1U 2RT'],
         phoneNumber: '+44 20 1234 5678'
       },
       {
+        id: faker.string.uuid(),
         name: 'Tokyo',
         address: ['7 Sakura Avenue', 'Shibuya District', 'Tokyo 150-0043'],
         phoneNumber: '+81 3 1234 5678'
@@ -133,8 +136,10 @@ export default createStore({
         notification => notification.id !== id
       )
     },
-    removeSite: (state, index) => {
-      state.sites.splice(index, 1)
+    removeSite: (state, id) => {
+      // remove site by id
+      console.log('store:removeSite', id)
+      state.sites = state.sites.filter(site => site.id !== id)
     },
     // toggleLeftPanel: state => {
     //   state.leftPanelCollapsed = !state.leftPanelCollapsed
