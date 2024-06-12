@@ -66,6 +66,7 @@
   import { faker } from '@faker-js/faker'
   import { mapState } from 'vuex'
   import filenames from './filenames.js'
+  import { formatDate } from '../../utils/helpers'
 
   export default {
     name: 'InFiles',
@@ -100,6 +101,7 @@
           {
             label: 'Date Uploaded',
             key: 'date_uploaded',
+            formatter: (value) => formatDate(value)
           },
           {
             label: 'Uploaded By',

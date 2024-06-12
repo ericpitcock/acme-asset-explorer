@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import {
+  formatDateTime,
   generateIpAddress,
   generateOsVersion,
   generatePastDate,
@@ -93,7 +94,7 @@ const assetColumns = [
   {
     label: 'Last Seen',
     key: 'last_seen',
-    formatter: (value) => new Date(value).toLocaleString(),
+    formatter: (value) => formatDateTime(value),
     sortable: true,
     filterable: true,
   },

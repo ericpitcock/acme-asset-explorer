@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { markRaw } from 'vue'
 import EpBadge from '../../node_modules/@ericpitcock/epicenter-vue-components/src/components/badge/EpBadge.vue'
-import { generatePastDate, generateRecentDate } from '../utils/helpers.js'
+import { formatDate, generatePastDate, generateRecentDate } from '../utils/helpers.js'
 
 const vulnTableColumns = [
   {
@@ -15,8 +15,8 @@ const vulnTableColumns = [
     label: 'Description',
     key: 'description',
     formatter: (value) => {
-      const subString = value.substring(0, 140)
-      return `<span style="line-height: 1.5;">${subString}…</span>`
+      // const subString = value.substring(0, 140)
+      return `<span class="vuln-table-desc">${value}</span>`
     },
     sortable: true,
     filterable: true,
@@ -45,27 +45,21 @@ const vulnTableColumns = [
   {
     label: 'Published Date',
     key: 'published_date',
-    formatter: (value) => {
-      return new Date(value).toLocaleString()
-    },
+    formatter: (value) => formatDate(value),
     sortable: true,
     filterable: true,
   },
   {
     label: 'Last Modified Date',
     key: 'last_modified_date',
-    formatter: (value) => {
-      return new Date(value).toLocaleString()
-    },
+    formatter: (value) => formatDate(value),
     sortable: true,
     filterable: true,
   },
   {
     label: 'Date Seen',
     key: 'date_seen',
-    formatter: (value) => {
-      return new Date(value).toLocaleString()
-    },
+    formatter: (value) => formatDate(value),
     sortable: true,
     filterable: true,
   }
