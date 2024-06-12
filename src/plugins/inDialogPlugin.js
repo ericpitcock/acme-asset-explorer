@@ -4,12 +4,13 @@ import EpButton from '../../node_modules/@ericpitcock/epicenter-vue-components/s
 
 const plugin = {
   install: (app) => {
-    app.config.globalProperties.$epDialog = {
+    app.provide('$epDialog', {
       open: (props) => {
         const dialogInstance = createApp(InDialog, {
           ...props,
           onClose: () => {
             dialogInstance.unmount()
+            document.body.removeChild(container)
           }
         })
         const container = document.createElement('div')
@@ -17,7 +18,7 @@ const plugin = {
         dialogInstance.component('EpButton', EpButton)
         dialogInstance.mount(container)
       }
-    }
+    })
   }
 }
 
