@@ -1,8 +1,5 @@
 <template>
-  <ep-container :styles="{
-    '--ep-container-padding': '3rem',
-    '--ep-container-bg-color': 'var(--interface-surface)',
-  }">
+  <ep-container v-bind="containerProps">
     <ep-flex flex-props=",,,,,,,2rem,">
       <div class="section-sidebar">
         <slot name="sidebar" />
@@ -28,23 +25,33 @@
   </ep-container>
 </template>
 
-<script>
-  export default {
+<script setup>
+
+  defineOptions({
     name: 'SettingsModuleLayout',
-    props: {
-      emptyStateTitle: {
-        type: String,
-        default: 'No data available',
-      },
-      emptyStateDescription: {
-        type: String,
-        default: ''
-      },
-      showEmptyState: {
-        type: Boolean,
-        default: false,
-      },
-    }
+  })
+
+  const props = defineProps({
+    emptyStateTitle: {
+      type: String,
+      default: 'No data available',
+    },
+    emptyStateDescription: {
+      type: String,
+      default: ''
+    },
+    showEmptyState: {
+      type: Boolean,
+      default: false,
+    },
+  })
+
+  const containerProps = {
+    styles: {
+      '--ep-container-padding': '2rem',
+      // '--ep-container-border-width': '0rem',
+      '--ep-container-bg-color': 'var(--interface-surface)',
+    },
   }
 </script>
 
@@ -56,6 +63,7 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem 3rem 0 0;
+    line-height: 1.5;
   }
 
   .section-content {

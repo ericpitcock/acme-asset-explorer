@@ -8,7 +8,10 @@
     </template>
     <template #content>
       <ep-flex-container gap="1rem">
-        <template v-for="({ name, address, phoneNumber }, index) in sites">
+        <template
+          v-for="({ name, address, phoneNumber }, index) in sites"
+          :key="index"
+        >
           <div class="site">
             <h2>{{ name }}</h2>
             <div class="address">
@@ -43,29 +46,40 @@
   </settings-module-layout>
 </template>
 
-<script>
+<script setup>
+  import { computed, inject } from 'vue'
   import SettingsModuleLayout from '../SettingsModuleLayout.vue'
-  import { mapMutations, mapState } from 'vuex'
+  import { useStore } from 'vuex'
 
-  export default {
+  defineOptions({
     name: 'SitesModule',
-    components: { SettingsModuleLayout },
-    computed: {
-      ...mapState(['sites']),
-    },
-    methods: {
-      ...mapMutations(['removeSite']),
-      handleRemoveSite(index) {
-        this.$epDialog.open({
-          title: 'Warning',
-          message: `Are you sure you want to remove the site "${this.sites[index].name}"? All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
-          buttons: [
-            { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
-            { variant: 'danger', text: 'Remove Site', action: () => this.removeSite(index) }
-          ]
-        })
-      },
-    },
+  })
+
+  const store = useStore()
+
+  // ...mapState(['sites']),
+
+  const sites = computed(() => store.state.sites)
+
+
+
+  // ...mapMutations(['removeSite']),
+
+  const removeSite = (index) => {
+    store.commit('removeSite', index)
+  }
+
+  const $epDialog = inject('$epDialog')
+
+  const handleRemoveSite = (index) => {
+    $epDialog.open({
+      title: 'Warning',
+      message: `Are you sure you want to remove the site "${sites.value[index].name}"? All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
+      buttons: [
+        { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
+        { variant: 'danger', text: 'Remove Site', action: () => removeSite(index) }
+      ]
+    })
   }
 </script>
 
