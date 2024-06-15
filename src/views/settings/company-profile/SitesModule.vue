@@ -53,6 +53,7 @@
 
   const siteActionMenuProps = {
     size: 'small',
+    showOnHover: true,
     menuItems: [
       {
         label: 'Edit',
@@ -63,16 +64,14 @@
       {
         label: 'Delete',
         onClick: (item) => {
-          // everything logged here is always right
-          console.log('onClick', item.contextData.id, item.contextData.name)
-          // but it's not always passed right here
           handleRemoveSite(item.contextData.id, item.contextData.name)
         }
       }
     ],
     containerProps: {
       '--ep-container-border-radius': 'var(--border-radius)',
-      '--ep-container-border-color': 'var(--interface-overlay)'
+      '--ep-container-border-width': '0.1rem',
+      '--ep-container-border-color': 'var(--border-color--lighter)',
     },
     buttonProps: {
       label: '',
@@ -84,7 +83,6 @@
       classes: ['ep-button-variant-subtle-ghost'],
       size: 'small',
     },
-    // alignRight: true,
   }
 
   const removeSite = (id) => {
@@ -97,16 +95,15 @@
     console.log('handleRemoveSite', id, name)
     $epDialog.open({
       title: `Delete site "${name}"?`,
-      message: `All alerts and notifications for this site will be disabled.`, // eslint-disable-line no-template-curly-in-string
+      message: 'All alerts and notifications for this site will be disabled.',
       buttons: [
         {
-          // variant: 'secondary',
           text: 'Cancel',
           action: () => console.log('Cancel clicked')
         },
         {
-          // variant: 'danger',
           text: 'Delete Site',
+          classes: ['button-variant-danger'],
           action: () => removeSite(id)
         }
       ]
@@ -133,10 +130,5 @@
       top: 1rem;
       right: 0.2rem;
     }
-
-    // &__buttons {
-    //   border-top: 1px solid var(--border-color);
-    //   margin-top: 1rem;
-    // }
   }
 </style>

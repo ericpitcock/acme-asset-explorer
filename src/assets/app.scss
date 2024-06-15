@@ -27,7 +27,7 @@
 
 html[data-color-theme='light'] {
   .ep-table {
-    --ep-table-row-hover-bg-color: hsl(var(--gray-60));
+    --ep-table-row-hover-bg-color: hsl(var(--gray-50));
   }
 
   // global overrides - light theme
@@ -186,4 +186,9 @@ h1.page-head {
   font-size: var(--font-size--large);
   font-variation-settings: var(--font-weight--light);
   color: var(--text-color--primary);
+}
+
+h1,
+h2 {
+  color: var(--text-color--loud);
 }

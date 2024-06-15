@@ -47,18 +47,12 @@ const routes = [
       title: 'Asset Details',
     },
     props: true,
-    beforeEnter: (to, from, next) => {
-      // using the assetID from the route, get the asset from the store
-      // and commit addSelectedAsset mutation
-
-      // if the asset is already selected, move on
-      if (store.state.selectedAsset !== null) {
-        return next()
+    beforeEnter: async (to, from, next) => {
+      // if no asset is selected, select the first asset
+      if (!store.state.selectedAsset) {
+        await store.dispatch('selectAsset', null)
+        return next({ name: 'asset-details', params: { assetID: store.state.assets[0].id } })
       }
-      // get first asset in the store
-      const asset = store.state.assets[0]
-      // set the first asset as the selected asset
-      store.commit('addSelectedAsset', asset)
       next()
     }
   },
@@ -267,7 +261,7 @@ router.beforeEach((to, from, next) => {
   document.title = pageTitle
 
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    store.dispatch('toggleTheme')
+    store.commit('toggleTheme')
   }
 
   next()

@@ -1,6 +1,6 @@
 <template>
   <ep-container id="asset-vulnerabilities">
-    Asset Vulnerabilities
+    asset vulnerabilities trend chart
   </ep-container>
 </template>
 

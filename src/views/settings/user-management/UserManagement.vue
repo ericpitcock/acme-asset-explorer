@@ -30,55 +30,41 @@
         </ep-flex>
       </template>
       <template #content>
-        <ep-container v-bind="containerProps">
-          <ep-empty-state
-            v-if="fakeUserData.length === 0"
-            style="padding-top: 2rem;"
-          >
-            <p>No users found</p>
-            <template #subtext>
-              <p>
-                Try
-                <span
-                  class="text--link"
-                  @click="resetFilters"
-                >
-                  reseting your filters
-                </span>
-              </p>
-            </template>
-          </ep-empty-state>
-          <ep-table
-            v-else
-            :columns="columns"
-            :data="filteredData"
-            :hidden-columns="[
-              'id',
-              'status',
-              'office_phone',
-              'user_mobile_phone'
-            ]"
-            :styles="{
-              '--ep-table-width': '100%',
-              '--ep-table-container-overflow': 'unset',
-              '--ep-table-sticky-top': '0',
-            }"
-            sticky-header
-            striped
-            selectable
-            bordered
-            @row-click="editUser"
-          >
-            <template #header="{ column }">
-              <ep-table-sortable-header
-                :column="column"
-                :sort-column="sortColumn"
-                :sort-order="sortOrder"
-                @sort="sortBy"
-              />
-            </template>
-          </ep-table>
-        </ep-container>
+        <!-- <ep-container v-bind="containerProps"> -->
+        <ep-empty-state
+          v-if="filteredData.length === 0"
+          style="padding-top: 2rem;"
+        >
+          <p>No users found</p>
+          <template #subtext>
+            <p>
+              Try
+              <span
+                class="text--link"
+                @click="resetFilters"
+              >
+                reseting your filters
+              </span>
+            </p>
+          </template>
+        </ep-empty-state>
+        <ep-table
+          v-else
+          :columns="columns"
+          :data="filteredData"
+          v-bind="tableProps"
+          @row-click="editUser"
+        >
+          <template #header="{ column }">
+            <ep-table-sortable-header
+              :column="column"
+              :sort-column="sortColumn"
+              :sort-order="sortOrder"
+              @sort="sortBy"
+            />
+          </template>
+        </ep-table>
+        <!-- </ep-container> -->
       </template>
     </in-sidebar-layout>
     <in-modal
@@ -105,10 +91,31 @@
     useDataFilters,
     useSorting,
   } from '@epicenter/composables/index.js'
+  import { formatDateTime } from '@/utils/helpers'
 
   const store = useStore()
   // const approvedDomains = computed(() => store.state.approvedDomains)
   const { commonContainerProps } = store.state.commonProps
+
+  const tableProps = {
+    bordered: true,
+    hiddenColumns: [
+      'id',
+      'status',
+      'office_phone',
+      'user_mobile_phone'
+    ],
+    selectable: true,
+    stickyHeader: true,
+    striped: true,
+    styles: {
+      '--ep-table-container-padding': '1rem 3rem 30rem 3rem',
+      '--ep-table-container-overflow': 'unset',
+      '--ep-table-width': '100%',
+      '--ep-table-sticky-top': '61px',
+    }
+  }
+
 
   const columns = ref([
     {
@@ -158,7 +165,7 @@
     {
       label: 'Last Active',
       key: 'last_active',
-      formatter: (value) => new Date(value).toLocaleString(),
+      formatter: (value) => formatDateTime(value),
       sortable: true,
       filterable: true,
     },
@@ -196,7 +203,7 @@
       ...commonContainerProps.styles,
       '--ep-container-max-width': '120rem',
       '--ep-container-padding': '1rem 3rem 3rem',
-      '--ep-container-border-width': '0',
+      // '--ep-container-border-width': '0',
       '--ep-container-border-radius': '0',
       '--ep-container-overflow': 'unset',
     }
@@ -237,11 +244,10 @@
       margin-top: 1rem;
     }
 
-    :deep(.ep-table-container) {
-      // overflow: revert;
-      overflow-x: auto;
-    }
-
+    // :deep(.ep-table-container) {
+    //   // overflow: revert;
+    //   overflow-x: auto;
+    // }
     // :deep(.ep-table tr td span) {
     //   pointer-events: none;
     // }

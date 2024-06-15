@@ -1,25 +1,29 @@
 <template>
   <div class="network">
-    <ep-container
-      v-bind="commonContainerProps"
+    <ep-table
+      :columns="columns"
+      :data="sortedData"
+      striped
+      bordered
+      selectable
+      sticky-header
       :styles="{
-        '--ep-container-padding': '1rem 3rem 3rem',
-        '--ep-container-max-width': '120rem',
-        '--ep-container-border-width': '0',
+        '--ep-table-container-padding': '1rem 3rem 30rem 3rem',
+        '--ep-table-container-overflow': 'unset',
+        '--ep-table-width': '100%',
+        '--ep-table-sticky-top': '61px',
       }"
+      @row-click="handleRowClick"
     >
-      <ep-table
-        :columns="columns"
-        :data="data"
-        striped
-        bordered
-        selectable
-        :styles="{
-          '--ep-table-width': '100%',
-        }"
-        @row-click="handleRowClick"
-      />
-    </ep-container>
+      <template #header="{ column }">
+        <ep-table-sortable-header
+          :column="column"
+          :sort-column="sortColumn"
+          :sort-order="sortOrder"
+          @sort="sortBy"
+        />
+      </template>
+    </ep-table>
     <in-modal
       v-if="showModal"
       modal-height="100%"
@@ -33,82 +37,97 @@
   </div>
 </template>
 
-<script>
+<script setup>
+  import { computed, ref } from 'vue'
   import ConfigModal from './ConfigModal.vue'
   import InModal from '@/components/InModal.vue'
-  import { generateRecentDate } from '../../../utils/helpers'
+  import { formatDateTime, generateRecentDate } from '@/utils/helpers'
   import { faker } from '@faker-js/faker'
-  import { mapState } from 'vuex'
+  import { useStore } from 'vuex'
+  import {
+    useDataFilters,
+    useSorting,
+  } from '@epicenter/composables/index.js'
 
-  export default {
+  defineOptions({
     name: 'InNetwork',
-    components: {
-      ConfigModal,
-      InModal,
-    },
-    data() {
-      return {
-        columns: [
-          {
-            label: 'Config Status',
-            key: 'config_status',
-            component: 'ep-badge',
-          },
-          { label: 'Name', key: 'name' },
-          { label: 'Site', key: 'site' },
-          { label: 'Type', key: 'type' },
-          {
-            label: 'Modified',
-            key: 'modified',
-            formatter: (value) => new Date(value).toLocaleString(),
-          }
-        ],
-        selectedConfig: null,
-        showModal: false
-      }
-    },
-    computed: {
-      ...mapState('commonProps', {
-        commonContainerProps: state => state.commonContainerProps,
-      }),
-      ...mapState([
-        'sites'
-      ]),
-      data() {
-        const data = []
-        const sites = this.sites.map(site => site.name)
+  })
 
-        for (let i = 0; i < 8; i++) {
-          const configStatus = faker.helpers.arrayElement(['Configured', 'Not Configured'])
-          const variant = configStatus === 'Configured' ? 'success' : 'warning'
+  const selectedConfig = ref(null)
+  const showModal = ref(false)
 
-          data.push({
-            config_status: {
-              value: configStatus,
-              props: {
-                label: configStatus,
-                styles: {
-                  '--ep-badge-bg-color': 'transparent',
-                  '--ep-badge-border-color': configStatus === 'Configured' ? 'var(--color-status--success-border)' : 'var(--color-status--warning-border)',
-                }
-              }
-            },
-            name: `cyclops-${faker.number.int({ min: 1000, max: 9999 })}`,
-            site: faker.helpers.arrayElement(sites),
-            type: faker.helpers.arrayElement(['Physical', 'VMWare', 'AWS']),
-            modified: generateRecentDate()
-          })
-        }
+  const store = useStore()
+  const sites = store.state.sites
 
-        return data
-      }
+  const columns = ref([
+    {
+      label: 'Config Status',
+      key: 'config_status',
+      component: 'ep-badge',
+      sortable: true,
     },
-    methods: {
-      handleRowClick(row) {
-        this.selectedConfig = row
-        this.showModal = true
-      }
+    {
+      label: 'Name',
+      key: 'name',
+      sortable: true,
+    },
+    {
+      label: 'Site',
+      key: 'site',
+      sortable: true,
+    },
+    {
+      label: 'Type',
+      key: 'type',
+      sortable: true,
+    },
+    {
+      label: 'Modified',
+      key: 'modified',
+      formatter: (value) => formatDateTime(value),
+      sortable: true,
     }
+  ])
+
+  const data = computed(() => {
+    const data = []
+    const siteNames = sites.map(site => site.name)
+
+    for (let i = 0; i < 8; i++) {
+      const configStatus = faker.helpers.arrayElement(['Configured', 'Not Configured'])
+      const variant = configStatus === 'Configured' ? 'success' : 'warning'
+
+      data.push({
+        config_status: {
+          value: configStatus,
+          props: {
+            label: configStatus,
+            styles: {
+              '--ep-badge-bg-color': 'transparent',
+              '--ep-badge-border-color': configStatus === 'Configured' ? 'var(--color-status--success-border)' : 'var(--color-status--warning-border)',
+            }
+          }
+        },
+        name: `cyclops-${faker.number.int({ min: 1000, max: 9999 })}`,
+        site: faker.helpers.arrayElement(siteNames),
+        type: faker.helpers.arrayElement(['Physical', 'VMWare', 'AWS']),
+        modified: generateRecentDate()
+      })
+    }
+
+    return data
+  })
+
+  const {
+    sortedData,
+    sortBy,
+    sortColumn,
+    sortOrder
+  } = useSorting(data, 'config_status', 'asc')
+
+  const handleRowClick = (row) => {
+    selectedConfig.value = row
+    showModal.value = true
   }
 </script>
 

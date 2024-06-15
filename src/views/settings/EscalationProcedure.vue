@@ -20,8 +20,6 @@
           style="align-self: stretch"
         />
         <ep-button
-          label="Add New"
-          variant="secondary"
           :icon-left="{ name: 'f-plus' }"
           @click="addEscalationProcedure"
         />

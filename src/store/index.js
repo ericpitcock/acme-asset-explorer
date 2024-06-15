@@ -85,23 +85,24 @@ export default createStore({
     theme: 'dark',
     vulnerabilities: vulnTableData
   },
-  getters: {
-    getActiveNotifications: state => {
-      return state.notifications.filter(n => n.active)
-    },
-    getInactiveNotifications: state => {
-      return state.notifications.filter(n => !n.active)
-    },
-    hasActiveNotifications: state => {
-      return state.notifications.length > 0
-    },
-    getVulnerabilityById: state => id => {
-      return state.vulnerabilities.find(v => v.id === id)
-    }
-  },
   mutations: {
     addApprovedDomain(state, newDomain) {
       state.approvedDomains.push(newDomain)
+    },
+    addSelectedAsset: (state, id) => {
+      // if id is null, add the first asset in the list
+      if (!id) {
+        state.selectedAsset = state.assets[0]
+        return
+      }
+      const asset = state.assets.find(asset => asset.id === id)
+      state.selectedAsset = asset
+    },
+    addSelectedVulnerability: (state, vulnerability) => {
+      state.selectedVulnerability = vulnerability
+    },
+    addNotification: (state, newNotification) => {
+      state.notifications.push(newNotification)
     },
     addUserData(state, newUser) {
       // check if the user already exists by id and change that user's data
@@ -112,18 +113,6 @@ export default createStore({
         return
       }
       state.fakeUserData.push(newUser)
-    },
-    addSelectedVulnerability: (state, vulnerability) => {
-      state.selectedVulnerability = vulnerability
-    },
-    addSelectedAsset: (state, asset) => {
-      state.selectedAsset = asset
-    },
-    setTheme: (state, data) => {
-      state.theme = data
-    },
-    addNotification: (state, newNotification) => {
-      state.notifications.push(newNotification)
     },
     clearNotifications: state => {
       state.notifications = []
@@ -137,30 +126,33 @@ export default createStore({
       )
     },
     removeSite: (state, id) => {
-      // remove site by id
-      console.log('store:removeSite', id)
       state.sites = state.sites.filter(site => site.id !== id)
     },
     // toggleLeftPanel: state => {
     //   state.leftPanelCollapsed = !state.leftPanelCollapsed
     // },
     // when the user clicks the menu button
-    toggleleftPanelCollapsedUser: state => {
+
+    // when the viewport is resized
+    setLeftPanel: (state, value) => {
+      state.leftPanelCollapsed = value
+    },
+    toggleLeftPanelCollapsedUser: state => {
       if (state.leftPanelCollapsed) {
         // was set by window resize
         state.leftPanelCollapsed = false
         state.leftPanelCollapsedUser = false
         return
       }
-      console.log('toggleleftPanelCollapsedUser')
+      console.log('toggleLeftPanelCollapsedUser')
       state.leftPanelCollapsedUser = !state.leftPanelCollapsedUser
-    },
-    // when the viewport is resized
-    setLeftPanel: (state, value) => {
-      state.leftPanelCollapsed = value
     },
     toggleRightPanel: state => {
       state.rightPanelOpen = !state.rightPanelOpen
+    },
+    toggleTheme: (state, data) => {
+      state.theme = state.theme == 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-color-theme', state.theme)
     },
   },
   actions: {
@@ -185,19 +177,13 @@ export default createStore({
         state.notifications[index].active = false
       }, 5000)
     },
-    clearNotifications: ({ state, commit }) => {
-      commit('clearNotifications')
+    selectAsset: ({ commit }, id) => {
+      commit('addSelectedAsset', id)
     },
-    toggleNotificationCenter: ({ state, commit }) => {
-      commit('toggleNotificationCenter')
-    },
-    removeNotification: ({ state, commit }, id) => {
-      commit('removeNotification', id)
-    },
-    toggleTheme: ({ state, commit }) => {
-      let newTheme = state.theme == 'dark' ? 'light' : 'dark'
-      document.documentElement.setAttribute('data-color-theme', newTheme)
-      commit('setTheme', newTheme)
-    },
+    // toggleTheme: ({ state, commit }) => {
+    //   let newTheme = state.theme == 'dark' ? 'light' : 'dark'
+    //   document.documentElement.setAttribute('data-color-theme', newTheme)
+    //   commit('setTheme', newTheme)
+    // },
   }
 })

@@ -9,7 +9,7 @@
           v-if="showEmptyState"
           name="empty-state"
         >
-          <ep-empty-state>
+          <ep-empty-state justify="left">
             <p>No data available</p>
             <template #subtext>
               <p>There is no data available for this section.</p>

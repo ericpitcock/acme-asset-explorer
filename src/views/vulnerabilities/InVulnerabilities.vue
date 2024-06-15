@@ -31,7 +31,7 @@
         />
       </template>
     </ep-header>
-    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout v-bind="layoutStyles">
       <template #sidebar>
         <ep-flex-container
           flex-flow="column nowrap"
@@ -111,6 +111,13 @@
 
   // const hiddenColumns = ref(['published_date', 'last_modified_date', 'date_seen'])
 
+  const layoutStyles = {
+    styles: {
+      '--in-sidebar-sidebar-padding': '2rem 0 0 3rem',
+      '--in-sidebar-content-padding': '0 0 30rem 0',
+    }
+  }
+
   const multiSearchProps = {
     height: '3.8rem',
     backgroundColor: 'var(--interface-foreground)',
@@ -137,15 +144,17 @@
   const headerContainerProps = {
     styles: {
       '--ep-container-bg-color': 'var(--page-header-background)',
-      '--ep-container-border-width': '0',
+      '--ep-container-border-radius': '0',
       '--ep-container-padding': '2rem 4rem 0 4rem',
+      position: 'sticky',
+      top: '0',
     }
   }
 
   const chartContainerProps = {
     styles: {
-      '--ep-container-bg-color': 'transparent',
-      '--ep-container-border-width': '0',
+      // '--ep-container-bg-color': 'transparent',
+      // '--ep-container-border-width': '0',
       '--ep-container-content-padding': '3rem 0',
     }
   }
@@ -180,7 +189,7 @@
       ...commonContainerProps.styles,
       '--ep-container-padding': '1rem 3rem 30rem 3rem',
       '--ep-container-width': 'fit-content',
-      '--ep-container-border-width': '0',
+      // '--ep-container-border-width': '0',
       '--ep-container-border-radius': '0',
     }
   }
@@ -231,9 +240,9 @@
   } = useDataFilters(includedColumns, sortedData)
 
   const hiddenColumns = [
-    'published_date',
+    // 'published_date',
     'last_modified_date',
-    'date_seen'
+    // 'date_seen'
   ]
 
   const {
@@ -250,6 +259,10 @@
     --chart-sequence-01: var(--color-severity--medium-bg);
     --chart-sequence-02: var(--color-severity--high-bg);
     --chart-sequence-03: var(--color-severity--critical-bg);
+
+    .ep-header {
+      box-shadow: 0 -10px 10px rgba(31, 31, 31, 0.5);
+    }
 
     :deep(.highcharts-series-inactive),
     :deep(.highcharts-series-hover),
@@ -271,5 +284,18 @@
       font-size: var(--font-size--xsmall);
       fill: var(--text-color--subtle) !important;
     }
+  }
+</style>
+
+<style>
+  .vuln-table-desc {
+    display: -webkit-box;
+    min-width: 30rem;
+    max-width: 50rem;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

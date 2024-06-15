@@ -44,12 +44,8 @@
 
   const store = useStore()
   const notifications = computed(() => store.state.notifications)
-  const clearNotifications = () => store.dispatch('clearNotifications')
-
-  const removeNotification = id => {
-    console.log('removeNotification', id)
-    store.dispatch('removeNotification', id)
-  }
+  const removeNotification = id => store.commit('removeNotification', id)
+  const clearNotifications = () => store.commit('clearNotifications')
 </script>
 
 <style lang="scss">

@@ -5,7 +5,6 @@
         <ep-menu
           :menu-items="menuItems"
           menu-type="nav"
-          :container-props="containerProps"
         />
       </template>
       <template #content>

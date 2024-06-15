@@ -57,7 +57,7 @@ const assetColumns = [
   {
     label: 'IP Address',
     key: 'ip_address',
-    style: 'tabular-numbers',
+    class: 'tabular-numbers',
     sortable: true,
     filterable: true,
   },
@@ -101,14 +101,14 @@ const assetColumns = [
   {
     label: 'IPv6 Address',
     key: 'ipv6_address',
-    style: 'tabular-numbers',
+    class: 'tabular-numbers',
     sortable: true,
     filterable: true,
   },
   {
     label: 'MAC Address',
     key: 'mac_address',
-    style: 'tabular-numbers',
+    class: 'tabular-numbers text--uppercase',
     sortable: true,
     filterable: true,
   }

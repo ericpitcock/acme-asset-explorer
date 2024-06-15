@@ -60,6 +60,7 @@
             </template>
           </template>
         </settings-module-layout>
+        <ep-divider />
       </template>
     </div>
   </div>
@@ -162,6 +163,7 @@
   .services {
     display: flex;
     flex-direction: column;
+    background: var(--interface-surface);
 
     &__content {
       display: flex;

@@ -5,6 +5,7 @@
   >
     <!-- <pre style="all: revert;">{{ selectedAsset }}</pre>
     <br /> -->
+    <p>ID: {{ selectedAsset.id }}</p>
     <p>Status: {{ selectedAsset.status }}</p>
     <p>Risk Score: {{ selectedAsset.risk_score.value }}</p>
     <p>User: {{ selectedAsset.user.value }}</p>

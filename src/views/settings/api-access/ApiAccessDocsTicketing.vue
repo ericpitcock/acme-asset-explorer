@@ -34,7 +34,8 @@
             Searching by state does not mean the ticket is currently in that
             state.
             For
-            example, if you want to search for all cases opened in the last week,
+            example, if you want to search for all cases opened in the last
+            week,
             the
             search is based on the open_date, but the current state could now be
             closed.
@@ -43,7 +44,8 @@
           <p>
             If your organization uses ServiceNow as its ticketing agent, it is
             suggested to use ServiceNow’s REST API Explorer feature to reduce
-            development efforts and response times. The REST API Explorer supports
+            development efforts and response times. The REST API Explorer
+            supports
             OAuth2.0 credentials which can be generated above.
           </p>
           <h2>Ticket Lifecycle</h2>
@@ -70,7 +72,8 @@
               Once a case has concluded, its state will be changed to resolved.
               If
               a
-              comment is posted back to a resolved ticket, the state of the ticket
+              comment is posted back to a resolved ticket, the state of the
+              ticket
               will
               move back to an Open state, until resolved once again.
             </p>
@@ -85,7 +88,8 @@
           </div>
           <h2>Endpoints</h2>
           <div
-            v-for="endpoint in endpoints"
+            v-for="(endpoint, index) in endpoints"
+            :key="index"
             class="code-block"
           >
             {{ endpoint }}
@@ -116,7 +120,8 @@
             "short_description":"Customer Test 1 of Atlas Ticketing
             API",
             "description": "This is the body of a test ticket to validate the
-            functionality of the API integration between the customer environment
+            functionality of the API integration between the customer
+            environment
             and
             the ticketing system. Feel free to validate this case within
             the
@@ -135,7 +140,8 @@
           <div class="code-block comment-update-patch">
             {
             "username": "Firsname Lastname",
-            "comments": "Customer comment to Update the case via a PATCH command."
+            "comments": "Customer comment to Update the case via a PATCH
+            command."
             }
           </div>
           <div class="code-block resolve-patch">

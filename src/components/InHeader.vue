@@ -4,7 +4,7 @@
       <ep-button
         :classes="['in-header-button']"
         :icon-left="{ name: 'menu' }"
-        @click="toggleleftPanelCollapsedUser"
+        @click="toggleLeftPanelCollapsedUser"
       />
       <ep-dropdown v-bind="userDropdownProps" />
       <ep-button
@@ -96,9 +96,11 @@
       iconLeft: { name: 'user' }
     },
     containerProps: {
-      backgroundColor: 'var(--interface-overlay)',
-      borderRadius: 'var(--border-radius)',
-      borderColor: 'var(--border-color--lighter)'
+      // merged into styles object
+      '--ep-container-bg-color': 'var(--interface-overlay)',
+      '--ep-container-border-radius': 'var(--border-radius)',
+      '--ep-container-border-width': '0.1rem',
+      '--ep-container-border-color': 'var(--border-color--lighter)'
     },
     menuItems: [
       {
@@ -130,9 +132,11 @@
       iconLeft: { name: 'help' }
     },
     containerProps: {
-      backgroundColor: 'var(--interface-overlay)',
-      borderRadius: 'var(--border-radius)',
-      borderColor: 'var(--border-color--lighter)'
+      // merged into styles object
+      '--ep-container-bg-color': 'var(--interface-overlay)',
+      '--ep-container-border-radius': 'var(--border-radius)',
+      '--ep-container-border-width': '0.1rem',
+      '--ep-container-border-color': 'var(--border-color--lighter)'
     },
     menuItems: [
       {
@@ -147,7 +151,7 @@
   }
 
   const store = useStore()
-  const hasActiveNotifications = computed(() => store.getters.hasActiveNotifications)
+  const hasActiveNotifications = computed(() => store.state.notifications.length > 0)
   const theme = computed(() => store.state.theme)
 
   const themeIcon = computed(() => {
@@ -155,11 +159,11 @@
   })
 
   const toggleTheme = () => {
-    store.dispatch('toggleTheme')
+    store.commit('toggleTheme')
   }
 
-  const toggleleftPanelCollapsedUser = () => {
-    store.commit('toggleleftPanelCollapsedUser')
+  const toggleLeftPanelCollapsedUser = () => {
+    store.commit('toggleLeftPanelCollapsedUser')
   }
 
   const toggleRightPanel = () => {

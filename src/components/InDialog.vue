@@ -13,6 +13,7 @@
           :key="index"
           :variant="button.variant"
           :label="button.text"
+          :classes="button.classes"
           @click="handleButtonClick(button.action)"
         />
       </div>
@@ -29,9 +30,22 @@
       InModal
     },
     props: {
-      title: String,
-      message: String,
-      buttons: Array
+      title: {
+        type: String,
+        required: true
+      },
+      message: {
+        type: String,
+        required: true
+      },
+      buttons: {
+        type: Array,
+        required: true
+      },
+      classes: {
+        type: [String, Object, Array],
+        default: ''
+      }
     },
     emits: ['close'],
     methods: {
@@ -52,23 +66,11 @@
 </script>
 
 <style lang="scss" scoped>
-  /* .in-dialog-overlay {
-                                        position: fixed;
-                                        top: 0;
-                                        left: 0;
-                                        width: 100%;
-                                        height: 100%;
-                                        background-color: var(--interface-surface);
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                      } */
   .in-dialog {
     max-width: 40rem;
     background-color: var(--interface-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
     padding: 3rem;
   }
 
@@ -79,6 +81,7 @@
   }
 
   .in-dialog-body {
+    line-height: 1.5;
     margin-top: 10px;
   }
 

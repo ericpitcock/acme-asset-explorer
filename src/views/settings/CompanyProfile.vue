@@ -1,8 +1,11 @@
 <template>
   <div class="company-profile">
     <sites-module />
+    <ep-divider />
     <approved-domains-module />
+    <ep-divider />
     <escalation-procedure />
+    <ep-divider />
   </div>
 </template>
 
@@ -26,6 +29,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    background: var(--interface-surface);
     padding: 2rem 3rem 20rem 3rem;
   }
 </style>

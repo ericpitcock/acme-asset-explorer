@@ -11,115 +11,119 @@
       </p>
     </template>
     <template #content>
-      <ep-flex-container
-        flex-flow="column nowrap"
-        align-items="flex-start"
-      >
+      <ep-flex flex-props=",,column,,,flex-start,,,">
         <div
           v-for="(domain, index) in approvedDomains"
+          :key="index"
           class="approved-domain-container"
         >
           <ep-input
             v-model="approvedDomains[index]"
             size="large"
             placeholder="Enter a domain…"
-            @input="handleInput"
-            @blur="handleBlur"
+            @input="onInput"
+            @blur="onBlur"
           />
           <ep-button
-            variant="ghost"
             :icon-left="{ name: 'f-trash-2' }"
-            text-hover-color="red"
+            :classes="['ep-button-variant-subtle-ghost']"
             @click="handleRemoveDomain(index)"
           />
         </div>
         <ep-button
-          label="Add New"
-          variant="secondary"
           :icon-left="{ name: 'f-plus' }"
           @click="handleAddDomain"
         />
-      </ep-flex-container>
+      </ep-flex>
     </template>
   </settings-module-layout>
 </template>
 
-<script>
+<script setup>
+  import { computed, inject, nextTick, ref, watch } from 'vue'
   import SettingsModuleLayout from '../SettingsModuleLayout.vue'
-  import { mapMutations, mapState } from 'vuex'
+  import { useStore } from 'vuex'
 
-  export default {
+  defineOptions({
     name: 'ApprovedDomainsModule',
-    components: { SettingsModuleLayout },
-    data() {
-      return {
-        changesUpdated: false,
-        isTyping: false,
-      }
-    },
-    computed: {
-      ...mapState(['approvedDomains']),
-    },
-    methods: {
-      ...mapMutations(['addApprovedDomain', 'removeApprovedDomain']),
-      handleAddDomain() {
-        this.addApprovedDomain('')
+  })
 
-        this.$nextTick(() => {
-          const inputs = document.querySelectorAll('.approved-domain-container input')
-          inputs[inputs.length - 1].focus()
-        })
-      },
-      handleAddSite() {
-        console.log('Add Site')
-      },
-      handleBlur() {
-        this.changesUpdated = false
-      },
-      handleInput(value) {
-        if (!this.isTyping) {
-          this.isTyping = true
-        }
-        setTimeout(() => {
-          this.isTyping = false
-        }, 1000)
-      },
-      handleRemoveDomain(index) {
-        // if the input is empty, remove the domain without warning
-        if (!this.approvedDomains[index]) {
-          this.removeApprovedDomain(index)
-          return
-        }
+  const changesUpdated = ref(false)
+  const isTyping = ref(false)
 
-        // if the input is not empty, confirm the user wants to remove the domain
-        this.$epDialog.open({
-          title: 'Warning',
-          message: `Are you sure you want to remove the domain "${this.approvedDomains[index]}"? All users registered under this domain will be disabled.`, // eslint-disable-line no-template-curly-in-string
-          buttons: [
-            { variant: 'secondary', text: 'Cancel', action: () => console.log('Cancel clicked') },
-            { variant: 'danger', text: 'Remove Domain', action: () => this.removeApprovedDomain(index) }
-          ]
-        })
-      },
-      handleSave() {
-        console.log('Save Changes')
-      },
-    },
-    watch: {
-      approvedDomains: {
-        handler() {
-          setTimeout(() => {
-            this.changesUpdated = true
-          }, 3000)
+  const store = useStore()
+  const approvedDomains = computed(() => store.state.approvedDomains)
 
-          setTimeout(() => {
-            this.changesUpdated = false
-          }, 5000)
-        },
-        deep: true
-      }
-    },
+  const addApprovedDomain = (domain) => {
+    store.commit('addApprovedDomain', domain)
   }
+
+  const removeApprovedDomain = (index) => {
+    store.commit('removeApprovedDomain', index)
+  }
+
+  const handleAddDomain = () => {
+    addApprovedDomain('')
+
+    nextTick(() => {
+      const inputs = document.querySelectorAll('.approved-domain-container input')
+      inputs[inputs.length - 1].focus()
+    })
+  }
+
+  const onBlur = () => {
+    changesUpdated.value = false
+  }
+
+  const onInput = (value) => {
+    if (!isTyping.value) {
+      isTyping.value = true
+    }
+    setTimeout(() => {
+      isTyping.value = false
+    }, 1000)
+  }
+
+  const $epDialog = inject('$epDialog')
+
+  const handleRemoveDomain = (index) => {
+    // if the input is empty, remove the domain without warning
+    if (!approvedDomains.value[index]) {
+      removeApprovedDomain(index)
+      return
+    }
+
+    // if the input is not empty, confirm the user wants to remove the domain
+    $epDialog.open({
+      title: `Delete domain "${approvedDomains.value[index]}"?`,
+      message: 'All users registered under this domain will be deactivated.',
+      buttons: [
+        {
+          text: 'Cancel',
+          action: () => console.log('Cancel clicked')
+        },
+        {
+          text: 'Delete Domain',
+          classes: ['button-variant-danger'],
+          action: () => removeApprovedDomain(index)
+        }
+      ]
+    })
+  }
+
+  const handleSave = () => {
+    console.log('Save Changes')
+  }
+
+  watch(approvedDomains, (newValue, oldValue) => {
+    setTimeout(() => {
+      changesUpdated.value = true
+    }, 3000)
+
+    setTimeout(() => {
+      changesUpdated.value = false
+    }, 5000)
+  }, { deep: true })
 </script>
 
 <style lang="scss" scoped>
@@ -134,6 +138,7 @@
     align-items: center;
     gap: 1rem;
     align-self: stretch;
+    max-width: 40rem;
     padding: 1rem 0;
     border-bottom: 1px solid var(--border-color);
 

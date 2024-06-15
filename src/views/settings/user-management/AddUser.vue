@@ -106,6 +106,7 @@
     styles: {
       '--ep-container-width': '90rem',
       '--ep-container-padding': '0 3rem 1rem 3rem',
+      '--ep-container-border-width': '0.1rem',
       '--ep-container-content-padding': '3rem 0',
       '--ep-container-bg-color': 'var(--interface-surface)',
     }

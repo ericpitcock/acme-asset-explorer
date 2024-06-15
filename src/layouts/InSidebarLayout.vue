@@ -1,9 +1,9 @@
 <template>
-  <div class="in-sidebar-layout">
-    <div
-      class="sidebar-layout__sidebar"
-      :style="sidebarStyle"
-    >
+  <div
+    class="in-sidebar-layout"
+    :style="styles"
+  >
+    <div class="sidebar-layout__sidebar">
       <slot name="sidebar" />
     </div>
     <div
@@ -24,41 +24,24 @@
   })
 
   const props = defineProps({
-    sidebarPadding: {
-      type: String,
-      default: '0',
+    styles: {
+      type: Object,
+      default: () => ({}),
     },
   })
 
-  const sidebarStyle = computed(() => {
-    return {
-      padding: props.sidebarPadding,
-    }
-  })
-
-  // const sidebarLayoutContent = ref(null)
-
-  // const sidebarScrollRef = ref({
-  //   top: 0,
-  //   left: 0,
-  // })
-
-  // const emit = defineEmits(['scroll'])
-
-  // const onScroll = () => {
-  //   const { scrollTop, scrollLeft } = sidebarLayoutContent.value
-
-  //   sidebarScrollRef.value = {
-  //     top: scrollTop,
-  //     left: scrollLeft,
+  // const sidebarStyle = computed(() => {
+  //   return {
+  //     padding: props.sidebarPadding,
   //   }
-
-  //   emit('scroll', sidebarScrollRef.value)
-  // }
+  // })
 </script>
 
 <style lang="scss" scoped>
   .in-sidebar-layout {
+    --in-sidebar-sidebar-padding: 0;
+    --in-sidebar-content-padding: 0;
+    position: relative;
     display: flex;
     width: 100%;
 
@@ -69,6 +52,7 @@
       height: calc(100vh - 10.2rem);
       align-self: flex-start;
       background: var(--interface-surface);
+      padding: var(--in-sidebar-sidebar-padding);
       border-right: 1px solid var(--border-color);
       z-index: var(--z-index--sticky);
     }
@@ -78,6 +62,7 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      padding: var(--in-sidebar-content-padding);
       background: var(--interface-surface);
     }
   }

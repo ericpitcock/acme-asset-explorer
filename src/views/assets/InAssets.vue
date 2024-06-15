@@ -39,7 +39,7 @@
     </ep-container>
     <ep-header v-bind="contentHeaderProps">
       <template #left>
-        <h1>{{ currentPageDisplay }} of {{ visibleData.length }} assets</h1>
+        <!-- <h1>{{ currentPageDisplay }} of {{ visibleData.length }} assets</h1> -->
       </template>
       <template #center>
         <ep-multi-search
@@ -51,15 +51,18 @@
         />
       </template>
     </ep-header>
-    <in-sidebar-layout sidebar-padding="2rem 0 0 3rem">
+    <in-sidebar-layout v-bind="layoutStyles">
       <template #sidebar>
         <div class="sidebar">
           <ep-flex-container
             flex-flow="column nowrap"
-            gap="1.5rem"
+            gap="3rem"
             padding="1rem 0"
           >
-            <ep-dropdown v-bind="columnFiltersDropdownProps">
+            <ep-dropdown
+              v-bind="columnFiltersDropdownProps"
+              style="margin-left: -0.3rem;"
+            >
               <template #content>
                 <ep-container v-bind="containerProps">
                   <ep-flex-container
@@ -77,6 +80,7 @@
                 </ep-container>
               </template>
             </ep-dropdown>
+            <h1>{{ currentPageDisplay }} of {{ visibleData.length }} assets</h1>
             <ep-table-checkbox-filters
               :filters="filters"
               @update:filters="onFilterChange"
@@ -100,7 +104,7 @@
           :columns="visibleColumns"
           :data="paginatedData"
           v-bind="tableProps"
-          @row-click="handleRowClick"
+          @row-click="onRowClick"
         >
           <template #header="{ column, cellWidths, columnIndex }">
             <ep-table-sortable-header
@@ -116,7 +120,13 @@
         <ep-table-pagination
           :current-page="currentPage"
           :total-pages="totalPages"
+          :show-pages="true"
+          :results-per-page="pageSize"
+          :style="{
+            '--ep-table-pagination-padding': '0 3rem'
+          }"
           @page-change="onPageChange"
+          @update:results-per-page="onPageSizeChange"
         />
       </template>
     </in-sidebar-layout>
@@ -148,6 +158,13 @@
   const router = useRouter()
   const { commonPageHeaderProps } = store.state.commonProps
 
+  const layoutStyles = {
+    styles: {
+      '--in-sidebar-sidebar-padding': '2rem 0 0 3rem',
+      '--in-sidebar-content-padding': '0 0 30rem 0',
+    }
+  }
+
   const containerProps = {
     styles: {
       '--ep-container-bg-color': 'var(--interface-overlay)',
@@ -173,10 +190,12 @@
       striped: true,
       styles: {
         '--ep-table-width': 'max-content',
+        '--ep-table-min-width': '100%',
         '--ep-table-head-width': 'max-content',
         '--ep-table-body-width': 'max-content',
+        '--ep-table-container-min-width': '100%',
         '--ep-table-container-overflow': 'auto',
-        '--ep-table-container-padding': '1rem 3rem 30rem 3rem',
+        '--ep-table-container-padding': '1rem 3rem 0 3rem',
         '--ep-table-fixed-top': '102px',
         '--ep-table-cell-white-space': 'nowrap',
       },
@@ -279,11 +298,13 @@
 
   // use pagination
   const {
-    paginatedData,
     currentPage,
+    pageSize,
     totalPages,
-    onPageChange
-  } = usePagination(searchedData, 1, 30)
+    paginatedData,
+    onPageChange,
+    onPageSizeChange
+  } = usePagination(searchedData, 1, 20)
 
   // showing the number of assets in the header, for example "Showing 1-30 of 100 assets"
   const totalAssets = computed(() => paginatedData.length)
@@ -307,7 +328,10 @@
   const headerContainerProps = {
     styles: {
       '--ep-container-bg-color': 'var(--page-header-background)',
+      '--ep-container-border-radius': '0',
       '--ep-container-padding': '2rem 4rem 0 4rem',
+      position: 'sticky',
+      top: '0',
     }
   }
 
@@ -317,8 +341,8 @@
     }
   }
 
-  const handleRowClick = (row) => {
-    store.commit('addSelectedAsset', row)
+  const onRowClick = (row) => {
+    store.commit('addSelectedAsset', row.id)
     router.push({ path: `/assets/${row.id}` })
   }
 
@@ -333,6 +357,10 @@
 
 <style lang="scss" scoped>
   .assets {
+    .ep-header {
+      box-shadow: 0 -10px 10px rgba(31, 31, 31, 0.5);
+    }
+
     .text-style--section:not(:first-child) {
       margin-top: 1rem;
     }

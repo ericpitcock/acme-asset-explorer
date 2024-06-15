@@ -27,10 +27,7 @@
     </template>
     <ep-flex-container gap="2rem">
       <div class="sidebar">
-        <ep-menu
-          :menu-items="sections"
-          v-bind="menuProps"
-        />
+        <ep-menu :menu-items="sections" />
       </div>
       <ep-flex-container
         flex-flow="column nowrap"

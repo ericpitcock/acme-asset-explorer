@@ -22,6 +22,10 @@
       type: String,
       default: 'auto',
     },
+    background: {
+      type: String,
+      default: 'var(--modal-overlay-background)',
+    },
   })
 </script>
 
@@ -36,7 +40,7 @@
     width: 100%;
     height: 100%;
     padding: v-bind(padding);
-    background-color: var(--modal-overlay-background);
+    background-color: v-bind(background);
     z-index: var(--z-index--modal);
     backdrop-filter: blur(3px);
 
